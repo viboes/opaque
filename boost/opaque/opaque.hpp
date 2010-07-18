@@ -41,7 +41,17 @@ namespace boost {
     class base_public_opaque_type {};
     class base_private_opaque_type {};
         
-        
+#if 0
+    template <typename T, typename Subst, typename Base>
+    struct conv_public_opaque_type;
+
+    template <typename T, typename Base>
+    struct conv_public_opaque_type<T,void: public Base;
+    {
+    protected:
+        T val_;
+    };
+#endif        
     template <typename T, bool B>
     struct get_substituables;
 
