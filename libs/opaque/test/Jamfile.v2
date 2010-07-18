@@ -27,9 +27,19 @@ project
 #        <toolset>msvc:<asynch-exceptions>on
     ;
 
-   test-suite "public_opaque"
+   test-suite "compile_fail"
        :
-         [ run test.cpp ]
+         [ compile-fail two_level_conversion_fails.cpp ]
+         [ compile-fail add_siblings_fail.cpp ]
+         [ compile-fail assign_siblings_fail.cpp ]
+         [ compile-fail add_pub_siblings_fail.cpp ]
+         [ compile-fail assign_pub_siblings_fail.cpp ]
          ;
 
+   test-suite "opaque"
+       :
+         [ run test.cpp ]
+         [ run public_opaque_test.cpp ]
+         [ run private_opaque_test.cpp ]
+         ;
 
