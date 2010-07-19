@@ -45,7 +45,7 @@ BOOST_OPAQUE_PUBLIC_TYPEDEF(unsigned,serial_number);
 serial_number next_id( serial_number n ) {
  //return static_cast<serial_number>(n + 1u);
  // return opaque_static_cast<serial_number>(n + 1u);
- return serial_number(n + 1u);
+ return n + serial_number(1u);
 }
 
 void accumulate_test() {
