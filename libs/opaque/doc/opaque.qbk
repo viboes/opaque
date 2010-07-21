@@ -1,0 +1,308 @@
+[/
+[/
+ / Copyright (c) 2010 Vicente J. Botet Escriba
+ /
+ / Distributed under the Boost Software License, Version 1.0. (See accompanying
+ / file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+ /]
+
+[article Toward Boost.Opaque
+    [quickbook 1.5]
+    [authors [Botet Escriba, Vicente J.]]
+    [copyright 2010 Vicente J. Botet Escriba]
+    [id boost.opaque]
+    [dirname opaque]
+    [purpose Opaque typdef emulation]
+    [license
+        Distributed under the Boost Software License, Version 1.0.
+        (See accompanying file LICENSE_1_0.txt or copy at
+        [@http://www.boost.org/LICENSE_1_0.txt])
+    ]
+]
+
+
+[/
+[section Preface]
+
+[:[".]]
+[:[*['-- ]]]
+
+[endsect]
+/]
+
+[warning Opaque is not a part of the Boost libraries.]
+
+[/========================]
+[section Overview]
+[/========================]
+
+[/==================]
+[heading Description]
+[/==================]
+
+
+The notion of "opaque typedefs" is a recurring theme (see []), but this will not be part of the C++0x standard. Boost.Serialization contains a macro which is used to define what Robert calls "strong typedefs", but the implementation is not complete.
+
+Boost.Opaque intends to provide a library partial solution to this problem.
+
+[*Boost.Opaque] provides:
+
+* a generic mixin class which can be specialized by the user to make opaque typedefs.
+* Some helper macros
+
+[/====================================]
+[heading How to Use This Documentation]
+[/====================================]
+
+
+This documentation makes use of the following naming and formatting conventions.
+
+* Code is in `fixed width font` and is syntax-highlighted.
+* Replaceable text that you will need to supply is in [~italics].
+* If a name refers to a free function, it is specified like this:
+  `free_function()`; that is, it is in code font and its name is followed by `()`   to indicate that it is a free function.
+* If a name refers to a class template, it is specified like this:   `class_template<>`; that is, it is in code font and its name is followed by `<>`   to indicate that it is a class template.
+* If a name refers to a function-like macro, it is specified like this: `MACRO()`;
+  that is, it is uppercase in code font and its name is followed by `()` to   indicate that it is a function-like macro. Object-like macros appear without the   trailing `()`.
+* Names that refer to /concepts/ in the generic programming sense are   specified in CamelCase.
+
+[note In addition, notes such as this one specify non-essential information that provides additional background or rationale.]
+
+Finally, you can mentally add the following to any code fragments in this document:
+
+    // Include all of the core Opaque files
+    #include <boost/opaque.hpp>
+
+    using namespace boost;
+
+[section Motivation]
+
+The characteristic feature desired of an opaque typedef is the ability to overload functions and operators based on one or more newly-defined opaque-types. For example, we would wish to overload the constructors in a PhysicsVector class such that each constructor corresponds to a distinct coordinate
+system. Temporarily using a notional opaque keyword, we might code this as:
+
+    // Listing 1
+    // Cartesian 3D coordinate types
+    BOOST_OPAQUE_PUBLIC_TYPEDEF(double, X);
+    BOOST_OPAQUE_PUBLIC_TYPEDEF(double, Y);
+    BOOST_OPAQUE_PUBLIC_TYPEDEF(double, Z);
+
+    // polar 3D coordinate types
+    BOOST_OPAQUE_PUBLIC_TYPEDEF(double, Rho);
+    BOOST_OPAQUE_PUBLIC_TYPEDEF(double, Theta);
+    BOOST_OPAQUE_PUBLIC_TYPEDEF(double, Phi);
+
+    class PhysicsVector {
+    public:
+      PhysicsVector(X, Y, Z);
+      PhysicsVector(Rho, Theta, Phi);
+      ...
+    }; // PhysicsVector
+
+In this way, a compiler would be able to diagnose usages that accidentally provided coordinates in an unsupported order or in an unsupported mixture of coordinate systems. While this can be accomplished in C++03 by inventing classes for each of the coordinates, this is generally viewed as a fairly heavy burden: the above code would require six near-identical classes, each wrapping a single value in the same way, differing only by name.
+
+As a natural consequence of this required overloading capability, we propose that an underlying type UT shall meet all requirements of TR1 such that is_convertible<OT,UT>::value is well-formed for any opaque-type OT for which UT serves as underlying-type. (This requires, for example, that UT be non-void, and that it not be an incomplete type.)
+
+In addition, the underlying-type UT can not be cv-qualified. This restriction
+is consistent with two important C++03 precedents: 
+
+# The underlying type of an enum has no provision that permits its underlying type to be cv-qualified. 
+# Application of inheritance makes no provision that permits a base class to be cv-qualified.
+
+
+[endsect]
+[endsect]
+
+[/==============================]
+[section:users_guide Users' Guide]
+[/==============================]
+
+[/======================================]
+[section:getting_started Getting Started]
+[/======================================]
+
+[/======================================]
+[section:install Installing Boost.Opaque]
+[/======================================]
+
+[/=================================]
+[heading Getting Boost.Opaque]
+[/=================================]
+
+You can get the last stable release of Boost.Opaque by downloading [^ppaque.zip] from the
+[@http://www.boostpro.com/vault/index.php?action=downloadfile&filename=opaque.zip&directory=Utilities& Boost Vault Utilities directory]
+
+You can also access the latest (unstable?) state from the [@https://svn.boost.org/svn/boost/sandbox/opaque Boost Sandbox].
+
+[/=================================]
+[heading Building Boost.Opaque]
+[/=================================]
+
+There is no need to compile [*Boost.Opaque], since it's
+a header only library. Just include your Boost header directory in your
+compiler include path.
+
+[/=========================]
+[heading Requirements]
+[/=========================]
+
+[*Boost.Opaque] depends only on Boost.Operators (and all libraries it depends on).
+
+
+[/========================]
+[heading Exceptions safety]
+[/========================]
+
+All functions in the library are exception-neutral and provide strong guarantee of exception safety as long as
+the underlying parameters provide it.
+
+[/====================]
+[heading Thread safety]
+[/====================]
+
+All functions in the library are thread-unsafe except when noted explicitly.
+
+[/=======================]
+[heading Tested compilers]
+[/=======================]
+Currently, [*Boost.Opaque] has been tested in the following compilers/platforms:
+
+*  GCC 3.4.4 Cygwin
+*  GCC 3.4.6 Linux
+[/*  GCC 4.3.2 Cygwin]
+*  GCC 4.1.2 Linux
+
+[note Please send any questions, comments and bug reports to boost <at> lists <dot> boost <dot> org.]
+
+[endsect]
+[/=============================]
+[section Hello World! ]
+[/=============================]
+
+
+[endsect]
+
+[endsect]
+
+[section Tutorial]
+
+[section lala]
+
+[endsect]
+
+
+[endsect]
+
+
+[section:ext_references References]
+[variablelist
+[
+    
+[
+    [[@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1891.pdf [*Progress toward Opaque Typedefs for C++0X]]]
+    [Walter E. Brown]
+]
+
+]
+
+[endsect]
+
+[endsect]
+
+
+[section Reference]
+
+[/==========================================================================================]
+[section:conversion_hpp Header `<boost/opaque.hpp>`]
+[/==========================================================================================]
+
+Include all the opaque public header files. 
+
+    #include <boost/opaque/opaque.hpp>
+
+[endsect]
+
+
+[/==========================================================================================]
+[section:convert_to_hpp Header `<boost/opaque/opaque.hpp>`]
+[/==========================================================================================]
+
+
+
+[endsect]
+
+[endsect]
+
+[section Examples]
+[section lala]
+
+
+[endsect]
+[endsect]
+
+[/=================]
+[section Appendices]
+[/=================]
+
+[section:history Appendix A: History]
+
+
+[section [*Version 0.1.0, July 18, 2010] ['Announcement of Opaque]]
+
+
+[*Features:]
+
+* a 
+
+[endsect]
+[endsect]
+
+[section:rationale Appendix B: Rationale]
+
+[heading lala]
+
+
+[endsect]
+
+[section:implementation Appendix C: Implementation Notes]
+
+
+[heading lala]
+
+
+[endsect]
+[section:acknowledgements Appendix D: Acknowledgements]
+
+Thanks to .
+
+[endsect]
+[section  Appendix E: Tests]
+
+[section Builtins]
+[table
+    [[Name]                             [kind]      [Description]                                   [Result] [Ticket]]
+    [[convert_to_with_builtin_types]    [run]       [check `convert_to` works for builting types]     [Pass]   [#]]
+]
+[endsect]
+
+
+[endsect]
+[section  Appendix F: Tickets]
+
+[endsect]
+
+[/=====================================]
+[section:todo  Appendix F: Future plans]
+[/=====================================]
+
+[heading Tasks to do before review]
+
+* lala
+
+[heading For later releases]
+
+* lala
+
+[endsect]
+[endsect]
+
+
