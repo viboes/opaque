@@ -23,11 +23,11 @@ import quickbook ;
 #        <xsl:param>"boost.doxygen.reftitle=Boost.Interprocess Reference"
 #   ;
 
-xml conversion : conversion.qbk ;
+xml opaque : opaque.qbk ;
 
 boostbook standalone
    :
-      conversion
+      opaque
    :
         # HTML options first:
         # Use graphics not text for navigation:
