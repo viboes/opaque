@@ -27,33 +27,30 @@
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
 
-    //~ *  totally_ordered<OT>
-    //~ * integer_arithmetic<OT>
-    //~ * bitwise<OT>
-    //~ * unit_steppable<OT>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/bool.hpp>
 #define BOOST_OPAQUE_STATIC_ASSERT(CND, MSG, TYPES)                                 \
     BOOST_MPL_ASSERT_MSG(boost::mpl::bool_< (CND) >::type::value, MSG, TYPES)
-    
+
 namespace boost {
-       
+
     class base_public_opaque_type {};
     class base_private_opaque_type {};
-   
+
     template <typename UT, typename Base>
     struct basic_conv : Base {
         typedef Base base_type;
         basic_conv() {}
         basic_conv(UT val) : base_type(val) {}
-            
+        template <typename W>
+        explicit basic_conv(W v)
+            : base_type(v)
+        {}
+
         // public specific conversions
         operator UT () const {
             return this->val_;
         }
-        //~ operator UT & () {
-            //~ return this->val_;
-        //~ }
     };
 
 
@@ -64,19 +61,27 @@ namespace boost {
     struct conv_public_opaque_type2<T, UT,true,Base> :  public UT::template conv<T, Base>::type
     {
         typedef typename UT::template conv<T, Base>::type base_type;
-        conv_public_opaque_type2() {} 
+        conv_public_opaque_type2() {}
         conv_public_opaque_type2(T val) : base_type(val) {}
-            
+        template <typename W>
+        explicit conv_public_opaque_type2(W v)
+            : base_type(v)
+        {}
+
     };
     template <typename T, typename UT, typename Base>
     struct conv_public_opaque_type2<T, UT, false, Base> :  public basic_conv<T, Base>
     {
         typedef basic_conv<T, Base> base_type;
-        conv_public_opaque_type2() {} 
+        conv_public_opaque_type2() {}
         conv_public_opaque_type2(T val) : base_type(val) {}
-            
+        template <typename W>
+        explicit conv_public_opaque_type2(W v)
+            : base_type(v)
+        {}
+
     };
-    
+
     template <typename T, typename UT, bool B, typename Base>
     struct conv_public_opaque_type;
 
@@ -84,12 +89,15 @@ namespace boost {
     struct conv_public_opaque_type<T, UT,true,Base> :  public UT::template conv<T, Base>::type
     {
         typedef typename UT::template conv<T, Base>::type base_type;
-        conv_public_opaque_type() {} 
+        conv_public_opaque_type() {}
         conv_public_opaque_type(T val) : base_type(val) {}
-            
+        template <typename W>
+        explicit conv_public_opaque_type(W v)
+            : base_type(v)
+        {}
+
         // public specific conversions
         operator UT () const {
-            //~ return UT(this->val_);
             return this->val_.operator UT();
         }
     };
@@ -97,30 +105,31 @@ namespace boost {
     struct conv_public_opaque_type<T, UT, false, Base> :  public basic_conv<T, Base>
     {
         typedef basic_conv<T, Base> base_type;
-        conv_public_opaque_type() {} 
+        conv_public_opaque_type() {}
         conv_public_opaque_type(T val) : base_type(val) {}
-            
+        template <typename W>
+        explicit conv_public_opaque_type(W v)
+            : base_type(v)
+        {}
+
         // public specific conversions
         operator UT () const {
-            //~ return UT(this->val_);
             return this->val_.operator UT();
         }
     };
-    
-        
+
+
     template <typename T, bool B>
     struct get_substituables;
 
     template <typename T>
     struct get_substituables<T,true> {
-        typedef typename mpl::push_front<typename T::substituables, T>::type type; 
+        typedef typename mpl::push_front<typename T::substituables, T>::type type;
     };
 
     template <typename T>
     struct get_substituables<T,false> {
-        //~ typedef typename mpl::push_front<mpl::empty_sequence, T>::type type; 
-        typedef mpl::vector<T> type; 
-        //~ typedef mpl::single_view<T> type; 
+        typedef mpl::vector<T> type;
     };
 
     template <typename Final, typename T, typename Base>
@@ -134,18 +143,20 @@ namespace boost {
               >
             >
           >
-        
+
     {
     public:
         typedef T underlying_type;
         typedef typename get_substituables<T,
-                mpl::and_<is_class<T>, is_base_of<base_public_opaque_type,T> >::value 
+                mpl::and_<is_class<T>, is_base_of<base_public_opaque_type,T> >::value
                  >::type substituables;
-    
-        //~ template <typename W>
-        //~ explicit opaque_type(const W v, enable_if<mpl::contains<substituables,W> >*dummy =0)
-            //~ : val_(v)
-        //~ {}
+
+        template <typename W>
+        //~ explicit opaque_type(W v, enable_if<mpl::contains<substituables,W> >*dummy =0)
+        explicit opaque_type(W v)
+            : val_(v)
+        {
+        }
 
         opaque_type()
         {}
@@ -156,13 +167,13 @@ namespace boost {
         explicit opaque_type(T v)
             : val_(v)
         {}
-    protected:            
+    protected:
         T val_;
         opaque_type & operator=(const opaque_type & rhs) {
             val_ = rhs.val_; return *this;
         }
 
-    public:            
+    public:
         T const& underlying() const {
             return val_;
         }
@@ -203,26 +214,26 @@ namespace boost {
 
     template <typename Final, typename T>
     class public_opaque_type
-        : public 
+        : public
             conv_public_opaque_type2<T, T, mpl::and_<is_class<T>, is_base_of<base_public_opaque_type,T> >::value,
-                opaque_type< Final, T, base_public_opaque_type> 
+                opaque_type< Final, T, base_public_opaque_type>
             >
     {
-        typedef 
+        typedef
             conv_public_opaque_type2<T, T, mpl::and_<is_class<T>, is_base_of<base_public_opaque_type,T> >::value,
-                opaque_type< Final, T, base_public_opaque_type> 
+                opaque_type< Final, T, base_public_opaque_type>
             > base_type;
 
     protected:
         typedef public_opaque_type opaque_type_t;
     public:
         typedef T underlying_type;
-        typedef typename opaque_type< Final, T, base_public_opaque_type>::substituables substituables; 
-        template <typename U, typename B> 
+        typedef typename opaque_type< Final, T, base_public_opaque_type>::substituables substituables;
+        template <typename U, typename B>
         struct conv {
-            typedef 
+            typedef
                 conv_public_opaque_type<U, T,
-                    mpl::and_<is_class<T>, is_base_of<base_public_opaque_type,T> >::value, 
+                    mpl::and_<is_class<T>, is_base_of<base_public_opaque_type,T> >::value,
                     B> type;
         };
         //~ Can instances of UT be explicitly converted to instances of OT?
@@ -230,20 +241,28 @@ namespace boost {
         //~ Can instances of UT be implicitly converted to instances of OT?
         //~ Proposed answer: no.
 
-        public_opaque_type() {} 
+        public_opaque_type() {}
 
         public_opaque_type(const opaque_type_t & rhs)
             : base_type(rhs.val_)
         {}
+        public_opaque_type(const Final & rhs)
+            : base_type(rhs.val_)
+        {}
 
-        explicit public_opaque_type(const T v)
+        explicit public_opaque_type(T v)
             : base_type(v)
         {}
         //~ template <typename W>
         //~ explicit public_opaque_type(const W v, enable_if<mpl::contains<substituables,W> >*dummy =0)
             //~ : base_type(v)
         //~ {}
-            
+
+        template <typename W>
+        explicit public_opaque_type(W v)
+            : base_type(v)
+        {}
+
         public_opaque_type & operator=(const opaque_type_t & rhs) {
             this->val_ = rhs.val_; return *this;
         }
@@ -255,7 +274,7 @@ namespace boost {
         operator T() {
             return this->val_;
         }
-        
+
         //~ template <typename W>
         //~ operator const W & () const {
             //~ return W(this->val_);
@@ -271,7 +290,7 @@ namespace boost {
     class private_opaque_type
         : public opaque_type< Final, T, base_private_opaque_type >
     {
-        typedef opaque_type< Final, T, base_private_opaque_type > base_type;        
+        typedef opaque_type< Final, T, base_private_opaque_type > base_type;
     protected:
         typedef private_opaque_type opaque_type_t;
     public:
@@ -286,9 +305,16 @@ namespace boost {
         private_opaque_type(const opaque_type_t & rhs)
             : base_type(rhs.val_)
         {}
-        explicit private_opaque_type(const T v)
+        private_opaque_type(const Final & rhs)
+            : base_type(rhs.val_)
+        {}
+        explicit private_opaque_type(T v)
             : base_type(v)
         {};
+        template <typename W>
+        explicit private_opaque_type(W v)
+            : base_type(v)
+        {}
         //~ private_opaque_type & operator=(const opaque_type_t & rhs) {
             //~ val_ = rhs.val_; return *this;
         //~ }
@@ -304,47 +330,61 @@ namespace boost {
     };
 
     template <typename T, typename U>
-    T opaque_static_cast(U v)    {
+    T opaque_static_cast(U v)
+    {
         return static_cast<T>(v);
     }
 
     #if 0
     template <typename T, typename UT, typename OT>
-    T opaque_static_cast<T, private_opaque_type<OT,UT> >(
-        private_opaque_type<OT,UT> const&ot)    {
+    T opaque_static_cast<T, private_opaque_type<OT,UT> >(private_opaque_type<OT,UT> const&ot)
+    {
         return static_cast<T>(ot.underlying());
     }
     template <typename T, typename UT, typename OT>
-    private_opaque_type<OT,UT> opaque_static_cast<private_opaque_type<OT,UT>,T>(
-        T t)    {
+    private_opaque_type<OT,UT>
+    opaque_static_cast<private_opaque_type<OT,UT>,T>(T t)
+    {
         return private_opaque_type<OT,UT>(static_cast<UT>(t));
     }
 
     template <typename T, typename UT, typename OT>
-    T opaque_static_cast<UT,public_opaque_type<OT,UT>>(private_opaque_type<OT,UT> const&ot)    {
+    T opaque_static_cast<UT,public_opaque_type<OT,UT> >(private_opaque_type<OT,UT> const&ot)
+    {
         return static_cast<T>(ot.underlying());
     }
 
     template <typename UT, typename OT>
-    UT opaque_static_cast<UT,private_opaque_type<OT,UT>>(private_opaque_type<OT,UT> const&ot)    {
+    UT opaque_static_cast<UT,private_opaque_type<OT,UT> >(private_opaque_type<OT,UT> const&ot)
+    {
         return ot.underlying();
     }
 
     template <typename X, typename Y>
-    OT opaque_dynamic_cast(Y y)    {
+    OT opaque_dynamic_cast(Y y)
+    {
         return dynamic_cast<X>(y);
     }
     template <typename X, typename UT, typename OT>
-    UT opaque_dynamic_cast<X,private_opaque_type<OT,UT> >(private_opaque_type<OT,UT> *ot)    {
+    UT opaque_dynamic_cast<X,private_opaque_type<OT,UT> >(private_opaque_type<OT,UT> *ot)
+    {
         return dynamic_cast<X>(&ot->underlying());
     }
     #endif
 }
 
+    //~ explicit OT(UT w) 
+        //~ : boost::public_opaque_type<OT, UT>(w) 
+    //~ {} 
+
 #define BOOST_OPAQUE_PUBLIC_FORWARD_CONSTRUCTORS(UT, OT) \
     OT(){} \
-    explicit OT(UT w) \
+    template <typename W> \
+    explicit OT(W w) \
         : boost::public_opaque_type<OT, UT>(w) \
+    {}\
+    OT(OT const& r) \
+        : boost::public_opaque_type<OT, UT>(r) \
     {}
 
 #define BOOST_OPAQUE_PUBLIC_OPERATIONS(UT, OT) \
@@ -357,9 +397,17 @@ struct OT: boost::public_opaque_type<OT, UT> \
 }
 
 
+    //~ template <typename T> explicit OT(T v) : boost::private_opaque_type<OT, UT>(v) {} 
+
 #define BOOST_OPAQUE_PRIVATE_FORWARD_CONSTRUCTORS(UT, OT) \
     OT(){}\
-    template <typename T> explicit OT(T v) : boost::private_opaque_type<OT, UT>(v) {}
+    template <typename W> \
+    explicit OT(W w) \
+        : boost::private_opaque_type<OT, UT>(w) \
+    {}\
+    OT(OT const& r) \
+        : boost::private_opaque_type<OT, UT>(r) \
+    {}
 
 #define BOOST_OPAQUE_PRIVATE_OPERATIONS(UT, OT) \
     BOOST_OPAQUE_PRIVATE_FORWARD_CONSTRUCTORS(UT, OT)
