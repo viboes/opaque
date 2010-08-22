@@ -27,7 +27,7 @@ void private_assign_test() {
     //~ a=b; // error
     a=a2; // OK
 
-    unsigned i;
+    //~ unsigned i;
 
     //~ i=opaque_static_cast<unsigned>(a);
     //~ i=a; // error

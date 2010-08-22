@@ -45,6 +45,24 @@ BOOST_OPAQUE_STATIC_ASSERT((
 
 BOOST_OPAQUE_STATIC_ASSERT((
     mpl::contains<
+        energy::substituables,
+        double
+    >::value),
+    SSSSSSSSSSS,
+    (energy::substituables)
+);
+
+BOOST_OPAQUE_STATIC_ASSERT((
+    mpl::contains<
+        potential_energy::substituables,
+        energy
+    >::value),
+    SSSSSSSSSSS,
+    (potential_energy::substituables)
+);
+
+BOOST_OPAQUE_STATIC_ASSERT((
+    mpl::contains<
         potential_energy::substituables,
         mass1_leng2_per_time2
     >::value),
@@ -52,18 +70,40 @@ BOOST_OPAQUE_STATIC_ASSERT((
     (potential_energy::substituables)
 );
 
+BOOST_OPAQUE_STATIC_ASSERT((
+    mpl::contains<
+        potential_energy::substituables,
+        double
+    >::value),
+    SSSSSSSSSSS,
+    (potential_energy::substituables)
+);
+
 void public_multiple_levels_fail() {
-    mass1_leng2_per_time2 x;
-    energy e;
-    potential_energy p, q;
+    {
+    double d=1;
+    mass1_leng2_per_time2 x(d);
+    energy e(d);
+    potential_energy p(d);
 
     x = e; 
     e = p; 
-    x = p; // error two levels
-    //~ x = p + q; // error two levels
-    //~ test.cpp:287: error: no match for 'operator=' in 'x = boost::operator+(const potential_energy&, const potential_energy&)(((const potential_energy&)((const potential_energy*)(& q))))'
-    //~ test.cpp:270: note: candidates are: mass1_leng2_per_time2& mass1_leng2_per_time2::operator=(const mass1_leng2_per_time2&)
+    x = p; // 2 levels
+    d = p; // 3 levels
+    }
+#if 1    
+    {
+    int d=1;
+    mass1_leng2_per_time2 x(d);
+    energy e(d);
+    potential_energy p(d);
 
+    x = e; 
+    e = p; 
+    x = p; // 2 levels
+    d = p; // 3 levels
+    }
+#endif
 }
 
 
