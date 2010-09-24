@@ -64,6 +64,7 @@ namespace boost {
 
         opaque_type() {}
         opaque_type(const opaque_type & rhs) : base_type(rhs.val_) {}
+        opaque_type(const Final & rhs) : base_type(rhs.val_){}
         explicit opaque_type(T v) : base_type(v) {}
             
     };

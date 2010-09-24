@@ -52,13 +52,13 @@ namespace boost {
         template <typename W>
         explicit new_type(W v) : val_(v) {}
         new_type(){}
-        new_type(const new_type & rhs) : val_(rhs.val_) {}
+        //~ new_type(const new_type & rhs) : val_(rhs.val_) {}
         explicit new_type(T v) : val_(v) {}
     protected:
         T val_;
-        new_type & operator=(const new_type & rhs) {
-            val_ = rhs.val_; return *this;
-        }
+        //~ new_type & operator=(const new_type & rhs) {
+            //~ val_ = rhs.val_; return *this;
+        //~ }
 
     public:
         T const& underlying() const {
