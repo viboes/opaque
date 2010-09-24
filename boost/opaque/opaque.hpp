@@ -34,9 +34,34 @@
 
 namespace boost {
 
+    class base_new_type {};
     class base_public_opaque_type {};
     class base_private_opaque_type {};
 
+    template <typename Final, typename UT, typename Base>
+    struct underlying_access : Base {
+        typedef Base base_type;
+        underlying_access() {}
+        underlying_access(UT val) : base_type(val) {}
+        template <typename W>
+        explicit underlying_access(W v)
+            : base_type(v)
+        {}
+
+        Final const& final() const {
+            return static_cast<Final const&>(*this);
+        }
+        Final& final() {
+            return static_cast<Final&>(*this);
+        }
+        UT const& underlying() const {
+            return final().underlying();
+        }
+        UT& underlying() {
+            return final().underlying();
+        }
+    };
+        
     template <typename UT, typename Base>
     struct basic_conv : Base {
         typedef Base base_type;
@@ -132,44 +157,78 @@ namespace boost {
         typedef mpl::vector<T> type;
     };
 
-    template <typename Final, typename T, typename Base>
-    class opaque_type
-        : public boost::totally_ordered< Final
-            , boost::integer_arithmetic< Final
-              , boost::bitwise< Final
-                , boost::unit_steppable< Final
-                  , Base
-                >
-              >
-            >
-          >
+namespace opaque {
+    template <typename Final, typename UT, typename Base>
+    struct less_than_comparable : Base {
+        friend bool operator<(const Final& x, const Final& y)  { 
+            return x.underlying() < y.underlying(); 
+        }
+    };    
 
+    template <typename Final, typename UT, typename Base>
+    struct equality_comparable : Base {
+        friend bool operator==(const Final& x, const Final& y)  { 
+            return x.underlying() == y.underlying(); 
+        }
+    };    
+
+    template <typename Final, typename UT, typename Base>
+    struct addable : Base {
+        friend Final& operator+=(Final& x, const Final& y)  { 
+            x.underlying() += y.underlying(); 
+            return x;
+        }
+    };    
+    
+    template <typename Final, typename UT, typename Base>
+    struct subtractable : Base {
+        friend Final& operator-=(Final& x, const Final& y)  { 
+            x.underlying() -= y.underlying(); 
+            return x;
+        }
+    };    
+    
+    template <typename Final, typename UT, typename Base>
+    struct multipliable : Base {
+        friend Final& operator*=(Final& x, const Final& y)  { 
+            x.underlying() *= y.underlying(); 
+            return x;
+        }
+    };    
+    
+    template <typename Final, typename UT, typename Base>
+    struct dividable : Base {
+        friend Final& operator/=(Final& x, const Final& y)  { 
+            x.underlying() /= y.underlying(); 
+            return x;
+        }
+    };    
+    
+    template <typename Final, typename UT, typename Base>
+    struct modable : Base {
+        friend Final& operator%=(Final& x, const Final& y)  { 
+            x.underlying() %= y.underlying(); 
+            return x;
+        }
+    };    
+    
+}
+
+
+    template <typename Final, typename T, typename Base=base_new_type>
+    class new_type : public Base
     {
     public:
         typedef T underlying_type;
-        typedef typename get_substituables<T,
-                mpl::and_<is_class<T>, is_base_of<base_public_opaque_type,T> >::value
-                 >::type substituables;
 
         template <typename W>
-        //~ explicit opaque_type(W v, enable_if<mpl::contains<substituables,W> >*dummy =0)
-        explicit opaque_type(W v)
-            : val_(v)
-        {
-        }
-
-        opaque_type()
-        {}
-
-        opaque_type(const opaque_type & rhs)
-            : val_(rhs.val_)
-        {}
-        explicit opaque_type(T v)
-            : val_(v)
-        {}
+        explicit new_type(W v) : val_(v) {}
+        new_type(){}
+        new_type(const new_type & rhs) : val_(rhs.val_) {}
+        explicit new_type(T v) : val_(v) {}
     protected:
         T val_;
-        opaque_type & operator=(const opaque_type & rhs) {
+        new_type & operator=(const new_type & rhs) {
             val_ = rhs.val_; return *this;
         }
 
@@ -181,54 +240,83 @@ namespace boost {
             return val_;
         }
 
-        bool operator==(const opaque_type & rhs) const {
-            return val_ == rhs.val_;
+    };
+
+
+    template <typename T, typename Final, typename Base>
+    struct inherited_from_undelying {
+        //~ template <>
+        struct type : 
+            boost::totally_ordered< Final
+            , boost::integer_arithmetic< Final
+              , boost::bitwise< Final
+                , boost::unit_steppable< Final
+                  , opaque::less_than_comparable<Final, T 
+                    , opaque::equality_comparable<Final, T 
+                      , opaque::addable<Final, T 
+                        , opaque::subtractable<Final, T 
+                          , opaque::multipliable<Final, T 
+                            , opaque::dividable<Final, T 
+                              , opaque::modable<Final, T 
+                                , underlying_access< Final, T, Base >
+                              >
+                            >
+                          >
+                        >
+                      >
+                    >
+                  >
+                >
+              >
+            >
+          >
+        {};  
+
+    };
+    
+    template <typename Final, typename T, typename Base>
+    class opaque_type : public new_type<Final, T, typename inherited_from_undelying<T, Final, Base>::type >
+    {
+    public:
+        typedef
+            new_type<Final, T, typename inherited_from_undelying<T, Final, Base>::type > base_type;
+        //~ typedef T underlying_type;
+        typedef typename get_substituables<T,
+                mpl::and_<is_class<T>, is_base_of<base_public_opaque_type,T> >::value
+                 >::type substituables;
+
+        template <typename W>
+        explicit opaque_type(W v)
+            : base_type(v)
+        {
         }
-        bool operator<(const Final & rhs) const {
-            return val_ < rhs.val_;
-        }
-        Final& operator+=(const Final & rhs) {
-            val_ += rhs.val_;
-            return static_cast<Final&>(*this);
-        }
-        Final& operator-=(const Final & rhs) {
-            val_ -= rhs.val_;
-            return static_cast<Final&>(*this);
-        }
-        Final& operator*=(const Final & rhs) {
-            val_ *= rhs.val_;
-            return static_cast<Final&>(*this);
-        }
-        Final& operator/=(const Final & rhs) {
-            val_ /= rhs.val_;
-            return static_cast<Final&>(*this);
-        }
-        Final& operator%=(const Final & rhs) {
-            val_ %= rhs.val_;
-            return static_cast<Final&>(*this);
-        }
+
+        opaque_type() {}
+        opaque_type(const opaque_type & rhs) : base_type(rhs.val_) {}
+        explicit opaque_type(T v) : base_type(v) {}
+            
     };
 
 
 
 
-    template <typename Final, typename T>
+    template <typename Final, typename T, typename Base=base_public_opaque_type>
     class public_opaque_type
         : public
             conv_public_opaque_type2<T, T, mpl::and_<is_class<T>, is_base_of<base_public_opaque_type,T> >::value,
-                opaque_type< Final, T, base_public_opaque_type>
+                opaque_type< Final, T, Base>
             >
     {
         typedef
             conv_public_opaque_type2<T, T, mpl::and_<is_class<T>, is_base_of<base_public_opaque_type,T> >::value,
-                opaque_type< Final, T, base_public_opaque_type>
+                opaque_type< Final, T, Base>
             > base_type;
 
     protected:
         typedef public_opaque_type opaque_type_t;
     public:
         typedef T underlying_type;
-        typedef typename opaque_type< Final, T, base_public_opaque_type>::substituables substituables;
+        typedef typename opaque_type< Final, T, Base>::substituables substituables;
         template <typename U, typename B>
         struct conv {
             typedef
@@ -253,10 +341,6 @@ namespace boost {
         explicit public_opaque_type(T v)
             : base_type(v)
         {}
-        //~ template <typename W>
-        //~ explicit public_opaque_type(const W v, enable_if<mpl::contains<substituables,W> >*dummy =0)
-            //~ : base_type(v)
-        //~ {}
 
         template <typename W>
         explicit public_opaque_type(W v)
@@ -275,22 +359,13 @@ namespace boost {
             return this->val_;
         }
 
-        //~ template <typename W>
-        //~ operator const W & () const {
-            //~ return W(this->val_);
-        //~ }
-        //~ template <typename W>
-        //~ operator W & () {
-            //~ return W(this->val_);
-        //~ }
-
     };
 
-    template <typename Final, typename T>
+    template <typename Final, typename T, typename Base=base_private_opaque_type>
     class private_opaque_type
-        : public opaque_type< Final, T, base_private_opaque_type >
+        : public opaque_type< Final, T, Base >
     {
-        typedef opaque_type< Final, T, base_private_opaque_type > base_type;
+        typedef opaque_type< Final, T, Base > base_type;
     protected:
         typedef private_opaque_type opaque_type_t;
     public:
@@ -315,18 +390,6 @@ namespace boost {
         explicit private_opaque_type(W v)
             : base_type(v)
         {}
-        //~ private_opaque_type & operator=(const opaque_type_t & rhs) {
-            //~ val_ = rhs.val_; return *this;
-        //~ }
-
-
-        //~ // public specific conversions
-        //~ operator const T & () const {
-            //~ return val_;
-        //~ }
-        //~ operator T & () {
-            //~ return val_;
-        //~ }
     };
 
     template <typename T, typename U>
