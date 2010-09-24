@@ -25,7 +25,20 @@ project
         # uncomment the line above if you build outside the Boost release
         #<include>../../..
 #        <toolset>msvc:<asynch-exceptions>on
+        <define>BOOST_ENABLE_WARNINGS
+        <define>BOOST_RATIO_USES_MPL_ASSERT
+        <warnings>all
+        <toolset>gcc:<cxxflags>-Wextra
+        <toolset>gcc:<cxxflags>-Wno-long-long        
+        <toolset>gcc-mingw-4.5.0:<cxxflags>-Wno-missing-field-initializers        
+        <toolset>gcc-mingw-4.5.0:<cxxflags>-fdiagnostics-show-option
+        <toolset>msvc:<cxxflags>/wd4127
     ;
+
+   test-suite "new_type"
+        :
+        [ run new_type_test.cpp ]
+        ;
 
    test-suite "opaque"
         :
