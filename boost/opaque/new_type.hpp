@@ -56,9 +56,9 @@ namespace boost {
         explicit new_type(T v) : val_(v) {}
     protected:
         T val_;
-        //~ new_type & operator=(const new_type & rhs) {
-            //~ val_ = rhs.val_; return *this;
-        //~ }
+        new_type & operator=(const new_type & rhs) {
+            val_ = rhs.val_; return *this;
+        }
 
     public:
         T const& underlying() const {

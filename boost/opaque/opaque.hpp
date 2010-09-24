@@ -26,7 +26,6 @@
     BOOST_MPL_ASSERT_MSG(boost::mpl::bool_< (CND) >::type::value, MSG, TYPES)
 
 namespace boost {
-
     template <typename T, typename U>
     T opaque_static_cast(U v)
     {
@@ -70,6 +69,5 @@ namespace boost {
     }
     #endif
 }
-
 
 #endif

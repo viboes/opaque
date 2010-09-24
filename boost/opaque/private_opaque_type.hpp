@@ -38,7 +38,7 @@ namespace boost {
 
         private_opaque_type() {};
         private_opaque_type(const opaque_type_t & rhs) : base_type(rhs.val_) {}
-        //~ private_opaque_type(const Final & rhs) : base_type(rhs.val_) {}
+        private_opaque_type(const Final & rhs) : base_type(rhs.val_) {}
         explicit private_opaque_type(T v) : base_type(v) {};
         template <typename W>
         explicit private_opaque_type(W v)

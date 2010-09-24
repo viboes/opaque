@@ -156,7 +156,7 @@ namespace boost {
 
         public_opaque_type() {}
         public_opaque_type(const opaque_type_t & rhs) : base_type(rhs.val_){}
-        //~ public_opaque_type(const Final & rhs) : base_type(rhs.val_){}
+        public_opaque_type(const Final & rhs) : base_type(rhs.val_){}
         explicit public_opaque_type(T v) : base_type(v) {}
 
         template <typename W>
