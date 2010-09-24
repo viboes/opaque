@@ -25,13 +25,13 @@ namespace boost {
             , boost::integer_arithmetic< Final
               , boost::bitwise< Final
                 , boost::unit_steppable< Final
-                  , opaque::less_than_comparable<Final
-                    , opaque::ope::eq<Final
-                      , opaque::addable<Final
-                        , opaque::subtractable<Final
-                          , opaque::multipliable<Final
-                            , opaque::dividable<Final
-                              , opaque::modable<Final
+                  , opaque::ope::less_than<Final
+                    , opaque::ope::equal<Final
+                      , opaque::ope::plus_assign<Final
+                        , opaque::ope::minus_assign<Final
+                          , opaque::ope::multiply_assign<Final
+                            , opaque::ope::divide_assign<Final
+                              , opaque::ope::modulus_assign<Final
                                 , underlying_access< Final, T, Base >
                               >
                             >
