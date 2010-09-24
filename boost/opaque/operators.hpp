@@ -203,7 +203,7 @@ namespace ope {
     };
     
 }
-    
+#if 0    
     template <typename Final, typename Base=base_new_type>
     struct equality_comparable1 : boost::equality_comparable1<Final, ope::equal<Final, Base> > {};
         
@@ -233,7 +233,7 @@ namespace ope {
 
     template <typename Final, typename Base=base_new_type>
     struct orable1 : boost::orable1<Final, ope::bitwise_or_assign<Final, Base> > {};
-
+#endif
 
 }
 }
