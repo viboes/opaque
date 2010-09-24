@@ -15,7 +15,6 @@
 
 #include <boost/opaque/new_type.hpp>
 #include <boost/opaque/operators.hpp>
-#include <boost/operators.hpp>
 
 namespace boost {    
 
@@ -26,13 +25,13 @@ namespace boost {
             , boost::integer_arithmetic< Final
               , boost::bitwise< Final
                 , boost::unit_steppable< Final
-                  , opaque::less_than_comparable<Final, T 
-                    , opaque::equality_comparable<Final, T 
-                      , opaque::addable<Final, T 
-                        , opaque::subtractable<Final, T 
-                          , opaque::multipliable<Final, T 
-                            , opaque::dividable<Final, T 
-                              , opaque::modable<Final, T 
+                  , opaque::less_than_comparable<Final
+                    , opaque::ope::eq<Final
+                      , opaque::addable<Final
+                        , opaque::subtractable<Final
+                          , opaque::multipliable<Final
+                            , opaque::dividable<Final
+                              , opaque::modable<Final
                                 , underlying_access< Final, T, Base >
                               >
                             >

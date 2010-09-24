@@ -52,7 +52,7 @@ namespace boost {
         template <typename W>
         explicit new_type(W v) : val_(v) {}
         new_type(){}
-        //~ new_type(const new_type & rhs) : val_(rhs.val_) {}
+        new_type(const new_type & rhs) : val_(rhs.val_) {}
         explicit new_type(T v) : val_(v) {}
     protected:
         T val_;
@@ -70,6 +70,11 @@ namespace boost {
 
     };
 
+    template <typename T, typename Final, typename UT, typename Base >
+    T new_type_static_cast(new_type<Final, UT, Base> const& v)
+    {
+        return static_cast<T>(v.underlying());
+    }
 
 }
 
