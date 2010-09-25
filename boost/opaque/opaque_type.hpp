@@ -21,31 +21,16 @@ namespace boost {
     template <typename T, typename Final, typename Base>
     struct inherited_from_undelying {
         struct type : 
-            boost::totally_ordered< Final
-            , boost::integer_arithmetic< Final
-              , boost::bitwise< Final
-                , boost::unit_steppable< Final
-                  , opaque::ope::less_than<Final
-                    , opaque::ope::equal<Final
-                      , opaque::ope::plus_assign<Final
-                        , opaque::ope::minus_assign<Final
-                          , opaque::ope::multiply_assign<Final
-                            , opaque::ope::divide_assign<Final
-                              , opaque::ope::modulus_assign<Final
-                                , underlying_access< Final, T, Base >
-                              >
-                            >
-                          >
+            opaque::totally_ordered1< Final 
+            ,   opaque::integer_arithmetic1< Final 
+                ,   boost::bitwise1< Final
+                    ,   opaque::unit_steppable< Final 
+                        ,   underlying_access< Final, T, Base >
                         >
-                      >
-                    >
-                  >
+                    > 
                 >
-              >
             >
-          >
         {};  
-
     };
     
     template <typename Final, typename T, typename Base>

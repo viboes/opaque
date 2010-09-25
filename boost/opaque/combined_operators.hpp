@@ -57,11 +57,11 @@ namespace opaque {
     template <typename Final, typename Base=base_new_type>
     struct decrementable : boost::decrementable<Final, ope::pre_decrement<Final, Base> > {};
 
-    //~ template <typename Final, typename Base=base_new_type>
-    //~ struct left_shiftable : boost::left_shiftable<Final, ope::left_shift<Final, Base> > {};
+    template <typename Final, typename Base=base_new_type>
+    struct left_shiftable1 : boost::left_shiftable1<Final, ope::left_shift_assign<Final, Base> > {};
 
-    //~ template <typename Final, typename Base=base_new_type>
-    //~ struct right_shiftable : boost::right_shiftable<Final, ope::right_shift<Final, Base> > {};
+    template <typename Final, typename Base=base_new_type>
+    struct right_shiftable1 : boost::right_shiftable1<Final, ope::right_shift_assign<Final, Base> > {};
 
     template <typename Final, typename Base=base_new_type>
     struct partially_ordered1 : boost::less_than_comparable1<Final, ope::less_than<Final, Base> > {};
@@ -159,11 +159,11 @@ namespace opaque {
         //~ , opaque::right_shiftable2<T, U, B
           //~ > > {};
 
-    //~ template <class T, class B = base_new_type >
-    //~ struct shiftable1
-        //~ : opaque::left_shiftable1<T
-        //~ , opaque::right_shiftable1<T, B
-          //~ > > {};
+    template <class T, class B = base_new_type >
+    struct shiftable1
+        : opaque::left_shiftable1<T
+        , opaque::right_shiftable1<T, B
+          > > {};
 
     //~ template <class T, class U, class B = base_new_type >
     //~ struct ring_operators2

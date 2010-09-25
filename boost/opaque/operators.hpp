@@ -123,6 +123,20 @@ namespace ope {
             return x;
         }
     };
+    template <typename Final, typename Base=base_new_type>
+    struct left_shift_assign : Base {
+        friend Final& operator<<=(Final& x, const Final& y)  {
+            x.underlying() <<= y.underlying();
+            return x;
+        }
+    };
+    template <typename Final, typename Base=base_new_type>
+    struct right_shift_assign : Base {
+        friend Final& operator>>=(Final& x, const Final& y)  {
+            x.underlying() >>= y.underlying();
+            return x;
+        }
+    };
     // Unary operators
 
     template <typename Final, typename Base=base_new_type>
@@ -154,18 +168,31 @@ namespace ope {
     
     //~ template <typename Final, typename Base=base_new_type>
     //~ struct address_of : Base {
-        //~ friend Final const& operator&(Final const& x)  {
-            //~ return &x;
+        //~ Final* operator&()  {
+            //~ return this;
         //~ }
     //~ };
     
-    template <typename Final, typename Base=base_new_type>
-    struct derreference : Base {
-        friend Final& operator*(Final const& x)  {
-            return Final(~(x.underlying()));
-        }
-    };
+    //~ template <typename Final, typename Derreference=typename reference<Final::underlying_type>::type, typename Base=base_new_type>
+    //~ struct derreference : Base {
+        //~ Derreference operator*()  {
+            //~ return *(x.underlying());
+        //~ }
+    //~ };
     
+    //~ template <typename Final, typename Pointer=typename pointer<Final::underlying_type>::type, typename Base=base_new_type>
+    //~ struct member_access : Base {
+        //~ Pointer operator->()  {
+            //~ return x.underlying().operator->();
+        //~ }
+    //~ };
+    
+    //~ template <typename Final, class I, class R, typename Base=base_new_type>
+    //~ struct subscript : Base {
+        //~ R operator[](I n)  {
+            //~ return x.underlying()[i];
+        //~ }
+    //~ };
     
     // Increment and decrement
     template <typename Final, typename Base=base_new_type>
@@ -178,8 +205,8 @@ namespace ope {
     
     template <typename Final, typename Base=base_new_type>
     struct pre_decrement : Base {
-        friend Final& operator++(Final& x)  {
-            ++x.underlying();
+        friend Final& operator--(Final& x)  {
+            --x.underlying();
             return x;
         }
     };
@@ -188,7 +215,7 @@ namespace ope {
     struct post_increment : Base {
         friend Final operator++(Final& x, int)  {
             typename Final::underlying_type nrv(x);
-            ++x;
+            x++;
             return nrv;
         }
     };
@@ -197,43 +224,12 @@ namespace ope {
     struct post_decrement : Base {
         friend Final operator--(Final& x, int)  {
             typename Final::underlying_type nrv(x);
-            --x;
+            x--;
             return nrv;
         }
     };
     
 }
-#if 0    
-    template <typename Final, typename Base=base_new_type>
-    struct equality_comparable1 : boost::equality_comparable1<Final, ope::equal<Final, Base> > {};
-        
-    template <typename Final, typename Base=base_new_type>
-    struct less_than_comparable1 : boost::less_than_comparable1<Final, ope::less_than<Final, Base> > {};
-
-    template <typename Final, typename Base=base_new_type>
-    struct addable1 : boost::addable1<Final, ope::plus_assign<Final, Base> > {};
-
-    template <typename Final, typename Base=base_new_type>
-    struct subtractable1 : boost::subtractable1<Final, ope::minus_assign<Final, Base> > {};
-
-    template <typename Final, typename Base=base_new_type>
-    struct multipliable1 : boost::multipliable1<Final, ope::multiply_assign<Final, Base> > {};
-
-    template <typename Final, typename Base=base_new_type>
-    struct dividable1 : boost::dividable1<Final, ope::divide_assign<Final, Base> > {};
-
-    template <typename Final, typename Base=base_new_type>
-    struct modable1 : boost::modable1<Final, ope::modulus_assign<Final, Base> > {};
-
-    template <typename Final, typename Base=base_new_type>
-    struct xorable1 : boost::xorable1<Final, ope::bitwise_xor_assign<Final, Base> > {};
-
-    template <typename Final, typename Base=base_new_type>
-    struct andable1 : boost::andable1<Final, ope::bitwise_and_assign<Final, Base> > {};
-
-    template <typename Final, typename Base=base_new_type>
-    struct orable1 : boost::orable1<Final, ope::bitwise_or_assign<Final, Base> > {};
-#endif
 
 }
 }
