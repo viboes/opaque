@@ -25,7 +25,12 @@ namespace boost {
             ,   opaque::integer_arithmetic1< Final
                 ,   boost::bitwise1< Final
                     ,   opaque::unit_steppable< Final
-                        ,   underlying_access< Final, T, Base >
+                        ,   opaque::ope::unary_plus< Final
+                            ,   opaque::ope::unary_minus< Final
+                                ,   Base 
+                                //~ ,   underlying_access< Final, T, Base >
+                                >
+                            >
                         >
                     >
                 >

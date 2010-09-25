@@ -19,7 +19,7 @@
 namespace boost {
 
 namespace opaque {
-namespace ope { 
+namespace ope {
     template <typename Base=base_new_type>
     struct copy_delete : Base {
     private:  // emphasize the following members are private
@@ -75,7 +75,7 @@ namespace ope {
             return x;
         }
     };
-    
+
     template <typename Final, typename Base=base_new_type>
     struct multiply_assign : Base {
         friend Final& operator*=(Final& x, const Final& y)  {
@@ -99,7 +99,7 @@ namespace ope {
             return x;
         }
     };
-    
+
     template <typename Final, typename Base=base_new_type>
     struct bitwise_xor_assign : Base {
         friend Final& operator^=(Final& x, const Final& y)  {
@@ -107,7 +107,7 @@ namespace ope {
             return x;
         }
     };
-    
+
     template <typename Final, typename Base=base_new_type>
     struct bitwise_and_assign : Base {
         friend Final& operator&=(Final& x, const Final& y)  {
@@ -115,7 +115,7 @@ namespace ope {
             return x;
         }
     };
-    
+
     template <typename Final, typename Base=base_new_type>
     struct bitwise_or_assign : Base {
         friend Final& operator|=(Final& x, const Final& y)  {
@@ -148,52 +148,52 @@ namespace ope {
 
     template <typename Final, typename Base=base_new_type>
     struct unary_plus : Base {
-        friend Final& operator+(Final const& x)  {
+        friend Final operator+(Final const& x)  {
             return x;
         }
     };
     template <typename Final, typename Base=base_new_type>
     struct unary_minus : Base {
-        friend Final operator+(Final const& x)  {
+        friend Final operator-(Final const& x)  {
             return Final(-(x.underlying()));
         }
     };
-    
+
     template <typename Final, typename Base=base_new_type>
     struct bitwise_not : Base {
         friend Final operator~(Final const& x)  {
             return Final(~(x.underlying()));
         }
     };
-    
+
     //~ template <typename Final, typename Base=base_new_type>
     //~ struct address_of : Base {
         //~ Final* operator&()  {
             //~ return this;
         //~ }
     //~ };
-    
+
     //~ template <typename Final, typename Derreference=typename reference<Final::underlying_type>::type, typename Base=base_new_type>
     //~ struct derreference : Base {
         //~ Derreference operator*()  {
             //~ return *(x.underlying());
         //~ }
     //~ };
-    
+
     //~ template <typename Final, typename Pointer=typename pointer<Final::underlying_type>::type, typename Base=base_new_type>
     //~ struct member_access : Base {
         //~ Pointer operator->()  {
             //~ return x.underlying().operator->();
         //~ }
     //~ };
-    
+
     //~ template <typename Final, class I, class R, typename Base=base_new_type>
     //~ struct subscript : Base {
         //~ R operator[](I n)  {
             //~ return x.underlying()[i];
         //~ }
     //~ };
-    
+
     // Increment and decrement
     template <typename Final, typename Base=base_new_type>
     struct pre_increment : Base {
@@ -202,7 +202,7 @@ namespace ope {
             return x;
         }
     };
-    
+
     template <typename Final, typename Base=base_new_type>
     struct pre_decrement : Base {
         friend Final& operator--(Final& x)  {
@@ -210,7 +210,7 @@ namespace ope {
             return x;
         }
     };
-    
+
     template <typename Final, typename Base=base_new_type>
     struct post_increment : Base {
         friend Final operator++(Final& x, int)  {
@@ -219,7 +219,7 @@ namespace ope {
             return nrv;
         }
     };
-    
+
     template <typename Final, typename Base=base_new_type>
     struct post_decrement : Base {
         friend Final operator--(Final& x, int)  {
@@ -228,7 +228,7 @@ namespace ope {
             return nrv;
         }
     };
-    
+
 }
 
 }

@@ -14,7 +14,6 @@
 #define BOOST_OPAQUE_PUBLIC_OPAQUE_TYPE_HPP
 
 #include <boost/opaque/opaque_type.hpp>
-//~ #include <boost/opaque/transitive_substituable.hpp>
 
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>
@@ -66,15 +65,27 @@ namespace boost {
         }
     };
 
-    template <typename Final, typename T, typename Base=base_public_opaque_type>
+    template <typename Final, typename T>
     class public_opaque_type
         : public
-            new_type< Final, T, transitive_substituable<T, typename inherited_from_undelying<T, Final, Base>::type > >
+            new_type< Final, T, 
+                transitive_substituable<T, 
+                    typename inherited_from_undelying<T, Final, 
+                        underlying_access< Final, T, base_public_opaque_type > 
+                    >::type 
+                > 
+            >
 
     {
         typedef
-            new_type< Final, T, transitive_substituable<T, typename inherited_from_undelying<T, Final, Base>::type > >
-            base_type;
+            new_type< Final, T, 
+                transitive_substituable<T, 
+                    typename inherited_from_undelying<T, Final, 
+                        underlying_access< Final, T, base_public_opaque_type > 
+                    >::type 
+                > 
+            >
+        base_type;
 
     protected:
         typedef public_opaque_type opaque_type_t;
@@ -95,9 +106,9 @@ namespace boost {
         template <typename W>
         explicit public_opaque_type(W v) : base_type(v) {}
 
-        public_opaque_type & operator=(const opaque_type_t & rhs) {
-            this->val_ = rhs.val_; return *this;
-        }
+        //~ public_opaque_type & operator=(const opaque_type_t & rhs) {
+            //~ this->val_ = rhs.val_; return *this;
+        //~ }
 
     };
 

@@ -22,11 +22,21 @@ namespace boost {
 
     class base_private_opaque_type {};
 
-    template <typename Final, typename T, typename Base=base_private_opaque_type>
-    class private_opaque_type
-        : public new_type< Final, T, typename inherited_from_undelying<T, Final, Base>::type >
+    template <typename Final, typename T>
+    class private_opaque_type : public 
+            new_type< Final, T, 
+                typename inherited_from_undelying<T, Final, 
+                    underlying_access< Final, T, base_private_opaque_type > 
+                >::type 
+            >
     {
-        typedef new_type< Final, T, typename inherited_from_undelying<T, Final, Base>::type > base_type;
+        typedef 
+            new_type< Final, T, 
+                typename inherited_from_undelying<T, Final, 
+                    underlying_access< Final, T, base_private_opaque_type > 
+                >::type 
+            >
+        base_type;
     protected:
         typedef private_opaque_type opaque_type_t;
     public:
