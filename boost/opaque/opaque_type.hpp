@@ -16,44 +16,22 @@
 #include <boost/opaque/new_type.hpp>
 #include <boost/opaque/combined_operators.hpp>
 
-namespace boost {    
+namespace boost {
 
     template <typename T, typename Final, typename Base>
     struct inherited_from_undelying {
-        struct type : 
-            opaque::totally_ordered1< Final 
-            ,   opaque::integer_arithmetic1< Final 
+        struct type :
+            opaque::totally_ordered1< Final
+            ,   opaque::integer_arithmetic1< Final
                 ,   boost::bitwise1< Final
-                    ,   opaque::unit_steppable< Final 
+                    ,   opaque::unit_steppable< Final
                         ,   underlying_access< Final, T, Base >
                         >
-                    > 
+                    >
                 >
             >
-        {};  
+        {};
     };
-    
-    template <typename Final, typename T, typename Base>
-    class opaque_type : public new_type<Final, T, typename inherited_from_undelying<T, Final, Base>::type >
-    {
-    public:
-        typedef
-            new_type<Final, T, typename inherited_from_undelying<T, Final, Base>::type > base_type;
-
-        template <typename W>
-        explicit opaque_type(W v)
-            : base_type(v)
-        {
-        }
-
-        opaque_type() {}
-        opaque_type(const opaque_type & rhs) : base_type(rhs.val_) {}
-        opaque_type(const Final & rhs) : base_type(rhs.val_){}
-        explicit opaque_type(T v) : base_type(v) {}
-            
-    };
-
-
 
 }
 

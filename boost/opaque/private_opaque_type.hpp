@@ -30,11 +30,10 @@ namespace boost {
     protected:
         typedef private_opaque_type opaque_type_t;
     public:
-        //~ typedef T underlying_type;
-        //~ Can instances of UT be explicitly converted to instances of OT?
-        //~ Proposed answer: yes.
-        //~ Can instances of UT be implicitly converted to instances of OT?
-        //~ Proposed answer: no.
+        //~ Can instances of UT be explicitly converted to instances of OT? Yes
+        //~ Can instances of UT be implicitly converted to instances of OT? No
+        //~ Can instances of OT be explicitly converted to instances of UT? Yes, throogh the underlying function
+        //~ Can instances of OT be implicitly converted to instances of UT? Yes
 
         private_opaque_type() {};
         private_opaque_type(const opaque_type_t & rhs) : base_type(rhs.val_) {}

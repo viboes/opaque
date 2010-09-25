@@ -43,7 +43,7 @@ namespace boost {
 
     // Base must inherit from underlying_access<>
     // T the underlying type must be regular
-    template <typename Final, typename T, typename Base=underlying_access<Final, T, base_new_type> >
+    template <typename Final, typename T, typename Base=underlying_access<Final, T> >
     class new_type : public Base
     {
     public:
