@@ -125,12 +125,12 @@ namespace boost {
     class public_opaque_type
         : public
             conv_public_opaque_type2<T, T, mpl::and_<is_class<T>, is_base_of<base_public_opaque_type,T> >::value,
-                opaque_type< Final, T, Base>
+                 new_type< Final, T, typename inherited_from_undelying<T, Final, Base>::type >
             >
     {
         typedef
             conv_public_opaque_type2<T, T, mpl::and_<is_class<T>, is_base_of<base_public_opaque_type,T> >::value,
-                opaque_type< Final, T, Base>
+                 new_type< Final, T, typename inherited_from_undelying<T, Final, Base>::type >
             > base_type;
 
     protected:
