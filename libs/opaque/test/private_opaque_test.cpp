@@ -111,6 +111,30 @@ void private_substract_test() {
 
 }
 
+void unariy_plus_test() {
+    private_unsigned a(1);
+    BOOST_CHECK(+a==a);
+}
+
+void unariy_minus_test() {
+    private_unsigned a(1);
+    BOOST_CHECK(-a==private_unsigned(-1));
+}
+
+void pre_increment_test() {
+    private_unsigned a(1);
+    private_unsigned b(2);
+    BOOST_CHECK(++a==b);
+}
+
+void post_increment_test() {
+    private_unsigned a(1);
+    private_unsigned b(1);
+    BOOST_CHECK(a++==b);
+    BOOST_CHECK(a==private_unsigned(2));
+}
+
+
 test_suite* init_unit_test_suite(int, char*[])
 {
   test_suite* test = BOOST_TEST_SUITE("private");
@@ -124,6 +148,10 @@ test_suite* init_unit_test_suite(int, char*[])
   test->add(BOOST_TEST_CASE(&private_ge_test));
   test->add(BOOST_TEST_CASE(&private_add_test));
   test->add(BOOST_TEST_CASE(&private_substract_test));
+  test->add(BOOST_TEST_CASE(&unariy_plus_test));
+  test->add(BOOST_TEST_CASE(&unariy_minus_test));
+  test->add(BOOST_TEST_CASE(&pre_increment_test));
+  test->add(BOOST_TEST_CASE(&post_increment_test));
 
   return test;
 }

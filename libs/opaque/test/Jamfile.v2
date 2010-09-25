@@ -43,9 +43,17 @@ project
    test-suite "opaque"
         :
         [ run test.cpp ]
+        ;
+
+   test-suite "public"
+        :
         [ run public_opaque_test.cpp ]
-        [ run private_opaque_test.cpp ]
         [ run multi_level_conversion.cpp ]
+        ;
+
+   test-suite "private"
+        :
+        [ run private_opaque_test.cpp ]
         ;
 
    test-suite "compile_fail"

@@ -79,7 +79,7 @@ BOOST_OPAQUE_STATIC_ASSERT((
     (potential_energy::substituables)
 );
 
-void public_multiple_levels_fail() {
+void public_multiple_levels() {
     {
     double d=1;
     mass1_leng2_per_time2 x(d);
@@ -91,26 +91,13 @@ void public_multiple_levels_fail() {
     x = p; // 2 levels
     d = p; // 3 levels
     }
-#if 1    
-    {
-    int d=1;
-    mass1_leng2_per_time2 x(d);
-    energy e(d);
-    potential_energy p(d);
-
-    x = e; 
-    e = p; 
-    x = p; // 2 levels
-    d = p; // 3 levels
-    }
-#endif
 }
 
 
 test_suite* init_unit_test_suite(int, char*[])
 {
   test_suite* test = BOOST_TEST_SUITE("public_multiple_levels");
-  test->add(BOOST_TEST_CASE(&public_multiple_levels_fail));
+  test->add(BOOST_TEST_CASE(&public_multiple_levels));
 
   return test;
 }
