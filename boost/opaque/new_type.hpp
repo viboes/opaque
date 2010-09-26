@@ -13,15 +13,38 @@
 #ifndef BOOST_OPAQUE_NEW_TYPE_HPP
 #define BOOST_OPAQUE_NEW_TYPE_HPP
 
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/fold.hpp>
+
 namespace boost {
 
     class base_new_type {};
 
+    ////// implementation //////
+    namespace detail{
 
-    // T the underlying type must be regular
-    template <typename Final, typename T, typename Base=base_new_type >
-    class new_type : public Base
+    template<typename NT, typename UT, typename State, typename Concept>
+    struct do_inhetit : Concept::template type<NT, UT, State> {
+    };
+
+    template<typename NT, typename UT>
+    struct inherit {
+        template<typename State, typename Concept>
+        struct apply{
+            typedef do_inhetit<NT, UT, State, Concept> type;
+        };
+    };
+
+    }
+    template <typename T, typename Tag, typename Concepts=boost::mpl::vector0<>, typename Base=base_new_type>
+    class new_type 
+        : public 
+            boost::mpl::fold<Concepts, Base, detail::inherit<new_type<T, Tag, Concepts, Base>, T> >::type
     {
+        typedef typename 
+            boost::mpl::fold<Concepts, Base, detail::inherit<new_type<T, Tag, Concepts, Base>, T> >::type
+        base_type;
+
     public:
         typedef T underlying_type;
 
@@ -30,11 +53,11 @@ namespace boost {
         new_type(){}
         new_type(const new_type & rhs) : val_(rhs.val_) {}
         explicit new_type(T v) : val_(v) {}
+        //~ new_type & operator=(const new_type & rhs) {
+            //~ val_ = rhs.val_; return *this;
+        //~ }
     protected:
         T val_;
-        new_type & operator=(const new_type & rhs) {
-            val_ = rhs.val_; return *this;
-        }
 
     public:
         underlying_type const& underlying() const {
@@ -55,18 +78,18 @@ namespace boost {
         }
 
         template<typename F>
-        static Final const& final(F const* f)  {
-            return static_cast<Final const&>(*f);
+        static new_type const& final(F const* f)  {
+            return static_cast<new_type const&>(*f);
         }
         template<typename F>
-        Final& final(F* f) {
-            return static_cast<Final&>(*f);
+        new_type& final(F* f) {
+            return static_cast<new_type&>(*f);
         }
 
     };
 
-    template <typename T, typename Final, typename UT, typename Base >
-    T opaque_static_cast(new_type<Final, UT, Base> const& v)
+    template <typename T, typename UT, typename Base, typename Tag >
+    T opaque_static_cast(new_type<UT, Base,Tag> const& v)
     {
         return static_cast<T>(v.underlying());
     }

@@ -24,6 +24,11 @@ namespace opaque {
     template <typename Final, typename Base=base_new_type>
     struct equality_comparable1 : boost::equality_comparable1<Final, ope::equal<Final, Base> > {};
 
+    struct using_equality_comparable1 {
+        template <typename Final, typename UT, typename Base=base_new_type>
+        struct type : boost::equality_comparable1<Final, ope::equal<Final, Base> > {};
+    };
+
     template <typename Final, typename Base=base_new_type>
     struct less_than_comparable1 : boost::less_than_comparable1<Final, ope::less_than<Final, Base> > {};
 
@@ -67,10 +72,11 @@ namespace opaque {
     struct partially_ordered1 : boost::less_than_comparable1<Final, ope::less_than<Final, Base> > {};
 
 
-    template <class T, class B = base_new_type >
+    template <class T, class UT, class B = base_new_type >
     struct totally_ordered1
         : opaque::less_than_comparable1<T
-        , opaque::equality_comparable1<T, B
+        //~ , opaque::equality_comparable1<T, B
+        , opaque::using_equality_comparable1::template type<T, UT, B
           > > {};
 
     //~ template <class T, class U, class B = base_new_type >
@@ -184,10 +190,10 @@ namespace opaque {
         //~ , opaque::totally_ordered2<T, U, B
           //~ > > {};
 
-    template <class T, class B = base_new_type >
+    template <class T, class UT, class B = base_new_type >
     struct ordered_ring_operators1
         : opaque::ring_operators1<T
-        , opaque::totally_ordered1<T, B
+        , opaque::totally_ordered1<T, UT, B
           > > {};
 
     //~ template <class T, class U, class B = base_new_type >
@@ -209,14 +215,34 @@ namespace opaque {
         //~ , opaque::totally_ordered2<T, U, B
           //~ > > {};
 
-    template <class T, class B = base_new_type >
+    template <class T, class UT, class B = base_new_type >
     struct ordered_field_operators1
         : opaque::field_operators1<T
-        , opaque::totally_ordered1<T, B
+        , opaque::totally_ordered1<T, UT, B
           > > {};
 
 
+              
 }
+    template <typename T>
+    struct inherited_from_undelying {
+            template <typename Final, typename UT, typename Base=base_new_type>
+            struct type :
+                opaque::totally_ordered1< Final, T
+                ,   opaque::integer_arithmetic1< Final
+                    ,   boost::bitwise1< Final
+                        ,   opaque::unit_steppable< Final
+                            ,   opaque::ope::unary_plus< Final
+                                ,   opaque::ope::unary_minus< Final
+                                    ,   Base 
+                                    >
+                                >
+                            >
+                        >
+                    >
+                >
+            {};
+    };
 }
 
 

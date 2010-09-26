@@ -13,7 +13,8 @@
 #ifndef BOOST_OPAQUE_PRIVATE_OPAQUE_TYPE_HPP
 #define BOOST_OPAQUE_PRIVATE_OPAQUE_TYPE_HPP
 
-#include <boost/opaque/opaque_type.hpp>
+#include <boost/opaque/combined_operators.hpp>
+#include <boost/opaque/new_class.hpp>
 
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>
@@ -54,18 +55,20 @@ namespace boost {
     };
 #endif    
         
-    template <typename Final, typename T, typename Base=base_private_opaque_type>
+    template <typename T, typename Base=base_private_opaque_type, typename Tag=void>
     class private_opaque_type : public 
-            new_type< Final, T, 
-                transitive_explicit_substituable<Final, T, 
-                    typename inherited_from_undelying<T, Final, Base>::type 
+            new_class< private_opaque_type<T,Base,Tag >, T, 
+                transitive_explicit_substituable<private_opaque_type<T,Base,Tag >, T, 
+                    //~ typename inherited_from_undelying<T, private_opaque_type<T,Base,Tag>, Base>::type 
+                    typename inherited_from_undelying<T>::template type<private_opaque_type<T,Base,Tag>, T, Base>
                 >
             >
     {
         typedef 
-            new_type< Final, T, 
-                transitive_explicit_substituable<Final, T, 
-                    typename inherited_from_undelying<T, Final, Base>::type 
+            new_class< private_opaque_type<T,Base,Tag >, T, 
+                transitive_explicit_substituable<private_opaque_type<T,Base,Tag >, T, 
+                    //~ typename inherited_from_undelying<T, private_opaque_type<T,Base,Tag >, Base>::type 
+                    typename inherited_from_undelying<T>::template type<private_opaque_type<T,Base,Tag>, T, Base>
                 >
             >
         base_type;
@@ -80,7 +83,6 @@ namespace boost {
 
         private_opaque_type() {};
         private_opaque_type(const opaque_type_t & rhs) : base_type(rhs.val_) {}
-        private_opaque_type(const Final & rhs) : base_type(rhs.val_) {}
         explicit private_opaque_type(T v) : base_type(v) {};
         template <typename W>
         explicit private_opaque_type(W v)

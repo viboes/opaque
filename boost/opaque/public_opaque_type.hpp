@@ -13,7 +13,8 @@
 #ifndef BOOST_OPAQUE_PUBLIC_OPAQUE_TYPE_HPP
 #define BOOST_OPAQUE_PUBLIC_OPAQUE_TYPE_HPP
 
-#include <boost/opaque/opaque_type.hpp>
+#include <boost/opaque/combined_operators.hpp>
+#include <boost/opaque/new_class.hpp>
 
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>
@@ -65,20 +66,22 @@ namespace boost {
         }
     };
 
-    template <typename Final, typename T, typename Base=base_public_opaque_type>
+    template <typename T, typename Base=base_public_opaque_type, typename Tag=void>
     class public_opaque_type
         : public
-            new_type< Final, T, 
-                transitive_substituable<Final, T, 
-                    typename inherited_from_undelying<T, Final, Base>::type 
+            new_class< public_opaque_type<T,Base,Tag >, T, 
+                transitive_substituable<public_opaque_type<T,Base,Tag >, T, 
+                    //~ typename inherited_from_undelying<T, public_opaque_type<T,Base,Tag >, Base>::type 
+                    typename inherited_from_undelying<T>::template type<public_opaque_type<T,Base,Tag>, T, Base>
                 > 
             >
 
     {
         typedef
-            new_type< Final, T, 
-                transitive_substituable<Final, T, 
-                    typename inherited_from_undelying<T, Final, Base>::type 
+            new_class< public_opaque_type<T,Base,Tag >, T, 
+                transitive_substituable<public_opaque_type<T,Base,Tag >, T, 
+                    //~ typename inherited_from_undelying<T, public_opaque_type<T,Base,Tag >, Base>::type 
+                    typename inherited_from_undelying<T>::template type<public_opaque_type<T,Base,Tag>, T, Base>
                 > 
             >
         base_type;
@@ -97,7 +100,6 @@ namespace boost {
 
         public_opaque_type() {}
         public_opaque_type(const opaque_type_t & rhs) : base_type(rhs.val_){}
-        public_opaque_type(const Final & rhs) : base_type(rhs.val_){}
         explicit public_opaque_type(T v) : base_type(v) {}
         template <typename W>
         explicit public_opaque_type(W v) : base_type(v) {}

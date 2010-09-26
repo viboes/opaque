@@ -18,24 +18,6 @@
 
 namespace boost {
 
-    template <typename T, typename Final, typename Base>
-    struct inherited_from_undelying {
-        struct type :
-            opaque::totally_ordered1< Final
-            ,   opaque::integer_arithmetic1< Final
-                ,   boost::bitwise1< Final
-                    ,   opaque::unit_steppable< Final
-                        ,   opaque::ope::unary_plus< Final
-                            ,   opaque::ope::unary_minus< Final
-                                ,   Base 
-                                >
-                            >
-                        >
-                    >
-                >
-            >
-        {};
-    };
 
 }
 
