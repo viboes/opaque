@@ -26,14 +26,14 @@ namespace boost {
     class private_opaque_type : public 
             new_type< Final, T, 
                 typename inherited_from_undelying<T, Final, 
-                    underlying_access< Final, T, base_private_opaque_type > 
+                    base_private_opaque_type  
                 >::type 
             >
     {
         typedef 
             new_type< Final, T, 
                 typename inherited_from_undelying<T, Final, 
-                    underlying_access< Final, T, base_private_opaque_type > 
+                    base_private_opaque_type 
                 >::type 
             >
         base_type;

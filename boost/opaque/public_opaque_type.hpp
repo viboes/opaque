@@ -38,30 +38,30 @@ namespace boost {
         typedef mpl::vector<T> type;
     };
 
-    template <typename UT, typename Base=base_new_type>
+    template <typename Final, typename UT, typename Base=base_new_type>
     struct transitive_substituable;
 
     namespace detail {
 
-    template <typename UT, typename Base, bool B>
+    template <typename Final, typename UT, typename Base, bool B>
     struct transitive_substituable_next_level;
 
-    template <typename UT, typename Base>
-    struct transitive_substituable_next_level<UT, Base, true>
-        :  transitive_substituable<typename UT::underlying_type, Base> { };
+    template <typename Final, typename UT, typename Base>
+    struct transitive_substituable_next_level<Final, UT, Base, true>
+        :  transitive_substituable<Final, typename UT::underlying_type, Base> { };
 
-    template <typename UT, typename Base>
-    struct transitive_substituable_next_level<UT, Base, false> :  Base { };
+    template <typename Final, typename UT, typename Base>
+    struct transitive_substituable_next_level<Final, UT, Base, false> :  Base { };
 
     }
 
-    template <typename UT, typename Base>
+    template <typename Final, typename UT, typename Base>
     struct transitive_substituable
-        : detail::transitive_substituable_next_level<UT, Base,
+        : detail::transitive_substituable_next_level<Final, UT, Base,
                 mpl::and_<is_class<UT>, is_base_of<base_public_opaque_type, UT> >::value>
     {
         operator UT() const {
-                return this->underlying();
+                return Final::final(this).underlying();
         }
     };
 
@@ -69,9 +69,9 @@ namespace boost {
     class public_opaque_type
         : public
             new_type< Final, T, 
-                transitive_substituable<T, 
+                transitive_substituable<Final, T, 
                     typename inherited_from_undelying<T, Final, 
-                        underlying_access< Final, T, base_public_opaque_type > 
+                        base_public_opaque_type  
                     >::type 
                 > 
             >
@@ -79,9 +79,9 @@ namespace boost {
     {
         typedef
             new_type< Final, T, 
-                transitive_substituable<T, 
+                transitive_substituable<Final, T, 
                     typename inherited_from_undelying<T, Final, 
-                        underlying_access< Final, T, base_public_opaque_type > 
+                        base_public_opaque_type 
                     >::type 
                 > 
             >

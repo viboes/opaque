@@ -28,7 +28,6 @@ namespace boost {
                         ,   opaque::ope::unary_plus< Final
                             ,   opaque::ope::unary_minus< Final
                                 ,   Base 
-                                //~ ,   underlying_access< Final, T, Base >
                                 >
                             >
                         >

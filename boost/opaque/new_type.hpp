@@ -17,33 +17,9 @@ namespace boost {
 
     class base_new_type {};
 
-    template <typename Final, typename UT, typename Base=base_new_type>
-    struct underlying_access : Base {
-        typedef Base base_type;
-        underlying_access() {}
-        underlying_access(UT val) : base_type(val) {}
-        template <typename W>
-        explicit underlying_access(W v)
-            : base_type(v)
-        {}
 
-        Final const& final() const {
-            return static_cast<Final const&>(*this);
-        }
-        Final& final() {
-            return static_cast<Final&>(*this);
-        }
-        UT const& underlying() const {
-            return final().underlying();
-        }
-        UT& underlying() {
-            return final().underlying();
-        }
-    };
-
-    // Base must inherit from underlying_access<>
     // T the underlying type must be regular
-    template <typename Final, typename T, typename Base=underlying_access<Final, T> >
+    template <typename Final, typename T, typename Base=base_new_type >
     class new_type : public Base
     {
     public:
@@ -61,17 +37,36 @@ namespace boost {
         }
 
     public:
-        T const& underlying() const {
+        underlying_type const& underlying() const {
             return val_;
         }
-        T& underlying() {
+        underlying_type& underlying() {
             return val_;
+        }
+
+        template<typename F>
+        static underlying_type& underlying(F* f){
+            return final(f).underlying();
+        }
+
+        template<typename F>
+        static underlying_type const& underlying(F const* f){
+            return final(f).underlying();
+        }
+
+        template<typename F>
+        static Final const& final(F const* f)  {
+            return static_cast<Final const&>(*f);
+        }
+        template<typename F>
+        Final& final(F* f) {
+            return static_cast<Final&>(*f);
         }
 
     };
 
     template <typename T, typename Final, typename UT, typename Base >
-    T new_type_static_cast(new_type<Final, UT, Base> const& v)
+    T opaque_static_cast(new_type<Final, UT, Base> const& v)
     {
         return static_cast<T>(v.underlying());
     }
