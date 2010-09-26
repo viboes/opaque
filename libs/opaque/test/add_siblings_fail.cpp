@@ -15,12 +15,6 @@
 using namespace boost;
 using namespace boost::unit_test;
 
-// Listing 7
-//~ BOOST_OPAQUE_PRIVATE_TYPEDEF(double,mass1_leng2_per_time2);
-//~ BOOST_OPAQUE_PUBLIC_TYPEDEF(mass1_leng2_per_time2,energy);
-//~ BOOST_OPAQUE_PUBLIC_TYPEDEF(energy,kinetic_energy);
-//~ BOOST_OPAQUE_PUBLIC_TYPEDEF(energy,potential_energy);
-//~ BOOST_OPAQUE_PUBLIC_TYPEDEF(energy,heat_energy);
 
 BOOST_OPAQUE_PRIVATE_TYPEDEF(int,A);
 BOOST_OPAQUE_PRIVATE_TYPEDEF(int,B);
@@ -34,11 +28,6 @@ void public_multiple_levels_fail() {
     A a;
     B b;
     f(a+b);
-    //~ kinetic_energy k;
-    //~ potential_energy p,q;
-
-
-    //~ k = p + q; // ok!!! error
 
 }
 

@@ -18,7 +18,7 @@ using namespace boost::unit_test;
 
 BOOST_OPAQUE_PRIVATE_TYPEDEF(int,A);
 
-template <typename T> void f(T v) {}
+template <typename T> void f(T ) {}
 
 void public_multiple_levels_fail() {
     
