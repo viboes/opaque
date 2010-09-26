@@ -54,6 +54,8 @@ project
    test-suite "private"
         :
         [ run private_opaque_test.cpp ]
+        [ compile-fail private_opaque_explicit_conversion_fail.cpp ]
+        
         ;
 
    test-suite "compile_fail"
