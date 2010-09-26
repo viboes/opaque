@@ -25,16 +25,12 @@
 #define BOOST_OPAQUE_STATIC_ASSERT(CND, MSG, TYPES)                                 \
     BOOST_MPL_ASSERT_MSG(boost::mpl::bool_< (CND) >::type::value, MSG, TYPES)
 
+
 namespace boost {
-    template <typename T, typename U>
-    T opaque_static_cast(U v)
-    {
-        return static_cast<T>(v);
-    }
 
     #if 0
     template <typename T, typename UT, typename OT>
-    T opaque_static_cast<T, private_opaque_type<OT,UT> >(private_opaque_type<OT,UT> const&ot)
+    T opaque_static_cast(private_opaque_type<OT,UT> const&ot)
     {
         return static_cast<T>(ot.underlying());
     }

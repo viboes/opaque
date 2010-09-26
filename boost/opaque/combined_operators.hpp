@@ -20,10 +20,10 @@
 namespace boost {
 
 namespace opaque {
-    
+
     template <typename Final, typename Base=base_new_type>
     struct equality_comparable1 : boost::equality_comparable1<Final, ope::equal<Final, Base> > {};
-        
+
     template <typename Final, typename Base=base_new_type>
     struct less_than_comparable1 : boost::less_than_comparable1<Final, ope::less_than<Final, Base> > {};
 

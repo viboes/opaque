@@ -22,6 +22,37 @@ namespace boost {
 
     class base_private_opaque_type {};
 
+    template <typename Final, typename UT, typename Base=base_new_type>
+    struct transitive_explicit_substituable;
+
+    namespace detail {
+
+    template <typename Final, typename UT, typename Base, bool B>
+    struct transitive_explicit_substituable_next_level;
+
+    template <typename Final, typename UT, typename Base>
+    struct transitive_explicit_substituable_next_level<Final, UT, Base, true>
+        :  transitive_explicit_substituable<Final, typename UT::underlying_type, Base> { };
+
+    template <typename Final, typename UT, typename Base>
+    struct transitive_explicit_substituable_next_level<Final, UT, Base, false> :  Base { };
+
+    }
+
+    template <typename Final, typename UT, typename Base>
+    struct transitive_explicit_substituable
+#if defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
+    {};
+#else
+        : detail::transitive_explicit_substituable_next_level<Final, UT, Base,
+                mpl::and_<is_class<UT>, is_base_of<base_public_opaque_type, UT> >::value>
+    {
+        explicit operator UT() const {
+                return Final::final(this).underlying();
+        }
+    };
+#endif    
+        
     template <typename Final, typename T>
     class private_opaque_type : public 
             new_type< Final, T, 
@@ -42,8 +73,9 @@ namespace boost {
     public:
         //~ Can instances of UT be explicitly converted to instances of OT? Yes
         //~ Can instances of UT be implicitly converted to instances of OT? No
-        //~ Can instances of OT be explicitly converted to instances of UT? Yes, throogh the underlying function
-        //~ Can instances of OT be implicitly converted to instances of UT? Yes
+        //~ Can instances of OT be explicitly converted to instances of UT? Yes. 
+            //~ Waiting for explicit conversion operators,, the explicit conversion must be done through the underlying function
+        //~ Can instances of OT be implicitly converted to instances of UT? No
 
         private_opaque_type() {};
         private_opaque_type(const opaque_type_t & rhs) : base_type(rhs.val_) {}
