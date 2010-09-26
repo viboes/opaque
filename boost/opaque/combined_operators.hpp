@@ -222,7 +222,7 @@ namespace opaque {
           > > {};
 
 
-              
+
 }
     template <typename T>
     struct inherited_from_undelying {
@@ -234,7 +234,7 @@ namespace opaque {
                         ,   opaque::unit_steppable< Final
                             ,   opaque::ope::unary_plus< Final
                                 ,   opaque::ope::unary_minus< Final
-                                    ,   Base 
+                                    ,   Base
                                     >
                                 >
                             >

@@ -13,14 +13,34 @@
 #ifndef BOOST_OPAQUE_NEW_CLASS_HPP
 #define BOOST_OPAQUE_NEW_CLASS_HPP
 
-#include <boost/opaque/new_type.hpp>
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/fold.hpp>
 
 namespace boost {
 
+    class base_new_type {};
+
+    ////// implementation //////
+    namespace detail{
+
+    template<typename NT, typename UT, typename State, typename Concept>
+    struct do_inhetit : Concept::template type<NT, UT, State> {
+    };
+
+    template<typename NT, typename UT>
+    struct inherit {
+        template<typename State, typename Concept>
+        struct apply{
+            typedef do_inhetit<NT, UT, State, Concept> type;
+        };
+    };
+
+    }
+
     template <typename Final, typename T, typename Concepts=boost::mpl::vector0<>, typename Base=base_new_type >
-    class new_class : public 
+    class new_class : public
         //~ Base
-        boost::mpl::fold<Concepts, Base, detail::inherit<Final, T> >::type        
+        boost::mpl::fold<Concepts, Base, detail::inherit<Final, T> >::type
     {
     public:
         typedef T underlying_type;

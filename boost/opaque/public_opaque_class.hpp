@@ -14,7 +14,6 @@
 #define BOOST_OPAQUE_PUBLIC_OPAQUE_CLASS_HPP
 
 #include <boost/opaque/combined_operators.hpp>
-#include <boost/opaque/public_opaque_type.hpp>
 
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>
@@ -24,22 +23,64 @@
 
 namespace boost {
 
+    class base_public_opaque_type {};
+
+    template <typename T, bool B>
+    struct get_substituables;
+
+    template <typename T>
+    struct get_substituables<T,true> {
+        typedef typename mpl::push_front<typename T::substituables, T>::type type;
+    };
+
+    template <typename T>
+    struct get_substituables<T,false> {
+        typedef mpl::vector<T> type;
+    };
+
+    template <typename Final, typename UT, typename Base=base_new_type>
+    struct transitive_substituable;
+
+    namespace detail {
+
+    template <typename Final, typename UT, typename Base, bool B>
+    struct transitive_substituable_next_level;
+
+    template <typename Final, typename UT, typename Base>
+    struct transitive_substituable_next_level<Final, UT, Base, true>
+        :  transitive_substituable<Final, typename UT::underlying_type, Base> { };
+
+    template <typename Final, typename UT, typename Base>
+    struct transitive_substituable_next_level<Final, UT, Base, false> :  Base { };
+
+    }
+
+    template <typename Final, typename UT, typename Base>
+    struct transitive_substituable
+        : detail::transitive_substituable_next_level<Final, UT, Base,
+                mpl::and_<is_class<UT>, is_base_of<base_public_opaque_type, UT> >::value>
+    {
+        operator UT() const {
+                return Final::final(this).underlying();
+        }
+    };
+
 
     template <typename Final, typename T, typename Concepts=boost::mpl::vector0<>, typename Base=base_public_opaque_type>
     class public_opaque_class
         : public
             new_class< Final, T, Concepts,
-                transitive_substituable<Final, T, 
+                transitive_substituable<Final, T,
                     typename inherited_from_undelying<T>::template type<Final, T, Base>
-                > 
+                >
             >
 
     {
         typedef
             new_class< Final, T, Concepts,
-                transitive_substituable<Final, T, 
+                transitive_substituable<Final, T,
                     typename inherited_from_undelying<T>::template type<Final, T, Base>
-                > 
+                >
             >
         base_type;
 

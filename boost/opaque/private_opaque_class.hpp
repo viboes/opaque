@@ -14,7 +14,7 @@
 #define BOOST_OPAQUE_PRIVATE_OPAQUE_CLASS_HPP
 
 #include <boost/opaque/combined_operators.hpp>
-#include <boost/opaque/private_opaque_type.hpp>
+//~ #include <boost/opaque/private_opaque_type.hpp>
 
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>
@@ -22,18 +22,50 @@
 
 namespace boost {
 
-        
+    class base_private_opaque_type {};
+
+    template <typename Final, typename UT, typename Base=base_new_type>
+    struct transitive_explicit_substituable;
+
+    namespace detail {
+
+    template <typename Final, typename UT, typename Base, bool B>
+    struct transitive_explicit_substituable_next_level;
+
+    template <typename Final, typename UT, typename Base>
+    struct transitive_explicit_substituable_next_level<Final, UT, Base, true>
+        :  transitive_explicit_substituable<Final, typename UT::underlying_type, Base> { };
+
+    template <typename Final, typename UT, typename Base>
+    struct transitive_explicit_substituable_next_level<Final, UT, Base, false> :  Base { };
+
+    }
+
+    template <typename Final, typename UT, typename Base>
+    struct transitive_explicit_substituable
+#if defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
+        : Base {};
+#else
+        : detail::transitive_explicit_substituable_next_level<Final, UT, Base,
+                mpl::and_<is_class<UT>, is_base_of<base_private_opaque_type, UT> >::value>
+    {
+        explicit operator UT() const {
+                return Final::final(this).underlying();
+        }
+    };
+#endif
+
     template <typename Final, typename T, typename Concepts=boost::mpl::vector0<>, typename Base=base_private_opaque_type>
-    class private_opaque_class : public 
+    class private_opaque_class : public
             new_class< Final, T, Concepts,
-                transitive_explicit_substituable<Final, T, 
+                transitive_explicit_substituable<Final, T,
                     typename inherited_from_undelying<T>::template type<Final, T, Base>
                 >
             >
     {
-        typedef 
+        typedef
             new_class< Final, T, Concepts,
-                transitive_explicit_substituable<Final, T, 
+                transitive_explicit_substituable<Final, T,
                     typename inherited_from_undelying<T>::template type<Final, T, Base>
                 >
             >
@@ -43,7 +75,7 @@ namespace boost {
     public:
         //~ Can instances of UT be explicitly converted to instances of OT? Yes
         //~ Can instances of UT be implicitly converted to instances of OT? No
-        //~ Can instances of OT be explicitly converted to instances of UT? Yes. 
+        //~ Can instances of OT be explicitly converted to instances of UT? Yes.
             //~ Waiting for explicit conversion operators,, the explicit conversion must be done through the underlying function
         //~ Can instances of OT be implicitly converted to instances of UT? No
 
