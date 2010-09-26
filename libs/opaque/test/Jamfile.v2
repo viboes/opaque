@@ -35,9 +35,10 @@ project
         <toolset>msvc:<cxxflags>/wd4127
     ;
 
-   test-suite "new_type"
+   test-suite "new"
         :
         [ run new_type_test.cpp ]
+        [ run new_class_test.cpp ]
         ;
 
    test-suite "opaque"

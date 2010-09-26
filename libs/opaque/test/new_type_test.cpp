@@ -16,12 +16,13 @@ using namespace boost;
 using namespace boost::unit_test;
 
 
-struct private_unsigned : boost::new_type<private_unsigned, unsigned 
+#if 0
+struct private_unsigned : boost::new_class<private_unsigned, unsigned 
     , opaque::equality_comparable1<private_unsigned 
     > 
     > 
 {
-    typedef boost::new_type<private_unsigned, unsigned 
+    typedef boost::new_class<private_unsigned, unsigned 
     , opaque::equality_comparable1<private_unsigned 
     > 
     > base_type;
@@ -36,10 +37,9 @@ struct private_unsigned : boost::new_type<private_unsigned, unsigned
         : base_type(r.val_) 
     {}
 };
-
-struct private_unsigned2: boost::new_type<private_unsigned2, unsigned> 
+struct private_unsigned2: boost::new_class<private_unsigned2, unsigned> 
 {
-    typedef boost::new_type<private_unsigned2, unsigned> base_type;
+    typedef boost::new_class<private_unsigned2, unsigned> base_type;
     
     private_unsigned2(){} 
     explicit private_unsigned2(unsigned v) : base_type(v) {}
@@ -51,7 +51,13 @@ struct private_unsigned2: boost::new_type<private_unsigned2, unsigned>
         : base_type(r.val_) 
     {}
 };
+#else
+struct private_unsigned_tag;
+typedef boost::new_type<unsigned, private_unsigned_tag, boost::mpl::vector<opaque::using_equality_comparable1> > private_unsigned;
+struct private_unsigned2_tag;
+typedef boost::new_type<unsigned, private_unsigned2_tag> private_unsigned2;
 
+#endif
 void private_assign_test() {
     private_unsigned a, a2;
     private_unsigned2 b;
