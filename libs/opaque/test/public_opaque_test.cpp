@@ -19,7 +19,7 @@ using namespace boost::unit_test;
 BOOST_OPAQUE_PUBLIC_TYPEDEF(unsigned,public_unsigned);
 BOOST_OPAQUE_PUBLIC_TYPEDEF(unsigned,public_unsigned2);
 
-void public_assign_test() {
+void assign_test() {
     public_unsigned a, a2;
     public_unsigned2 b;
 
@@ -34,7 +34,7 @@ void public_assign_test() {
     //~ b=i; // error
 }
 
-void public_eq_test() {
+void eq_test() {
     public_unsigned a(1), b(2), c(2);
     BOOST_CHECK(b==c);
     BOOST_CHECK((a==b)==false);
@@ -47,34 +47,41 @@ void public_eq_test() {
     BOOST_CHECK((v==a)==false);
 }
 
-void public_lt_test() {
+void neq_test() {
+    public_unsigned a(1), b(2), c(2);
+    BOOST_CHECK(a!=b);
+    BOOST_CHECK((b!=c)==false);
+}
+
+
+void lt_test() {
     public_unsigned a(1), b(2), c(2);
     BOOST_CHECK(a<b);
     BOOST_CHECK((b<a)==false);
     BOOST_CHECK((b<c)==false);
 }
 
-void public_gt_test() {
+void gt_test() {
     public_unsigned a(1), b(2), c(2);
     BOOST_CHECK(b>a);
     BOOST_CHECK((a>b)==false);
     BOOST_CHECK((b>c)==false);
 }
 
-void public_le_test() {
+void le_test() {
     public_unsigned a(1), b(2), c(2);
     BOOST_CHECK(a<=b);
     BOOST_CHECK((b<=a)==false);
     BOOST_CHECK(b<=c);
 }
-void public_ge_test() {
+void ge_test() {
     public_unsigned a(1), b(2), c(2);
     BOOST_CHECK(b>=a);
     BOOST_CHECK((a>=b)==false);
     BOOST_CHECK(b>=c);
 }
 
-void public_add_test() {
+void add_test() {
     public_unsigned a(1), b(2), c(3),d(4);
     BOOST_CHECK(a+b==c);
     BOOST_CHECK(c==a+b);
@@ -93,7 +100,7 @@ void public_add_test() {
 
 }
 
-void public_substract_test() {
+void substract_test() {
     public_unsigned a(1), b(2), c(3),d(4);
     BOOST_CHECK(c-b==a);
     BOOST_CHECK(a==c-b);
@@ -109,19 +116,65 @@ void public_substract_test() {
 
 }
 
+void multiply_test() {
+    public_unsigned a(1), b(2), c(3),d(6);
+    BOOST_CHECK(b*c==d);
+    BOOST_CHECK(b==a*b);
+    BOOST_CHECK((b*c==a)==false);
+    BOOST_CHECK((d==a*b)==false);
+}
+
+void divide_test() {
+    public_unsigned a(1), b(2), c(3),d(6);
+    BOOST_CHECK(d/c==b);
+    BOOST_CHECK(b==d/c);
+    BOOST_CHECK((d/c==a)==false);
+    BOOST_CHECK((a==d/c)==false);
+}
+
+
+void unariy_plus_test() {
+    public_unsigned a(1);
+    BOOST_CHECK(+a==a);
+}
+
+void unariy_minus_test() {
+    public_unsigned a(1);
+    BOOST_CHECK(-a==public_unsigned(-1));
+}
+
+void pre_increment_test() {
+    public_unsigned a(1);
+    public_unsigned b(2);
+    BOOST_CHECK(++a==b);
+}
+
+void post_increment_test() {
+    public_unsigned a(1);
+    public_unsigned b(1);
+    BOOST_CHECK(a++==b);
+    BOOST_CHECK(a==public_unsigned(2));
+}
 
 test_suite* init_unit_test_suite(int, char*[])
 {
   test_suite* test = BOOST_TEST_SUITE("public");
 
-  test->add(BOOST_TEST_CASE(&public_assign_test));
-  test->add(BOOST_TEST_CASE(&public_eq_test));
-  test->add(BOOST_TEST_CASE(&public_lt_test));
-  test->add(BOOST_TEST_CASE(&public_gt_test));
-  test->add(BOOST_TEST_CASE(&public_le_test));
-  test->add(BOOST_TEST_CASE(&public_ge_test));
-  test->add(BOOST_TEST_CASE(&public_add_test));
-  test->add(BOOST_TEST_CASE(&public_substract_test));
+  test->add(BOOST_TEST_CASE(&assign_test));
+  test->add(BOOST_TEST_CASE(&eq_test));
+  test->add(BOOST_TEST_CASE(&neq_test));
+  test->add(BOOST_TEST_CASE(&lt_test));
+  test->add(BOOST_TEST_CASE(&gt_test));
+  test->add(BOOST_TEST_CASE(&le_test));
+  test->add(BOOST_TEST_CASE(&ge_test));
+  test->add(BOOST_TEST_CASE(&add_test));
+  test->add(BOOST_TEST_CASE(&substract_test));
+  test->add(BOOST_TEST_CASE(&multiply_test));
+  test->add(BOOST_TEST_CASE(&divide_test));
+  test->add(BOOST_TEST_CASE(&unariy_plus_test));
+  test->add(BOOST_TEST_CASE(&unariy_minus_test));
+  test->add(BOOST_TEST_CASE(&pre_increment_test));
+  test->add(BOOST_TEST_CASE(&post_increment_test));
 
   return test;
 }

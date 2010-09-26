@@ -20,63 +20,63 @@ using namespace boost::unit_test;
 BOOST_OPAQUE_PRIVATE_TYPEDEF(unsigned,private_unsigned);
 BOOST_OPAQUE_PRIVATE_TYPEDEF(unsigned,private_unsigned2);
 
-void private_assign_test() {
+void assign_test() {
     private_unsigned a, a2;
     private_unsigned2 b;
 
     //~ a=b; // error
     a=a2; // OK
 
-    //~ unsigned i;
-
-    //~ i=opaque_static_cast<unsigned>(a);
-    //~ i=a; // error
-
-    //~ i=b; // error
-    //~ a=i; // error
-    //~ b=i; // error
+    unsigned i;
+#if !defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
+    // explicit conversion from OT to UT
+    i=unsigned(a);
+    //error: `OT' used where a `UT' was expected
+#else
+    i=a.underlying();    
+#endif
 }
 
-void private_eq_test() {
+void eq_test() {
     private_unsigned a(1), b(2), c(2);
     BOOST_CHECK(b==c);
     BOOST_CHECK((a==b)==false);
 }
 
-void private_neq_test() {
+void neq_test() {
     private_unsigned a(1), b(2), c(2);
     BOOST_CHECK(a!=b);
     BOOST_CHECK((b!=c)==false);
 }
 
-void private_lt_test() {
+void lt_test() {
     private_unsigned a(1), b(2), c(2);
     BOOST_CHECK(a<b);
     BOOST_CHECK((b<a)==false);
     BOOST_CHECK((b<c)==false);
 }
 
-void private_gt_test() {
+void gt_test() {
     private_unsigned a(1), b(2), c(2);
     BOOST_CHECK(b>a);
     BOOST_CHECK((a>b)==false);
     BOOST_CHECK((b>c)==false);
 }
 
-void private_le_test() {
+void le_test() {
     private_unsigned a(1), b(2), c(2);
     BOOST_CHECK(a<=b);
     BOOST_CHECK((b<=a)==false);
     BOOST_CHECK(b<=c);
 }
-void private_ge_test() {
+void ge_test() {
     private_unsigned a(1), b(2), c(2);
     BOOST_CHECK(b>=a);
     BOOST_CHECK((a>=b)==false);
     BOOST_CHECK(b>=c);
 }
 
-void private_add_test() {
+void add_test() {
     private_unsigned a(1), b(2), c(3),d(4);
     BOOST_CHECK(a+b==c);
     BOOST_CHECK(c==a+b);
@@ -84,7 +84,7 @@ void private_add_test() {
     BOOST_CHECK((d==a+b)==false);
 }
 
-void private_substract_test() {
+void substract_test() {
     private_unsigned a(1), b(2), c(3),d(4);
     BOOST_CHECK(c-b==a);
     BOOST_CHECK(a==c-b);
@@ -92,7 +92,7 @@ void private_substract_test() {
     BOOST_CHECK((d==c-b)==false);
 }
 
-void private_multiply_test() {
+void multiply_test() {
     private_unsigned a(1), b(2), c(3),d(6);
     BOOST_CHECK(b*c==d);
     BOOST_CHECK(b==a*b);
@@ -100,7 +100,7 @@ void private_multiply_test() {
     BOOST_CHECK((d==a*b)==false);
 }
 
-void private_divide_test() {
+void divide_test() {
     private_unsigned a(1), b(2), c(3),d(6);
     BOOST_CHECK(d/c==b);
     BOOST_CHECK(b==d/c);
@@ -138,17 +138,17 @@ test_suite* init_unit_test_suite(int, char*[])
   test_suite* test = BOOST_TEST_SUITE("private");
 
 
-  test->add(BOOST_TEST_CASE(&private_assign_test));
-  test->add(BOOST_TEST_CASE(&private_eq_test));
-  test->add(BOOST_TEST_CASE(&private_neq_test));
-  test->add(BOOST_TEST_CASE(&private_lt_test));
-  test->add(BOOST_TEST_CASE(&private_gt_test));
-  test->add(BOOST_TEST_CASE(&private_le_test));
-  test->add(BOOST_TEST_CASE(&private_ge_test));
-  test->add(BOOST_TEST_CASE(&private_add_test));
-  test->add(BOOST_TEST_CASE(&private_substract_test));
-  test->add(BOOST_TEST_CASE(&private_multiply_test));
-  test->add(BOOST_TEST_CASE(&private_divide_test));
+  test->add(BOOST_TEST_CASE(&assign_test));
+  test->add(BOOST_TEST_CASE(&eq_test));
+  test->add(BOOST_TEST_CASE(&neq_test));
+  test->add(BOOST_TEST_CASE(&lt_test));
+  test->add(BOOST_TEST_CASE(&gt_test));
+  test->add(BOOST_TEST_CASE(&le_test));
+  test->add(BOOST_TEST_CASE(&ge_test));
+  test->add(BOOST_TEST_CASE(&add_test));
+  test->add(BOOST_TEST_CASE(&substract_test));
+  test->add(BOOST_TEST_CASE(&multiply_test));
+  test->add(BOOST_TEST_CASE(&divide_test));
   test->add(BOOST_TEST_CASE(&unariy_plus_test));
   test->add(BOOST_TEST_CASE(&unariy_minus_test));
   test->add(BOOST_TEST_CASE(&pre_increment_test));
