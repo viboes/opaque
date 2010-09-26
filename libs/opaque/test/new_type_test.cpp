@@ -61,7 +61,7 @@ void private_assign_test() {
 
     unsigned short i;
 
-    i=new_type_static_cast<unsigned short>(a);
+    i=opaque_static_cast<unsigned short>(a);
     //~ i=a; // error
 
     //~ a=i; // error

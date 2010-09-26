@@ -42,13 +42,13 @@ void private_eq_test() {
     BOOST_CHECK(b==c);
     BOOST_CHECK((a==b)==false);
 }
-#if 0
-void private_eq_test_fails() {
-    private_unsigned a;
-    private_unsigned2 a2;
-    BOOST_CHECK(a==a2);
+
+void private_neq_test() {
+    private_unsigned a(1), b(2), c(2);
+    BOOST_CHECK(a!=b);
+    BOOST_CHECK((b!=c)==false);
 }
-#endif
+
 void private_lt_test() {
     private_unsigned a(1), b(2), c(2);
     BOOST_CHECK(a<b);
@@ -82,17 +82,6 @@ void private_add_test() {
     BOOST_CHECK(c==a+b);
     BOOST_CHECK((a+b==d)==false);
     BOOST_CHECK((d==a+b)==false);
-
-    private_unsigned2 x;
-    //~ a=a+x; // error
-
-    //~ unsigned u=3,v=0;
-    //~ BOOST_CHECK(a+b==3u);
-    //~ BOOST_CHECK(u==a+b);
-    //~ BOOST_CHECK(a+b==u);
-    //~ BOOST_CHECK((a+b==v)==false);
-    //~ BOOST_CHECK((v==a+b)==false);
-
 }
 
 void private_substract_test() {
@@ -101,15 +90,24 @@ void private_substract_test() {
     BOOST_CHECK(a==c-b);
     BOOST_CHECK((c-b==d)==false);
     BOOST_CHECK((d==c-b)==false);
-
-    //~ unsigned u=1,v=0;
-    //~ BOOST_CHECK(c-b==1u);
-    //~ BOOST_CHECK(u==c-b);
-    //~ BOOST_CHECK(c-b==u);
-    //~ BOOST_CHECK((c-b==v)==false);
-    //~ BOOST_CHECK((v==c-b)==false);
-
 }
+
+void private_multiply_test() {
+    private_unsigned a(1), b(2), c(3),d(6);
+    BOOST_CHECK(b*c==d);
+    BOOST_CHECK(b==a*b);
+    BOOST_CHECK((b*c==a)==false);
+    BOOST_CHECK((d==a*b)==false);
+}
+
+void private_divide_test() {
+    private_unsigned a(1), b(2), c(3),d(6);
+    BOOST_CHECK(d/c==b);
+    BOOST_CHECK(b==d/c);
+    BOOST_CHECK((d/c==a)==false);
+    BOOST_CHECK((a==d/c)==false);
+}
+
 
 void unariy_plus_test() {
     private_unsigned a(1);
@@ -142,12 +140,15 @@ test_suite* init_unit_test_suite(int, char*[])
 
   test->add(BOOST_TEST_CASE(&private_assign_test));
   test->add(BOOST_TEST_CASE(&private_eq_test));
+  test->add(BOOST_TEST_CASE(&private_neq_test));
   test->add(BOOST_TEST_CASE(&private_lt_test));
   test->add(BOOST_TEST_CASE(&private_gt_test));
   test->add(BOOST_TEST_CASE(&private_le_test));
   test->add(BOOST_TEST_CASE(&private_ge_test));
   test->add(BOOST_TEST_CASE(&private_add_test));
   test->add(BOOST_TEST_CASE(&private_substract_test));
+  test->add(BOOST_TEST_CASE(&private_multiply_test));
+  test->add(BOOST_TEST_CASE(&private_divide_test));
   test->add(BOOST_TEST_CASE(&unariy_plus_test));
   test->add(BOOST_TEST_CASE(&unariy_minus_test));
   test->add(BOOST_TEST_CASE(&pre_increment_test));

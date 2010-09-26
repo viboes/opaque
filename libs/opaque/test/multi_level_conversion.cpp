@@ -24,6 +24,7 @@ BOOST_OPAQUE_PUBLIC_TYPEDEF(mass1_leng2_per_time2,energy);
 BOOST_OPAQUE_PUBLIC_TYPEDEF(energy,kinetic_energy);
 BOOST_OPAQUE_PUBLIC_TYPEDEF(energy,potential_energy);
 BOOST_OPAQUE_PUBLIC_TYPEDEF(energy,heat_energy);
+BOOST_OPAQUE_PUBLIC_TYPEDEF(potential_energy,potential_energy2);
 
 BOOST_OPAQUE_STATIC_ASSERT((
     is_same<
@@ -85,11 +86,14 @@ void public_multiple_levels() {
     mass1_leng2_per_time2 x(d);
     energy e(d);
     potential_energy p(d);
+    potential_energy2 p2(d);
 
     x = e; 
     e = p; 
     x = p; // 2 levels
     d = p; // 3 levels
+    d = p2; // 4 levels
+        
     }
 }
 
