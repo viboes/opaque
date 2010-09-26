@@ -17,6 +17,7 @@
 
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>
+#include <boost/mpl/and.hpp>
 
 namespace boost {
 
@@ -42,10 +43,10 @@ namespace boost {
     template <typename Final, typename UT, typename Base>
     struct transitive_explicit_substituable
 #if defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
-    {};
+        : Base {};
 #else
         : detail::transitive_explicit_substituable_next_level<Final, UT, Base,
-                mpl::and_<is_class<UT>, is_base_of<base_public_opaque_type, UT> >::value>
+                mpl::and_<is_class<UT>, is_base_of<base_private_opaque_type, UT> >::value>
     {
         explicit operator UT() const {
                 return Final::final(this).underlying();
@@ -53,19 +54,19 @@ namespace boost {
     };
 #endif    
         
-    template <typename Final, typename T>
+    template <typename Final, typename T, typename Base=base_private_opaque_type>
     class private_opaque_type : public 
             new_type< Final, T, 
-                typename inherited_from_undelying<T, Final, 
-                    base_private_opaque_type  
-                >::type 
+                transitive_explicit_substituable<Final, T, 
+                    typename inherited_from_undelying<T, Final, Base>::type 
+                >
             >
     {
         typedef 
             new_type< Final, T, 
-                typename inherited_from_undelying<T, Final, 
-                    base_private_opaque_type 
-                >::type 
+                transitive_explicit_substituable<Final, T, 
+                    typename inherited_from_undelying<T, Final, Base>::type 
+                >
             >
         base_type;
     protected:

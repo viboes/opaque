@@ -65,14 +65,12 @@ namespace boost {
         }
     };
 
-    template <typename Final, typename T>
+    template <typename Final, typename T, typename Base=base_public_opaque_type>
     class public_opaque_type
         : public
             new_type< Final, T, 
                 transitive_substituable<Final, T, 
-                    typename inherited_from_undelying<T, Final, 
-                        base_public_opaque_type  
-                    >::type 
+                    typename inherited_from_undelying<T, Final, Base>::type 
                 > 
             >
 
@@ -80,9 +78,7 @@ namespace boost {
         typedef
             new_type< Final, T, 
                 transitive_substituable<Final, T, 
-                    typename inherited_from_undelying<T, Final, 
-                        base_public_opaque_type 
-                    >::type 
+                    typename inherited_from_undelying<T, Final, Base>::type 
                 > 
             >
         base_type;
