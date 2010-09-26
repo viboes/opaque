@@ -17,8 +17,10 @@
 
 namespace boost {
 
-    template <typename Final, typename T, typename Base=base_new_type >
-    class new_class : public Base
+    template <typename Final, typename T, typename Concepts=boost::mpl::vector0<>, typename Base=base_new_type >
+    class new_class : public 
+        //~ Base
+        boost::mpl::fold<Concepts, Base, detail::inherit<Final, T> >::type        
     {
     public:
         typedef T underlying_type;
@@ -63,8 +65,8 @@ namespace boost {
 
     };
 
-    template <typename T, typename Final, typename UT, typename Base >
-    T opaque_static_cast(new_class<Final, UT, Base> const& v)
+    template <typename T, typename Final, typename UT, typename Concepts, typename Base >
+    T opaque_static_cast(new_class<Final, UT, Concepts, Base> const& v)
     {
         return static_cast<T>(v.underlying());
     }

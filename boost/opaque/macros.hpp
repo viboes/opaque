@@ -33,7 +33,7 @@
     BOOST_OPAQUE_PUBLIC_FORWARD_CONSTRUCTORS(UT,OT)\
 
 
-#if 1
+#if 0
 #define BOOST_OPAQUE_PUBLIC_TYPEDEF(UT, OT) \
 struct OT: boost::public_opaque_class<OT, UT> \
 {\
@@ -64,7 +64,7 @@ typedef boost::public_opaque_type<UT, BOOST_JOIN(OT, _tag)> OT
 
 
 
-#if 1
+#if 0
 #define BOOST_OPAQUE_PRIVATE_TYPEDEF(UT, OT) \
 struct OT: boost::private_opaque_class<OT, UT> \
 {\

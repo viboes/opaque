@@ -14,6 +14,7 @@
 #define BOOST_OPAQUE_PRIVATE_OPAQUE_TYPE_HPP
 
 #include <boost/opaque/combined_operators.hpp>
+#include <boost/opaque/new_type.hpp>
 #include <boost/opaque/new_class.hpp>
 
 #include <boost/type_traits/is_class.hpp>
@@ -55,20 +56,18 @@ namespace boost {
     };
 #endif    
         
-    template <typename T, typename Base=base_private_opaque_type, typename Tag=void>
+    template <typename T, typename Tag=void, typename Concepts=boost::mpl::vector0<>, typename Base=base_private_opaque_type>
     class private_opaque_type : public 
-            new_class< private_opaque_type<T,Base,Tag >, T, 
-                transitive_explicit_substituable<private_opaque_type<T,Base,Tag >, T, 
-                    //~ typename inherited_from_undelying<T, private_opaque_type<T,Base,Tag>, Base>::type 
-                    typename inherited_from_undelying<T>::template type<private_opaque_type<T,Base,Tag>, T, Base>
+            new_class< private_opaque_type<T,Tag,Concepts,Base>, T, Concepts, 
+                transitive_explicit_substituable<private_opaque_type<T,Tag,Concepts,Base >, T, 
+                    typename inherited_from_undelying<T>::template type<private_opaque_type<T,Tag,Concepts,Base>, T, Base>
                 >
             >
     {
         typedef 
-            new_class< private_opaque_type<T,Base,Tag >, T, 
-                transitive_explicit_substituable<private_opaque_type<T,Base,Tag >, T, 
-                    //~ typename inherited_from_undelying<T, private_opaque_type<T,Base,Tag >, Base>::type 
-                    typename inherited_from_undelying<T>::template type<private_opaque_type<T,Base,Tag>, T, Base>
+            new_class< private_opaque_type<T,Tag,Concepts,Base>, T, Concepts,
+                transitive_explicit_substituable<private_opaque_type<T,Tag,Concepts,Base>, T, 
+                    typename inherited_from_undelying<T>::template type<private_opaque_type<T,Tag,Concepts,Base>, T, Base>
                 >
             >
         base_type;

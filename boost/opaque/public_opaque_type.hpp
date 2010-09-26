@@ -66,26 +66,25 @@ namespace boost {
         }
     };
 
-    template <typename T, typename Base=base_public_opaque_type, typename Tag=void>
+
+    template <typename T, typename Tag=void, typename Concepts=boost::mpl::vector0<>, typename Base=base_public_opaque_type>
     class public_opaque_type
         : public
-            new_class< public_opaque_type<T,Base,Tag >, T, 
-                transitive_substituable<public_opaque_type<T,Base,Tag >, T, 
-                    //~ typename inherited_from_undelying<T, public_opaque_type<T,Base,Tag >, Base>::type 
-                    typename inherited_from_undelying<T>::template type<public_opaque_type<T,Base,Tag>, T, Base>
+            new_class< public_opaque_type<T,Tag,Concepts,Base>, T, Concepts,
+                transitive_substituable<public_opaque_type<T,Tag,Concepts,Base>, T, 
+                    typename inherited_from_undelying<T>::template type<public_opaque_type<T,Tag,Concepts,Base>, T, Base>
                 > 
             >
 
     {
         typedef
-            new_class< public_opaque_type<T,Base,Tag >, T, 
-                transitive_substituable<public_opaque_type<T,Base,Tag >, T, 
-                    //~ typename inherited_from_undelying<T, public_opaque_type<T,Base,Tag >, Base>::type 
-                    typename inherited_from_undelying<T>::template type<public_opaque_type<T,Base,Tag>, T, Base>
+            new_class< public_opaque_type<T,Tag,Concepts,Base>, T, Concepts,
+                transitive_substituable<public_opaque_type<T,Tag,Concepts,Base>, T, 
+                    typename inherited_from_undelying<T>::template type<public_opaque_type<T,Tag,Concepts,Base>, T, Base>
                 > 
             >
         base_type;
-
+        
     protected:
         typedef public_opaque_type opaque_type_t;
     public:

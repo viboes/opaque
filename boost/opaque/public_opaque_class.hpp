@@ -25,10 +25,10 @@
 namespace boost {
 
 
-    template <typename Final, typename T, typename Base=base_public_opaque_type>
+    template <typename Final, typename T, typename Concepts=boost::mpl::vector0<>, typename Base=base_public_opaque_type>
     class public_opaque_class
         : public
-            new_class< Final, T, 
+            new_class< Final, T, Concepts,
                 transitive_substituable<Final, T, 
                     typename inherited_from_undelying<T>::template type<Final, T, Base>
                 > 
@@ -36,7 +36,7 @@ namespace boost {
 
     {
         typedef
-            new_class< Final, T, 
+            new_class< Final, T, Concepts,
                 transitive_substituable<Final, T, 
                     typename inherited_from_undelying<T>::template type<Final, T, Base>
                 > 
