@@ -79,7 +79,7 @@ namespace boost {
             return static_cast<Final const&>(*f);
         }
         template<typename F>
-        Final& final(F* f) {
+        static Final& final(F* f) {
             return static_cast<Final&>(*f);
         }
 
