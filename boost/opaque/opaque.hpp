@@ -16,7 +16,6 @@
 #include <boost/opaque/new_type.hpp>
 #include <boost/opaque/new_class.hpp>
 #include <boost/opaque/operators.hpp>
-#include <boost/opaque/opaque_type.hpp>
 #include <boost/opaque/private_opaque_type.hpp>
 #include <boost/opaque/private_opaque_class.hpp>
 #include <boost/opaque/public_opaque_type.hpp>

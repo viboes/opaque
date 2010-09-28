@@ -13,7 +13,6 @@
 #ifndef BOOST_OPAQUE_COMBINED_OPERATORS_HPP
 #define BOOST_OPAQUE_COMBINED_OPERATORS_HPP
 
-#include <boost/opaque/new_type.hpp>
 #include <boost/operators.hpp>
 #include <boost/opaque/operators.hpp>
 
@@ -21,55 +20,63 @@ namespace boost {
 
 namespace opaque {
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
     struct equality_comparable1 : boost::equality_comparable1<Final, ope::equal<Final, Base> > {};
 
     struct using_equality_comparable1 {
-        template <typename Final, typename UT, typename Base=base_new_type>
+        template <typename Final, typename UT, typename Base>
         struct type : boost::equality_comparable1<Final, ope::equal<Final, Base> > {};
     };
 
-    template <typename Final, typename Base=base_new_type>
-    struct less_than_comparable1 : boost::less_than_comparable1<Final, ope::less_than<Final, Base> > {};
+#define BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final) \
+        BOOST_OPAQUE_USING_LESS_THAN(Final) \
+        BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final) \
+        BOOST_OPAQUE_USING_GREATER_THAN(Final) \
+        BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final)
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
+    struct less_than_comparable1 : Base {
+        BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final)
+    };
+
+    template <typename Final, typename Base>
     struct addable1 : boost::addable1<Final, ope::plus_assign<Final, Base> > {};
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
     struct subtractable1 : boost::subtractable1<Final, ope::minus_assign<Final, Base> > {};
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
     struct multipliable1 : boost::multipliable1<Final, ope::multiply_assign<Final, Base> > {};
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
     struct dividable1 : boost::dividable1<Final, ope::divide_assign<Final, Base> > {};
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
     struct modable1 : boost::modable1<Final, ope::modulus_assign<Final, Base> > {};
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
     struct xorable1 : boost::xorable1<Final, ope::bitwise_xor_assign<Final, Base> > {};
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
     struct andable1 : boost::andable1<Final, ope::bitwise_and_assign<Final, Base> > {};
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
     struct orable1 : boost::orable1<Final, ope::bitwise_or_assign<Final, Base> > {};
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
     struct incrementable : boost::incrementable<Final, ope::pre_increment<Final, Base> > {};
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
     struct decrementable : boost::decrementable<Final, ope::pre_decrement<Final, Base> > {};
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
     struct left_shiftable1 : boost::left_shiftable1<Final, ope::left_shift_assign<Final, Base> > {};
 
-    template <typename Final, typename Base=base_new_type>
+    template <typename Final, typename Base>
     struct right_shiftable1 : boost::right_shiftable1<Final, ope::right_shift_assign<Final, Base> > {};
 
-    template <typename Final, typename Base=base_new_type>
-    struct partially_ordered1 : boost::less_than_comparable1<Final, ope::less_than<Final, Base> > {};
+    template <typename Final, typename Base>
+    struct partially_ordered1 : boost::partially_ordered1<Final, ope::less_than<Final, Base> > {};
 
 
     template <class T, class UT, class B = base_new_type >
@@ -226,7 +233,7 @@ namespace opaque {
 }
     template <typename T>
     struct inherited_from_undelying {
-            template <typename Final, typename UT, typename Base=base_new_type>
+            template <typename Final, typename UT, typename Base>
             struct type :
                 opaque::totally_ordered1< Final, T
                 ,   opaque::integer_arithmetic1< Final

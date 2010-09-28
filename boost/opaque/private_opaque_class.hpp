@@ -14,7 +14,6 @@
 #define BOOST_OPAQUE_PRIVATE_OPAQUE_CLASS_HPP
 
 #include <boost/opaque/combined_operators.hpp>
-//~ #include <boost/opaque/private_opaque_type.hpp>
 
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>
