@@ -20,6 +20,11 @@ using namespace boost::unit_test;
 BOOST_OPAQUE_PRIVATE_TYPEDEF(unsigned,private_unsigned);
 BOOST_OPAQUE_PRIVATE_TYPEDEF(unsigned,private_unsigned2);
 
+void size_test() {
+
+    BOOST_CHECK(sizeof(private_unsigned)==sizeof(unsigned));
+}
+
 void assign_test() {
     private_unsigned a, a2;
     private_unsigned2 b;
@@ -138,6 +143,7 @@ test_suite* init_unit_test_suite(int, char*[])
   test_suite* test = BOOST_TEST_SUITE("private");
 
 
+  test->add(BOOST_TEST_CASE(&size_test));
   test->add(BOOST_TEST_CASE(&assign_test));
   test->add(BOOST_TEST_CASE(&eq_test));
   test->add(BOOST_TEST_CASE(&neq_test));

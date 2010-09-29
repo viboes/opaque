@@ -58,6 +58,12 @@ struct private_unsigned2_tag;
 typedef boost::new_type<unsigned, private_unsigned2_tag> private_unsigned2;
 
 #endif
+void size_test() {
+
+    BOOST_CHECK(sizeof(private_unsigned)==sizeof(unsigned));
+    BOOST_CHECK(sizeof(private_unsigned2)==sizeof(unsigned));
+}
+
 void private_assign_test() {
     private_unsigned a, a2;
     private_unsigned2 b;
@@ -151,6 +157,7 @@ test_suite* init_unit_test_suite(int, char*[])
   test_suite* test = BOOST_TEST_SUITE("private");
 
 
+  test->add(BOOST_TEST_CASE(&size_test));
   test->add(BOOST_TEST_CASE(&private_assign_test));
   test->add(BOOST_TEST_CASE(&private_eq_test));
   test->add(BOOST_TEST_CASE(&private_lt_test));

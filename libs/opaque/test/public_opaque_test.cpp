@@ -9,15 +9,18 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <boost/opaque/opaque.hpp>
-
 #include <boost/test/unit_test.hpp>
 
 using namespace boost;
 using namespace boost::unit_test;
 
-
 BOOST_OPAQUE_PUBLIC_TYPEDEF(unsigned,public_unsigned);
 BOOST_OPAQUE_PUBLIC_TYPEDEF(unsigned,public_unsigned2);
+
+void size_test() {
+
+    BOOST_CHECK(sizeof(public_unsigned)==sizeof(unsigned));
+}
 
 void assign_test() {
     public_unsigned a, a2;
@@ -160,6 +163,7 @@ test_suite* init_unit_test_suite(int, char*[])
 {
   test_suite* test = BOOST_TEST_SUITE("public");
 
+  test->add(BOOST_TEST_CASE(&size_test));
   test->add(BOOST_TEST_CASE(&assign_test));
   test->add(BOOST_TEST_CASE(&eq_test));
   test->add(BOOST_TEST_CASE(&neq_test));
@@ -178,5 +182,4 @@ test_suite* init_unit_test_suite(int, char*[])
 
   return test;
 }
-
 
