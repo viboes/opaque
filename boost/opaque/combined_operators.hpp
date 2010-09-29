@@ -20,12 +20,20 @@ namespace boost {
 
 namespace opaque {
 
-    template <typename Final, typename Base>
-    struct equality_comparable1 : boost::equality_comparable1<Final, ope::equal<Final, Base> > {};
-
+#define BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final) \
+        BOOST_OPAQUE_USING_EQUAL(Final) \
+        BOOST_OPAQUE_USING_NOT_EQUAL(Final)
+    
     struct using_equality_comparable1 {
         template <typename Final, typename UT, typename Base>
-        struct type : boost::equality_comparable1<Final, ope::equal<Final, Base> > {};
+        struct type : Base {
+            BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final)
+        };
+    };
+
+    template <typename Final, typename Base>
+    struct equality_comparable1 : Base {
+        BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final)
     };
 
 #define BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final) \
@@ -34,25 +42,104 @@ namespace opaque {
         BOOST_OPAQUE_USING_GREATER_THAN(Final) \
         BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final)
 
+    struct using_less_than_comparable1 {
+        template <typename Final, typename UT, typename Base>
+        struct type : Base {
+        BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final)
+        };
+    };
+    
     template <typename Final, typename Base>
     struct less_than_comparable1 : Base {
         BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final)
     };
 
-    template <typename Final, typename Base>
-    struct addable1 : boost::addable1<Final, ope::plus_assign<Final, Base> > {};
+
+#define BOOST_OPAQUE_ADDABLE1(Final) \
+        BOOST_OPAQUE_USING_PLUS_ASSIGN(Final) \
+        BOOST_OPAQUE_USING_PLUS(Final)
+
+    struct using_addable1 {
+        template <typename Final, typename UT, typename Base>
+        struct type : Base {
+        BOOST_OPAQUE_ADDABLE1(Final)
+        };
+    };
+        
 
     template <typename Final, typename Base>
-    struct subtractable1 : boost::subtractable1<Final, ope::minus_assign<Final, Base> > {};
+    struct addable1 : Base  {
+        BOOST_OPAQUE_ADDABLE1(Final)
+    };
 
-    template <typename Final, typename Base>
-    struct multipliable1 : boost::multipliable1<Final, ope::multiply_assign<Final, Base> > {};
+#define BOOST_OPAQUE_SUBTRACTABLE1(Final) \
+        BOOST_OPAQUE_USING_MINUS_ASSIGN(Final) \
+        BOOST_OPAQUE_USING_MINUS(Final)
 
+    struct using_subtractable1 {
+        template <typename Final, typename UT, typename Base>
+        struct type : Base {
+            BOOST_OPAQUE_SUBTRACTABLE1(Final)
+        };
+    };
+        
+    
     template <typename Final, typename Base>
-    struct dividable1 : boost::dividable1<Final, ope::divide_assign<Final, Base> > {};
+    struct subtractable1 : Base 
+    {
+        BOOST_OPAQUE_SUBTRACTABLE1(Final)
+    };
 
+    
+#define BOOST_OPAQUE_MULTIPLIABLE1(Final) \
+        BOOST_OPAQUE_USING_MULTIPLY_ASSIGN(Final) \
+        BOOST_OPAQUE_USING_MULTIPLY(Final)
+
+    struct using_multipliable1 {
+        template <typename Final, typename UT, typename Base>
+        struct type : Base {
+            BOOST_OPAQUE_MULTIPLIABLE1(Final)
+        };
+    };
+        
     template <typename Final, typename Base>
-    struct modable1 : boost::modable1<Final, ope::modulus_assign<Final, Base> > {};
+    struct multipliable1 : Base {
+            BOOST_OPAQUE_MULTIPLIABLE1(Final)
+    };
+
+#define BOOST_OPAQUE_DIVIDABLE1(Final) \
+        BOOST_OPAQUE_USING_DIVIDE_ASSIGN(Final) \
+        BOOST_OPAQUE_USING_DIVIDE(Final)
+
+    struct using_dividable1 {
+        template <typename Final, typename UT, typename Base>
+        struct type : Base {
+            BOOST_OPAQUE_MULTIPLIABLE1(Final)
+        };
+    };
+        
+    template <typename Final, typename Base>
+    struct dividable1
+    //~ : boost::dividable1<Final, ope::divide_assign<Final, Base> >
+    : Base 
+    {
+            BOOST_OPAQUE_DIVIDABLE1(Final)
+    };
+
+#define BOOST_OPAQUE_MODABLE1(Final) \
+        BOOST_OPAQUE_USING_MODULUS_ASSIGN(Final) \
+        BOOST_OPAQUE_USING_MODULUS(Final)
+
+    struct using_modable1 {
+        template <typename Final, typename UT, typename Base>
+        struct type : Base {
+            BOOST_OPAQUE_MODABLE1(Final)
+        };
+    };
+    template <typename Final, typename Base>
+    struct modable1 : Base {
+            BOOST_OPAQUE_MODABLE1(Final)
+    };
 
     template <typename Final, typename Base>
     struct xorable1 : boost::xorable1<Final, ope::bitwise_xor_assign<Final, Base> > {};

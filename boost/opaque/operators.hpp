@@ -44,7 +44,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_CONVERSION(Final,UT) \
-        public: \
+    public: \
             operator UT() const{ \
                 return Final::underlying(this); \
             }
@@ -57,7 +57,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_LESS_THAN(Final) \
-        public :\
+    public :\
         bool operator<(const Final& rhs) const  { \
             return Final::underlying(this) < rhs.underlying();\
         }
@@ -75,7 +75,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final) \
-        public :\
+    public :\
         bool operator<=(const Final& rhs) const  { \
             return Final::underlying(this) <= rhs.underlying();\
         }
@@ -88,7 +88,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_GREATER_THAN(Final) \
-        public :\
+    public :\
         bool operator>(const Final& rhs) const  { \
             return Final::underlying(this) > rhs.underlying();\
         }
@@ -101,7 +101,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final) \
-        public :\
+    public :\
         bool operator>=(const Final& rhs) const  { \
             return Final::underlying(this) >= rhs.underlying();\
         }
@@ -114,16 +114,14 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_EQUAL(Final) \
-        public :\
+    public :\
         bool operator==(const Final& rhs) const  { \
             return Final::underlying(this) == rhs.underlying();\
         }
 
     template <typename Final, typename Base>
     struct equal : Base {
-        friend bool operator==(const Final& x, const Final& y)  {
-            return x.underlying() == y.underlying();
-        }
+        BOOST_OPAQUE_USING_EQUAL(Final)
     };
     struct using_equal {
         template <typename Final, typename UT, typename Base>
@@ -133,7 +131,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_NOT_EQUAL(Final) \
-        public :\
+    public :\
         bool operator!=(const Final& rhs) const  { \
             return Final::underlying(this) != rhs.underlying();\
         }
@@ -141,9 +139,7 @@ namespace ope {
 
     template <typename Final, typename Base>
     struct not_equal : Base {
-        friend bool operator!=(const Final& x, const Final& y)  {
-            return x.underlying() != y.underlying();
-        }
+        BOOST_OPAQUE_USING_NOT_EQUAL(Final)
     };
     struct using_not_equal {
         template <typename Final, typename UT, typename Base>
@@ -153,7 +149,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_PLUS_ASSIGN(Final) \
-        public :\
+    public :\
         Final&  operator+=(const Final& rhs) { \
             Final::underlying(this) += rhs.underlying();\
             return Final::final(this); \
@@ -171,7 +167,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_MINUS_ASSIGN(Final) \
-        public :\
+    public :\
         Final&  operator-=(const Final& rhs) { \
             Final::underlying(this) -= rhs.underlying();\
             return Final::final(this); \
@@ -189,7 +185,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_MULTIPLY_ASSIGN(Final) \
-        public :\
+    public :\
         Final&  operator*=(const Final& rhs) { \
             Final::underlying(this) *= rhs.underlying();\
             return Final::final(this); \
@@ -207,7 +203,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_DIVIDE_ASSIGN(Final) \
-        public :\
+    public :\
         Final&  operator/=(const Final& rhs) { \
             Final::underlying(this) /= rhs.underlying();\
             return Final::final(this); \
@@ -225,7 +221,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_MODULUS_ASSIGN(Final) \
-        public :\
+    public :\
         Final&  operator%=(const Final& rhs) { \
             Final::underlying(this) %= rhs.underlying();\
             return Final::final(this); \
@@ -243,7 +239,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_BITWISE_XOR_ASSIGN(Final) \
-        public :\
+    public :\
         Final&  operator^=(const Final& rhs) { \
             Final::underlying(this) ^= rhs.underlying();\
             return Final::final(this); \
@@ -261,7 +257,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_BITWISE_AND_ASSIGN(Final) \
-        public :\
+    public :\
         Final&  operator&=(const Final& rhs) { \
             Final::underlying(this) &= rhs.underlying();\
             return Final::final(this); \
@@ -279,7 +275,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_BITWISE_OR_ASSIGN(Final) \
-        public :\
+    public :\
         Final&  operator|=(const Final& rhs) { \
             Final::underlying(this) |= rhs.underlying();\
             return Final::final(this); \
@@ -297,7 +293,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_LEFT_SHIFT_ASSIGN(Final) \
-        public :\
+    public :\
         Final&  operator<<=(const Final& rhs) { \
             Final::underlying(this) <<= rhs.underlying();\
             return Final::final(this); \
@@ -315,7 +311,7 @@ namespace ope {
     };
 
 #define BOOST_OPAQUE_USING_RIGHT_SHIFT_ASSIGN(Final) \
-        public :\
+    public :\
         Final&  operator>>=(const Final& rhs) { \
             Final::underlying(this) >>= rhs.underlying();\
             return Final::final(this); \
@@ -334,7 +330,7 @@ namespace ope {
     // Unary operators
 
 #define BOOST_OPAQUE_USING_LOGICAL_NOT(Final) \
-        public :\
+    public :\
         bool operator!() const  { \
             return !Final::underlying(this);\
         }
@@ -351,24 +347,57 @@ namespace ope {
         BOOST_OPAQUE_USING_LOGICAL_NOT(Final)
     };
 
-    template <typename Final, typename Base>
-    struct unary_plus : Base {
-        friend Final operator+(Final const& x)  {
-            return x;
+#define BOOST_OPAQUE_USING_UNARY_PLUS(Final) \
+    public :\
+        Final operator+() const  { \
+            return Final(+(Final::underlying(this)));\
         }
-    };
-    template <typename Final, typename Base>
-    struct unary_minus : Base {
-        friend Final operator-(Final const& x)  {
-            return Final(-(x.underlying()));
-        }
+
+    struct using_unary_plus {
+        template <typename Final, typename UT, typename Base>
+        struct type: Base {
+            BOOST_OPAQUE_USING_UNARY_PLUS(Final)
+        };
     };
 
     template <typename Final, typename Base>
-    struct bitwise_not : Base {
-        friend Final operator~(Final const& x)  {
-            return Final(~(x.underlying()));
+    struct unary_plus : Base {
+        BOOST_OPAQUE_USING_UNARY_PLUS(Final)
+    };
+
+#define BOOST_OPAQUE_USING_UNARY_MINUS(Final) \
+    public :\
+        Final operator-() const { \
+            return Final(-(Final::underlying(this))); \
         }
+
+    struct using_unary_minus {
+        template <typename Final, typename UT, typename Base>
+        struct type: Base {
+            BOOST_OPAQUE_USING_UNARY_MINUS(Final)
+        };
+    };
+    
+    template <typename Final, typename Base>
+    struct unary_minus : Base {
+        BOOST_OPAQUE_USING_UNARY_MINUS(Final)
+    };
+
+#define BOOST_OPAQUE_USING_BITWISE_NOT(Final) \
+    public :\
+        Final operator~() const { \
+            return Final(~(Final::underlying(this))); \
+        }
+
+    struct using_bitwise_not {
+        template <typename Final, typename UT, typename Base>
+        struct type: Base {
+            BOOST_OPAQUE_USING_BITWISE_NOT(Final)
+        };
+    };
+    template <typename Final, typename Base>
+    struct bitwise_not : Base {
+        BOOST_OPAQUE_USING_BITWISE_NOT(Final)
     };
 
     //~ template <typename Final, typename Base>
@@ -400,40 +429,126 @@ namespace ope {
     //~ };
 
     // Increment and decrement
+#define BOOST_OPAQUE_USING_PRE_INCREMENT(Final) \
+    public :\
+        Final& operator++()  { \
+            ++Final::underlying(this); \
+            return Final::final(this); \
+        }
+
+    struct using_pre_increment {
+        template <typename Final, typename UT, typename Base>
+        struct type: Base {
+            BOOST_OPAQUE_USING_PRE_INCREMENT(Final)
+        };
+    };
     template <typename Final, typename Base>
     struct pre_increment : Base {
-        friend Final& operator++(Final& x)  {
-            ++x.underlying();
-            return x;
-        }
+            BOOST_OPAQUE_USING_PRE_INCREMENT(Final)
     };
 
+#define BOOST_OPAQUE_USING_PRE_DECREMENT(Final) \
+    public :\
+        Final& operator--()  { \
+            --Final::underlying(this); \
+            return Final::final(this); \
+        }
+
+    struct using_pre_decrement {
+        template <typename Final, typename UT, typename Base>
+        struct type: Base {
+            BOOST_OPAQUE_USING_PRE_DECREMENT(Final)
+        };
+    };
     template <typename Final, typename Base>
     struct pre_decrement : Base {
-        friend Final& operator--(Final& x)  {
-            --x.underlying();
-            return x;
-        }
+        BOOST_OPAQUE_USING_PRE_DECREMENT(Final)
     };
 
+#define BOOST_OPAQUE_USING_POST_INCREMENT(Final) \
+    public :\
+        Final& operator--()  { \
+            typename Final::underlying_type nrv(*this); \
+            Final::underlying(this)++; \
+            return nrv; \
+        }
+
+    struct using_post_increment {
+        template <typename Final, typename UT, typename Base>
+        struct type: Base {
+            BOOST_OPAQUE_USING_POST_INCREMENT(Final)
+        };
+    };
     template <typename Final, typename Base>
     struct post_increment : Base {
-        friend Final operator++(Final& x, int)  {
-            typename Final::underlying_type nrv(x);
-            x.underlying()++;
-            return nrv;
-        }
+        BOOST_OPAQUE_USING_POST_INCREMENT(Final)
     };
 
+#define BOOST_OPAQUE_USING_POST_DECREMENT(Final) \
+    public :\
+        Final& operator--()  { \
+            typename Final::underlying_type nrv(*this); \
+            Final::underlying(this)--; \
+            return nrv; \
+        }
+
+    struct using_post_decrement {
+        template <typename Final, typename UT, typename Base>
+        struct type: Base {
+            BOOST_OPAQUE_USING_POST_DECREMENT(Final)
+        };
+    };
     template <typename Final, typename Base>
     struct post_decrement : Base {
-        friend Final operator--(Final& x, int)  {
-            typename Final::underlying_type nrv(x);
-            x.underlying()--;
-            return nrv;
-        }
+        BOOST_OPAQUE_USING_POST_DECREMENT(Final)
     };
+    
+#if 0
+// I don't know why this doesn't works :(
+    
+#define BOOST_OPAQUE_USING_PLUS(Final) \
+    public :\
+        Final operator+(const Final& rhs) const { \
+            return Final(Final::underlying(this) + rhs.underlying()); \
+        }
 
+#define BOOST_OPAQUE_USING_MINUS(Final) \
+    public :\
+        Final operator-(const Final& rhs) const { \
+            return Final(Final::underlying(this) - rhs.underlying()); \
+        }
+#else
+#define BOOST_OPAQUE_USING_PLUS(Final) \
+    public :\
+        friend Final operator+(const Final& lhs, const Final& rhs) { \
+            return Final(lhs.underlying() + rhs.underlying()); \
+        }
+#define BOOST_OPAQUE_USING_MINUS(Final) \
+    public :\
+        friend Final  operator-(const Final& lhs, const Final& rhs) { \
+            return Final(lhs.underlying() - rhs.underlying()); \
+        }
+#endif
+
+#define BOOST_OPAQUE_USING_MULTIPLY(Final) \
+    public :\
+        Final  operator*(const Final& rhs) const { \
+            return Final(Final::underlying(this) * rhs.underlying()); \
+        }
+
+#define BOOST_OPAQUE_USING_DIVIDE(Final) \
+    public :\
+        Final  operator/(const Final& rhs) const { \
+            return Final(Final::underlying(this) / rhs.underlying()); \
+        }
+
+#define BOOST_OPAQUE_USING_MODULUS(Final) \
+    public :\
+        Final  operator%(const Final& rhs) const { \
+            return Final(Final::underlying(this) % rhs.underlying()); \
+        }
+
+    
 }
 
 }
