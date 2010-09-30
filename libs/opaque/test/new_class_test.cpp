@@ -17,7 +17,7 @@ using namespace boost::unit_test;
 
 
 struct private_unsigned : 
-    boost::new_class<private_unsigned, unsigned, boost::mpl::vector<opaque::using_equality_comparable1> >
+    boost::new_class<private_unsigned, unsigned, boost::mpl::vector<opaque::using_equality_comparable1<> > >
 //~ , opaque::equality_comparable1<private_unsigned 
     //~ > 
     //~ > 
@@ -27,7 +27,7 @@ struct private_unsigned :
     //~ , opaque::equality_comparable1<private_unsigned 
     //~ > 
     //~ > 
-    boost::new_class<private_unsigned, unsigned, boost::mpl::vector<opaque::using_equality_comparable1> >
+    boost::new_class<private_unsigned, unsigned, boost::mpl::vector<opaque::using_equality_comparable1<> > >
     base_type;
     
     private_unsigned(){} 

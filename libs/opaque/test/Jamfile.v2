@@ -67,3 +67,8 @@ project
         [ compile-fail assign_pub_siblings_fail.cpp ]
         ;
 
+
+   test-suite "examples"
+        :
+        [ run ../example/ex1.cpp ]
+        ;
