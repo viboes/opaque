@@ -23,8 +23,8 @@ void size_test() {
 }
 
 void assign_test() {
-    public_unsigned a, a2;
-    public_unsigned2 b;
+    public_unsigned a(0), a2(1);
+    public_unsigned2 b(0);
 
     //~ a=b; // error
     a=a2; // OK
@@ -91,7 +91,7 @@ void add_test() {
     BOOST_CHECK((a+b==d)==false);
     BOOST_CHECK((d==a+b)==false);
 
-    public_unsigned2 x;
+    //~ public_unsigned2 x;
     //~ a=a+x; // error
 
     unsigned u=3,v=0;
@@ -182,4 +182,3 @@ test_suite* init_unit_test_suite(int, char*[])
 
   return test;
 }
-

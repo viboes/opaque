@@ -26,8 +26,8 @@ void size_test() {
 }
 
 void assign_test() {
-    private_unsigned a, a2;
-    private_unsigned2 b;
+    private_unsigned a, a2(2);
+    //~ private_unsigned2 b;
 
     //~ a=b; // error
     a=a2; // OK
@@ -38,7 +38,7 @@ void assign_test() {
     i=unsigned(a);
     //error: `OT' used where a `UT' was expected
 #else
-    i=a.underlying();    
+    i=a.underlying();
 #endif
 }
 
@@ -142,7 +142,6 @@ test_suite* init_unit_test_suite(int, char*[])
 {
   test_suite* test = BOOST_TEST_SUITE("private");
 
-
   test->add(BOOST_TEST_CASE(&size_test));
   test->add(BOOST_TEST_CASE(&assign_test));
   test->add(BOOST_TEST_CASE(&eq_test));
@@ -162,5 +161,3 @@ test_suite* init_unit_test_suite(int, char*[])
 
   return test;
 }
-
-

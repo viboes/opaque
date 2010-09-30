@@ -86,7 +86,6 @@ BOOST_OPAQUE_PUBLIC_TYPEDEF(energy,kinetic_energy);
 BOOST_OPAQUE_PUBLIC_TYPEDEF(energy,potential_energy);
 BOOST_OPAQUE_PUBLIC_TYPEDEF(energy,heat_energy);
 
-double sqrt(double d) { return d;}
 void public_multiple_levels_test() {
     energy e;
     potential_energy p, q;
