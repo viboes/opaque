@@ -56,95 +56,101 @@ namespace ope {
         };
     };
 
-#define BOOST_OPAQUE_USING_LESS_THAN(Final) \
+#define BOOST_OPAQUE_USING_LESS_THAN(Final, Bool) \
     public :\
-        bool operator<(const Final& rhs) const  { \
-            return Final::underlying(this) < rhs.underlying();\
+        Bool operator<(const Final& rhs) const  { \
+            return Bool(Final::underlying(this) < rhs.underlying());\
         }
 
-    template <typename Final, typename Base>
+    template <typename Final, typename Base, typename Bool=bool>
     struct less_than : Base {
-        BOOST_OPAQUE_USING_LESS_THAN(Final)
+        BOOST_OPAQUE_USING_LESS_THAN(Final, Bool)
     };
-
+    
+    template <typename Bool=bool>
     struct using_less_than {
         template <typename Final, typename UT, typename Base>
         struct type: Base {
-            BOOST_OPAQUE_USING_LESS_THAN(Final)
+            BOOST_OPAQUE_USING_LESS_THAN(Final,Bool)
         };
     };
 
-#define BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final) \
+#define BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final,Bool) \
     public :\
-        bool operator<=(const Final& rhs) const  { \
-            return Final::underlying(this) <= rhs.underlying();\
+        Bool operator<=(const Final& rhs) const  { \
+            return Bool(Final::underlying(this) <= rhs.underlying());\
         }
 
+    template <typename Bool=bool>
     struct using_less_than_equal {
         template <typename Final, typename UT, typename Base>
         struct type: Base {
-            BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final)
+            BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final,Bool)
         };
     };
 
-#define BOOST_OPAQUE_USING_GREATER_THAN(Final) \
+#define BOOST_OPAQUE_USING_GREATER_THAN(Final,Bool) \
     public :\
-        bool operator>(const Final& rhs) const  { \
-            return Final::underlying(this) > rhs.underlying();\
+        Bool operator>(const Final& rhs) const  { \
+            return Bool(Final::underlying(this) > rhs.underlying());\
         }
 
+    template <typename Bool=bool>
     struct using_greater_than {
         template <typename Final, typename UT, typename Base>
         struct type: Base {
-            BOOST_OPAQUE_USING_GREATER_THAN(Final)
+            BOOST_OPAQUE_USING_GREATER_THAN(Final,Bool)
         };
     };
 
-#define BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final) \
+#define BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final,Bool) \
     public :\
-        bool operator>=(const Final& rhs) const  { \
-            return Final::underlying(this) >= rhs.underlying();\
+        Bool operator>=(const Final& rhs) const  { \
+            return Bool(Final::underlying(this) >= rhs.underlying());\
         }
 
+    template <typename Bool=bool>
     struct using_greater_than_equal {
         template <typename Final, typename UT, typename Base>
         struct type: Base {
-            BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final)
+            BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final,Bool)
         };
     };
 
-#define BOOST_OPAQUE_USING_EQUAL(Final) \
+#define BOOST_OPAQUE_USING_EQUAL(Final,Bool) \
     public :\
-        bool operator==(const Final& rhs) const  { \
-            return Final::underlying(this) == rhs.underlying();\
+        Bool operator==(const Final& rhs) const  { \
+            return Bool(Final::underlying(this) == rhs.underlying());\
         }
 
-    template <typename Final, typename Base>
+    template <typename Final, typename Base, typename Bool=bool>
     struct equal : Base {
-        BOOST_OPAQUE_USING_EQUAL(Final)
+        BOOST_OPAQUE_USING_EQUAL(Final,Bool)
     };
+    template <typename Bool=bool>
     struct using_equal {
         template <typename Final, typename UT, typename Base>
         struct type: Base {
-            BOOST_OPAQUE_USING_EQUAL(Final)
+            BOOST_OPAQUE_USING_EQUAL(Final,Bool)
         };
     };
 
-#define BOOST_OPAQUE_USING_NOT_EQUAL(Final) \
+#define BOOST_OPAQUE_USING_NOT_EQUAL(Final,Bool) \
     public :\
-        bool operator!=(const Final& rhs) const  { \
-            return Final::underlying(this) != rhs.underlying();\
+        Bool operator!=(const Final& rhs) const  { \
+            return Bool(Final::underlying(this) != rhs.underlying());\
         }
 
 
-    template <typename Final, typename Base>
+    template <typename Final, typename Base, typename Bool=bool>
     struct not_equal : Base {
-        BOOST_OPAQUE_USING_NOT_EQUAL(Final)
+        BOOST_OPAQUE_USING_NOT_EQUAL(Final,Bool)
     };
+    template <typename Bool=bool>
     struct using_not_equal {
         template <typename Final, typename UT, typename Base>
         struct type: Base {
-            BOOST_OPAQUE_USING_NOT_EQUAL(Final)
+            BOOST_OPAQUE_USING_NOT_EQUAL(Final,Bool)
         };
     };
 

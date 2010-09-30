@@ -20,38 +20,40 @@ namespace boost {
 
 namespace opaque {
 
-#define BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final) \
-        BOOST_OPAQUE_USING_EQUAL(Final) \
-        BOOST_OPAQUE_USING_NOT_EQUAL(Final)
+#define BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final,Bool) \
+        BOOST_OPAQUE_USING_EQUAL(Final,Bool) \
+        BOOST_OPAQUE_USING_NOT_EQUAL(Final,Bool)
     
+    template <typename Bool=bool>
     struct using_equality_comparable1 {
         template <typename Final, typename UT, typename Base>
         struct type : Base {
-            BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final)
+            BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final,Bool)
         };
     };
 
-    template <typename Final, typename Base>
+    template <typename Final, typename Base, typename Bool=bool>
     struct equality_comparable1 : Base {
-        BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final)
+        BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final,Bool)
     };
 
-#define BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final) \
-        BOOST_OPAQUE_USING_LESS_THAN(Final) \
-        BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final) \
-        BOOST_OPAQUE_USING_GREATER_THAN(Final) \
-        BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final)
+#define BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final,Bool) \
+        BOOST_OPAQUE_USING_LESS_THAN(Final,Bool) \
+        BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final,Bool) \
+        BOOST_OPAQUE_USING_GREATER_THAN(Final,Bool) \
+        BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final,Bool)
 
+    template <typename Bool=bool>
     struct using_less_than_comparable1 {
         template <typename Final, typename UT, typename Base>
         struct type : Base {
-        BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final)
+            BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final,Bool)
         };
     };
     
-    template <typename Final, typename Base>
+    template <typename Final, typename Base, typename Bool=bool>
     struct less_than_comparable1 : Base {
-        BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final)
+        BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final,Bool)
     };
 
 
@@ -114,7 +116,7 @@ namespace opaque {
     struct using_dividable1 {
         template <typename Final, typename UT, typename Base>
         struct type : Base {
-            BOOST_OPAQUE_MULTIPLIABLE1(Final)
+            BOOST_OPAQUE_DIVIDABLE1(Final)
         };
     };
         
@@ -165,154 +167,188 @@ namespace opaque {
     template <typename Final, typename Base>
     struct partially_ordered1 : boost::partially_ordered1<Final, ope::less_than<Final, Base> > {};
 
+#define BOOST_OPAQUE_TOTALY_ORDERED1(Final,Bool) \
+        BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final,Bool) \
+        BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final,Bool)
 
-    template <class T, class UT, class B = base_new_type >
-    struct totally_ordered1
-        : opaque::less_than_comparable1<T
-        //~ , opaque::equality_comparable1<T, B
-        , opaque::using_equality_comparable1::template type<T, UT, B
-          > > {};
+    template <typename Bool=bool>
+    struct using_totally_ordered1 {
+        template <typename Final, typename UT, typename Base>
+        struct type : Base {
+            BOOST_OPAQUE_TOTALY_ORDERED1(Final,Bool)
+        };
+    };
+        
+    template <class Final, class UT, class Base, typename Bool=bool >
+    struct totally_ordered1 : Base 
+    {
+        BOOST_OPAQUE_TOTALY_ORDERED1(Final,Bool)
+    };
 
-    //~ template <class T, class U, class B = base_new_type >
+    //~ template <class T, class U, class Base = base_new_type >
     //~ struct additive2
         //~ : opaque::addable2<T, U
-        //~ , opaque::subtractable2<T, U, B
+        //~ , opaque::subtractable2<T, U, Base
           //~ > > {};
 
-    template <class T, class B = base_new_type >
-    struct additive1
-        : opaque::addable1<T
-        , opaque::subtractable1<T, B
-          > > {};
+    #define BOOST_OPAQUE_ADDITIVE1(Final) \
+        BOOST_OPAQUE_ADDABLE1(Final) \
+        BOOST_OPAQUE_SUBTRACTABLE1(Final)
 
-    //~ template <class T, class U, class B = base_new_type >
+
+    struct using_additive1 {
+        template <typename Final, typename UT, typename Base>
+        struct type : Base {
+            BOOST_OPAQUE_ADDITIVE1(Final)
+        };
+    };
+
+    template <class Final, class Base = base_new_type >
+    struct additive1 : Base
+    {
+            BOOST_OPAQUE_ADDITIVE1(Final)
+    };
+
+    //~ template <class T, class U, class Base = base_new_type >
     //~ struct multiplicative2
         //~ : opaque::multipliable2<T, U
-        //~ , opaque::dividable2<T, U, B
+        //~ , opaque::dividable2<T, U, Base
           //~ > > {};
 
-    template <class T, class B = base_new_type >
-    struct multiplicative1
-        : opaque::multipliable1<T
-        , opaque::dividable1<T, B
-          > > {};
+    #define BOOST_OPAQUE_MULTIPLICATIVE1(Final) \
+        BOOST_OPAQUE_MULTIPLIABLE1(Final) \
+        BOOST_OPAQUE_DIVIDABLE1(Final)
 
-    //~ template <class T, class U, class B = base_new_type >
+
+    struct using_multiplicative1 {
+        template <typename Final, typename UT, typename Base>
+        struct type : Base {
+            BOOST_OPAQUE_MULTIPLICATIVE1(Final)
+        };
+    };
+    
+    template <class Final, class Base = base_new_type >
+    struct multiplicative1 : Base
+    {
+            BOOST_OPAQUE_MULTIPLICATIVE1(Final)
+    };
+
+    //~ template <class T, class U, class Base = base_new_type >
     //~ struct integer_multiplicative2
         //~ : opaque::multiplicative2<T, U
-        //~ , opaque::modable2<T, U, B
+        //~ , opaque::modable2<T, U, Base
           //~ > > {};
 
-    template <class T, class B = base_new_type >
+    template <class T, class Base = base_new_type >
     struct integer_multiplicative1
         : opaque::multiplicative1<T
-        , opaque::modable1<T, B
+        , opaque::modable1<T, Base
           > > {};
 
-    //~ template <class T, class U, class B = base_new_type >
+    //~ template <class T, class U, class Base = base_new_type >
     //~ struct arithmetic2
         //~ : opaque::additive2<T, U
-        //~ , opaque::multiplicative2<T, U, B
+        //~ , opaque::multiplicative2<T, U, Base
           //~ > > {};
 
-    template <class T, class B = base_new_type >
+    template <class T, class Base = base_new_type >
     struct arithmetic1
         : opaque::additive1<T
-        , opaque::multiplicative1<T, B
+        , opaque::multiplicative1<T, Base
           > > {};
 
-    //~ template <class T, class U, class B = base_new_type >
+    //~ template <class T, class U, class Base = base_new_type >
     //~ struct integer_arithmetic2
         //~ : additive2<T, U
-        //~ , integer_multiplicative2<T, U, B
+        //~ , integer_multiplicative2<T, U, Base
           //~ > > {};
 
-    template <class T, class B = base_new_type >
+    template <class T, class Base = base_new_type >
     struct integer_arithmetic1
         : opaque::additive1<T
-        , opaque::integer_multiplicative1<T, B
+        , opaque::integer_multiplicative1<T, Base
           > > {};
 
-    //~ template <class T, class U, class B = base_new_type >
+    //~ template <class T, class U, class Base = base_new_type >
     //~ struct bitwise2
         //~ : opaque::xorable2<T, U
         //~ , opaque::andable2<T, U
-        //~ , opaque::orable2<T, U, B
+        //~ , opaque::orable2<T, U, Base
           //~ > > > {};
 
-    template <class T, class B = base_new_type >
+    template <class T, class Base = base_new_type >
     struct bitwise1
         : opaque::xorable1<T
         , opaque::andable1<T
-        , opaque::orable1<T, B
+        , opaque::orable1<T, Base
           > > > {};
 
-    template <class T, class B = base_new_type >
+    template <class T, class Base = base_new_type >
     struct unit_steppable
         : opaque::incrementable<T
-        , opaque::decrementable<T, B
+        , opaque::decrementable<T, Base
           > > {};
 
-    //~ template <class T, class U, class B = base_new_type >
+    //~ template <class T, class U, class Base = base_new_type >
     //~ struct shiftable2
         //~ : opaque::left_shiftable2<T, U
-        //~ , opaque::right_shiftable2<T, U, B
+        //~ , opaque::right_shiftable2<T, U, Base
           //~ > > {};
 
-    template <class T, class B = base_new_type >
+    template <class T, class Base = base_new_type >
     struct shiftable1
         : opaque::left_shiftable1<T
-        , opaque::right_shiftable1<T, B
+        , opaque::right_shiftable1<T, Base
           > > {};
 
-    //~ template <class T, class U, class B = base_new_type >
+    //~ template <class T, class U, class Base = base_new_type >
     //~ struct ring_operators2
         //~ : opaque::additive2<T, U
         //~ , opaque::subtractable2_left<T, U
-        //~ , opaque::multipliable2<T, U, B
+        //~ , opaque::multipliable2<T, U, Base
           //~ > > > {};
 
-    template <class T, class B = base_new_type >
+    template <class T, class Base = base_new_type >
     struct ring_operators1
         : opaque::additive1<T
-        , opaque::multipliable1<T, B
+        , opaque::multipliable1<T, Base
           > > {};
 
-    //~ template <class T, class U, class B = base_new_type >
+    //~ template <class T, class U, class Base = base_new_type >
     //~ struct ordered_ring_operators2
         //~ : opaque::ring_operators2<T, U
-        //~ , opaque::totally_ordered2<T, U, B
+        //~ , opaque::totally_ordered2<T, U, Base
           //~ > > {};
 
-    template <class T, class UT, class B = base_new_type >
+    template <class T, class UT, class Base = base_new_type >
     struct ordered_ring_operators1
         : opaque::ring_operators1<T
-        , opaque::totally_ordered1<T, UT, B
+        , opaque::totally_ordered1<T, UT, Base
           > > {};
 
-    //~ template <class T, class U, class B = base_new_type >
+    //~ template <class T, class U, class Base = base_new_type >
     //~ struct field_operators2
         //~ : opaque::ring_operators2<T, U
         //~ , opaque::dividable2<T, U
-        //~ , opaque::dividable2_left<T, U, B
+        //~ , opaque::dividable2_left<T, U, Base
           //~ > > > {};
 
-    template <class T, class B = base_new_type >
+    template <class T, class Base = base_new_type >
     struct field_operators1
         : opaque::ring_operators1<T
-        , opaque::dividable1<T, B
+        , opaque::dividable1<T, Base
           > > {};
 
-    //~ template <class T, class U, class B = base_new_type >
+    //~ template <class T, class U, class Base = base_new_type >
     //~ struct ordered_field_operators2
         //~ : opaque::field_operators2<T, U
-        //~ , opaque::totally_ordered2<T, U, B
+        //~ , opaque::totally_ordered2<T, U, Base
           //~ > > {};
 
-    template <class T, class UT, class B = base_new_type >
+    template <class T, class UT, class Base = base_new_type >
     struct ordered_field_operators1
         : opaque::field_operators1<T
-        , opaque::totally_ordered1<T, UT, B
+        , opaque::totally_ordered1<T, UT, Base
           > > {};
 
 

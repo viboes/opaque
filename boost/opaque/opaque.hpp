@@ -20,6 +20,7 @@
 #include <boost/opaque/private_opaque_class.hpp>
 #include <boost/opaque/public_opaque_type.hpp>
 #include <boost/opaque/public_opaque_class.hpp>
+#include <boost/opaque/boolean.hpp>
 #include <boost/opaque/macros.hpp>
 
 #include <boost/mpl/bool.hpp>
