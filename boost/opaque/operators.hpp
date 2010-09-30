@@ -13,7 +13,6 @@
 #ifndef BOOST_OPAQUE_OPERATORS_HPP
 #define BOOST_OPAQUE_OPERATORS_HPP
 
-//~ #include <boost/opaque/new_type.hpp>
 #include <boost/operators.hpp>
 
 namespace boost {
@@ -56,6 +55,29 @@ namespace ope {
         };
     };
 
+    template <typename T>
+    struct using_conversion_to {
+        template <typename Final, typename UT, typename Base>
+        struct type: Base {
+            operator T() const{
+                return T(Final::underlying(this));
+            }
+        };
+    };
+
+    struct using_conversion_safe_bool {
+        template <typename Final, typename UT, typename Base>
+        struct type: Base {
+            typedef typename Final::underlying_type const& (Final::*unspecified_bool_type)() const;
+
+            operator unspecified_bool_type() const
+              { return Final::underlying(this) ? &Final::underlying : 0; }
+            //~ BOOST_OPAQUE_USING_CONVERSION(Final,UT)
+        };
+    };
+
+
+
 #define BOOST_OPAQUE_USING_LESS_THAN(Final, Bool) \
     public :\
         Bool operator<(const Final& rhs) const  { \
@@ -66,7 +88,7 @@ namespace ope {
     struct less_than : Base {
         BOOST_OPAQUE_USING_LESS_THAN(Final, Bool)
     };
-    
+
     template <typename Bool=bool>
     struct using_less_than {
         template <typename Final, typename UT, typename Base>
@@ -383,7 +405,7 @@ namespace ope {
             BOOST_OPAQUE_USING_UNARY_MINUS(Final)
         };
     };
-    
+
     template <typename Final, typename Base>
     struct unary_minus : Base {
         BOOST_OPAQUE_USING_UNARY_MINUS(Final)
@@ -508,10 +530,10 @@ namespace ope {
     struct post_decrement : Base {
         BOOST_OPAQUE_USING_POST_DECREMENT(Final)
     };
-    
+
 #if 0
 // I don't know why this doesn't works :(
-    
+
 #define BOOST_OPAQUE_USING_PLUS(Final) \
     public :\
         Final operator+(const Final& rhs) const { \
@@ -554,7 +576,25 @@ namespace ope {
             return Final(Final::underlying(this) % rhs.underlying()); \
         }
 
-    
+#define BOOST_OPAQUE_USING_BITWISE_XOR(Final) \
+    public :\
+        Final operator^(const Final& rhs) const { \
+            return Final(Final::underlying(this) ^ rhs.underlying()); \
+        }
+
+#define BOOST_OPAQUE_USING_BITWISE_OR(Final) \
+    public :\
+        Final operator|(const Final& rhs) const { \
+            return Final(Final::underlying(this) | rhs.underlying()); \
+        }
+
+#define BOOST_OPAQUE_USING_BITWISE_AND(Final) \
+    public :\
+        Final operator&(const Final& rhs) const { \
+            return Final(Final::underlying(this) & rhs.underlying()); \
+        }
+
+
 }
 
 }
