@@ -14,7 +14,7 @@
 #define BOOST_OPAQUE_OPAQUE_TYPE_HPP
 
 #include <boost/opaque/new_type.hpp>
-#include <boost/opaque/combined_operators.hpp>
+#include <boost/opaque/meta_mixin/combined_operators.hpp>
 
 namespace boost {
 

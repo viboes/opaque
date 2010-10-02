@@ -13,8 +13,8 @@
 #ifndef BOOST_OPAQUE_PRIVATE_OPAQUE_CLASS_HPP
 #define BOOST_OPAQUE_PRIVATE_OPAQUE_CLASS_HPP
 
-#include <boost/opaque/combined_operators.hpp>
-#include <boost/opaque/transitive_explicit_substituable.hpp>
+#include <boost/opaque/meta_mixin/combined_operators.hpp>
+#include <boost/opaque/meta_mixin/transitive_explicit_substituable.hpp>
 
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>

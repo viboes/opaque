@@ -13,7 +13,7 @@
 #ifndef BOOST_OPAQUE_PUBLIC_OPAQUE_TYPE_HPP
 #define BOOST_OPAQUE_PUBLIC_OPAQUE_TYPE_HPP
 
-#include <boost/opaque/combined_operators.hpp>
+#include <boost/opaque/meta_mixin/combined_operators.hpp>
 #include <boost/opaque/new_class.hpp>
 #include <boost/opaque/public_opaque_class.hpp>
 

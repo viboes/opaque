@@ -13,7 +13,7 @@
 #ifndef BOOST_OPAQUE_TRANSITIVE_EXPLICIT_SUBSTITUABLE_HPP
 #define BOOST_OPAQUE_TRANSITIVE_EXPLICIT_SUBSTITUABLE_HPP
 
-#include <boost/opaque/combined_operators.hpp>
+#include <boost/opaque/meta_mixin/combined_operators.hpp>
 
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>

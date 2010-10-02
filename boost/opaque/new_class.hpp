@@ -13,7 +13,7 @@
 #ifndef BOOST_OPAQUE_NEW_CLASS_HPP
 #define BOOST_OPAQUE_NEW_CLASS_HPP
 
-#include <boost/opaque/linear_hierarchy.hpp>
+#include <boost/opaque/meta_mixin/linear_hierarchy.hpp>
 
 namespace boost {
 

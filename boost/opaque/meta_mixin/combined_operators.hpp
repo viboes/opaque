@@ -14,7 +14,7 @@
 #define BOOST_OPAQUE_COMBINED_OPERATORS_HPP
 
 #include <boost/operators.hpp>
-#include <boost/opaque/operators.hpp>
+#include <boost/opaque/meta_mixin/operators.hpp>
 
 namespace boost {
 

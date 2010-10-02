@@ -15,7 +15,8 @@
 
 #include <boost/opaque/new_type.hpp>
 #include <boost/opaque/new_class.hpp>
-#include <boost/opaque/operators.hpp>
+#include <boost/opaque/meta_mixin/operators.hpp>
+#include <boost/opaque/meta_mixin/combined_operators.hpp>
 #include <boost/opaque/private_opaque_type.hpp>
 #include <boost/opaque/private_opaque_class.hpp>
 #include <boost/opaque/public_opaque_type.hpp>
@@ -27,7 +28,6 @@
 #include <boost/mpl/assert.hpp>
 #define BOOST_OPAQUE_STATIC_ASSERT(CND, MSG, TYPES)                                 \
     BOOST_MPL_ASSERT_MSG(boost::mpl::bool_< (CND) >::type::value, MSG, TYPES)
-
 
 namespace boost {
 
