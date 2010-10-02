@@ -560,7 +560,6 @@ namespace ope {
             return Final(Final::underlying(this) >> rhs.underlying()); \
         }
 
-
 }
 
 }

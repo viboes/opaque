@@ -13,34 +13,14 @@
 #ifndef BOOST_OPAQUE_NEW_CLASS_HPP
 #define BOOST_OPAQUE_NEW_CLASS_HPP
 
-#include <boost/mpl/vector.hpp>
-#include <boost/mpl/fold.hpp>
+#include <boost/opaque/linear_hierarchy.hpp>
 
 namespace boost {
 
     class base_new_type {};
 
-    ////// implementation //////
-    namespace detail{
-
-    template<typename NT, typename UT, typename State, typename Concept>
-    struct do_inhetit : Concept::template type<NT, UT, State> {
-    };
-
-    template<typename NT, typename UT>
-    struct inherit {
-        template<typename State, typename Concept>
-        struct apply{
-            typedef do_inhetit<NT, UT, State, Concept> type;
-        };
-    };
-
-    }
-
-    template <typename Final, typename T, typename Concepts=boost::mpl::vector0<>, typename Base=base_new_type >
-    class new_class : public
-        //~ Base
-        boost::mpl::fold<Concepts, Base, detail::inherit<Final, T> >::type
+    template <typename Final, typename T, typename MetaMixinSeq=boost::mpl::vector0<>, typename Base=base_new_type >
+    class new_class : public linear_hierarchy<MetaMixinSeq, Final, T, Base>::type
     {
     public:
         typedef T underlying_type;
@@ -85,8 +65,8 @@ namespace boost {
 
     };
 
-    template <typename T, typename Final, typename UT, typename Concepts, typename Base >
-    T opaque_static_cast(new_class<Final, UT, Concepts, Base> const& v)
+    template <typename T, typename Final, typename UT, typename MetaMixinSeq, typename Base >
+    T opaque_static_cast(new_class<Final, UT, MetaMixinSeq, Base> const& v)
     {
         return static_cast<T>(v.underlying());
     }
