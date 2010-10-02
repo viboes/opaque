@@ -214,7 +214,7 @@ namespace opaque {
             BOOST_OPAQUE_DECREMENTABLE(Final)
         };
     };
-        
+
 #define BOOST_OPAQUE_LEFT_SHIFTABLE1(Final) \
         BOOST_OPAQUE_USING_LEFT_SHIFT_ASSIGN(Final) \
         BOOST_OPAQUE_USING_LEFT_SHIFT1(Final)
@@ -313,7 +313,7 @@ namespace opaque {
         BOOST_OPAQUE_MODABLE1(Final)
 
     struct integer_multiplicative1
-    {    
+    {
         template <class Final, class UT, class Base = base_new_type >
         struct type : Base
         {
@@ -333,7 +333,7 @@ namespace opaque {
 
 
     struct using_arithmetic1
-    {    
+    {
         template <class Final, class UT, class Base = base_new_type >
         struct type : Base
         {
@@ -352,7 +352,7 @@ namespace opaque {
         BOOST_OPAQUE_INTEGER_MULTIPLICATIVE1(Final)
 
     struct using_integer_arithmetic1
-    {    
+    {
         template <class Final, class UT, class Base = base_new_type >
         struct type : Base
         {
@@ -373,7 +373,7 @@ namespace opaque {
         BOOST_OPAQUE_BITWISE_ORABLE1(Final)
 
     struct using_bitwise1
-    {    
+    {
         template <class Final, class UT, class Base = base_new_type >
         struct type : Base
         {
@@ -386,10 +386,10 @@ namespace opaque {
         BOOST_OPAQUE_DECREMENTABLE(Final)
 
     struct using_unit_steppable
-    {    
+    {
         template <class Final, class UT, class Base = base_new_type >
         struct type : Base
-        {       
+        {
             BOOST_OPAQUE_UNIT_STEPABLE(Final)
         };
     };
@@ -422,7 +422,7 @@ namespace opaque {
 
     #define BOOST_OPAQUE_RING1(Final) \
         BOOST_OPAQUE_ADDITIVE1(Final) \
-        BOOST_OPAQUE_MULTIPLICATIVE1(Final)
+        BOOST_OPAQUE_MULTIPLIABLE1(Final)
 
     struct using_ring_operators1
     {
@@ -444,7 +444,7 @@ namespace opaque {
         BOOST_OPAQUE_TOTALY_ORDERED1(Final,Bool)
 
     template <typename Bool=bool>
-    struct using_ordered_ring_operators1 
+    struct using_ordered_ring_operators1
     {
         template <class Final, class UT, class Base = base_new_type>
         struct type : Base
@@ -464,7 +464,7 @@ namespace opaque {
         BOOST_OPAQUE_RING1(Final) \
         BOOST_OPAQUE_DIVIDABLE1(Final)
 
-    struct using_field_operators1 
+    struct using_field_operators1
     {
         template <class Final, class Base = base_new_type>
         struct type: Base
@@ -472,7 +472,6 @@ namespace opaque {
             BOOST_OPAQUE_FIELD1(Final)
         };
     };
-
     //~ template <class T, class U, class Base = base_new_type >
     //~ struct ordered_field_operators2
         //~ : opaque::field_operators2<T, U
@@ -484,7 +483,7 @@ namespace opaque {
         BOOST_OPAQUE_TOTALY_ORDERED1(Final,Bool)
 
     template <typename Bool=bool>
-    struct using_ordered_field_operators1 
+    struct using_ordered_field_operators1
     {
         template <class Final, class UT, class Base = base_new_type>
         struct type : Base
@@ -492,7 +491,6 @@ namespace opaque {
             BOOST_OPAQUE_ORDERED_FIELD1(Final,Bool)
         };
     };
-
 
 }
     template <typename T, typename Bool=bool>
