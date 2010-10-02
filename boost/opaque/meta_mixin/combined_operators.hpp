@@ -438,19 +438,6 @@ namespace opaque {
     };
 
 }
-    template <typename T, typename Bool=bool>
-    struct inherited_from_undelying {
-        template <typename Final, typename Base>
-        struct type : Base
-        {
-            BOOST_OPAQUE_TOTALY_ORDERED1(Final,Bool)
-            BOOST_OPAQUE_INTEGER_ARITHMETIC1(Final)
-            BOOST_OPAQUE_BITWISE1(Final)
-            BOOST_OPAQUE_UNIT_STEPABLE(Final)
-            BOOST_OPAQUE_USING_UNARY_PLUS(Final)
-            BOOST_OPAQUE_USING_UNARY_MINUS(Final)
-        };
-    };
 }
 
 
