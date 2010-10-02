@@ -23,18 +23,18 @@
 namespace boost {
     class base_private_opaque_type {};
 
-    template <typename Final, typename T, typename Concepts=boost::mpl::vector0<>, typename Base=base_private_opaque_type>
+    template <typename Final, typename T, typename MetaMixinSeq=boost::mpl::vector0<>, typename Base=base_private_opaque_type>
     class private_opaque_class : public
-            new_class< Final, T, Concepts,
+            new_class< Final, T, MetaMixinSeq,
                 transitive_explicit_substituable<base_private_opaque_type>::template type<Final, T,
-                    typename inherited_from_undelying<T>::template type<Final, T, Base>
+                    typename inherited_from_undelying<T>::template type<Final, Base>
                 >
             >
     {
         typedef
-            new_class< Final, T, Concepts,
+            new_class< Final, T, MetaMixinSeq,
                 transitive_explicit_substituable<base_private_opaque_type>::template type<Final, T,
-                    typename inherited_from_undelying<T>::template type<Final, T, Base>
+                    typename inherited_from_undelying<T>::template type<Final, Base>
                 >
             >
         base_type;

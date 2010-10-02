@@ -24,12 +24,12 @@
 
 namespace boost {
 
-    template <typename T, typename Tag=void, typename Concepts=boost::mpl::vector0<>, typename Base=base_private_opaque_type>
+    template <typename T, typename Tag=void, typename MetaMixinSeq=boost::mpl::vector0<>, typename Base=base_private_opaque_type>
     class private_opaque_type : public
-            private_opaque_class< private_opaque_type<T,Tag,Concepts,Base>, T, Concepts, Base>
+            private_opaque_class< private_opaque_type<T,Tag,MetaMixinSeq,Base>, T, MetaMixinSeq, Base>
     {
         typedef
-            private_opaque_class< private_opaque_type<T,Tag,Concepts,Base>, T, Concepts, Base>
+            private_opaque_class< private_opaque_type<T,Tag,MetaMixinSeq,Base>, T, MetaMixinSeq, Base>
         base_type;
     protected:
         typedef private_opaque_type opaque_type_t;

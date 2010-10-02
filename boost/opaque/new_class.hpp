@@ -20,7 +20,7 @@ namespace boost {
     class base_new_type {};
 
     template <typename Final, typename T, typename MetaMixinSeq=boost::mpl::vector0<>, typename Base=base_new_type >
-    class new_class : public linear_hierarchy<MetaMixinSeq, Final, T, Base>::type
+    class new_class : public linear_hierarchy<MetaMixinSeq, Final, Base>::type
     {
     public:
         typedef T underlying_type;

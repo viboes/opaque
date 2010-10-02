@@ -26,11 +26,11 @@
 namespace boost {
 
 
-    template <typename T, typename Tag=void, typename Concepts=boost::mpl::vector0<>, typename Base=base_public_opaque_type>
+    template <typename T, typename Tag=void, typename MetaMixinSeq=boost::mpl::vector0<>, typename Base=base_public_opaque_type>
     class public_opaque_type
-        : public public_opaque_class< public_opaque_type<T,Tag,Concepts,Base>, T, Concepts, Base>
+        : public public_opaque_class< public_opaque_type<T,Tag,MetaMixinSeq,Base>, T, MetaMixinSeq, Base>
     {
-        typedef public_opaque_class< public_opaque_type<T,Tag,Concepts,Base>, T, Concepts, Base> base_type;
+        typedef public_opaque_class< public_opaque_type<T,Tag,MetaMixinSeq,Base>, T, MetaMixinSeq, Base> base_type;
     protected:
         typedef public_opaque_type opaque_type_t;
     public:

@@ -43,7 +43,7 @@ namespace boost {
     struct transitive_substituable_help {
         template <typename Final, typename Base>
         struct type : transitive_substituable<BaseClass, UT>::template type<Final,
-                    typename inherited_from_undelying<UT>::template type<Final, UT, Base>
+                    typename inherited_from_undelying<UT>::template type<Final, Base>
                 >
 
         {
@@ -55,28 +55,28 @@ namespace boost {
 
 
 
-    template <typename Final, typename T, typename Concepts=boost::mpl::vector0<>, typename Base=base_public_opaque_type>
+    template <typename Final, typename T, typename MetaMixinSeq=boost::mpl::vector0<>, typename Base=base_public_opaque_type>
     class public_opaque_class
         : public
-            new_class< Final, T, Concepts,
+            new_class< Final, T, MetaMixinSeq,
 #define COMPILER_WORKS
 #if !defined(COMPILER_WORKS)
                 typename transitive_substituable_help<base_public_opaque_type, T>::template type<Final, Base>
 #else
                 typename transitive_substituable<base_public_opaque_type, T>::template type<Final,
-                    typename inherited_from_undelying<T>::template type<Final, T, Base>
+                    typename inherited_from_undelying<T>::template type<Final, Base>
                 >
 #endif
             >
 
     {
         typedef
-            new_class< Final, T, Concepts,
+            new_class< Final, T, MetaMixinSeq,
 #if !defined(COMPILER_WORKS)
                 typename transitive_substituable_help<base_public_opaque_type, T>::template type<Final, Base>
 #else
                 typename transitive_substituable<base_public_opaque_type, T>::template type<Final,
-                    typename inherited_from_undelying<T>::template type<Final, T, Base>
+                    typename inherited_from_undelying<T>::template type<Final, Base>
                 >
 #endif
             >

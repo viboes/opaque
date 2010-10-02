@@ -25,7 +25,7 @@ namespace ope {
             T( const T& );
 
     struct hiding_copy {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type : Base {
             BOOST_OPAQUE_HIDING_COPY(type)
         };
@@ -36,7 +36,7 @@ namespace ope {
             T& operator=(T const&);
 
     struct hiding_assign {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type : Base {
             BOOST_OPAQUE_HIDING_ASSIGN(type)
         };
@@ -48,8 +48,9 @@ namespace ope {
                 return Final::underlying(this); \
             }
 
+    template <typename UT>
     struct using_conversion {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_CONVERSION(Final,UT)
         };
@@ -57,7 +58,7 @@ namespace ope {
 
     template <typename T>
     struct using_conversion_to {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             operator T() const{
                 return T(Final::underlying(this));
@@ -66,13 +67,14 @@ namespace ope {
     };
 
     struct using_conversion_safe_bool {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             typedef typename Final::underlying_type const& (Final::*unspecified_bool_type)() const;
 
             operator unspecified_bool_type() const
-              { return Final::underlying(this) ? &Final::underlying : 0; }
-            //~ BOOST_OPAQUE_USING_CONVERSION(Final,UT)
+            { 
+                return Final::underlying(this) ? &Final::underlying : 0; 
+            }
         };
     };
 
@@ -86,7 +88,7 @@ namespace ope {
 
     template <typename Bool=bool>
     struct using_less_than {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_LESS_THAN(Final,Bool)
         };
@@ -100,7 +102,7 @@ namespace ope {
 
     template <typename Bool=bool>
     struct using_less_than_equal {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final,Bool)
         };
@@ -114,7 +116,7 @@ namespace ope {
 
     template <typename Bool=bool>
     struct using_greater_than {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_GREATER_THAN(Final,Bool)
         };
@@ -128,7 +130,7 @@ namespace ope {
 
     template <typename Bool=bool>
     struct using_greater_than_equal {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final,Bool)
         };
@@ -142,7 +144,7 @@ namespace ope {
 
     template <typename Bool=bool>
     struct using_equal {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_EQUAL(Final,Bool)
         };
@@ -156,7 +158,7 @@ namespace ope {
 
     template <typename Bool=bool>
     struct using_not_equal {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_NOT_EQUAL(Final,Bool)
         };
@@ -170,7 +172,7 @@ namespace ope {
         }
 
     struct using_plus_assign {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_PLUS_ASSIGN(Final)
         };
@@ -184,7 +186,7 @@ namespace ope {
         }
 
     struct using_minus_assign {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_MINUS_ASSIGN(Final)
         };
@@ -198,7 +200,7 @@ namespace ope {
         }
 
     struct using_multiply_assign {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_MULTIPLY_ASSIGN(Final)
         };
@@ -212,7 +214,7 @@ namespace ope {
         }
 
     struct using_divide_assign {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_DIVIDE_ASSIGN(Final)
         };
@@ -226,7 +228,7 @@ namespace ope {
         }
 
     struct using_modulus_assign {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_MODULUS_ASSIGN(Final)
         };
@@ -240,7 +242,7 @@ namespace ope {
         }
 
     struct using_bitwise_xor_assign {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_BITWISE_XOR_ASSIGN(Final)
         };
@@ -254,7 +256,7 @@ namespace ope {
         }
 
     struct using_bitwise_and_assign {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_BITWISE_AND_ASSIGN(Final)
         };
@@ -268,7 +270,7 @@ namespace ope {
         }
 
     struct using_bitwise_or_assign {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_BITWISE_OR_ASSIGN(Final)
         };
@@ -282,7 +284,7 @@ namespace ope {
         }
 
     struct using_left_shift_assign {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_LEFT_SHIFT_ASSIGN(Final)
         };
@@ -300,7 +302,7 @@ namespace ope {
         }
 
     struct using_left_right_assign {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_RIGHT_SHIFT_ASSIGN(Final)
         };
@@ -318,7 +320,7 @@ namespace ope {
         }
 
     struct using_logical_not {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_LOGICAL_NOT(Final)
         };
@@ -336,7 +338,7 @@ namespace ope {
         }
 
     struct using_unary_plus {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_UNARY_PLUS(Final)
         };
@@ -354,7 +356,7 @@ namespace ope {
         }
 
     struct using_unary_minus {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_UNARY_MINUS(Final)
         };
@@ -372,7 +374,7 @@ namespace ope {
         }
 
     struct using_bitwise_not {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_BITWISE_NOT(Final)
         };
@@ -419,7 +421,7 @@ namespace ope {
         }
 
     struct using_pre_increment {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_PRE_INCREMENT(Final)
         };
@@ -437,7 +439,7 @@ namespace ope {
         }
 
     struct using_pre_decrement {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_PRE_DECREMENT(Final)
         };
@@ -456,7 +458,7 @@ namespace ope {
         }
 
     struct using_post_increment {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_POST_INCREMENT(Final)
         };
@@ -475,7 +477,7 @@ namespace ope {
         }
 
     struct using_post_decrement {
-        template <typename Final, typename UT, typename Base>
+        template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_POST_DECREMENT(Final)
         };
@@ -561,7 +563,6 @@ namespace ope {
         }
 
 }
-
 }
 }
 
