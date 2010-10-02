@@ -17,7 +17,6 @@
 #include <boost/opaque/meta_mixin/operators.hpp>
 
 namespace boost {
-
 namespace opaque {
 
 #define BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final,Bool) \
@@ -31,11 +30,6 @@ namespace opaque {
             BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final,Bool)
         };
     };
-
-    //~ template <typename Final, typename Base, typename Bool=bool>
-    //~ struct equality_comparable1 : Base {
-        //~ BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final,Bool)
-    //~ };
 
 #define BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final,Bool) \
         BOOST_OPAQUE_USING_LESS_THAN(Final,Bool) \
@@ -51,11 +45,6 @@ namespace opaque {
         };
     };
 
-    //~ template <typename Final, typename Base, typename Bool=bool>
-    //~ struct less_than_comparable1 : Base {
-        //~ BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final,Bool)
-    //~ };
-
 
 #define BOOST_OPAQUE_ADDABLE1(Final) \
         BOOST_OPAQUE_USING_PLUS_ASSIGN(Final) \
@@ -69,11 +58,6 @@ namespace opaque {
     };
 
 
-    //~ template <typename Final, typename Base>
-    //~ struct addable1 : Base  {
-        //~ BOOST_OPAQUE_ADDABLE1(Final)
-    //~ };
-
 #define BOOST_OPAQUE_SUBTRACTABLE1(Final) \
         BOOST_OPAQUE_USING_MINUS_ASSIGN(Final) \
         BOOST_OPAQUE_USING_MINUS(Final)
@@ -84,13 +68,6 @@ namespace opaque {
             BOOST_OPAQUE_SUBTRACTABLE1(Final)
         };
     };
-
-
-    //~ template <typename Final, typename Base>
-    //~ struct subtractable1 : Base
-    //~ {
-        //~ BOOST_OPAQUE_SUBTRACTABLE1(Final)
-    //~ };
 
 
 #define BOOST_OPAQUE_MULTIPLIABLE1(Final) \
@@ -104,10 +81,6 @@ namespace opaque {
         };
     };
 
-    //~ template <typename Final, typename Base>
-    //~ struct multipliable1 : Base {
-            //~ BOOST_OPAQUE_MULTIPLIABLE1(Final)
-    //~ };
 
 #define BOOST_OPAQUE_DIVIDABLE1(Final) \
         BOOST_OPAQUE_USING_DIVIDE_ASSIGN(Final) \
@@ -119,12 +92,6 @@ namespace opaque {
             BOOST_OPAQUE_DIVIDABLE1(Final)
         };
     };
-
-    //~ template <typename Final, typename Base>
-    //~ struct dividable1 : Base
-    //~ {
-            //~ BOOST_OPAQUE_DIVIDABLE1(Final)
-    //~ };
 
 #define BOOST_OPAQUE_MODABLE1(Final) \
         BOOST_OPAQUE_USING_MODULUS_ASSIGN(Final) \
@@ -148,11 +115,6 @@ namespace opaque {
         };
     };
 
-    //~ template <typename Final, typename Base>
-    //~ struct bitwise_xorable1 : Base {
-        //~ BOOST_OPAQUE_BITWISE_XORABLE1(Final)
-    //~ };
-
 #define BOOST_OPAQUE_BITWISE_ANDABLE1(Final) \
         BOOST_OPAQUE_USING_BITWISE_AND_ASSIGN(Final) \
         BOOST_OPAQUE_USING_BITWISE_AND(Final)
@@ -163,11 +125,6 @@ namespace opaque {
             BOOST_OPAQUE_BITWISE_ANDABLE1(Final)
         };
     };
-
-    //~ template <typename Final, typename Base>
-    //~ struct bitwise_andable1 : Base {
-            //~ BOOST_OPAQUE_BITWISE_ANDABLE1(Final)
-    //~ };
 
 #define BOOST_OPAQUE_BITWISE_ORABLE1(Final) \
         BOOST_OPAQUE_USING_BITWISE_OR_ASSIGN(Final) \
@@ -180,17 +137,9 @@ namespace opaque {
         };
     };
 
-    //~ template <typename Final, typename Base>
-    //~ struct bitwise_orable1 : Base {
-        //~ BOOST_OPAQUE_BITWISE_ORABLE1(Final)
-    //~ };
-
 #define BOOST_OPAQUE_INCREMENTABLE(Final) \
         BOOST_OPAQUE_USING_PRE_INCREMENT(Final) \
         BOOST_OPAQUE_USING_POST_INCREMENT(Final)
-
-    //~ template <typename Final, typename Base>
-    //~ struct incrementable : boost::incrementable<Final, ope::pre_increment<Final, Base> > {};
 
     struct using_incrementable {
         template <typename Final, typename Base>
@@ -203,9 +152,6 @@ namespace opaque {
 #define BOOST_OPAQUE_DECREMENTABLE(Final) \
         BOOST_OPAQUE_USING_PRE_DECREMENT(Final) \
         BOOST_OPAQUE_USING_POST_DECREMENT(Final)
-
-    //~ template <typename Final, typename Base>
-    //~ struct decrementable : boost::decrementable<Final, ope::pre_decrement<Final, Base> > {};
 
     struct using_decrementable {
         template <typename Final, typename Base>
@@ -275,7 +221,6 @@ namespace opaque {
     #define BOOST_OPAQUE_ADDITIVE1(Final) \
         BOOST_OPAQUE_ADDABLE1(Final) \
         BOOST_OPAQUE_SUBTRACTABLE1(Final)
-
 
     struct using_additive1 {
         template <typename Final, typename Base>
