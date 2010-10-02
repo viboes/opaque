@@ -41,22 +41,30 @@ namespace boost {
     {};
 
     }
+    namespace dummy {
+        template <typename T> struct base_tag {};
+        template <typename T> struct type_tag : public base_tag<T> {};
+    }
 
     template <typename BaseClass>
     struct transitive_explicit_substituable {
         template <typename Final, typename UT, typename Base>
         struct type
-    #if defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
-            : Base {};
-    #else
             : detail::transitive_explicit_substituable_next_level<BaseClass, Final, UT, Base,
                     mpl::and_<is_class<UT>, is_base_of<BaseClass, UT> >::value>
         {
-            explicit operator UT() const {
+    #if defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
+            friend UT convert_to(Final const& rhs, boost::dummy::type_tag<UT> const&)
+            {
+                    return Final::final(&rhs).underlying();
+            }
+    #else
+            explicit operator UT() const 
+            {
                     return Final::final(this).underlying();
             }
-        };
     #endif
+        };
     };
     
 
