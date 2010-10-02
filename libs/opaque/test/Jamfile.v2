@@ -71,4 +71,9 @@ project
    test-suite "examples"
         :
         [ run ../example/ex1.cpp ]
+        [ run ../example/ex2.cpp ]
+        [ run ../example/ex3.cpp ]
+        [ run ../example/ex4.cpp ]
+        [ compile-fail ../example/ex5.cpp ]
+        [ compile ../example/ex6.cpp ]
         ;

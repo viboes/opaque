@@ -20,11 +20,10 @@ typedef int Int;
 
 bool gt(Int a, Int b)
 {
-    if(a) return a > b;  // 1
-    else return 0;       // 2
+    if(a) return a > b;  // 1 don't fails even if a is not a bool
+    else return 0;       // 2 don't fails even if 0 is not a bool
 } 
 #else
-//~ BOOST_OPAQUE_PUBLIC_TYPEDEF(bool, Bool);
 struct private_unsigned_tag;
 typedef boost::new_type<unsigned, private_unsigned_tag, boost::mpl::vector<
     opaque::using_totally_ordered1<opaque::boolean> 
@@ -34,7 +33,6 @@ typedef boost::new_type<unsigned, private_unsigned_tag, boost::mpl::vector<
 opaque::boolean gt(Int a, Int b)
 {
     if(a!=Int(0)) return a > b;  // 1
-    //~ else return false;       // 2
     else return opaque::false_;       // 2
 } 
 #endif
