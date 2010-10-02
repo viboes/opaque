@@ -39,23 +39,46 @@ namespace boost {
         typedef mpl::vector<T> type;
     };
 
+    template <typename BaseClass, typename UT>
+    struct transitive_substituable_help {
+        template <typename Final, typename Base>
+        struct type : transitive_substituable<BaseClass, UT>::template type<Final,
+                    typename inherited_from_undelying<UT>::template type<Final, UT, Base>
+                >
+
+        {
+            operator UT() const {
+                    return Final::final(this).underlying();
+            }
+        };
+    };
+
 
 
     template <typename Final, typename T, typename Concepts=boost::mpl::vector0<>, typename Base=base_public_opaque_type>
     class public_opaque_class
         : public
             new_class< Final, T, Concepts,
-                transitive_substituable<base_public_opaque_type>::template type<Final, T,
+#define COMPILER_WORKS
+#if !defined(COMPILER_WORKS)
+                typename transitive_substituable_help<base_public_opaque_type, T>::template type<Final, Base>
+#else
+                typename transitive_substituable<base_public_opaque_type, T>::template type<Final,
                     typename inherited_from_undelying<T>::template type<Final, T, Base>
                 >
+#endif
             >
 
     {
         typedef
             new_class< Final, T, Concepts,
-                transitive_substituable<base_public_opaque_type>::template type<Final, T,
+#if !defined(COMPILER_WORKS)
+                typename transitive_substituable_help<base_public_opaque_type, T>::template type<Final, Base>
+#else
+                typename transitive_substituable<base_public_opaque_type, T>::template type<Final,
                     typename inherited_from_undelying<T>::template type<Final, T, Base>
                 >
+#endif
             >
         base_type;
 
