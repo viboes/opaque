@@ -1,0 +1,1909 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Toward Boost.Opaque 0.1.0</title>
+<link rel="stylesheet" href="../../../../doc/html/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.69.1">
+<link rel="start" href="index.html" title="Toward Boost.Opaque 0.1.0">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../boost.png"></td>
+<td align="center"><a href="../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav"></div>
+<div class="article" lang="en">
+<div class="titlepage">
+<div>
+<div><h2 class="title">
+<a name="boost.opaque"></a>Toward Boost.Opaque 0.1.0</h2></div>
+<div><div class="authorgroup"><div class="author"><h3 class="author">
+<span class="firstname">Vicente J.</span> <span class="surname">Botet Escriba</span>
+</h3></div></div></div>
+<div><p class="copyright">Copyright &#169; 2010 Vicente J. Botet Escriba</p></div>
+<div><div class="legalnotice">
+<a name="id4987066"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></div>
+</div>
+<hr>
+</div>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl>
+<dt><span class="section"><a href="index.html#boost.opaque.overview">Overview</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.overview.motivation">Motivation</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.overview.description">Description</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide"> Users' Guide</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.getting_started"> Getting Started</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial">Tutorial</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.examples">Examples</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.ext_references"> External Resources</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference">Reference</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.opaque_hpp"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_class_hpp"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">new_class</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_type_hpp"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">new_type</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.boolean_hpp"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">boolean</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.private_opaque_class_hpp"> Header
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">private_opaque_class</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.private_opaque_type_hpp"> Header
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">private_opaque_type</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.public_opaque_class_hpp"> Header
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">public_opaque_class</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.public_opaque_type_hpp"> Header
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">public_opaque_type</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.macros_hpp"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">macros</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins">Meta-Mixins</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices">Appendices</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.history"> Appendix A: History</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.rationale"> Appendix B: Design
+      Rationale</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.implementation"> Appendix C:
+      Implementation Notes</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.acknowledgements"> Appendix D:
+      Acknowledgements</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.appendix_e__tests">Appendix E:
+      Tests</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.appendix_f__tickets">Appendix
+      F: Tickets</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.todo"> Appendix F: Future plans</a></span></dt>
+</dl></dd>
+</dl>
+</div>
+<div class="blockquote"><blockquote class="blockquote"><p>
+      &#8220;<span class="quote">Strong type checking is gold; normal type checking is silver; and casting
+      is brass</span>&#8221;
+    </p></blockquote></div>
+<div class="blockquote"><blockquote class="blockquote"><p>
+      <span class="bold"><strong><span class="emphasis"><em>-- </em></span></strong></span>
+    </p></blockquote></div>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="../../../../doc/src/images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+      Opaque is not a part of the Boost libraries.
+    </p></td></tr>
+</table></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost.opaque.overview"></a><a href="index.html#boost.opaque.overview" title="Overview">Overview</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.overview.motivation">Motivation</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.overview.description">Description</a></span></dt>
+</dl></div>
+<a name="boost.opaque.overview.how_to_use_this_documentation"></a><h3>
+<a name="id4948562"></a>
+      <a href="index.html#boost.opaque.overview.how_to_use_this_documentation">How to
+      Use This Documentation</a>
+    </h3>
+<p>
+      This documentation makes use of the following naming and formatting conventions.
+    </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          Code is in <code class="computeroutput"><span class="identifier">fixed</span> <span class="identifier">width</span>
+          <span class="identifier">font</span></code> and is syntax-highlighted.
+        </li>
+<li>
+          Replaceable text that you will need to supply is in <em class="replaceable"><code>italics</code></em>.
+        </li>
+<li>
+          If a name refers to a free function, it is specified like this: <code class="computeroutput"><span class="identifier">free_function</span><span class="special">()</span></code>;
+          that is, it is in code font and its name is followed by <code class="computeroutput"><span class="special">()</span></code>
+          to indicate that it is a free function.
+        </li>
+<li>
+          If a name refers to a class template, it is specified like this: <code class="computeroutput"><span class="identifier">class_template</span><span class="special">&lt;&gt;</span></code>;
+          that is, it is in code font and its name is followed by <code class="computeroutput"><span class="special">&lt;&gt;</span></code>
+          to indicate that it is a class template.
+        </li>
+<li>
+          If a name refers to a function-like macro, it is specified like this:
+          <code class="computeroutput"><span class="identifier">MACRO</span><span class="special">()</span></code>;
+          that is, it is uppercase in code font and its name is followed by <code class="computeroutput"><span class="special">()</span></code> to indicate that it is a function-like
+          macro. Object-like macros appear without the trailing <code class="computeroutput"><span class="special">()</span></code>.
+        </li>
+<li>
+          Names that refer to <span class="emphasis"><em>concepts</em></span> in the generic programming
+          sense are specified in CamelCase.
+        </li>
+</ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        In addition, notes such as this one specify non-essential information that
+        provides additional background or rationale.
+      </p></td></tr>
+</table></div>
+<p>
+      Finally, you can mentally add the following to any code fragments in this document:
+    </p>
+<pre class="programlisting"><span class="comment">// Include all of the core Opaque files
+</span><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">;</span>
+</pre>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.overview.motivation"></a><a href="index.html#boost.opaque.overview.motivation" title="Motivation">Motivation</a>
+</h3></div></div></div>
+<p>
+        The notion of "opaque typedefs" is a recurring theme (see []).
+        Boost.Serialization contains a macro which is used to define what Robert
+        calls "strong typedefs", but the implementation is not complete.
+      </p>
+<p>
+        The Walter E. Brown's proposals () includes a clear motivation for "opaque
+        typedefs".
+      </p>
+<p>
+        In Alisdair Meredith show that the implicitly generating forwarding constructors
+        to a base class new C++0x feature could not be useful to address this issue
+        completly. Using this new feature it becomes possible to create something
+        very like the required opaque typedef. For example:
+      </p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">MyType</span> <span class="special">:</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">{</span>
+    <span class="keyword">using</span> <span class="identifier">string</span><span class="special">::</span><span class="identifier">string</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<p>
+        This type is distrinct from std::string, functions can be overloaded on this
+        type as well as std::string, yet std::string is not convertible to this type.
+      </p>
+<p>
+        As this proposals will not be part of the C++0x standard, a library solution
+        that could satisfy most of the requirements seems a loable approach.
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.overview.description"></a><a href="index.html#boost.opaque.overview.description" title="Description">Description</a>
+</h3></div></div></div>
+<p>
+        Boost.Opaque intends to provide a library partial solution to this problem.
+      </p>
+<p>
+        <span class="bold"><strong>Boost.Opaque</strong></span> provides:
+      </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+            a generic mixin class hierarchy which can be specialized by the user
+            to make new opaque classes.
+          </li>
+<li>
+            a generic class hierarchy which can be instantiated by the user to make
+            new opaque typedefs.
+          </li>
+<li>
+            a meta-mixin concept that allows to compose in a easy way several aspects
+            of a class in an orthogonal way.
+          </li>
+<li>
+            a considerable number of meta-mixins that helps defining new types from
+            an underlying type
+          </li>
+<li>
+            Some helper macros that can reduce the declaration of a new opaque type
+            to a single line, emulating the language-based approach.
+          </li>
+</ul></div>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost.opaque.users_guide"></a><a href="index.html#boost.opaque.users_guide" title=" Users' Guide"> Users' Guide</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.getting_started"> Getting Started</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.getting_started.install">
+        Installing Boost.Opaque</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.getting_started.hello_world__">Hello
+        World! </a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial">Tutorial</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.how_to_define_a_real_new_typedef_">How
+        to define a real new typedef?</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.how_to_define_a_real_new_type_">How
+        to define a real new type?</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.return_type_for_relational_operators___opaque__boolean_">Return
+        type for relational operators: <code class="computeroutput"><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">boolean</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.opaque_typedefs">Opaque
+        typedefs</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.explicit_versus_implicit_conversions_to_the_ut">Explicit
+        versus Implicit Conversions to the UT</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.hiding_inherited_operations">Hiding
+        inherited operations</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.underlying_types_hierarchy">Underlying
+        types hierarchy</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.using_udt_as_underlying_types">Using
+        UDT as Underlying types</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.examples">Examples</a></span></dt>
+<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.users_guide.examples.identifier">Identifier</a></span></dt></dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.ext_references"> External Resources</a></span></dt>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.users_guide.getting_started"></a><a href="index.html#boost.opaque.users_guide.getting_started" title=" Getting Started"> Getting Started</a>
+</h3></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.getting_started.install">
+        Installing Boost.Opaque</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.getting_started.hello_world__">Hello
+        World! </a></span></dt>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.users_guide.getting_started.install"></a><a href="index.html#boost.opaque.users_guide.getting_started.install" title="
+        Installing Boost.Opaque">
+        Installing Boost.Opaque</a>
+</h4></div></div></div>
+<a name="boost.opaque.users_guide.getting_started.install.getting_boost_opaque"></a><h5>
+<a name="id4949072"></a>
+          <a href="index.html#boost.opaque.users_guide.getting_started.install.getting_boost_opaque">Getting
+          Boost.Opaque</a>
+        </h5>
+<p>
+          You can get the last stable release of Boost.Opaque by downloading <code class="literal">ppaque.zip</code>
+          from the <a href="http://www.boostpro.com/vault/index.php?action=downloadfile&amp;filename=opaque.zip&amp;directory=Utilities&amp;" target="_top">Boost
+          Vault Utilities directory</a>
+        </p>
+<p>
+          You can also access the latest (unstable?) state from the <a href="https://svn.boost.org/svn/boost/sandbox/opaque" target="_top">Boost
+          Sandbox</a>.
+        </p>
+<a name="boost.opaque.users_guide.getting_started.install.building_boost_opaque"></a><h5>
+<a name="id4949128"></a>
+          <a href="index.html#boost.opaque.users_guide.getting_started.install.building_boost_opaque">Building
+          Boost.Opaque</a>
+        </h5>
+<p>
+          There is no need to compile <span class="bold"><strong>Boost.Opaque</strong></span>,
+          since it's a header only library. Just include your Boost header directory
+          in your compiler include path.
+        </p>
+<a name="boost.opaque.users_guide.getting_started.install.requirements"></a><h5>
+<a name="id4949160"></a>
+          <a href="index.html#boost.opaque.users_guide.getting_started.install.requirements">Requirements</a>
+        </h5>
+<p>
+          <span class="bold"><strong>Boost.Opaque</strong></span> depends only on Boost.Operators
+          (and all libraries it depends on).
+        </p>
+<a name="boost.opaque.users_guide.getting_started.install.exceptions_safety"></a><h5>
+<a name="id4949191"></a>
+          <a href="index.html#boost.opaque.users_guide.getting_started.install.exceptions_safety">Exceptions
+          safety</a>
+        </h5>
+<p>
+          All functions in the library are exception-neutral and provide strong guarantee
+          of exception safety as long as the underlying parameters provide it.
+        </p>
+<a name="boost.opaque.users_guide.getting_started.install.thread_safety"></a><h5>
+<a name="id4949218"></a>
+          <a href="index.html#boost.opaque.users_guide.getting_started.install.thread_safety">Thread
+          safety</a>
+        </h5>
+<p>
+          All functions in the library are thread-unsafe except when noted explicitly.
+        </p>
+<a name="boost.opaque.users_guide.getting_started.install.tested_compilers"></a><h5>
+<a name="id4949243"></a>
+          <a href="index.html#boost.opaque.users_guide.getting_started.install.tested_compilers">Tested
+          compilers</a>
+        </h5>
+<p>
+          The implementation will eventually work with most C++03 conforming compilers.
+          Current version has been tested on:
+        </p>
+<p>
+          Windows with
+        </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+              MSVC 10.0
+            </li>
+<li>
+              MSVC 9.0 Express
+            </li>
+</ul></div>
+<p>
+          Cygwin 1.5 with
+        </p>
+<div class="itemizedlist"><ul type="disc"><li>
+              GCC 3.4.4
+            </li></ul></div>
+<p>
+          Cygwin 1.7 with
+        </p>
+<div class="itemizedlist"><ul type="disc"><li>
+              GCC 4.3.4
+            </li></ul></div>
+<p>
+          MinGW with
+        </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+              GCC 4.4.0
+            </li>
+<li>
+              GCC 4.5.0
+            </li>
+<li>
+              GCC 4.5.0 C++0x
+            </li>
+</ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            Please send any questions, comments and bug reports to boost &lt;at&gt;
+            lists &lt;dot&gt; boost &lt;dot&gt; org.
+          </p></td></tr>
+</table></div>
+</div>
+<div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.users_guide.getting_started.hello_world__"></a><a href="index.html#boost.opaque.users_guide.getting_started.hello_world__" title="Hello
+        World! ">Hello
+        World! </a>
+</h4></div></div></div></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.users_guide.tutorial"></a><a href="index.html#boost.opaque.users_guide.tutorial" title="Tutorial">Tutorial</a>
+</h3></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.how_to_define_a_real_new_typedef_">How
+        to define a real new typedef?</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.how_to_define_a_real_new_type_">How
+        to define a real new type?</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.return_type_for_relational_operators___opaque__boolean_">Return
+        type for relational operators: <code class="computeroutput"><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">boolean</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.opaque_typedefs">Opaque
+        typedefs</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.explicit_versus_implicit_conversions_to_the_ut">Explicit
+        versus Implicit Conversions to the UT</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.hiding_inherited_operations">Hiding
+        inherited operations</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.underlying_types_hierarchy">Underlying
+        types hierarchy</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.users_guide.tutorial.using_udt_as_underlying_types">Using
+        UDT as Underlying types</a></span></dt>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.users_guide.tutorial.how_to_define_a_real_new_typedef_"></a><a href="index.html#boost.opaque.users_guide.tutorial.how_to_define_a_real_new_typedef_" title="How
+        to define a real new typedef?">How
+        to define a real new typedef?</a>
+</h4></div></div></div>
+<p>
+          We will start with the definition of a new type identifier which is based
+          on an underlying int type and has the relational operators so it can be
+          stored on a sorted container.
+        </p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">Identifier_tag</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">new_type</span><span class="special">&lt;</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">Identifier_tag</span><span class="special">,</span> 
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span>
+        <span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_totally_ordered1</span>
+    <span class="special">&gt;</span> 
+<span class="special">&gt;</span> <span class="identifier">Identifier</span><span class="special">;</span>
+</pre>
+<p>
+          The declaration of a new typedef Identifier is done as follows. We need
+          to declare a specific tag that will ensure that two new types are different.
+        </p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">Identifier_tag</span><span class="special">;</span>
+</pre>
+<p>
+          New we use the opaque new_type class which has as parameters:
+        </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+              the underlying type (int),
+            </li>
+<li>
+              the unique tag of the new type (Identifier_tag),
+            </li>
+<li>
+              a MPL sequence of additions 'mpl::vector&lt;opaque::using_totally_ordered1&gt;)
+            </li>
+</ul></div>
+<p>
+          This will declare Identifier as new type different from int that provides
+          just the operation associated to a totally<span class="underline">ordered
+          concept. The concepts are represented by the library in the form a meta-mixin
+          and are named with the using</span> prefix, e.g. as using_totally_ordered1.
+        </p>
+<p>
+          We can now use Identifier as new int type, but limited to the totally ordered
+          operations.
+        </p>
+<p>
+          Boost.Opaque provides a macros to simplify the preceding declaration
+        </p>
+<pre class="programlisting"><span class="identifier">BOOST_OPAQUE_NEW_TYPE</span><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">Identifier</span><span class="special">,</span> <span class="special">((</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_totally_ordered1</span><span class="special">)))</span>
+</pre>
+<p>
+          The macros is responsable to define a uniqye tag and transform the preprocessor
+          PPL sequence into a MPL sequence.
+        </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.users_guide.tutorial.how_to_define_a_real_new_type_"></a><a href="index.html#boost.opaque.users_guide.tutorial.how_to_define_a_real_new_type_" title="How
+        to define a real new type?">How
+        to define a real new type?</a>
+</h4></div></div></div>
+<p>
+          In the prededing example we use a tag to ensure type unicity. When the
+          user needs to add yet some specific methods, this tag is no more necessary
+          as we need to define already a new class.
+        </p>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">Identifier</span> <span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">new_class</span><span class="special">&lt;</span><span class="identifier">Identifier</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> 
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span>
+        <span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_totally_ordered1</span>
+    <span class="special">&gt;</span> 
+<span class="special">{</span>
+    <span class="keyword">void</span> <span class="identifier">print</span><span class="special">();</span>
+    <span class="comment">// ...
+</span><span class="special">};</span>
+</pre>
+<p>
+          In this case we use the mixin class new_class instead. The new_class class
+          template has asthe following arguments,
+        </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+              the class we are defining
+            </li>
+<li>
+              the underlying type (int),
+            </li>
+<li>
+              a MPL sequence of additions 'mpl::vector&lt;opaque::using_totally_ordered1&gt;)
+            </li>
+</ul></div>
+<p>
+          Boost.Opaque provides a macros BOOST_OPAQUE_NEW_CLASS to simplify the preceding
+          declaration
+        </p>
+<pre class="programlisting"><span class="identifier">BOOST_OPAQUE_NEW_CLASS</span><span class="special">(</span><span class="identifier">Identifier</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="special">((</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_totally_ordered1</span><span class="special">)))</span>
+<span class="special">{</span>
+    <span class="keyword">void</span> <span class="identifier">print</span><span class="special">();</span>
+    <span class="comment">// ...
+</span><span class="special">}</span>
+</pre>
+<p>
+          The macros is responsable to define a uniqye tag and transform the preprocessor
+          PPL sequence into a MPL sequence.
+        </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.users_guide.tutorial.return_type_for_relational_operators___opaque__boolean_"></a><a href="index.html#boost.opaque.users_guide.tutorial.return_type_for_relational_operators___opaque__boolean_" title="Return
+        type for relational operators: opaque::boolean">Return
+        type for relational operators: <code class="computeroutput"><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">boolean</span></code></a>
+</h4></div></div></div>
+<p>
+          The following code doesn't warms in (1) when we use 0 where a bool is expected.
+        </p>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="keyword">bool</span> <span class="identifier">Bool</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">Int</span><span class="special">;</span>
+
+<span class="identifier">Bool</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">Int</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">Int</span> <span class="identifier">b</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">if</span><span class="special">(</span><span class="identifier">cnd</span><span class="special">())</span> <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>       <span class="comment">// 1
+</span>    <span class="keyword">else</span> <span class="keyword">return</span> <span class="identifier">a</span> <span class="special">&gt;</span> <span class="identifier">b</span><span class="special">;</span> 
+<span class="special">}</span>
+</pre>
+<p>
+          We can define an bool opaque typedef so only true_ and false_ are accepted
+          as constant expressions
+        </p>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">Int</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">opaque</span><span class="special">::</span><span class="identifier">boolean</span> <span class="identifier">Bool</span><span class="special">;</span>
+
+<span class="identifier">Bool</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">Int</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">Int</span> <span class="identifier">b</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">if</span><span class="special">(</span><span class="identifier">cnd</span><span class="special">())</span> <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>       <span class="comment">// (1) Error 
+</span>    <span class="keyword">else</span>  <span class="keyword">return</span> <span class="identifier">a</span> <span class="special">&gt;</span> <span class="identifier">b</span><span class="special">;</span>   <span class="comment">// (2) Error 
+</span><span class="special">}</span>
+</pre>
+<p>
+          Now we get an error on (1) as 0 is not convertible to opaque::boolean.
+          This can be easily solved
+        </p>
+<pre class="programlisting"><span class="identifier">Bool</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">Int</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">Int</span> <span class="identifier">b</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">if</span><span class="special">(</span><span class="identifier">cnd</span><span class="special">())</span> <span class="keyword">return</span> <span class="identifier">opaque</span><span class="special">::</span><span class="identifier">false_</span><span class="special">;</span> <span class="comment">// OK
+</span>    <span class="keyword">else</span>  <span class="keyword">return</span> <span class="identifier">a</span> <span class="special">&gt;</span> <span class="identifier">b</span><span class="special">;</span>          <span class="comment">// (2) Error 
+</span><span class="special">}</span>
+</pre>
+<p>
+          But now we also get an error on (2) as a &gt; b is not convertible to opaque::boolean.
+          To solve this issue we need that the signature Int &gt; Int be convertible
+          to opaque::boolean.
+        </p>
+<p>
+          Boost.Opaque provides a meta-mixin that allos to define an integer-like
+          class that use opaque::boolean as type for the result of the relational
+          operators.
+        </p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">Int_tag</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">new_type</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">Int_tag</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span>
+    <span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_integer_like</span><span class="special">&lt;</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">boolean</span><span class="special">&gt;</span> 
+<span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">Int</span><span class="special">;</span>
+</pre>
+<p>
+          With this definition, the preceding example compiles and does what we are
+          expecting.
+        </p>
+<p>
+          Or using the macro
+        </p>
+<pre class="programlisting"><span class="identifier">BOOST_OPAQUE_NEW_TYPE</span><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">Int</span><span class="special">,</span> <span class="special">((</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_integer_like</span><span class="special">&lt;</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">boolean</span><span class="special">&gt;)))</span>
+</pre>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.users_guide.tutorial.opaque_typedefs"></a><a href="index.html#boost.opaque.users_guide.tutorial.opaque_typedefs" title="Opaque
+        typedefs">Opaque
+        typedefs</a>
+</h4></div></div></div>
+<p>
+          While the preceding examples restrict the operations of the underlying
+          type, sometimes it is useful to define a different type that provides the
+          same operations than the underlying type and that allows some conversions.
+          In this case we use the opaque typedefs.
+        </p>
+<p>
+          For example, we can need real new typedefs to be able to overload a function.
+          This can be done with the BOOST_OPAQUE_PUBLIC_TYPEDEF macro.
+        </p>
+<pre class="programlisting"><span class="comment">// Listing 1
+</span><span class="comment">// Cartesian 3D coordinate types
+</span><span class="identifier">BOOST_OPAQUE_PUBLIC_TYPEDEF</span><span class="special">(</span><span class="keyword">double</span><span class="special">,</span> <span class="identifier">X</span><span class="special">);</span>
+<span class="identifier">BOOST_OPAQUE_PUBLIC_TYPEDEF</span><span class="special">(</span><span class="keyword">double</span><span class="special">,</span> <span class="identifier">Y</span><span class="special">);</span>
+<span class="identifier">BOOST_OPAQUE_PUBLIC_TYPEDEF</span><span class="special">(</span><span class="keyword">double</span><span class="special">,</span> <span class="identifier">Z</span><span class="special">);</span>
+
+<span class="comment">// polar 3D coordinate types
+</span><span class="identifier">BOOST_OPAQUE_PUBLIC_TYPEDEF</span><span class="special">(</span><span class="keyword">double</span><span class="special">,</span> <span class="identifier">Rho</span><span class="special">);</span>
+<span class="identifier">BOOST_OPAQUE_PUBLIC_TYPEDEF</span><span class="special">(</span><span class="keyword">double</span><span class="special">,</span> <span class="identifier">Theta</span><span class="special">);</span>
+<span class="identifier">BOOST_OPAQUE_PUBLIC_TYPEDEF</span><span class="special">(</span><span class="keyword">double</span><span class="special">,</span> <span class="identifier">Phi</span><span class="special">);</span>
+
+<span class="keyword">class</span> <span class="identifier">PhysicsVector</span> <span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+  <span class="identifier">PhysicsVector</span><span class="special">(</span><span class="identifier">X</span><span class="special">,</span> <span class="identifier">Y</span><span class="special">,</span> <span class="identifier">Z</span><span class="special">);</span>
+  <span class="identifier">PhysicsVector</span><span class="special">(</span><span class="identifier">Rho</span><span class="special">,</span> <span class="identifier">Theta</span><span class="special">,</span> <span class="identifier">Phi</span><span class="special">);</span>
+  <span class="special">...</span>
+<span class="special">};</span> <span class="comment">// PhysicsVector
+</span></pre>
+<p>
+          BOOST_OPAQUE_PUBLIC_TYPEDEF(double, X) creates a new type X with the same
+          operations than double. The operations to forward are obtained from the
+          traits class inherited_from_underlying&lt;double&gt;. The template class
+          can be specialized for a particular type and the library already do that
+          for all the built-in types.
+        </p>
+</div>
+<div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.users_guide.tutorial.explicit_versus_implicit_conversions_to_the_ut"></a><a href="index.html#boost.opaque.users_guide.tutorial.explicit_versus_implicit_conversions_to_the_ut" title="Explicit
+        versus Implicit Conversions to the UT">Explicit
+        versus Implicit Conversions to the UT</a>
+</h4></div></div></div></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.users_guide.tutorial.hiding_inherited_operations"></a><a href="index.html#boost.opaque.users_guide.tutorial.hiding_inherited_operations" title="Hiding
+        inherited operations">Hiding
+        inherited operations</a>
+</h4></div></div></div>
+<p>
+          Sometimes we want to inherit most of the operations inherited from the
+          underlying type. We can either use the new_type class and bee explicit
+          on which operation we want
+        </p>
+<pre class="programlisting"><span class="identifier">BOOST_OPAQUE_NEW_TYPE</span><span class="special">(</span><span class="identifier">UT</span><span class="special">,</span> <span class="identifier">NT</span><span class="special">,</span> <span class="special">(</span>
+    <span class="special">(</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_ope1</span><span class="special">)</span>
+    <span class="special">(</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_ope2</span><span class="special">)</span>
+    <span class="special">...</span>
+    <span class="special">(</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_open</span><span class="special">)</span>
+<span class="special">))</span>
+</pre>
+<p>
+          Or we can use opaque types and state explicitly which operation wil be
+          hidden.
+        </p>
+<pre class="programlisting"><span class="identifier">BOOST_OPAQUE_PUBLIC_OPAQUE_TYPE</span><span class="special">(</span><span class="identifier">UT</span><span class="special">,</span> <span class="identifier">NT</span><span class="special">,</span> <span class="special">(</span>
+    <span class="special">(</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">hiding_opeK</span><span class="special">)</span>
+<span class="special">))</span>
+</pre>
+</div>
+<div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.users_guide.tutorial.underlying_types_hierarchy"></a><a href="index.html#boost.opaque.users_guide.tutorial.underlying_types_hierarchy" title="Underlying
+        types hierarchy">Underlying
+        types hierarchy</a>
+</h4></div></div></div></div>
+<div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.users_guide.tutorial.using_udt_as_underlying_types"></a><a href="index.html#boost.opaque.users_guide.tutorial.using_udt_as_underlying_types" title="Using
+        UDT as Underlying types">Using
+        UDT as Underlying types</a>
+</h4></div></div></div></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.users_guide.examples"></a><a href="index.html#boost.opaque.users_guide.examples" title="Examples">Examples</a>
+</h3></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.users_guide.examples.identifier">Identifier</a></span></dt></dl></div>
+<div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.users_guide.examples.identifier"></a><a href="index.html#boost.opaque.users_guide.examples.identifier" title="Identifier">Identifier</a>
+</h4></div></div></div></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.users_guide.ext_references"></a><a href="index.html#boost.opaque.users_guide.ext_references" title=" External Resources"> External Resources</a>
+</h3></div></div></div>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl>
+<dt><span class="term"><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2141.html" target="_top"><span class="bold"><strong>N2141: Strong Typedefs in C++09(Revisited)</strong></span></a></span></dt>
+<dd><p>
+              Alisdair Meredith
+            </p></dd>
+<dt><span class="term"><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1891.pdf" target="_top"><span class="bold"><strong>N1891: Progress toward Opaque Typedefs for C++0X</strong></span></a></span></dt>
+<dd><p>
+              Walter E. Brown
+            </p></dd>
+<dt><span class="term"><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1706.pdf" target="_top"><span class="bold"><strong>N1706: Toward Opaque Typedefs in C++0X</strong></span></a></span></dt>
+<dd><p>
+              Walter E. Brown
+            </p></dd>
+<dt><span class="term"><a href="http://www.gimpel.com/html/strong.htm" target="_top"><span class="bold"><strong>PC-lint/FlexeLint
+          Strong Type Checking</strong></span></a></span></dt>
+<dd><p>
+              Gimpel Software
+            </p></dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost.opaque.reference"></a><a href="index.html#boost.opaque.reference" title="Reference">Reference</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.opaque_hpp"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_class_hpp"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">new_class</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_class_hpp.base_new_type">
+        Class Template <code class="computeroutput"><span class="identifier">base_new_type</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_class_hpp.new_class"> Class
+        Template <code class="computeroutput"><span class="identifier">new_class</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_class_hpp.opaque_static_cast">
+        Non-Member Function Template <code class="computeroutput"><span class="identifier">opaque_static_cast</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_type_hpp"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">new_type</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_type_hpp.new_type"> Class
+        Template <code class="computeroutput"><span class="identifier">new_type</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_type_hpp.opaque_static_cast">
+        Non-Member Function Template Specialization <code class="computeroutput"><span class="identifier">opaque_static_cast</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.boolean_hpp"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">boolean</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.boolean_hpp.boolean"> Class
+        <code class="computeroutput"><span class="identifier">boolean</span></code></a></span></dt></dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.private_opaque_class_hpp"> Header
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">private_opaque_class</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.private_opaque_class_hpp.base_private_opaque_type">
+        Class <code class="computeroutput"><span class="identifier">base_private_opaque_type</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.private_opaque_class_hpp.private_opaque_class">
+        Class Template <code class="computeroutput"><span class="identifier">private_opaque_class</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.private_opaque_type_hpp"> Header
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">private_opaque_type</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.private_opaque_type_hpp.private_opaque_type">
+        Class Template <code class="computeroutput"><span class="identifier">private_opaque_type</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.public_opaque_class_hpp"> Header
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">public_opaque_class</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.public_opaque_class_hpp.private_opaque_class">
+        Class <code class="computeroutput"><span class="identifier">base_public_opaque_type</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.public_opaque_class_hpp.get_substituables">
+        Class Template <code class="computeroutput"><span class="identifier">get_substituables</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.public_opaque_class_hpp.public_opaque_class">
+        Class Template <code class="computeroutput"><span class="identifier">public_opaque_class</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.public_opaque_type_hpp"> Header
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">public_opaque_type</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.public_opaque_type_hpp.public_opaque_type">
+        Class Template <code class="computeroutput"><span class="identifier">public_opaque_type</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.macros_hpp"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">macros</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins">Meta-Mixins</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.concepts"> Concepts</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.linear_hierarchy_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">linear_hierarchy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">inherited_from_undelying</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.using_operators_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">using_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.hiding_operators_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">hiding_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.using_combined_operators_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">using_combined_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.hiding_combined_operators_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">hiding_combined_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.transitive_substituable_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">transitive_substituable</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.transitive_explicit_substituable_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">transitive_explicit_substituable</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+</dl></dd>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.reference.opaque_hpp"></a><a href="index.html#boost.opaque.reference.opaque_hpp" title=" Header &lt;boost/opaque.hpp&gt;"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<p>
+        Include all the opaque public header files.
+      </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.reference.new_class_hpp"></a><a href="index.html#boost.opaque.reference.new_class_hpp" title=" Header &lt;boost/opaque/new_class.hpp&gt;"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">new_class</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_class_hpp.base_new_type">
+        Class Template <code class="computeroutput"><span class="identifier">base_new_type</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_class_hpp.new_class"> Class
+        Template <code class="computeroutput"><span class="identifier">new_class</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_class_hpp.opaque_static_cast">
+        Non-Member Function Template <code class="computeroutput"><span class="identifier">opaque_static_cast</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+    <span class="keyword">class</span> <span class="identifier">base_new_type</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
+        <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_new_type</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">class</span> <span class="identifier">new_class</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">Base</span>
+    <span class="special">&gt;</span>
+    <span class="identifier">T</span> <span class="identifier">opaque_static_cast</span><span class="special">(</span><span class="identifier">new_class</span><span class="special">&lt;</span><span class="identifier">Final</span><span class="special">,</span> <span class="identifier">UT</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">v</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.new_class_hpp.base_new_type"></a><a href="index.html#boost.opaque.reference.new_class_hpp.base_new_type" title="
+        Class Template base_new_type&lt;&gt;">
+        Class Template <code class="computeroutput"><span class="identifier">base_new_type</span><span class="special">&lt;&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">base_new_type</span> <span class="special">{};</span>
+</pre>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.new_class_hpp.new_class"></a><a href="index.html#boost.opaque.reference.new_class_hpp.new_class" title=" Class
+        Template new_class&lt;&gt;"> Class
+        Template <code class="computeroutput"><span class="identifier">new_class</span><span class="special">&lt;&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
+    <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_new_type</span>
+<span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">new_class</span> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">linear_hierarchy</span><span class="special">&lt;</span><span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Final</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;::</span><span class="identifier">type</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">typedef</span> <span class="identifier">T</span> <span class="identifier">underlying_type</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
+    <span class="keyword">explicit</span> <span class="identifier">new_class</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
+    <span class="identifier">new_class</span><span class="special">();</span>
+    <span class="identifier">new_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">new_class</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="keyword">explicit</span> <span class="identifier">new_class</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">v</span><span class="special">);</span>
+<span class="keyword">protected</span><span class="special">:</span>
+    <span class="identifier">T</span> <span class="identifier">val_</span><span class="special">;</span>
+    <span class="identifier">new_class</span> <span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">=(</span><span class="keyword">const</span> <span class="identifier">new_class</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="identifier">underlying_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">underlying</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">underlying_type</span><span class="special">&amp;</span> <span class="identifier">underlying</span><span class="special">();</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">F</span><span class="special">&gt;</span>
+    <span class="keyword">static</span> <span class="identifier">underlying_type</span><span class="special">&amp;</span> <span class="identifier">underlying</span><span class="special">(</span><span class="identifier">F</span><span class="special">*</span> <span class="identifier">f</span><span class="special">);</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">F</span><span class="special">&gt;</span>
+    <span class="keyword">static</span> <span class="identifier">underlying_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">underlying</span><span class="special">(</span><span class="identifier">F</span> <span class="keyword">const</span><span class="special">*</span> <span class="identifier">f</span><span class="special">);</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">F</span><span class="special">&gt;</span>
+    <span class="keyword">static</span> <span class="identifier">Final</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">final</span><span class="special">(</span><span class="identifier">F</span> <span class="keyword">const</span><span class="special">*</span> <span class="identifier">f</span><span class="special">);</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">F</span><span class="special">&gt;</span>
+    <span class="keyword">static</span> <span class="identifier">Final</span><span class="special">&amp;</span> <span class="identifier">final</span><span class="special">(</span><span class="identifier">F</span><span class="special">*</span> <span class="identifier">f</span><span class="special">);</span>
+
+<span class="special">};</span>
+</pre>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.new_class_hpp.opaque_static_cast"></a><a href="index.html#boost.opaque.reference.new_class_hpp.opaque_static_cast" title="
+        Non-Member Function Template opaque_static_cast&lt;&gt;">
+        Non-Member Function Template <code class="computeroutput"><span class="identifier">opaque_static_cast</span><span class="special">&lt;&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Base</span>
+<span class="special">&gt;</span>
+<span class="identifier">T</span> <span class="identifier">opaque_static_cast</span><span class="special">(</span><span class="identifier">new_class</span><span class="special">&lt;</span><span class="identifier">Final</span><span class="special">,</span> <span class="identifier">UT</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">v</span><span class="special">);</span>
+</pre>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.reference.new_type_hpp"></a><a href="index.html#boost.opaque.reference.new_type_hpp" title=" Header &lt;boost/opaque/new_type.hpp&gt;"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">new_type</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_type_hpp.new_type"> Class
+        Template <code class="computeroutput"><span class="identifier">new_type</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.new_type_hpp.opaque_static_cast">
+        Non-Member Function Template Specialization <code class="computeroutput"><span class="identifier">opaque_static_cast</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">Tag</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">Concepts</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
+        <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_new_type</span><span class="special">&gt;</span>
+    <span class="keyword">class</span> <span class="identifier">new_type</span><span class="special">;</span>
+</pre>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.new_type_hpp.new_type"></a><a href="index.html#boost.opaque.reference.new_type_hpp.new_type" title=" Class
+        Template new_type&lt;&gt;"> Class
+        Template <code class="computeroutput"><span class="identifier">new_type</span><span class="special">&lt;&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Tag</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Concepts</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Base</span>
+<span class="keyword">class</span> <span class="identifier">new_type</span>
+    <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">new_class</span><span class="special">&lt;</span><span class="identifier">new_type</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Tag</span><span class="special">,</span> <span class="identifier">Concepts</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Concepts</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
+    <span class="keyword">explicit</span> <span class="identifier">new_type</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
+    <span class="identifier">new_type</span><span class="special">();</span>
+    <span class="identifier">new_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">new_type</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="keyword">explicit</span> <span class="identifier">new_type</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">v</span><span class="special">);</span>
+<span class="special">};</span>
+</pre>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.new_type_hpp.opaque_static_cast"></a><a href="index.html#boost.opaque.reference.new_type_hpp.opaque_static_cast" title="
+        Non-Member Function Template Specialization opaque_static_cast&lt;&gt;">
+        Non-Member Function Template Specialization <code class="computeroutput"><span class="identifier">opaque_static_cast</span><span class="special">&lt;&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Tag</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Concepts</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Base</span>
+<span class="special">&gt;</span>
+<span class="identifier">T</span> <span class="identifier">opaque_static_cast</span><span class="special">(</span><span class="identifier">new_type</span><span class="special">&lt;</span><span class="identifier">UT</span><span class="special">,</span><span class="identifier">Tag</span><span class="special">,</span><span class="identifier">Concepts</span><span class="special">,</span><span class="identifier">Base</span><span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">v</span><span class="special">);</span>
+</pre>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.reference.boolean_hpp"></a><a href="index.html#boost.opaque.reference.boolean_hpp" title=" Header &lt;boost/opaque/boolean.hpp&gt;"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">boolean</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.boolean_hpp.boolean"> Class
+        <code class="computeroutput"><span class="identifier">boolean</span></code></a></span></dt></dl></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+    <span class="keyword">namespace</span> <span class="identifier">opaque</span> <span class="special">{</span>
+        <span class="keyword">class</span> <span class="identifier">boolean</span><span class="special">;</span>
+    <span class="special">}</span>
+<span class="special">}</span>
+</pre>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.boolean_hpp.boolean"></a><a href="index.html#boost.opaque.reference.boolean_hpp.boolean" title=" Class
+        boolean"> Class
+        <code class="computeroutput"><span class="identifier">boolean</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">boolean</span> <span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">explicit</span> <span class="identifier">boolean</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">bool</span> <span class="identifier">b</span><span class="special">);</span>
+
+    <span class="keyword">operator</span> <span class="identifier">unspecified_bool_type</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">boolean</span> <span class="keyword">operator</span><span class="special">!()</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">boolean</span> <span class="keyword">operator</span><span class="special">&amp;&amp;(</span><span class="identifier">boolean</span> <span class="identifier">rhs</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">boolean</span> <span class="keyword">operator</span><span class="special">||(</span><span class="identifier">boolean</span> <span class="identifier">rhs</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+<span class="special">};</span>
+<span class="keyword">const</span> <span class="identifier">boolean</span> <span class="identifier">true_</span><span class="special">;</span>
+<span class="keyword">const</span> <span class="identifier">boolean</span> <span class="identifier">false_</span><span class="special">;</span>
+</pre>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.reference.private_opaque_class_hpp"></a><a href="index.html#boost.opaque.reference.private_opaque_class_hpp" title=" Header
+      &lt;boost/opaque/private_opaque_class.hpp&gt;"> Header
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">private_opaque_class</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.private_opaque_class_hpp.base_private_opaque_type">
+        Class <code class="computeroutput"><span class="identifier">base_private_opaque_type</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.private_opaque_class_hpp.private_opaque_class">
+        Class Template <code class="computeroutput"><span class="identifier">private_opaque_class</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+    <span class="keyword">class</span> <span class="identifier">base_private_opaque_type</span><span class="special">;</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
+        <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_private_opaque_type</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">class</span> <span class="identifier">private_opaque_class</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<div class="itemizedlist"><ul type="disc">
+<li>
+            Can instances of UT be explicitly converted to instances of OT? Yes
+          </li>
+<li>
+            Can instances of UT be implicitly converted to instances of OT? No
+          </li>
+<li>
+            Can instances of OT be explicitly converted to instances of UT? Yes.
+          </li>
+<li>
+            Waiting for explicit conversion operators,, the explicit conversion must
+            be done through the underlying function
+          </li>
+<li>
+            Can instances of OT be implicitly converted to instances of UT? No
+          </li>
+</ul></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.private_opaque_class_hpp.base_private_opaque_type"></a><a href="index.html#boost.opaque.reference.private_opaque_class_hpp.base_private_opaque_type" title="
+        Class base_private_opaque_type">
+        Class <code class="computeroutput"><span class="identifier">base_private_opaque_type</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">base_private_opaque_type</span> <span class="special">{};</span>
+</pre>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.private_opaque_class_hpp.private_opaque_class"></a><a href="index.html#boost.opaque.reference.private_opaque_class_hpp.private_opaque_class" title="
+        Class Template private_opaque_class&lt;&gt;">
+        Class Template <code class="computeroutput"><span class="identifier">private_opaque_class</span><span class="special">&lt;&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Base</span>
+<span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">private_opaque_class</span> <span class="special">:</span> <span class="keyword">public</span>
+        <span class="identifier">new_class</span><span class="special">&lt;</span> <span class="identifier">Final</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span>
+            <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">push</span><span class="special">&lt;</span>
+                <span class="identifier">transitive_explicit_substituable</span><span class="special">&lt;</span><span class="identifier">base_private_opaque_type</span><span class="special">&gt;,</span>
+                <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">push</span><span class="special">&lt;</span>
+                    <span class="identifier">inherited_from_undelying</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span>
+                    <span class="identifier">MetaMixinSeq</span>
+                <span class="special">&gt;</span>
+            <span class="special">&gt;,</span>
+            <span class="identifier">Base</span>
+        <span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+
+    <span class="identifier">private_opaque_class</span><span class="special">();</span>
+    <span class="identifier">private_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">private_opaque_class</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="identifier">private_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="keyword">explicit</span> <span class="identifier">private_opaque_class</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">v</span><span class="special">);</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
+    <span class="keyword">explicit</span> <span class="identifier">private_opaque_class</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
+<span class="special">};</span>
+</pre>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.reference.private_opaque_type_hpp"></a><a href="index.html#boost.opaque.reference.private_opaque_type_hpp" title=" Header
+      &lt;boost/opaque/private_opaque_type.hpp&gt;"> Header
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">private_opaque_type</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.private_opaque_type_hpp.private_opaque_type">
+        Class Template <code class="computeroutput"><span class="identifier">private_opaque_type</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
+        <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_private_opaque_type</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">class</span> <span class="identifier">private_opaque_type</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.private_opaque_type_hpp.private_opaque_type"></a><a href="index.html#boost.opaque.reference.private_opaque_type_hpp.private_opaque_type" title="
+        Class Template private_opaque_type&lt;&gt;">
+        Class Template <code class="computeroutput"><span class="identifier">private_opaque_type</span><span class="special">&lt;&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Base</span>
+<span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">private_opaque_type</span> <span class="special">:</span> <span class="keyword">public</span>
+    <span class="identifier">private_opaque_class</span><span class="special">&lt;</span>
+        <span class="identifier">private_opaque_type</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span><span class="identifier">Tag</span><span class="special">,</span><span class="identifier">MetaMixinSeq</span><span class="special">,</span><span class="identifier">Base</span><span class="special">&gt;,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+
+    <span class="identifier">private_opaque_type</span><span class="special">();</span>
+    <span class="identifier">private_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">private_opaque_class</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="identifier">private_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="keyword">explicit</span> <span class="identifier">private_opaque_type</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">v</span><span class="special">);</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
+    <span class="keyword">explicit</span> <span class="identifier">private_opaque_type</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
+<span class="special">};</span>
+</pre>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.reference.public_opaque_class_hpp"></a><a href="index.html#boost.opaque.reference.public_opaque_class_hpp" title=" Header
+      &lt;boost/opaque/public_opaque_class.hpp&gt;"> Header
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">public_opaque_class</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.public_opaque_class_hpp.private_opaque_class">
+        Class <code class="computeroutput"><span class="identifier">base_public_opaque_type</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.public_opaque_class_hpp.get_substituables">
+        Class Template <code class="computeroutput"><span class="identifier">get_substituables</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.public_opaque_class_hpp.public_opaque_class">
+        Class Template <code class="computeroutput"><span class="identifier">public_opaque_class</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+    <span class="keyword">class</span> <span class="identifier">base_public_opaque_type</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">get_substituables</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
+        <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_public_opaque_type</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">class</span> <span class="identifier">public_opaque_class</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<div class="itemizedlist"><ul type="disc">
+<li>
+            Can instances of UT be explicitly converted to instances of OT? Yes
+          </li>
+<li>
+            Can instances of UT be implicitly converted to instances of OT? No
+          </li>
+<li>
+            Can instances of OT be explicitly converted to instances of UT? Yes
+          </li>
+<li>
+            Can instances of OT be implicitly converted to instances of UT? Yes
+          </li>
+</ul></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.public_opaque_class_hpp.private_opaque_class"></a><a href="index.html#boost.opaque.reference.public_opaque_class_hpp.private_opaque_class" title="
+        Class base_public_opaque_type">
+        Class <code class="computeroutput"><span class="identifier">base_public_opaque_type</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">class</span> <span class="identifier">base_public_opaque_type</span> <span class="special">{};</span>
+</pre>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.public_opaque_class_hpp.get_substituables"></a><a href="index.html#boost.opaque.reference.public_opaque_class_hpp.get_substituables" title="
+        Class Template get_substituables&lt;&gt;">
+        Class Template <code class="computeroutput"><span class="identifier">get_substituables</span><span class="special">&lt;&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">get_substituables</span> <span class="special">{</span>
+    <span class="keyword">typedef</span> <span class="special">&lt;</span><span class="identifier">see</span> <span class="identifier">below</span><span class="special">&gt;</span> <span class="identifier">type</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.public_opaque_class_hpp.public_opaque_class"></a><a href="index.html#boost.opaque.reference.public_opaque_class_hpp.public_opaque_class" title="
+        Class Template public_opaque_class&lt;&gt;">
+        Class Template <code class="computeroutput"><span class="identifier">public_opaque_class</span><span class="special">&lt;&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
+    <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_public_opaque_type</span>
+<span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">public_opaque_class</span>
+    <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">new_class</span><span class="special">&lt;</span> <span class="identifier">Final</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span>
+        <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">push</span><span class="special">&lt;</span>
+            <span class="identifier">transitive_substituable</span><span class="special">&lt;</span><span class="identifier">base_public_opaque_type</span><span class="special">&gt;,</span>
+            <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">push</span><span class="special">&lt;</span>
+                <span class="identifier">inherited_from_undelying</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;,</span>
+                <span class="identifier">MetaMixinSeq</span>
+            <span class="special">&gt;</span>
+        <span class="special">&gt;,</span>
+        <span class="identifier">Base</span>
+    <span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+    <span class="keyword">typedef</span> <span class="special">&lt;</span><span class="identifier">see</span> <span class="identifier">below</span><span class="special">&gt;</span> <span class="identifier">substituables</span><span class="special">;</span>
+
+    <span class="identifier">public_opaque_class</span><span class="special">();</span>
+    <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">public_opaque_class</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="keyword">explicit</span> <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">v</span><span class="special">);</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
+    <span class="keyword">explicit</span> <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
+
+<span class="special">};</span>
+</pre>
+<p>
+          template &lt; typename Final, typename T, typename MetaMixinSeq=boost::mpl::vector0&lt;&gt;,
+          typename Base=base_public_opaque_type &gt; class public_opaque_class :
+          public new_class&lt; Final, T, mpl::push&lt; transitive_substituable&lt;base_public_opaque_type&gt;,
+          mpl::push&lt; inherited_from_undelying&lt;T&gt;, MetaMixinSeq &gt; &gt;,
+          Base &gt; { public: typedef &lt;see below&gt; substituables;
+        </p>
+<pre class="programlisting">    <span class="identifier">public_opaque_class</span><span class="special">();</span>
+    <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">public_opaque_class</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="keyword">explicit</span> <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">v</span><span class="special">);</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
+    <span class="keyword">explicit</span> <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
+
+<span class="special">};</span>
+</pre>
+<p>
+          public_opaque_class(); public_opaque_class(const public_opaque_class &amp;
+          rhs); public_opaque_class(const Final &amp; rhs); explicit public_opaque_class(T
+          v); template &lt;typename W&gt; explicit public_opaque_class(W v);
+        </p>
+<pre class="programlisting"><span class="special">};</span>
+</pre>
+<p>
+          };
+        </p>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.reference.public_opaque_type_hpp"></a><a href="index.html#boost.opaque.reference.public_opaque_type_hpp" title=" Header
+      &lt;boost/opaque/public_opaque_type.hpp&gt;"> Header
+      <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">public_opaque_type</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.public_opaque_type_hpp.public_opaque_type">
+        Class Template <code class="computeroutput"><span class="identifier">public_opaque_type</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span>
+        <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
+        <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_public_opaque_type</span>
+    <span class="special">&gt;</span>
+    <span class="keyword">class</span> <span class="identifier">public_opaque_type</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.public_opaque_type_hpp.public_opaque_type"></a><a href="index.html#boost.opaque.reference.public_opaque_type_hpp.public_opaque_type" title="
+        Class Template public_opaque_type&lt;&gt;">
+        Class Template <code class="computeroutput"><span class="identifier">public_opaque_type</span><span class="special">&lt;&gt;</span></code></a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Base</span>
+<span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">public_opaque_type</span> <span class="special">:</span> <span class="keyword">public</span>
+    <span class="identifier">public_opaque_class</span><span class="special">&lt;</span>
+        <span class="identifier">public_opaque_type</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span><span class="identifier">Tag</span><span class="special">,</span><span class="identifier">MetaMixinSeq</span><span class="special">,</span><span class="identifier">Base</span><span class="special">&gt;,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+<span class="special">{</span>
+<span class="keyword">public</span><span class="special">:</span>
+
+    <span class="identifier">public_opaque_type</span><span class="special">();</span>
+    <span class="identifier">public_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">public_opaque_type</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="identifier">public_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="keyword">explicit</span> <span class="identifier">public_opaque_type</span><span class="special">(</span><span class="identifier">T</span> <span class="identifier">v</span><span class="special">);</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
+    <span class="keyword">explicit</span> <span class="identifier">public_opaque_type</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
+<span class="special">};</span>
+</pre>
+</div>
+</div>
+<div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.reference.macros_hpp"></a><a href="index.html#boost.opaque.reference.macros_hpp" title=" Header &lt;boost/opaque/macros.hpp&gt;"> Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">macros</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.reference.meta_mixins"></a><a href="index.html#boost.opaque.reference.meta_mixins" title="Meta-Mixins">Meta-Mixins</a>
+</h3></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.concepts"> Concepts</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.concepts.Final">
+          <code class="computeroutput"><span class="identifier">Final</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.concepts.FinalUnderlying">
+          <code class="computeroutput"><span class="identifier">FinalUnderlying</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.concepts.Mixin">
+          <code class="computeroutput"><span class="identifier">Mixin</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.concepts.MetaMixin">
+          <code class="computeroutput"><span class="identifier">MetaMixin</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.concepts.MetaMixinSequence">
+          <code class="computeroutput"><span class="identifier">MetaMixinSequence</span></code></a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.linear_hierarchy_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">linear_hierarchy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.linear_hierarchy_hpp.linear_hierarchy">
+          Class Template <code class="computeroutput"><span class="identifier">linear_hierarchy</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">inherited_from_undelying</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp.linear_hierarchy">
+          Class Template <code class="computeroutput"><span class="identifier">linear_hierarchy</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.using_operators_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">using_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.using_operators_hpp.arithmetic_operators">Arithmetic
+          Operators</a></span></dt></dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.hiding_operators_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">hiding_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.using_combined_operators_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">using_combined_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.hiding_combined_operators_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">hiding_combined_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.transitive_substituable_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">transitive_substituable</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.transitive_substituable_hpp.transitive_substituable">
+          Class Template <code class="computeroutput"><span class="identifier">transitive_substituable</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.transitive_explicit_substituable_hpp">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">transitive_explicit_substituable</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
+<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.transitive_explicit_substituable_hpp.transitive_explicit_substituable">
+          Class Template <code class="computeroutput"><span class="identifier">transitive_explicit_substituable</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></dd>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.meta_mixins.concepts"></a><a href="index.html#boost.opaque.reference.meta_mixins.concepts" title=" Concepts"> Concepts</a>
+</h4></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.concepts.Final">
+          <code class="computeroutput"><span class="identifier">Final</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.concepts.FinalUnderlying">
+          <code class="computeroutput"><span class="identifier">FinalUnderlying</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.concepts.Mixin">
+          <code class="computeroutput"><span class="identifier">Mixin</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.concepts.MetaMixin">
+          <code class="computeroutput"><span class="identifier">MetaMixin</span></code></a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.concepts.MetaMixinSequence">
+          <code class="computeroutput"><span class="identifier">MetaMixinSequence</span></code></a></span></dt>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost.opaque.reference.meta_mixins.concepts.Final"></a><a href="index.html#boost.opaque.reference.meta_mixins.concepts.Final" title="
+          Final">
+          <code class="computeroutput"><span class="identifier">Final</span></code></a>
+</h5></div></div></div>
+<p>
+            Classes that models the <code class="computeroutput"><span class="identifier">Final</span></code>
+            concept satisfy the following expressions:
+          </p>
+<p>
+            Let <code class="computeroutput"><span class="identifier">B</span></code> a base class of
+            <code class="computeroutput"><span class="identifier">Final</span></code>, <code class="computeroutput"><span class="identifier">b</span></code> an instance of <code class="computeroutput"><span class="identifier">B</span></code>,
+            <code class="computeroutput"><span class="identifier">bc</span></code> an instance of <code class="computeroutput"><span class="identifier">B</span> <span class="keyword">const</span></code>.
+          </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+                <code class="computeroutput"><span class="identifier">Final</span><span class="special">::</span><span class="identifier">final</span><span class="special">(&amp;</span><span class="identifier">b</span><span class="special">)</span></code>
+                return the <code class="computeroutput"><span class="identifier">Final</span><span class="special">&amp;</span></code> reference associated to <code class="computeroutput"><span class="identifier">b</span></code>.
+              </li>
+<li>
+                <code class="computeroutput"><span class="identifier">Final</span><span class="special">::</span><span class="identifier">final</span><span class="special">(&amp;</span><span class="identifier">b</span><span class="special">)</span></code>
+                returns the <code class="computeroutput"><span class="keyword">const</span> <span class="identifier">Final</span><span class="special">&amp;</span></code> reference associated to <code class="computeroutput"><span class="identifier">bc</span></code>.
+              </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost.opaque.reference.meta_mixins.concepts.FinalUnderlying"></a><a href="index.html#boost.opaque.reference.meta_mixins.concepts.FinalUnderlying" title="
+          FinalUnderlying">
+          <code class="computeroutput"><span class="identifier">FinalUnderlying</span></code></a>
+</h5></div></div></div>
+<p>
+            Classes that models the <code class="computeroutput"><span class="identifier">FinalUnderlying</span></code>
+            concept satisfy the following expressions:
+          </p>
+<p>
+            Let <code class="computeroutput"><span class="identifier">B</span></code> a base class of
+            <code class="computeroutput"><span class="identifier">Final</span></code>, <code class="computeroutput"><span class="identifier">b</span></code> an instance of <code class="computeroutput"><span class="identifier">B</span></code>,
+            <code class="computeroutput"><span class="identifier">bc</span></code> an instance of <code class="computeroutput"><span class="identifier">B</span> <span class="keyword">const</span></code>,
+            <code class="computeroutput"><span class="identifier">f</span></code> an instace of <code class="computeroutput"><span class="identifier">Final</span></code> and fc and instance of `Final
+            const '.
+          </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+                <code class="computeroutput"><span class="identifier">Final</span><span class="special">::</span><span class="identifier">underlying_type</span></code> the underlying
+                type
+              </li>
+<li>
+                <code class="computeroutput"><span class="identifier">Final</span><span class="special">::</span><span class="identifier">underlying</span><span class="special">(&amp;</span><span class="identifier">b</span><span class="special">)</span></code>
+                return a reference to <code class="computeroutput"><span class="identifier">Final</span><span class="special">::</span><span class="identifier">underlying_type</span><span class="special">&amp;</span></code> associated to <code class="computeroutput"><span class="identifier">b</span></code>.
+              </li>
+<li>
+                <code class="computeroutput"><span class="identifier">Final</span><span class="special">::</span><span class="identifier">underlying</span><span class="special">(&amp;</span><span class="identifier">bc</span><span class="special">)</span></code>
+                return a constant reference to <code class="computeroutput"><span class="identifier">Final</span><span class="special">::</span><span class="identifier">underlying_type</span>
+                <span class="keyword">const</span><span class="special">&amp;</span></code>
+                associated to <code class="computeroutput"><span class="identifier">bc</span></code>.
+              </li>
+<li>
+                <code class="computeroutput"><span class="identifier">f</span><span class="special">.</span><span class="identifier">underlying</span><span class="special">()</span></code>
+                return a reference to <code class="computeroutput"><span class="identifier">Final</span><span class="special">::</span><span class="identifier">underlying_type</span><span class="special">&amp;</span></code> associated to <code class="computeroutput"><span class="identifier">f</span></code>.
+              </li>
+<li>
+                <code class="computeroutput"><span class="identifier">fc</span><span class="special">.</span><span class="identifier">underlying</span><span class="special">()</span></code>
+                return a constant reference to <code class="computeroutput"><span class="identifier">Final</span><span class="special">::</span><span class="identifier">underlying_type</span>
+                <span class="keyword">const</span><span class="special">&amp;</span></code>
+                associated to <code class="computeroutput"><span class="identifier">fc</span></code>.
+              </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost.opaque.reference.meta_mixins.concepts.Mixin"></a><a href="index.html#boost.opaque.reference.meta_mixins.concepts.Mixin" title="
+          Mixin">
+          <code class="computeroutput"><span class="identifier">Mixin</span></code></a>
+</h5></div></div></div>
+<p>
+            A Mixin is a template class having two template parameters, the Final
+            type and the Base type. The Final parameter must satisfy the Final requirements.
+          </p>
+<p>
+            The archetype of a Mixin is
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">MixinArchetype</span> <span class="special">:</span> <span class="identifier">Base</span>
+<span class="special">{</span>
+    <span class="special">...</span>
+<span class="special">};</span>
+</pre>
+<p>
+            The Final class must make the following
+          </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost.opaque.reference.meta_mixins.concepts.MetaMixin"></a><a href="index.html#boost.opaque.reference.meta_mixins.concepts.MetaMixin" title="
+          MetaMixin">
+          <code class="computeroutput"><span class="identifier">MetaMixin</span></code></a>
+</h5></div></div></div>
+<p>
+            A MetaMixin is a meta-function having as nested type a Mixin. The archetype
+            of a MetaMixin is
+          </p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">MetaMixinArchetype</span> <span class="special">{</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">type</span> <span class="special">:</span> <span class="identifier">Base</span>
+    <span class="special">{</span>
+        <span class="special">...</span>
+    <span class="special">};</span>
+<span class="special">};</span>
+</pre>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost.opaque.reference.meta_mixins.concepts.MetaMixinSequence"></a><a href="index.html#boost.opaque.reference.meta_mixins.concepts.MetaMixinSequence" title="
+          MetaMixinSequence">
+          <code class="computeroutput"><span class="identifier">MetaMixinSequence</span></code></a>
+</h5></div></div></div>
+<p>
+            A <code class="computeroutput"><span class="identifier">MetaMixinSequence</span></code> is
+            MPL Sequence of <code class="computeroutput"><span class="identifier">MetaMixin</span></code>.
+          </p>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.meta_mixins.linear_hierarchy_hpp"></a><a href="index.html#boost.opaque.reference.meta_mixins.linear_hierarchy_hpp" title="
+        Header &lt;boost/opaque/metamixin/linear_hierarchy.hpp&gt;">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">linear_hierarchy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.linear_hierarchy_hpp.linear_hierarchy">
+          Class Template <code class="computeroutput"><span class="identifier">linear_hierarchy</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">linear_hierarchy</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost.opaque.reference.meta_mixins.linear_hierarchy_hpp.linear_hierarchy"></a><a href="index.html#boost.opaque.reference.meta_mixins.linear_hierarchy_hpp.linear_hierarchy" title="
+          Class Template linear_hierarchy&lt;&gt;">
+          Class Template <code class="computeroutput"><span class="identifier">linear_hierarchy</span><span class="special">&lt;&gt;</span></code></a>
+</h5></div></div></div>
+<p>
+            The <code class="computeroutput"><span class="identifier">linear_hierarchy</span></code>
+            metafunction gererates a linear hierarchy by folding the Mixins obtained
+            by application of the <code class="computeroutput"><span class="identifier">MetaMixin</span></code>
+            in <code class="computeroutput"><span class="identifier">MetaMixinSeq</span></code>.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">linear_hierarchy</span> <span class="special">{</span>
+    <span class="keyword">typedef</span> <span class="special">&lt;</span><span class="identifier">see</span> <span class="identifier">below</span><span class="special">&gt;</span> <span class="identifier">type</span><span class="special">;</span>
+<span class="special">};</span>
+</pre>
+<p>
+            The nested <code class="computeroutput"><span class="identifier">type</span></code> is equivalent
+            to <code class="computeroutput"><span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">fold</span><span class="special">&lt;</span><span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">,</span> <span class="identifier">implementation_defined</span><span class="special">&lt;</span><span class="identifier">Final</span><span class="special">&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span></code>.
+          </p>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp"></a><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp" title="
+        Header &lt;boost/opaque/metamixin/inherited_from_undelying.hpp&gt;">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">inherited_from_undelying</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp.linear_hierarchy">
+          Class Template <code class="computeroutput"><span class="identifier">linear_hierarchy</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">=</span><span class="keyword">bool</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">inherited_from_undelying</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp.linear_hierarchy"></a><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp.linear_hierarchy" title="
+          Class Template linear_hierarchy&lt;&gt;">
+          Class Template <code class="computeroutput"><span class="identifier">linear_hierarchy</span><span class="special">&lt;&gt;</span></code></a>
+</h5></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">inherited_from_undelying</span><span class="special">;</span>
+</pre>
+<p>
+            <code class="computeroutput"><span class="identifier">inherited_from_undelying</span></code>
+            is a <code class="computeroutput"><span class="identifier">MetaMixin</span></code> which
+            add wrapping member to the underlyibg type <code class="computeroutput"><span class="identifier">UT</span></code>.
+          </p>
+<p>
+            This class must specialized for specific types in order to make easier
+            the construction of opaque types having <code class="computeroutput"><span class="identifier">UT</span></code>
+            as underlying type. For example the library provide specializations for
+            each one of the buil-in types.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">inherited_from_undelying</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="special">{</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">type</span><span class="special">;</span> <span class="comment">//implementation defined
+</span><span class="special">};</span>
+</pre>
+<p>
+            template &lt;typename Bool&gt; struct inherited_from_undelying&lt;int&gt;
+            { template &lt;typename Final, typename Base&gt; struct type; //implementation
+            defined };
+          </p>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.meta_mixins.using_operators_hpp"></a><a href="index.html#boost.opaque.reference.meta_mixins.using_operators_hpp" title="
+        Header &lt;boost/opaque/metamixin/using_operators.hpp&gt;">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">using_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.using_operators_hpp.arithmetic_operators">Arithmetic
+          Operators</a></span></dt></dl></div>
+<p>
+          This file includes meta-mixins that are used to add un operator overloads
+          forwarding from the Final type to the underlying type. There is a meta-mixins
+          for each one of the C++ overloadable operators.
+        </p>
+<p>
+          These metamixins have names that follows the naming used in Boost.ConceptsTraits,
+          but prefixed by <code class="computeroutput"><span class="identifier">using_</span></code>.
+        </p>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost.opaque.reference.meta_mixins.using_operators_hpp.arithmetic_operators"></a><a href="index.html#boost.opaque.reference.meta_mixins.using_operators_hpp.arithmetic_operators" title="Arithmetic
+          Operators">Arithmetic
+          Operators</a>
+</h5></div></div></div>
+<p>
+            The arithmetic meta-mixins ease the task of creating a custom numeric
+            type based on the underlying type. Given an underlying type, the templates
+            add forward operators from the numeric class to the underlying type.
+            These operations are like the ones the standard arithmetic types have,
+            and may include comparisons, adding, incrementing, logical and bitwise
+            manipulations, etc. Further, since most numeric types need more than
+            one of these operators, some templates are provided to combine several
+            of the basic operator templates in one declaration.
+          </p>
+<p>
+            The requirements for the types used to instantiate the simple operator
+            templates are specified in terms of expressions which must be valid and
+            the expression's return type.
+          </p>
+<p>
+            These meta-mixins are "simple" since they provide un operator
+            based on a single operation the underlying type has to provide. They
+            have an additional optional template parameter Base, which is not shown,
+            for the base class chaining technique.
+          </p>
+<p>
+            The primary operand type <code class="computeroutput"><span class="identifier">Final</span></code>
+            needs to be of class type, built-in types are not supported.
+          </p>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.meta_mixins.hiding_operators_hpp"></a><a href="index.html#boost.opaque.reference.meta_mixins.hiding_operators_hpp" title="
+        Header &lt;boost/opaque/metamixin/hiding_operators.hpp&gt;">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">hiding_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<p>
+          This file includes metamixins that are used to hide operator overloads
+          that have been defined by a base class for each one of the C++ overloadable
+          operators.
+        </p>
+<p>
+          These metamixins have names that follows the naming used in Boost.ConceptsTraits,
+          but prefixed by <code class="computeroutput"><span class="identifier">hiding_</span></code>.
+        </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.meta_mixins.using_combined_operators_hpp"></a><a href="index.html#boost.opaque.reference.meta_mixins.using_combined_operators_hpp" title="
+        Header &lt;boost/opaque/metamixin/using_combined_operators.hpp&gt;">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">using_combined_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<p>
+          This file includes metamixins combining several operators.
+        </p>
+<p>
+          These metamixins have names that follows the naming used in Boost.Operators,
+          but prefixed by <code class="computeroutput"><span class="identifier">using_</span></code>.
+        </p>
+<p>
+          The composite operator templates only list what other templates they use.
+          The supplied operations and requirements of the composite operator templates
+          can be inferred from the operations and requirements of the listed components.
+        </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.meta_mixins.hiding_combined_operators_hpp"></a><a href="index.html#boost.opaque.reference.meta_mixins.hiding_combined_operators_hpp" title="
+        Header &lt;boost/opaque/metamixin/hiding_combined_operators.hpp&gt;">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">hiding_combined_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<p>
+          This file includes metamixins combining several hiding operators.
+        </p>
+<p>
+          This file includes metamixins combining several hiding metamixins that
+          are used to hide operator overloads that have been defined by a base clas.
+        </p>
+<p>
+          These metamixins have names that follows the naming used in Boost.Operators,
+          but prefixed by <code class="computeroutput"><span class="identifier">hiding_</span></code>.
+        </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.meta_mixins.transitive_substituable_hpp"></a><a href="index.html#boost.opaque.reference.meta_mixins.transitive_substituable_hpp" title="
+        Header &lt;boost/opaque/metamixin/transitive_substituable.hpp&gt;">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">transitive_substituable</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.transitive_substituable_hpp.transitive_substituable">
+          Class Template <code class="computeroutput"><span class="identifier">transitive_substituable</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">BaseClass</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">transitive_substituable</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost.opaque.reference.meta_mixins.transitive_substituable_hpp.transitive_substituable"></a><a href="index.html#boost.opaque.reference.meta_mixins.transitive_substituable_hpp.transitive_substituable" title="
+          Class Template transitive_substituable&lt;&gt;">
+          Class Template <code class="computeroutput"><span class="identifier">transitive_substituable</span><span class="special">&lt;&gt;</span></code></a>
+</h5></div></div></div>
+<p>
+            This metamixin provides the Final class implicit conversions for all
+            the underlying types hierarchy.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">BaseClass</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">transitive_substituable</span><span class="special">;</span>
+</pre>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.reference.meta_mixins.transitive_explicit_substituable_hpp"></a><a href="index.html#boost.opaque.reference.meta_mixins.transitive_explicit_substituable_hpp" title="
+        Header &lt;boost/opaque/metamixin/transitive_explicit_substituable.hpp&gt;">
+        Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">transitive_explicit_substituable</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h4></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.transitive_explicit_substituable_hpp.transitive_explicit_substituable">
+          Class Template <code class="computeroutput"><span class="identifier">transitive_explicit_substituable</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost.opaque.reference.meta_mixins.transitive_explicit_substituable_hpp.transitive_explicit_substituable"></a><a href="index.html#boost.opaque.reference.meta_mixins.transitive_explicit_substituable_hpp.transitive_explicit_substituable" title="
+          Class Template transitive_explicit_substituable&lt;&gt;">
+          Class Template <code class="computeroutput"><span class="identifier">transitive_explicit_substituable</span><span class="special">&lt;&gt;</span></code></a>
+</h5></div></div></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">BaseClass</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">transitive_explicit_substituable</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+            This metamixin provides the Final class explicit conversions for all
+            the underlying types hierarchy (when the compiler supports explicit conversion
+            operators). For portability purposed the library provide as workarround
+            a convert_to non member function.
+          </p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">BaseClass</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">transitive_explicit_substituable</span><span class="special">;</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost.opaque.appendices"></a><a href="index.html#boost.opaque.appendices" title="Appendices">Appendices</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.history"> Appendix A: History</a></span></dt>
+<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.appendices.history.__version_0_1_0__october_18__2010__"><span class="bold"><strong>Version 0.1.0, October 18, 2010</strong></span> </a></span></dt></dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.rationale"> Appendix B: Design
+      Rationale</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.implementation"> Appendix C:
+      Implementation Notes</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.acknowledgements"> Appendix D:
+      Acknowledgements</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.appendix_e__tests">Appendix E:
+      Tests</a></span></dt>
+<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.appendices.appendix_e__tests.builtins">Builtins</a></span></dt></dl></dd>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.appendix_f__tickets">Appendix
+      F: Tickets</a></span></dt>
+<dt><span class="section"><a href="index.html#boost.opaque.appendices.todo"> Appendix F: Future plans</a></span></dt>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.appendices.history"></a><a href="index.html#boost.opaque.appendices.history" title=" Appendix A: History"> Appendix A: History</a>
+</h3></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.appendices.history.__version_0_1_0__october_18__2010__"><span class="bold"><strong>Version 0.1.0, October 18, 2010</strong></span> </a></span></dt></dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.appendices.history.__version_0_1_0__october_18__2010__"></a><a href="index.html#boost.opaque.appendices.history.__version_0_1_0__october_18__2010__" title="Version 0.1.0, October 18, 2010 "><span class="bold"><strong>Version 0.1.0, October 18, 2010</strong></span> </a>
+</h4></div></div></div>
+<p>
+          <span class="bold"><strong>Features:</strong></span>
+        </p>
+<div class="itemizedlist"><ul type="disc"><li>
+              a
+            </li></ul></div>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.appendices.rationale"></a><a href="index.html#boost.opaque.appendices.rationale" title=" Appendix B: Design
+      Rationale"> Appendix B: Design
+      Rationale</a>
+</h3></div></div></div>
+<a name="boost.opaque.appendices.rationale.lala"></a><h4>
+<a name="id5005312"></a>
+        <a href="index.html#boost.opaque.appendices.rationale.lala">lala</a>
+      </h4>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.appendices.implementation"></a><a href="index.html#boost.opaque.appendices.implementation" title=" Appendix C:
+      Implementation Notes"> Appendix C:
+      Implementation Notes</a>
+</h3></div></div></div>
+<a name="boost.opaque.appendices.implementation.lala"></a><h4>
+<a name="id5005345"></a>
+        <a href="index.html#boost.opaque.appendices.implementation.lala">lala</a>
+      </h4>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.appendices.acknowledgements"></a><a href="index.html#boost.opaque.appendices.acknowledgements" title=" Appendix D:
+      Acknowledgements"> Appendix D:
+      Acknowledgements</a>
+</h3></div></div></div>
+<p>
+        Thanks to .
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.appendices.appendix_e__tests"></a><a href="index.html#boost.opaque.appendices.appendix_e__tests" title="Appendix E:
+      Tests">Appendix E:
+      Tests</a>
+</h3></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.appendices.appendix_e__tests.builtins">Builtins</a></span></dt></dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="boost.opaque.appendices.appendix_e__tests.builtins"></a><a href="index.html#boost.opaque.appendices.appendix_e__tests.builtins" title="Builtins">Builtins</a>
+</h4></div></div></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Name
+                  </p>
+                </th>
+<th>
+                  <p>
+                    kind
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Description
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Result
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Ticket
+                  </p>
+                </th>
+</tr></thead>
+<tbody><tr>
+<td>
+                  <p>
+                    convert_to_with_builtin_types
+                  </p>
+                </td>
+<td>
+                  <p>
+                    run
+                  </p>
+                </td>
+<td>
+                  <p>
+                    check <code class="computeroutput"><span class="identifier">convert_to</span></code>
+                    works for builting types
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Pass
+                  </p>
+                </td>
+<td>
+                  <p>
+                    #
+                  </p>
+                </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.appendices.appendix_f__tickets"></a><a href="index.html#boost.opaque.appendices.appendix_f__tickets" title="Appendix
+      F: Tickets">Appendix
+      F: Tickets</a>
+</h3></div></div></div></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost.opaque.appendices.todo"></a><a href="index.html#boost.opaque.appendices.todo" title=" Appendix F: Future plans"> Appendix F: Future plans</a>
+</h3></div></div></div>
+<a name="boost.opaque.appendices.todo.tasks_to_do_before_review"></a><h4>
+<a name="id5005548"></a>
+        <a href="index.html#boost.opaque.appendices.todo.tasks_to_do_before_review">Tasks
+        to do before review</a>
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+            lala
+          </li></ul></div>
+<a name="boost.opaque.appendices.todo.for_later_releases"></a><h4>
+<a name="id5005578"></a>
+        <a href="index.html#boost.opaque.appendices.todo.for_later_releases">For later
+        releases</a>
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+            lala
+          </li></ul></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"><p><small>Last revised: October 02, 2010 at 22:43:11 GMT</small></p></td>
+<td align="right"><div class="copyright-footer"></div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav"></div>
+</body>
+</html>
