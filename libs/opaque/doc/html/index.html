@@ -177,7 +177,7 @@
         typedefs".
       </p>
 <p>
-        In Alisdair Meredith show that the implicitly generating forwarding constructors
+        In Alisdair Meredith showed in [] the implicitly generating forwarding constructors
         to a base class new C++0x feature could not be useful to address this issue
         completly. Using this new feature it becomes possible to create something
         very like the required opaque typedef. For example:
@@ -187,8 +187,9 @@
 <span class="special">};</span>
 </pre>
 <p>
-        This type is distrinct from std::string, functions can be overloaded on this
-        type as well as std::string, yet std::string is not convertible to this type.
+        This type is distrinct from <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>,
+        functions can be overloaded on this type as well as <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code>,
+        yet <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code> is not convertible to this type.
       </p>
 <p>
         As this proposals will not be part of the C++0x standard, a library solution
@@ -200,7 +201,8 @@
 <a name="boost.opaque.overview.description"></a><a href="index.html#boost.opaque.overview.description" title="Description">Description</a>
 </h3></div></div></div>
 <p>
-        Boost.Opaque intends to provide a library partial solution to this problem.
+        <span class="bold"><strong>Boost.Opaque</strong></span> intends to provide a library
+        partial solution to this problem.
       </p>
 <p>
         <span class="bold"><strong>Boost.Opaque</strong></span> provides:
@@ -281,13 +283,13 @@
         Installing Boost.Opaque</a>
 </h4></div></div></div>
 <a name="boost.opaque.users_guide.getting_started.install.getting_boost_opaque"></a><h5>
-<a name="id4949072"></a>
+<a name="id4949134"></a>
           <a href="index.html#boost.opaque.users_guide.getting_started.install.getting_boost_opaque">Getting
           Boost.Opaque</a>
         </h5>
 <p>
-          You can get the last stable release of Boost.Opaque by downloading <code class="literal">ppaque.zip</code>
-          from the <a href="http://www.boostpro.com/vault/index.php?action=downloadfile&amp;filename=opaque.zip&amp;directory=Utilities&amp;" target="_top">Boost
+          You can get the last stable release of <span class="bold"><strong>Boost.Opaque</strong></span>
+          by downloading <code class="literal">ppaque.zip</code> from the <a href="http://www.boostpro.com/vault/index.php?action=downloadfile&amp;filename=opaque.zip&amp;directory=Utilities&amp;" target="_top">Boost
           Vault Utilities directory</a>
         </p>
 <p>
@@ -295,7 +297,7 @@
           Sandbox</a>.
         </p>
 <a name="boost.opaque.users_guide.getting_started.install.building_boost_opaque"></a><h5>
-<a name="id4949128"></a>
+<a name="id4949194"></a>
           <a href="index.html#boost.opaque.users_guide.getting_started.install.building_boost_opaque">Building
           Boost.Opaque</a>
         </h5>
@@ -305,7 +307,7 @@
           in your compiler include path.
         </p>
 <a name="boost.opaque.users_guide.getting_started.install.requirements"></a><h5>
-<a name="id4949160"></a>
+<a name="id4949227"></a>
           <a href="index.html#boost.opaque.users_guide.getting_started.install.requirements">Requirements</a>
         </h5>
 <p>
@@ -313,7 +315,7 @@
           (and all libraries it depends on).
         </p>
 <a name="boost.opaque.users_guide.getting_started.install.exceptions_safety"></a><h5>
-<a name="id4949191"></a>
+<a name="id4949258"></a>
           <a href="index.html#boost.opaque.users_guide.getting_started.install.exceptions_safety">Exceptions
           safety</a>
         </h5>
@@ -322,7 +324,7 @@
           of exception safety as long as the underlying parameters provide it.
         </p>
 <a name="boost.opaque.users_guide.getting_started.install.thread_safety"></a><h5>
-<a name="id4949218"></a>
+<a name="id4949284"></a>
           <a href="index.html#boost.opaque.users_guide.getting_started.install.thread_safety">Thread
           safety</a>
         </h5>
@@ -330,7 +332,7 @@
           All functions in the library are thread-unsafe except when noted explicitly.
         </p>
 <a name="boost.opaque.users_guide.getting_started.install.tested_compilers"></a><h5>
-<a name="id4949243"></a>
+<a name="id4949310"></a>
           <a href="index.html#boost.opaque.users_guide.getting_started.install.tested_compilers">Tested
           compilers</a>
         </h5>
@@ -443,27 +445,29 @@
         </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
-              the underlying type (int),
+              the underlying type (<code class="computeroutput"><span class="keyword">int</span></code>),
             </li>
 <li>
-              the unique tag of the new type (Identifier_tag),
+              the unique tag of the new type (<code class="computeroutput"><span class="identifier">Identifier_tag</span></code>),
             </li>
 <li>
-              a MPL sequence of additions 'mpl::vector&lt;opaque::using_totally_ordered1&gt;)
+              a MPL sequence of additions (<code class="computeroutput"><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_totally_ordered1</span><span class="special">&gt;</span></code>)
             </li>
 </ul></div>
 <p>
-          This will declare Identifier as new type different from int that provides
-          just the operation associated to a totally<span class="underline">ordered
+          This will declare Identifier as new type different from <code class="computeroutput"><span class="keyword">int</span></code>
+          that provides just the operation associated to a <code class="computeroutput"><span class="identifier">totally_ordered</span></code>
           concept. The concepts are represented by the library in the form a meta-mixin
-          and are named with the using</span> prefix, e.g. as using_totally_ordered1.
+          and are named with the <code class="computeroutput"><span class="identifier">using_</span></code>
+          prefix, e.g. as <code class="computeroutput"><span class="identifier">using_totally_ordered1</span></code>.
         </p>
 <p>
           We can now use Identifier as new int type, but limited to the totally ordered
           operations.
         </p>
 <p>
-          Boost.Opaque provides a macros to simplify the preceding declaration
+          <span class="bold"><strong>Boost.Opaque</strong></span> provides a macros to simplify
+          the preceding declaration
         </p>
 <pre class="programlisting"><span class="identifier">BOOST_OPAQUE_NEW_TYPE</span><span class="special">(</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">Identifier</span><span class="special">,</span> <span class="special">((</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_totally_ordered1</span><span class="special">)))</span>
 </pre>
@@ -493,23 +497,24 @@
 </span><span class="special">};</span>
 </pre>
 <p>
-          In this case we use the mixin class new_class instead. The new_class class
-          template has asthe following arguments,
+          In this case we use the mixin class <code class="computeroutput"><span class="identifier">new_class</span></code>
+          instead. The <code class="computeroutput"><span class="identifier">new_class</span></code>
+          class template has the following arguments,
         </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
               the class we are defining
             </li>
 <li>
-              the underlying type (int),
+              the underlying type (<code class="computeroutput"><span class="keyword">int</span></code>),
             </li>
 <li>
-              a MPL sequence of additions 'mpl::vector&lt;opaque::using_totally_ordered1&gt;)
+              a MPL sequence of additions (<code class="computeroutput"><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_totally_ordered1</span><span class="special">&gt;</span></code>)
             </li>
 </ul></div>
 <p>
-          Boost.Opaque provides a macros BOOST_OPAQUE_NEW_CLASS to simplify the preceding
-          declaration
+          <span class="bold"><strong>Boost.Opaque</strong></span> provides a macro <code class="computeroutput"><span class="identifier">BOOST_OPAQUE_NEW_CLASS</span></code> to simplify the
+          preceding declaration
         </p>
 <pre class="programlisting"><span class="identifier">BOOST_OPAQUE_NEW_CLASS</span><span class="special">(</span><span class="identifier">Identifier</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="special">((</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_totally_ordered1</span><span class="special">)))</span>
 <span class="special">{</span>
@@ -518,7 +523,7 @@
 </span><span class="special">}</span>
 </pre>
 <p>
-          The macros is responsable to define a uniqye tag and transform the preprocessor
+          The macros is responsable to define a unique tag and transform the preprocessor
           PPL sequence into a MPL sequence.
         </p>
 </div>
@@ -529,7 +534,8 @@
         type for relational operators: <code class="computeroutput"><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">boolean</span></code></a>
 </h4></div></div></div>
 <p>
-          The following code doesn't warms in (1) when we use 0 where a bool is expected.
+          The following code doesn't warns in (1) when we use <code class="computeroutput"><span class="number">0</span></code>
+          where a <code class="computeroutput"><span class="keyword">bool</span></code> is expected.
         </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="keyword">bool</span> <span class="identifier">Bool</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">Int</span><span class="special">;</span>
@@ -541,7 +547,8 @@
 <span class="special">}</span>
 </pre>
 <p>
-          We can define an bool opaque typedef so only true_ and false_ are accepted
+          We can define an bool opaque typedef so only <code class="computeroutput"><span class="identifier">true_</span></code>
+          and <code class="computeroutput"><span class="identifier">false_</span></code> are accepted
           as constant expressions
         </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">Int</span><span class="special">;</span>
@@ -554,7 +561,8 @@
 </span><span class="special">}</span>
 </pre>
 <p>
-          Now we get an error on (1) as 0 is not convertible to opaque::boolean.
+          Now we get an error on (1) as <code class="computeroutput"><span class="number">0</span></code>
+          is not convertible to <code class="computeroutput"><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">boolean</span></code>.
           This can be easily solved
         </p>
 <pre class="programlisting"><span class="identifier">Bool</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">Int</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">Int</span> <span class="identifier">b</span><span class="special">)</span>
@@ -564,14 +572,17 @@
 </span><span class="special">}</span>
 </pre>
 <p>
-          But now we also get an error on (2) as a &gt; b is not convertible to opaque::boolean.
-          To solve this issue we need that the signature Int &gt; Int be convertible
-          to opaque::boolean.
+          But now we also get an error on (2) as <code class="computeroutput"><span class="identifier">a</span>
+          <span class="special">&gt;</span> <span class="identifier">b</span></code>
+          is not convertible to <code class="computeroutput"><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">boolean</span></code>.
+          To solve this issue we need that the signature <code class="computeroutput"><span class="identifier">Int</span>
+          <span class="special">&gt;</span> <span class="identifier">Int</span></code>
+          be convertible to <code class="computeroutput"><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">boolean</span></code>.
         </p>
 <p>
-          Boost.Opaque provides a meta-mixin that allos to define an integer-like
-          class that use opaque::boolean as type for the result of the relational
-          operators.
+          <span class="bold"><strong>Boost.Opaque</strong></span> provides a meta-mixin that
+          allos to define an integer-like class that use <code class="computeroutput"><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">boolean</span></code>
+          as type for the result of the relational operators.
         </p>
 <pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">Int_tag</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">new_type</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">Int_tag</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span>
@@ -602,7 +613,8 @@
         </p>
 <p>
           For example, we can need real new typedefs to be able to overload a function.
-          This can be done with the BOOST_OPAQUE_PUBLIC_TYPEDEF macro.
+          This can be done with the <code class="computeroutput"><span class="identifier">BOOST_OPAQUE_PUBLIC_TYPEDEF</span></code>
+          macro.
         </p>
 <pre class="programlisting"><span class="comment">// Listing 1
 </span><span class="comment">// Cartesian 3D coordinate types
@@ -623,11 +635,12 @@
 <span class="special">};</span> <span class="comment">// PhysicsVector
 </span></pre>
 <p>
-          BOOST_OPAQUE_PUBLIC_TYPEDEF(double, X) creates a new type X with the same
-          operations than double. The operations to forward are obtained from the
-          traits class inherited_from_underlying&lt;double&gt;. The template class
-          can be specialized for a particular type and the library already do that
-          for all the built-in types.
+          <code class="computeroutput"><span class="identifier">BOOST_OPAQUE_PUBLIC_TYPEDEF</span><span class="special">(</span><span class="keyword">double</span><span class="special">,</span> <span class="identifier">X</span><span class="special">)</span></code>
+          creates a new type <code class="computeroutput"><span class="identifier">X</span></code> with
+          the same operations than <code class="computeroutput"><span class="keyword">double</span></code>.
+          The operations to forward are obtained from the traits class <code class="computeroutput"><span class="identifier">inherited_from_underlying</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">&gt;</span></code>.
+          The template class can be specialized for a particular type and the library
+          already do that for all the built-in types.
         </p>
 </div>
 <div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title">
@@ -643,8 +656,8 @@
 </h4></div></div></div>
 <p>
           Sometimes we want to inherit most of the operations inherited from the
-          underlying type. We can either use the new_type class and bee explicit
-          on which operation we want
+          underlying type. We can either use the <code class="computeroutput"><span class="identifier">new_type</span></code>
+          class and bee explicit on which operation we want
         </p>
 <pre class="programlisting"><span class="identifier">BOOST_OPAQUE_NEW_TYPE</span><span class="special">(</span><span class="identifier">UT</span><span class="special">,</span> <span class="identifier">NT</span><span class="special">,</span> <span class="special">(</span>
     <span class="special">(</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">using_ope1</span><span class="special">)</span>
@@ -705,6 +718,11 @@
           Strong Type Checking</strong></span></a></span></dt>
 <dd><p>
               Gimpel Software
+            </p></dd>
+<dt><span class="term"><a href="http://www.drdobbs.com/184401633" target="_top"><span class="bold"><strong>True
+          typedefs</strong></span></a></span></dt>
+<dd><p>
+              Matthew Wilson
             </p></dd>
 </dl>
 </div>
@@ -1319,8 +1337,8 @@
           Class Template <code class="computeroutput"><span class="identifier">linear_hierarchy</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></dd>
 <dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp">
         Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">inherited_from_undelying</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
-<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp.linear_hierarchy">
-          Class Template <code class="computeroutput"><span class="identifier">linear_hierarchy</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></dd>
+<dd><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp.inherited_from_undelying">
+          Class Template <code class="computeroutput"><span class="identifier">inherited_from_undelying</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></dd>
 <dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.using_operators_hpp">
         Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">using_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
 <dd><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.using_operators_hpp.arithmetic_operators">Arithmetic
@@ -1522,8 +1540,8 @@
         Header &lt;boost/opaque/metamixin/inherited_from_undelying.hpp&gt;">
         Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">inherited_from_undelying</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
-<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp.linear_hierarchy">
-          Class Template <code class="computeroutput"><span class="identifier">linear_hierarchy</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></div>
+<div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp.inherited_from_undelying">
+          Class Template <code class="computeroutput"><span class="identifier">inherited_from_undelying</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></div>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">=</span><span class="keyword">bool</span><span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">inherited_from_undelying</span><span class="special">;</span>
@@ -1531,9 +1549,9 @@
 </pre>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h5 class="title">
-<a name="boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp.linear_hierarchy"></a><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp.linear_hierarchy" title="
-          Class Template linear_hierarchy&lt;&gt;">
-          Class Template <code class="computeroutput"><span class="identifier">linear_hierarchy</span><span class="special">&lt;&gt;</span></code></a>
+<a name="boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp.inherited_from_undelying"></a><a href="index.html#boost.opaque.reference.meta_mixins.inherited_from_undelying_hpp.inherited_from_undelying" title="
+          Class Template inherited_from_undelying&lt;&gt;">
+          Class Template <code class="computeroutput"><span class="identifier">inherited_from_undelying</span><span class="special">&lt;&gt;</span></code></a>
 </h5></div></div></div>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">&gt;</span>
 <span class="keyword">struct</span> <span class="identifier">inherited_from_undelying</span><span class="special">;</span>
@@ -1576,7 +1594,7 @@
           for each one of the C++ overloadable operators.
         </p>
 <p>
-          These metamixins have names that follows the naming used in Boost.ConceptsTraits,
+          These meta-mixins have names that follows the naming used in Boost.ConceptsTraits,
           but prefixed by <code class="computeroutput"><span class="identifier">using_</span></code>.
         </p>
 <div class="section" lang="en">
@@ -1607,9 +1625,973 @@
             for the base class chaining technique.
           </p>
 <p>
-            The primary operand type <code class="computeroutput"><span class="identifier">Final</span></code>
-            needs to be of class type, built-in types are not supported.
+            In the following table the meta-mixin follows the schema
           </p>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">meta</span><span class="special">-</span><span class="identifier">mixins</span> <span class="special">{</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">NT</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">type</span><span class="special">:</span> <span class="identifier">Base</span> <span class="special">{</span>
+        <span class="comment">// Supplied Operation
+</span>    <span class="special">};</span>
+<span class="special">};</span>
+</pre>
+<div class="itemizedlist"><ul type="disc">
+<li>
+                NT/NT2 is expected to satisfy the FinalUnderlying requirements.
+              </li>
+<li>
+                UT stands for NT::underlying_type
+              </li>
+<li>
+                UT2 stands for NT2::underlying_type
+              </li>
+<li>
+                this_ut is the instance UT reference obtained NT::underlying(this)
+              </li>
+<li>
+                lhs is a NT/NT2 const reference
+              </li>
+<li>
+                rhs is a NT/NT2 const reference
+              </li>
+<li>
+                lhs_ut is the instance UT reference obtained lhs.underlying()
+              </li>
+<li>
+                rhs_ut is the instance UT reference obtained rhs.underlying()
+              </li>
+</ul></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                    <p>
+                      Meta-Mixin
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Supplied Operation
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Requirements
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Ref
+                    </p>
+                  </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_underlying_conversion</span><span class="special">&lt;</span><span class="identifier">UT</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="keyword">operator</span> <span class="identifier">UT</span><span class="special">()</span> <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      None
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      12.3.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_conversion_to</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="keyword">operator</span> <span class="identifier">T</span><span class="special">()</span> <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      12.3.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_safe_bool_conversion</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="keyword">operator</span> <span class="identifier">unspecified_bool_type</span><span class="special">()</span> <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ut</span><span class="special">?</span><span class="keyword">true</span><span class="special">:</span><span class="keyword">false</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      12.3.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_logical_not</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span> <span class="keyword">operator</span><span class="special">!=()</span> <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span><span class="special">(!</span><span class="identifier">this_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.1
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_unary_plus</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">+()</span> <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(+</span><span class="identifier">this_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.1
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_unary_minus</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">-()</span> <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(-</span><span class="identifier">this_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.1
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_not</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">~()</span> <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(~</span><span class="identifier">this_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.1
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_pre_increment</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="keyword">operator</span><span class="special">++()</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="special">++</span><span class="identifier">this_ut</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.1
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_pre_decrement</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="keyword">operator</span><span class="special">--()</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="special">--</span><span class="identifier">this_ut</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.1
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_post_increment</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">++(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">this_ut</span><span class="special">++</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.1
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_post_decrement</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">--(</span><span class="keyword">int</span><span class="special">)</span> <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">this_ut</span><span class="special">++</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.1
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_less_than</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span> <span class="keyword">operator</span><span class="special">&lt;(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">&lt;</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_less_than_equal</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span> <span class="keyword">operator</span><span class="special">&lt;=(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">&lt;=</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_greater_than_equal</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span> <span class="keyword">operator</span><span class="special">&gt;=(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">&gt;=</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_greater_than</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span> <span class="keyword">operator</span><span class="special">&gt;(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">&gt;</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_equal</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span> <span class="keyword">operator</span><span class="special">==(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">==</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_not_equal</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span> <span class="keyword">operator</span><span class="special">!=(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Bool</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">!=</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_plus_assign</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="keyword">operator</span><span class="special">+=(</span><span class="keyword">const</span> <span class="identifier">NT</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">this_ut</span> <span class="special">+=</span>
+                      <span class="identifier">rhs_ut</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_minus_assign</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="keyword">operator</span><span class="special">-=(</span><span class="keyword">const</span> <span class="identifier">NT</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">this_ut</span> <span class="special">-=</span>
+                      <span class="identifier">rhs_ut</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_multiply_assign</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="keyword">operator</span><span class="special">*=(</span><span class="keyword">const</span> <span class="identifier">NT</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">this_ut</span> <span class="special">*=</span>
+                      <span class="identifier">rhs_ut</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_divide_assign</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="keyword">operator</span><span class="special">/=(</span><span class="keyword">const</span> <span class="identifier">NT</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">this_ut</span> <span class="special">/=</span>
+                      <span class="identifier">rhs_ut</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_modulus_assign</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="keyword">operator</span><span class="special">%=(</span><span class="keyword">const</span> <span class="identifier">NT</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">this_ut</span> <span class="special">%=</span>
+                      <span class="identifier">rhs_ut</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_xor_assign</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="keyword">operator</span><span class="special">^=(</span><span class="keyword">const</span> <span class="identifier">NT</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">this_ut</span> <span class="special">^=</span>
+                      <span class="identifier">rhs_ut</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_and_assign</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="keyword">operator</span><span class="special">&amp;=(</span><span class="keyword">const</span> <span class="identifier">NT</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">this_ut</span> <span class="special">&amp;=</span>
+                      <span class="identifier">rhs_ut</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_or_assign</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="keyword">operator</span><span class="special">|=(</span><span class="keyword">const</span> <span class="identifier">NT</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">this_ut</span> <span class="special">|=</span>
+                      <span class="identifier">rhs_ut</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_left_right_assign</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="keyword">operator</span><span class="special">&lt;&lt;=(</span><span class="keyword">const</span> <span class="identifier">NT</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">this_ut</span> <span class="special">&lt;&lt;=</span>
+                      <span class="identifier">rhs_ut</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_right_shift_assign</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="keyword">operator</span><span class="special">&gt;&gt;=(</span><span class="keyword">const</span> <span class="identifier">NT</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">this_ut</span> <span class="special">&gt;&gt;=</span>
+                      <span class="identifier">rhs_ut</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_plus</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">+(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">+</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_minus</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">-(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">-</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_multiply</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">*(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">*</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_divide</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">/(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">/</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_modulus</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">%(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">%</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_xor</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">^(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">^</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_or</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">|(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">|</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_and</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">&amp;(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">&amp;</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_left_shift1</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">&lt;&lt;(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">&lt;&lt;</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">using_right_shift1</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span> <span class="keyword">operator</span><span class="special">&gt;&gt;(</span><span class="keyword">const</span>
+                      <span class="identifier">NT</span><span class="special">&amp;</span>
+                      <span class="identifier">rhs</span><span class="special">)</span>
+                      <span class="keyword">const</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">NT</span><span class="special">(</span><span class="identifier">this_ut</span> <span class="special">&gt;&gt;</span>
+                      <span class="identifier">rhs_ut</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      13.5.2
+                    </p>
+                  </td>
+</tr>
+</tbody>
+</table></div>
 </div>
 </div>
 <div class="section" lang="en">
@@ -1619,14 +2601,91 @@
         Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">hiding_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
 <p>
-          This file includes metamixins that are used to hide operator overloads
+          This file includes meta-mixins that are used to hide operator overloads
           that have been defined by a base class for each one of the C++ overloadable
           operators.
         </p>
 <p>
-          These metamixins have names that follows the naming used in Boost.ConceptsTraits,
+          These meta-mixins have names that follows the naming used in Boost.ConceptsTraits,
           but prefixed by <code class="computeroutput"><span class="identifier">hiding_</span></code>.
         </p>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Meta-Mixin
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Hidden Operation
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Requirements
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Ref
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">hiding_assign</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">NT</span><span class="special">&amp;</span>
+                    <span class="keyword">operator</span><span class="special">=(</span><span class="identifier">NT</span> <span class="keyword">const</span><span class="special">&amp;)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    None
+                  </p>
+                </td>
+<td>
+                  <p>
+                    13.5.3
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">hiding_copy</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">NT</span><span class="special">(</span><span class="identifier">NT</span> <span class="keyword">const</span><span class="special">&amp;)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    None
+                  </p>
+                </td>
+<td>
+                  <p>
+                    13.5.3
+                  </p>
+                </td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h4 class="title">
@@ -1635,10 +2694,10 @@
         Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">using_combined_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
 <p>
-          This file includes metamixins combining several operators.
+          This file includes meta-mixins combining several operators.
         </p>
 <p>
-          These metamixins have names that follows the naming used in Boost.Operators,
+          These meta-mixins have names that follows the naming used in Boost.Operators,
           but prefixed by <code class="computeroutput"><span class="identifier">using_</span></code>.
         </p>
 <p>
@@ -1646,6 +2705,483 @@
           The supplied operations and requirements of the composite operator templates
           can be inferred from the operations and requirements of the listed components.
         </p>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Meta-Mixin
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Meta-Mixin Sequence
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Ref
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_equality_comparable1</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_equal</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>,
+                    <br> <code class="computeroutput"><span class="identifier">using_not_equal</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    20.1.1
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_less_than_comparable1</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_less_than</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code> <br> <code class="computeroutput"><span class="identifier">using_less_than_equal</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code> <br> <code class="computeroutput"><span class="identifier">using_greater_than_equal</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code> <br> <code class="computeroutput"><span class="identifier">using_greater_than</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    20.1.2
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_partially_ordered1</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_less_than</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code> <br> <code class="computeroutput"><span class="identifier">using_less_than_equal</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code> <br> <code class="computeroutput"><span class="identifier">using_greater_than_equal</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code> <br> <code class="computeroutput"><span class="identifier">using_greater_than</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    20.1.2
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_addable1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_plus_assign</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_plus</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_subtractable1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_minus_assign</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_minus</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_multipliable1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_multiply_assign</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_multiply</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_dividable1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_divide_assign</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_divide</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_modable1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_modulus_assign</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_modulus</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_bitwise_xorable1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_bitwise_xor_assign</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_bitwise_xor</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_bitwise_orable1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_bitwise_or_assign</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_bitwise_or</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_bitwise_andable1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_bitwise_and_assign</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_bitwise_and</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_left_shiftable1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_left_right_assign</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_left_shift1</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_right_shiftable1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_right_shift_assign</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_right_shift1</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_incrementable</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_pre_increment</span><span class="special">&gt;</span></code> <br> <code class="computeroutput"><span class="identifier">using_post_increment</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_decrementable</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_pre_decrement</span><span class="special">&gt;</span></code> <br> <code class="computeroutput"><span class="identifier">using_post_decrement</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+</tbody>
+</table></div>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Meta-Mixin
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Meta-Mixin Sequence
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Ref
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_totally_ordered1</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_equality_comparable1</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code> <br> <code class="computeroutput"><span class="identifier">using_less_than_comparable1</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_additive1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_addable1</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_subtractable1</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_multiplicative1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_multipliable1</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_dividable1</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">integer_multiplicative1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_multiplicative1</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_modable1</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_arithmetic1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_additive1</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_multiplicative1</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_integer_arithmetic1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_additive1</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">integer_multiplicative1</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_bitwise1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_bitwise_xorable1</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_bitwise_orable1</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_bitwise_andable1</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_unit_steppable</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_incrementable</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_decrementable</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_shiftable1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_left_shiftable1</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_right_shiftable1</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_ring_operators1</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_additive1</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_multipliable1</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_ordered_ring_operators1</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_ring_operators1</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_totally_ordered1</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_field_operators1</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_ring_operators1</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_dividable1</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_ordered_field_operators1</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">using_field_operators1</span></code>
+                    <br> <code class="computeroutput"><span class="identifier">using_totally_ordered1</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h4 class="title">
@@ -1654,14 +3190,11 @@
         Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">opaque</span><span class="special">/</span><span class="identifier">metamixin</span><span class="special">/</span><span class="identifier">hiding_combined_operators</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
 <p>
-          This file includes metamixins combining several hiding operators.
-        </p>
-<p>
-          This file includes metamixins combining several hiding metamixins that
+          This file includes meta-mixins combining several hiding meta-mixins that
           are used to hide operator overloads that have been defined by a base clas.
         </p>
 <p>
-          These metamixins have names that follows the naming used in Boost.Operators,
+          These meta-mixins have names that follows the naming used in Boost.Operators,
           but prefixed by <code class="computeroutput"><span class="identifier">hiding_</span></code>.
         </p>
 </div>
@@ -1701,16 +3234,19 @@
 </h4></div></div></div>
 <div class="toc"><dl><dt><span class="section"><a href="index.html#boost.opaque.reference.meta_mixins.transitive_explicit_substituable_hpp.transitive_explicit_substituable">
           Class Template <code class="computeroutput"><span class="identifier">transitive_explicit_substituable</span><span class="special">&lt;&gt;</span></code></a></span></dt></dl></div>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">BaseClass</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">transitive_explicit_substituable</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h5 class="title">
 <a name="boost.opaque.reference.meta_mixins.transitive_explicit_substituable_hpp.transitive_explicit_substituable"></a><a href="index.html#boost.opaque.reference.meta_mixins.transitive_explicit_substituable_hpp.transitive_explicit_substituable" title="
           Class Template transitive_explicit_substituable&lt;&gt;">
           Class Template <code class="computeroutput"><span class="identifier">transitive_explicit_substituable</span><span class="special">&lt;&gt;</span></code></a>
 </h5></div></div></div>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">BaseClass</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">transitive_explicit_substituable</span><span class="special">;</span>
-<span class="special">}</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">BaseClass</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">transitive_explicit_substituable</span><span class="special">;</span>
 </pre>
 <p>
             This metamixin provides the Final class explicit conversions for all
@@ -1769,7 +3305,7 @@
       Rationale</a>
 </h3></div></div></div>
 <a name="boost.opaque.appendices.rationale.lala"></a><h4>
-<a name="id5005312"></a>
+<a name="id5012523"></a>
         <a href="index.html#boost.opaque.appendices.rationale.lala">lala</a>
       </h4>
 </div>
@@ -1780,7 +3316,7 @@
       Implementation Notes</a>
 </h3></div></div></div>
 <a name="boost.opaque.appendices.implementation.lala"></a><h4>
-<a name="id5005345"></a>
+<a name="id5012561"></a>
         <a href="index.html#boost.opaque.appendices.implementation.lala">lala</a>
       </h4>
 </div>
@@ -1881,7 +3417,7 @@
 <a name="boost.opaque.appendices.todo"></a><a href="index.html#boost.opaque.appendices.todo" title=" Appendix F: Future plans"> Appendix F: Future plans</a>
 </h3></div></div></div>
 <a name="boost.opaque.appendices.todo.tasks_to_do_before_review"></a><h4>
-<a name="id5005548"></a>
+<a name="id5012781"></a>
         <a href="index.html#boost.opaque.appendices.todo.tasks_to_do_before_review">Tasks
         to do before review</a>
       </h4>
@@ -1889,7 +3425,7 @@
             lala
           </li></ul></div>
 <a name="boost.opaque.appendices.todo.for_later_releases"></a><h4>
-<a name="id5005578"></a>
+<a name="id5012814"></a>
         <a href="index.html#boost.opaque.appendices.todo.for_later_releases">For later
         releases</a>
       </h4>
@@ -1900,7 +3436,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: October 02, 2010 at 22:43:11 GMT</small></p></td>
+<td align="left"><p><small>Last revised: October 03, 2010 at 19:53:00 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

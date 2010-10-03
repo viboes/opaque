@@ -102,13 +102,13 @@ In addition, the underlying-type `UT` can not be cv-qualified. This restriction 
 # Application of inheritance makes no provision that permits a base class to be cv-qualified.
 ]
 
-In Alisdair Meredith show that the implicitly generating forwarding constructors to a base class new C++0x feature could not be useful to address this issue completly. Using this new feature it becomes possible to create something very like the required opaque typedef. For example: 
+In Alisdair Meredith showed in [] the implicitly generating forwarding constructors to a base class new C++0x feature could not be useful to address this issue completly. Using this new feature it becomes possible to create something very like the required opaque typedef. For example: 
 
     struct MyType : std::string {
         using string::string;
     };
 
-This type is distrinct from std::string, functions can be overloaded on this type as well as std::string, yet std::string is not convertible to this type.
+This type is distrinct from `std::string`, functions can be overloaded on this type as well as `std::string`, yet `std::string` is not convertible to this type.
 
 As this proposals will not be part of the C++0x standard, a library solution that could satisfy most of the requirements seems a loable approach.
 
@@ -119,7 +119,7 @@ As this proposals will not be part of the C++0x standard, a library solution tha
 [/==================]
 
 
-Boost.Opaque intends to provide a library partial solution to this problem.
+[*Boost.Opaque] intends to provide a library partial solution to this problem.
 
 [*Boost.Opaque] provides:
 
@@ -148,7 +148,7 @@ Boost.Opaque intends to provide a library partial solution to this problem.
 [heading Getting Boost.Opaque]
 [/=================================]
 
-You can get the last stable release of Boost.Opaque by downloading [^ppaque.zip] from the
+You can get the last stable release of [*Boost.Opaque] by downloading [^ppaque.zip] from the
 [@http://www.boostpro.com/vault/index.php?action=downloadfile&filename=opaque.zip&directory=Utilities& Boost Vault Utilities directory]
 
 You can also access the latest (unstable?) state from the [@https://svn.boost.org/svn/boost/sandbox/opaque Boost Sandbox].
@@ -240,15 +240,15 @@ The declaration of a new typedef Identifier is done as follows. We need to decla
 
 New we use the opaque new_type class which has as parameters:
 
-* the underlying type (int),
-* the unique tag of the new type (Identifier_tag),
-* a MPL sequence of additions 'mpl::vector<opaque::using_totally_ordered1>)
+* the underlying type (`int`),
+* the unique tag of the new type (`Identifier_tag`),
+* a MPL sequence of additions (`mpl::vector<opaque::using_totally_ordered1>`)
 
-This will declare Identifier as new type different from int that provides just the operation associated to a totally_ordered concept. The concepts are represented by the library in the form a meta-mixin and are named with the using_ prefix, e.g. as using_totally_ordered1.
+This will declare Identifier as new type different from `int` that provides just the operation associated to a `totally_ordered` concept. The concepts are represented by the library in the form a meta-mixin and are named with the `using_` prefix, e.g. as `using_totally_ordered1`.
 
 We can now use Identifier as new int type, but limited to the totally ordered operations.
 
-Boost.Opaque provides a macros to simplify the preceding declaration
+[*Boost.Opaque] provides a macros to simplify the preceding declaration
 
     BOOST_OPAQUE_NEW_TYPE(int, Identifier, ((opaque::using_totally_ordered1)))
 
@@ -269,13 +269,13 @@ In the prededing example we use a tag to ensure type unicity. When the user need
         // ...
     };
 
-In this case we use the mixin class new_class instead. The new_class class template has asthe following arguments, 
+In this case we use the mixin class `new_class` instead. The `new_class` class template has the following arguments, 
 
 * the class we are defining
-* the underlying type (int),
-* a MPL sequence of additions 'mpl::vector<opaque::using_totally_ordered1>)
+* the underlying type (`int`),
+* a MPL sequence of additions (`mpl::vector<opaque::using_totally_ordered1>`)
 
-Boost.Opaque provides a macros BOOST_OPAQUE_NEW_CLASS to simplify the preceding declaration
+[*Boost.Opaque] provides a macro `BOOST_OPAQUE_NEW_CLASS` to simplify the preceding declaration
 
     BOOST_OPAQUE_NEW_CLASS(Identifier, int, ((opaque::using_totally_ordered1)))
     {
@@ -283,13 +283,13 @@ Boost.Opaque provides a macros BOOST_OPAQUE_NEW_CLASS to simplify the preceding 
         // ...
     }
 
-The macros is responsable to define a uniqye tag and transform the preprocessor PPL sequence into a MPL sequence.
+The macros is responsable to define a unique tag and transform the preprocessor PPL sequence into a MPL sequence.
 
 [endsect]
 
 [section Return type for relational operators: `opaque::boolean`]
 
-The following code doesn't warms in (1) when we use 0 where a bool is expected.
+The following code doesn't warns in (1) when we use `0` where a `bool` is expected.
 
     typedef bool Bool;
     typedef int Int;
@@ -300,7 +300,7 @@ The following code doesn't warms in (1) when we use 0 where a bool is expected.
         else return a > b; 
     }
 
-We can define an bool opaque typedef so only true_ and false_ are accepted as constant expressions
+We can define an bool opaque typedef so only `true_` and `false_` are accepted as constant expressions
 
     typedef int Int;
     typedef opaque::boolean Bool;
@@ -311,7 +311,7 @@ We can define an bool opaque typedef so only true_ and false_ are accepted as co
         else  return a > b;   // (2) Error 
     }
 
-Now we get an error on (1) as 0 is not convertible to opaque::boolean. This can be easily solved 
+Now we get an error on (1) as `0` is not convertible to `opaque::boolean`. This can be easily solved 
 
     Bool f(Int a, Int b)
     {
@@ -319,9 +319,9 @@ Now we get an error on (1) as 0 is not convertible to opaque::boolean. This can 
         else  return a > b;          // (2) Error 
     }
 
-But now we also get an error on (2) as a > b is not convertible to opaque::boolean. To solve this issue we need that the signature Int > Int be convertible to opaque::boolean. 
+But now we also get an error on (2) as `a > b` is not convertible to `opaque::boolean`. To solve this issue we need that the signature `Int > Int` be convertible to `opaque::boolean`. 
 
-Boost.Opaque provides a meta-mixin that allos to define an integer-like class that use opaque::boolean as type for the result of the relational operators.
+[*Boost.Opaque] provides a meta-mixin that allos to define an integer-like class that use `opaque::boolean` as type for the result of the relational operators.
 
     struct Int_tag;
     typedef boost::opaque::new_type<int, Int_tag, boost::mpl::vector<
@@ -341,7 +341,7 @@ Or using the macro
 
 While the preceding examples restrict the operations of the underlying type, sometimes it is useful to define a different type that provides the same operations than the underlying type and that allows some conversions. In this case we use the opaque typedefs. 
 
-For example, we can need real new typedefs to be able to overload a function. This can be done with the BOOST_OPAQUE_PUBLIC_TYPEDEF macro.
+For example, we can need real new typedefs to be able to overload a function. This can be done with the `BOOST_OPAQUE_PUBLIC_TYPEDEF` macro.
 
     // Listing 1
     // Cartesian 3D coordinate types
@@ -361,7 +361,7 @@ For example, we can need real new typedefs to be able to overload a function. Th
       ...
     }; // PhysicsVector
 
-BOOST_OPAQUE_PUBLIC_TYPEDEF(double, X) creates a new type X with the same operations than double. The operations to forward are obtained from the traits class inherited_from_underlying<double>. The template class can be specialized for a particular type and the library already do that for all the built-in types.
+`BOOST_OPAQUE_PUBLIC_TYPEDEF(double, X)` creates a new type `X` with the same operations than `double`. The operations to forward are obtained from the traits class `inherited_from_underlying<double>`. The template class can be specialized for a particular type and the library already do that for all the built-in types.
 
 [endsect]
 
@@ -371,7 +371,7 @@ BOOST_OPAQUE_PUBLIC_TYPEDEF(double, X) creates a new type X with the same operat
 
 [section Hiding inherited operations]
 
-Sometimes we want to inherit most of the operations inherited from the underlying type. We can either use the new_type class and bee explicit on which operation we want
+Sometimes we want to inherit most of the operations inherited from the underlying type. We can either use the `new_type` class and bee explicit on which operation we want
 
     BOOST_OPAQUE_NEW_TYPE(UT, NT, (
         (opaque::using_ope1)
@@ -430,6 +430,12 @@ Or we can use opaque types and state explicitly which operation wil be hidden.
     [[@http://www.gimpel.com/html/strong.htm [*PC-lint/FlexeLint Strong Type Checking]]]
     [Gimpel Software]
 ]
+
+[
+    [[@http://www.drdobbs.com/184401633 [*True typedefs]]]
+    [Matthew Wilson]
+]
+
 
 ]
 
@@ -991,13 +997,13 @@ The nested `type` is equivalent to `typename boost::mpl::fold<MetaMixinSeq, Base
     }
 
 [/==========================================================================================]
-[section:linear_hierarchy Class Template `linear_hierarchy<>`]
+[section:inherited_from_undelying Class Template `inherited_from_undelying<>`]
 [/==========================================================================================]
 
         template <typename T, typename Bool>
         struct inherited_from_undelying;
 
-`inherited_from_undelying` is a `MetaMixin` which add wrapping member to the underlyibg type `UT`.
+`inherited_from_undelying` is a `MetaMixin` which adds wrapping member to the underlyibg type `UT`.
 
 This class must specialized for specific types in order to make easier the construction of opaque types having `UT` as underlying type. For example the library provide specializations for each one of the buil-in types.
 
@@ -1016,7 +1022,7 @@ This class must specialized for specific types in order to make easier the const
 
 This file includes meta-mixins that are used to add un operator overloads forwarding from the Final type to the underlying type. There is a meta-mixins for each one of the C++ overloadable operators.
 
-These metamixins have names that follows the naming used in Boost.ConceptsTraits, but prefixed by `using_`.
+These meta-mixins have names that follows the naming used in Boost.ConceptsTraits, but prefixed by `using_`.
 
 
 [section Arithmetic Operators]
@@ -1028,7 +1034,72 @@ The requirements for the types used to instantiate the simple operator templates
 
 These meta-mixins are "simple" since they provide un operator based on a single operation the underlying type has to provide. They have an additional optional template parameter Base, which is not shown, for the base class chaining technique.
 
-The primary operand type `Final` needs to be of class type, built-in types are not supported.
+In the following table the meta-mixin follows the schema
+
+    struct meta-mixins {
+        template <typename NT, typename Base>
+        struct type: Base {
+            // Supplied Operation
+        };
+    };
+
+* NT/NT2 is expected to satisfy the FinalUnderlying requirements.
+* UT stands for NT::underlying_type
+* UT2 stands for NT2::underlying_type
+* this_ut is the instance UT reference obtained NT::underlying(this)
+* lhs is a NT/NT2 const reference
+* rhs is a NT/NT2 const reference
+* lhs_ut is the instance UT reference obtained lhs.underlying()
+* rhs_ut is the instance UT reference obtained rhs.underlying()
+
+[table
+    [[Meta-Mixin] [Supplied Operation]  [Requirements] [Ref]]
+    [[`using_underlying_conversion<UT>`][`operator UT() const`][None][12.3.2]]
+    [[`using_conversion_to<T>`][`operator T() const`][`T(ut)`][12.3.2]]
+    [[`using_safe_bool_conversion`][`operator unspecified_bool_type() const`][`ut?true:false`][12.3.2]]
+    
+    [[`using_logical_not<Bool>`][`Bool operator!=() const`][`Bool(!this_ut)`][13.5.1]]
+    [[`using_unary_plus`][`NT operator+() const`][`NT(+this_ut)`][13.5.1]]
+    [[`using_unary_minus`][`NT operator-() const`][`NT(-this_ut)`][13.5.1]]
+    [[`using_bitwise_not`][`NT operator~() const`][`NT(~this_ut)`][13.5.1]]
+
+    [[`using_pre_increment`][`NT& operator++()`][`++this_ut`][13.5.1]]
+    [[`using_pre_decrement`][`NT& operator--()`][`--this_ut`][13.5.1]]
+    [[`using_post_increment`][`NT operator++(int) const`][`this_ut++`][13.5.1]]
+    [[`using_post_decrement`][`NT operator--(int) const`][`this_ut++`][13.5.1]]
+    
+    [[`using_less_than<Bool>`][`Bool operator<(const NT& rhs) const`][`Bool(this_ut < rhs_ut)`][13.5.2]]
+    [[`using_less_than_equal<Bool>`][`Bool operator<=(const NT& rhs) const`][`Bool(this_ut <= rhs_ut)`][13.5.2]]
+    [[`using_greater_than_equal<Bool>`][`Bool operator>=(const NT& rhs) const`][`Bool(this_ut >= rhs_ut)`][13.5.2]]
+    [[`using_greater_than<Bool>`][`Bool operator>(const NT& rhs) const`][`Bool(this_ut > rhs_ut)`][13.5.2]   ]
+    [[`using_equal<Bool>`][`Bool operator==(const NT& rhs) const`][`Bool(this_ut == rhs_ut)`][13.5.2]   ]
+    [[`using_not_equal<Bool>`][`Bool operator!=(const NT& rhs) const`][`Bool(this_ut != rhs_ut)`][13.5.2]   ]
+
+
+    [[`using_plus_assign`][`NT& operator+=(const NT& rhs)`][`this_ut += rhs_ut`][13.5.2]]
+    [[`using_minus_assign`][`NT& operator-=(const NT& rhs)`][`this_ut -= rhs_ut`][13.5.2]]
+    [[`using_multiply_assign`][`NT& operator*=(const NT& rhs)`][`this_ut *= rhs_ut`][13.5.2]]
+    [[`using_divide_assign`][`NT& operator/=(const NT& rhs)`][`this_ut /= rhs_ut`][13.5.2]]
+    [[`using_modulus_assign`][`NT& operator%=(const NT& rhs)`][`this_ut %= rhs_ut`][13.5.2]]
+    [[`using_bitwise_xor_assign`][`NT& operator^=(const NT& rhs)`][`this_ut ^= rhs_ut`][13.5.2]]
+    [[`using_bitwise_and_assign`][`NT& operator&=(const NT& rhs)`][`this_ut &= rhs_ut`][13.5.2]]
+    [[`using_bitwise_or_assign`][`NT& operator|=(const NT& rhs)`][`this_ut |= rhs_ut`][13.5.2]]
+    [[`using_left_right_assign`][`NT& operator<<=(const NT& rhs)`][`this_ut <<= rhs_ut`][13.5.2]]
+    [[`using_right_shift_assign`][`NT& operator>>=(const NT& rhs)`][`this_ut >>= rhs_ut`][13.5.2]]
+
+
+    [[`using_plus`][`NT operator+(const NT& rhs) const`][`NT(this_ut + rhs_ut)`][13.5.2]]
+    [[`using_minus`][`NT operator-(const NT& rhs) const`][`NT(this_ut - rhs_ut)`][13.5.2]]
+    [[`using_multiply`][`NT operator*(const NT& rhs) const`][`NT(this_ut * rhs_ut)`][13.5.2]]
+    [[`using_divide`][`NT operator/(const NT& rhs) const`][`NT(this_ut / rhs_ut)`][13.5.2]]
+    [[`using_modulus`][`NT operator%(const NT& rhs) const`][`NT(this_ut % rhs_ut)`][13.5.2]]
+    [[`using_bitwise_xor`][`NT operator^(const NT& rhs) const`][`NT(this_ut ^ rhs_ut)`][13.5.2]]
+    [[`using_bitwise_or`][`NT operator|(const NT& rhs) const`][`NT(this_ut | rhs_ut)`][13.5.2]]
+    [[`using_bitwise_and`][`NT operator&(const NT& rhs) const`][`NT(this_ut & rhs_ut)`][13.5.2]]
+    [[`using_left_shift1`][`NT operator<<(const NT& rhs) const`][`NT(this_ut << rhs_ut)`][13.5.2]]
+    [[`using_right_shift1`][`NT operator>>(const NT& rhs) const`][`NT(this_ut >> rhs_ut)`][13.5.2]]
+
+]
 
 [endsect]
 [endsect]
@@ -1037,9 +1108,15 @@ The primary operand type `Final` needs to be of class type, built-in types are n
 [section:hiding_operators_hpp Header `<boost/opaque/metamixin/hiding_operators.hpp>`]
 [/==========================================================================================]
 
-This file includes metamixins that are used to hide operator overloads that have been defined by a base class for each one of the C++ overloadable operators.
+This file includes meta-mixins that are used to hide operator overloads that have been defined by a base class for each one of the C++ overloadable operators.
 
-These metamixins have names that follows the naming used in Boost.ConceptsTraits, but prefixed by `hiding_`.
+These meta-mixins have names that follows the naming used in Boost.ConceptsTraits, but prefixed by `hiding_`.
+
+[table
+    [[Meta-Mixin] [Hidden Operation]  [Requirements] [Ref]]
+    [[`hiding_assign`][`NT& operator=(NT const&)`][None][13.5.3]]
+    [[`hiding_copy`][`NT(NT const&)`][None][13.5.3]]
+]
 
 [endsect]
 
@@ -1047,23 +1124,117 @@ These metamixins have names that follows the naming used in Boost.ConceptsTraits
 [section:using_combined_operators_hpp Header `<boost/opaque/metamixin/using_combined_operators.hpp>`]
 [/==========================================================================================]
 
-This file includes metamixins combining several operators.
+This file includes meta-mixins combining several operators.
 
-These metamixins have names that follows the naming used in Boost.Operators, but prefixed by `using_`.
+These meta-mixins have names that follows the naming used in Boost.Operators, but prefixed by `using_`.
 
 The composite operator templates only list what other templates they use. The supplied operations and requirements of the composite operator templates can be inferred from the operations and requirements of the listed components.
 
+[table
+    [[Meta-Mixin] [Meta-Mixin Sequence]   [Ref]]
+    [[`using_equality_comparable1<Bool>`][`using_equal<Bool>`,
+                                    \n `using_not_equal<Bool>`
+                                    ][20.1.1]]
+    [[`using_less_than_comparable1<Bool>`][`using_less_than<Bool>`
+                                    \n `using_less_than_equal<Bool>`
+                                    \n `using_greater_than_equal<Bool>`
+                                    \n `using_greater_than<Bool>`
+                                    ][20.1.2]]
+    [[`using_partially_ordered1<Bool>`][`using_less_than<Bool>`
+                                    \n `using_less_than_equal<Bool>`
+                                    \n `using_greater_than_equal<Bool>`
+                                    \n `using_greater_than<Bool>`
+                                    ][20.1.2]]
+    [[`using_addable1`][`using_plus_assign`
+                                    \n `using_plus`
+                                    ][]]
+    [[`using_subtractable1`][`using_minus_assign`
+                                    \n `using_minus`
+                                    ][]]
+    [[`using_multipliable1`][`using_multiply_assign`
+                                    \n `using_multiply`
+                                    ][]]
+    [[`using_dividable1`][`using_divide_assign`
+                                    \n `using_divide`
+                                    ][]]
+    [[`using_modable1`][`using_modulus_assign`
+                                    \n `using_modulus`
+                                    ][]]
+    [[`using_bitwise_xorable1`][`using_bitwise_xor_assign`
+                                    \n `using_bitwise_xor`
+                                    ][]]
+    [[`using_bitwise_orable1`][`using_bitwise_or_assign`
+                                    \n `using_bitwise_or`
+                                    ][]]
+    [[`using_bitwise_andable1`][`using_bitwise_and_assign`
+                                    \n `using_bitwise_and`
+                                    ][]]
+    [[`using_left_shiftable1`][`using_left_right_assign`
+                                    \n `using_left_shift1`
+                                    ][]]
+    [[`using_right_shiftable1`][`using_right_shift_assign`
+                                    \n `using_right_shift1`
+                                    ][]]
+    [[`using_incrementable`][`using_pre_increment>`
+                                    \n `using_post_increment`
+                                    ][]]
+    [[`using_decrementable`][`using_pre_decrement>`
+                                    \n `using_post_decrement`
+                                    ][]]
+]
+
+[table
+    [[Meta-Mixin] [Meta-Mixin Sequence]   [Ref]]
+    [[`using_totally_ordered1<Bool>`][`using_equality_comparable1<Bool>`
+                                    \n `using_less_than_comparable1<Bool>`
+                                    ][]]
+    [[`using_additive1`][`using_addable1`
+                                    \n `using_subtractable1`
+                                    ][]]
+    [[`using_multiplicative1`][`using_multipliable1`
+                                    \n `using_dividable1`
+                                    ][]]
+    [[`integer_multiplicative1`][`using_multiplicative1`
+                                    \n `using_modable1`
+                                    ][]]
+    [[`using_arithmetic1`][`using_additive1`
+                                    \n `using_multiplicative1`
+                                    ][]]
+    [[`using_integer_arithmetic1`][`using_additive1`
+                                    \n `integer_multiplicative1`
+                                    ][]]
+    [[`using_bitwise1`][`using_bitwise_xorable1`
+                                    \n `using_bitwise_orable1`
+                                    \n `using_bitwise_andable1`
+                                    ][]]
+    [[`using_unit_steppable`][`using_incrementable`
+                                    \n `using_decrementable`
+                                    ][]]
+    [[`using_shiftable1`][`using_left_shiftable1`
+                                    \n `using_right_shiftable1`
+                                    ][]]
+    [[`using_ring_operators1`][`using_additive1`
+                                    \n `using_multipliable1`
+                                    ][]]
+    [[`using_ordered_ring_operators1<Bool>`][`using_ring_operators1`
+                                    \n `using_totally_ordered1<Bool>`
+                                    ][]]
+    [[`using_field_operators1<Bool>`][`using_ring_operators1`
+                                    \n `using_dividable1<Bool>`
+                                    ][]]
+    [[`using_ordered_field_operators1<Bool>`][`using_field_operators1`
+                                    \n `using_totally_ordered1<Bool>`
+                                    ][]]
+]
 
 [endsect]
 [/==========================================================================================]
 [section:hiding_combined_operators_hpp Header `<boost/opaque/metamixin/hiding_combined_operators.hpp>`]
 [/==========================================================================================]
 
-This file includes metamixins combining several hiding operators.
+This file includes meta-mixins combining several hiding meta-mixins that are used to hide operator overloads that have been defined by a base clas.
 
-This file includes metamixins combining several hiding metamixins that are used to hide operator overloads that have been defined by a base clas.
-
-These metamixins have names that follows the naming used in Boost.Operators, but prefixed by `hiding_`.
+These meta-mixins have names that follows the naming used in Boost.Operators, but prefixed by `hiding_`.
 
 [endsect]
 
@@ -1093,14 +1264,17 @@ This metamixin provides the Final class implicit conversions for all the underly
 [section:transitive_explicit_substituable_hpp Header `<boost/opaque/metamixin/transitive_explicit_substituable.hpp>`]
 [/==========================================================================================]
 
-[/==========================================================================================]
-[section:transitive_explicit_substituable Class Template `transitive_explicit_substituable<>`]
-[/==========================================================================================]
-
     namespace boost {
         template <typename BaseClass, typename UT>
         struct transitive_explicit_substituable;
     }
+
+[/==========================================================================================]
+[section:transitive_explicit_substituable Class Template `transitive_explicit_substituable<>`]
+[/==========================================================================================]
+
+        template <typename BaseClass, typename UT>
+        struct transitive_explicit_substituable;
 
 This metamixin provides the Final class explicit conversions for all the underlying types hierarchy (when the compiler supports explicit conversion operators). For portability purposed the library provide as workarround a convert_to non member function.
 
