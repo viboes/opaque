@@ -25,14 +25,14 @@ namespace boost {
     class base_private_opaque_type {};
 
     template <
-    	typename Final, 
-    	typename T, 
-    	typename MetaMixinSeq=boost::mpl::vector0<>, 
+    	typename Final,
+    	typename T,
+    	typename MetaMixinSeq=boost::mpl::vector0<>,
     	typename Base=base_private_opaque_type
     >
-    class private_opaque_class 
+    class private_opaque_class
     	: public
-#if 0    	
+#if 0
     		new_class< Final, T, MetaMixinSeq,
                 transitive_explicit_substituable<base_private_opaque_type,T>
     					::template type<Final,
@@ -41,20 +41,20 @@ namespace boost {
                 >
             >
 #else
-    		new_class< Final, T, 
+    		new_class< Final, T,
     			typename mpl::push_back<
     				typename mpl::push_back<
     					MetaMixinSeq,
-    					transitive_explicit_substituable<base_private_opaque_type, T> 
-    				>::type, 	
-    				opaque::inherited_from_underlying<T> 
+    					transitive_explicit_substituable<base_private_opaque_type, T>
+    				>::type,
+    				opaque::inherited_from_underlying<T>
     			>::type, Base
-    		>        
+    		>
 
 #endif
     {
         typedef
-#if 0    	
+#if 0
     		new_class< Final, T, MetaMixinSeq,
                 transitive_explicit_substituable<base_private_opaque_type,T>
     					::template type<Final,
@@ -63,32 +63,32 @@ namespace boost {
                 >
             >
 #else
-    		new_class< Final, T, 
+    		new_class< Final, T,
     			typename mpl::push_back<
     		    	typename mpl::push_back<
     		    		MetaMixinSeq,
-    		    		transitive_explicit_substituable<base_private_opaque_type, T> 
-    		    	>::type, 	
-    		    	opaque::inherited_from_underlying<T> 
+    		    		transitive_explicit_substituable<base_private_opaque_type, T>
+    		    	>::type,
+    		    	opaque::inherited_from_underlying<T>
     		    >::type, Base
-    		>        
+    		>
 #endif
         base_type;
-                
+
     public:
         //~ Can instances of UT be explicitly converted to instances of OT? Yes
         //~ Can instances of UT be implicitly converted to instances of OT? No
         //~ Can instances of OT be explicitly converted to instances of UT? Yes.
-        //~ 	Waiting for explicit conversion operators,, the explicit 
+        //~ 	Waiting for explicit conversion operators,, the explicit
     	//~ 	conversion must be done through the underlying function
         //~ Can instances of OT be implicitly converted to instances of UT? No
 
         private_opaque_class() {};
-        private_opaque_class(const private_opaque_class & rhs) 
+        private_opaque_class(const private_opaque_class & rhs)
         	: base_type(rhs.val_) {}
-        private_opaque_class(const Final & rhs) 
+        private_opaque_class(const Final & rhs)
         	: base_type(rhs.val_) {}
-        explicit private_opaque_class(T v) 
+        explicit private_opaque_class(T v)
         	: base_type(v) {};
         template <typename W>
         explicit private_opaque_class(W v)

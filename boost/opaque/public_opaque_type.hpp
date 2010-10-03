@@ -18,18 +18,18 @@
 namespace boost {
 
     template <
-    	typename T, 
-    	typename Tag=void, 
-    	typename MetaMixinSeq=boost::mpl::vector0<>, 
+    	typename T,
+    	typename Tag=void,
+    	typename MetaMixinSeq=boost::mpl::vector0<>,
     	typename Base=base_public_opaque_type
     >
     class public_opaque_type
-        : public 
-        	public_opaque_class< public_opaque_type<T,Tag,MetaMixinSeq,Base>, 
+        : public
+        	public_opaque_class< public_opaque_type<T,Tag,MetaMixinSeq,Base>,
         		T, MetaMixinSeq, Base>
     {
-        typedef 
-        	public_opaque_class< public_opaque_type<T,Tag,MetaMixinSeq,Base>, 
+        typedef
+        	public_opaque_class< public_opaque_type<T,Tag,MetaMixinSeq,Base>,
         		T, MetaMixinSeq, Base> base_type;
 
     public:
@@ -39,16 +39,16 @@ namespace boost {
         //~ Can instances of OT be implicitly converted to instances of UT? Yes
 
         public_opaque_type() {}
-        public_opaque_type(const public_opaque_type & rhs) 
+        public_opaque_type(const public_opaque_type & rhs)
         	: base_type(rhs.val_) {}
-        explicit public_opaque_type(T v) 
+        explicit public_opaque_type(T v)
         	: base_type(v) {}
         template <typename W>
-        explicit public_opaque_type(W v) 
+        explicit public_opaque_type(W v)
         	: base_type(v) {}
 
     };
-    
+
 }
 
 
