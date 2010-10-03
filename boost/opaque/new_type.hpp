@@ -19,11 +19,18 @@
 namespace boost {
 
 
-    template <typename T, typename Tag, typename Concepts=boost::mpl::vector0<>, typename Base=base_new_type>
+    template <
+    	typename T, 
+    	typename Tag, 
+    	typename Concepts=boost::mpl::vector0<>, 
+    	typename Base=base_new_type
+    >
     class new_type 
-        : public new_class<new_type<T, Tag, Concepts, Base>, T, Concepts, Base>
+        : public new_class<new_type<T, Tag, Concepts, Base>, 
+        		T, Concepts, Base>
     {
-        typedef new_class<new_type<T, Tag, Concepts, Base>, T, Concepts, Base> base_type;
+        typedef new_class<new_type<T, Tag, Concepts, Base>, 
+        			T, Concepts, Base> base_type;
     public:
         template <typename W>
         explicit new_type(W v) : base_type(v) {}

@@ -19,7 +19,12 @@ namespace boost {
 
     class base_new_type {};
 
-    template <typename Final, typename T, typename MetaMixinSeq=boost::mpl::vector0<>, typename Base=base_new_type >
+    template <
+    	typename Final, 
+    	typename T, 
+    	typename MetaMixinSeq=boost::mpl::vector0<>, 
+    	typename Base=base_new_type 
+    >
     class new_class : public linear_hierarchy<MetaMixinSeq, Final, Base>::type
     {
     public:
@@ -65,7 +70,13 @@ namespace boost {
 
     };
 
-    template <typename T, typename Final, typename UT, typename MetaMixinSeq, typename Base >
+    template <
+    	typename T, 
+    	typename Final, 
+    	typename UT, 
+    	typename MetaMixinSeq, 
+    	typename Base 
+    >
     T opaque_static_cast(new_class<Final, UT, MetaMixinSeq, Base> const& v)
     {
         return static_cast<T>(v.underlying());

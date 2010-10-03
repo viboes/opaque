@@ -18,6 +18,8 @@
 namespace boost {
 namespace opaque {
 
+//////////////////////////////////////////////////////////////////////////////
+
 #define BOOST_OPAQUE_HIDING_COPY(T) \
         private:  \
             T( const T& );
@@ -29,6 +31,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+    
 #define BOOST_OPAQUE_HIDING_ASSIGN(T) \
         private: \
             T& operator=(T const&);
@@ -40,6 +44,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_CONVERSION(Final,UT) \
     public: \
             operator UT() const{ \
@@ -54,6 +60,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
     template <typename T>
     struct using_conversion_to {
         template <typename Final, typename Base>
@@ -64,6 +72,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
     struct using_safe_bool_conversion {
         template <typename Final, typename Base>
         struct type: Base {
@@ -76,6 +86,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_LESS_THAN(Final, Bool) \
     public :\
         Bool operator<(const Final& rhs) const  { \
@@ -90,6 +102,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final,Bool) \
     public :\
         Bool operator<=(const Final& rhs) const  { \
@@ -104,6 +118,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_GREATER_THAN(Final,Bool) \
     public :\
         Bool operator>(const Final& rhs) const  { \
@@ -118,6 +134,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final,Bool) \
     public :\
         Bool operator>=(const Final& rhs) const  { \
@@ -132,6 +150,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_EQUAL(Final,Bool) \
     public :\
         Bool operator==(const Final& rhs) const  { \
@@ -146,6 +166,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_NOT_EQUAL(Final,Bool) \
     public :\
         Bool operator!=(const Final& rhs) const  { \
@@ -160,6 +182,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_PLUS_ASSIGN(Final) \
     public :\
         Final&  operator+=(const Final& rhs) { \
@@ -174,6 +198,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_MINUS_ASSIGN(Final) \
     public :\
         Final&  operator-=(const Final& rhs) { \
@@ -188,6 +214,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_MULTIPLY_ASSIGN(Final) \
     public :\
         Final&  operator*=(const Final& rhs) { \
@@ -202,6 +230,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_DIVIDE_ASSIGN(Final) \
     public :\
         Final&  operator/=(const Final& rhs) { \
@@ -216,6 +246,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_MODULUS_ASSIGN(Final) \
     public :\
         Final&  operator%=(const Final& rhs) { \
@@ -230,6 +262,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_BITWISE_XOR_ASSIGN(Final) \
     public :\
         Final&  operator^=(const Final& rhs) { \
@@ -244,6 +278,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_BITWISE_AND_ASSIGN(Final) \
     public :\
         Final&  operator&=(const Final& rhs) { \
@@ -258,6 +294,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_BITWISE_OR_ASSIGN(Final) \
     public :\
         Final&  operator|=(const Final& rhs) { \
@@ -272,6 +310,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_LEFT_SHIFT_ASSIGN(Final) \
     public :\
         Final&  operator<<=(const Final& rhs) { \
@@ -286,6 +326,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_RIGHT_SHIFT_ASSIGN(Final) \
     public :\
         Final&  operator>>=(const Final& rhs) { \
@@ -300,8 +342,10 @@ namespace opaque {
         };
     };
 
-    // Unary operators
+// Unary operators
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_LOGICAL_NOT(Final) \
     public :\
         bool operator!() const  { \
@@ -315,6 +359,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_UNARY_PLUS(Final) \
     public :\
         Final operator+() const  { \
@@ -328,6 +374,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_UNARY_MINUS(Final) \
     public :\
         Final operator-() const { \
@@ -341,6 +389,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_BITWISE_NOT(Final) \
     public :\
         Final operator~() const { \
@@ -354,35 +404,45 @@ namespace opaque {
         };
     };
 
-    //~ template <typename Final, typename Base>
-    //~ struct address_of : Base {
-        //~ Final* operator&()  {
-            //~ return this;
-        //~ }
-    //~ };
+//////////////////////////////////////////////////////////////////////////////
+        
+//~ template <typename Final, typename Base>
+//~ struct address_of : Base {
+//~ 	Final* operator&()  {
+//~ 		return this;
+//~ 	}
+//~ };
 
-    //~ template <typename Final, typename Derreference=typename reference<Final::underlying_type>::type, typename Base>
-    //~ struct derreference : Base {
-        //~ Derreference operator*()  {
-            //~ return *(x.underlying());
-        //~ }
-    //~ };
+//////////////////////////////////////////////////////////////////////////////
+        
+//~ template <typename Final, typename Derreference=typename reference<Final::underlying_type>::type, typename Base>
+//~ struct derreference : Base {
+//~ 	Derreference operator*()  {
+//~ 		return *(x.underlying());
+//~ 	}
+//~ };
 
-    //~ template <typename Final, typename Pointer=typename pointer<Final::underlying_type>::type, typename Base>
-    //~ struct member_access : Base {
-        //~ Pointer operator->()  {
-            //~ return x.underlying().operator->();
-        //~ }
-    //~ };
+//////////////////////////////////////////////////////////////////////////////
+        
+//~ template <typename Final, typename Pointer=typename pointer<Final::underlying_type>::type, typename Base>
+//~ struct member_access : Base {
+//~ 	Pointer operator->()  {
+//~ 		return x.underlying().operator->();
+//~ 	}
+//~ };
 
-    //~ template <typename Final, class I, class R, typename Base>
-    //~ struct subscript : Base {
-        //~ R operator[](I n)  {
-            //~ return x.underlying()[i];
-        //~ }
-    //~ };
+//////////////////////////////////////////////////////////////////////////////
+        
+//~ template <typename Final, class I, class R, typename Base>
+//~ struct subscript : Base {
+//~ 	R operator[](I n)  {
+//~ 		return x.underlying()[i];
+//~ 	}
+//~ };
 
-    // Increment and decrement
+// Increment and decrement
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_PRE_INCREMENT(Final) \
     public :\
         Final operator++()  { \
@@ -397,6 +457,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_PRE_DECREMENT(Final) \
     public :\
         Final operator--()  { \
@@ -411,6 +473,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_POST_INCREMENT(Final) \
     public :\
         Final operator++(int)  { \
@@ -426,6 +490,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_POST_DECREMENT(Final) \
     public :\
         Final operator--(int)  { \
@@ -444,6 +510,8 @@ namespace opaque {
 #if 0
 // I don't know why this doesn't works :(
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_PLUS(Final) \
     public :\
         Final operator+(const Final& rhs) const { \
@@ -468,6 +536,8 @@ namespace opaque {
         }
 #endif
 
+//////////////////////////////////////////////////////////////////////////////
+        
     struct using_plus {
         template <typename Final, typename Base>
         struct type: Base {
@@ -475,6 +545,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
     struct using_minus {
         template <typename Final, typename Base>
         struct type: Base {
@@ -482,6 +554,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_MULTIPLY(Final) \
     public :\
         Final  operator*(const Final& rhs) const { \
@@ -495,6 +569,8 @@ namespace opaque {
         };
     };
     
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_DIVIDE(Final) \
     public :\
         Final  operator/(const Final& rhs) const { \
@@ -509,6 +585,8 @@ namespace opaque {
     };
     
     
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_MODULUS(Final) \
     public :\
         Final  operator%(const Final& rhs) const { \
@@ -522,7 +600,8 @@ namespace opaque {
         };
     };
     
-
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_BITWISE_XOR(Final) \
     public :\
         Final operator^(const Final& rhs) const { \
@@ -537,6 +616,8 @@ namespace opaque {
     };
     
     
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_BITWISE_OR(Final) \
     public :\
         Final operator|(const Final& rhs) const { \
@@ -550,6 +631,8 @@ namespace opaque {
         };
     };
     
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_BITWISE_AND(Final) \
     public :\
         Final operator&(const Final& rhs) const { \
@@ -563,6 +646,8 @@ namespace opaque {
         };
     };
     
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_LEFT_SHIFT1(Final) \
     public :\
         Final operator<<(const Final& rhs) const { \
@@ -576,6 +661,8 @@ namespace opaque {
         };
     };
     
+//////////////////////////////////////////////////////////////////////////////
+        
 #define BOOST_OPAQUE_USING_RIGHT_SHIFT1(Final) \
     public :\
         Final operator>>(const Final& rhs) const { \
@@ -591,6 +678,5 @@ namespace opaque {
     
 }
 }
-
 
 #endif

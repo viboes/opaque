@@ -19,6 +19,8 @@
 namespace boost {
 namespace opaque {
 
+//////////////////////////////////////////////////////////////////////////////
+
 #define BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final,Bool) \
         BOOST_OPAQUE_USING_EQUAL(Final,Bool) \
         BOOST_OPAQUE_USING_NOT_EQUAL(Final,Bool)
@@ -30,6 +32,8 @@ namespace opaque {
             BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final,Bool)
         };
     };
+
+//////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final,Bool) \
         BOOST_OPAQUE_USING_LESS_THAN(Final,Bool) \
@@ -45,6 +49,7 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_ADDABLE1(Final) \
         BOOST_OPAQUE_USING_PLUS_ASSIGN(Final) \
@@ -57,6 +62,7 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_SUBTRACTABLE1(Final) \
         BOOST_OPAQUE_USING_MINUS_ASSIGN(Final) \
@@ -69,6 +75,7 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_MULTIPLIABLE1(Final) \
         BOOST_OPAQUE_USING_MULTIPLY_ASSIGN(Final) \
@@ -81,6 +88,7 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_DIVIDABLE1(Final) \
         BOOST_OPAQUE_USING_DIVIDE_ASSIGN(Final) \
@@ -93,6 +101,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
 #define BOOST_OPAQUE_MODABLE1(Final) \
         BOOST_OPAQUE_USING_MODULUS_ASSIGN(Final) \
         BOOST_OPAQUE_USING_MODULUS(Final)
@@ -103,6 +113,8 @@ namespace opaque {
             BOOST_OPAQUE_MODABLE1(Final)
         };
     };
+
+//////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_BITWISE_XORABLE1(Final) \
         BOOST_OPAQUE_USING_BITWISE_XOR_ASSIGN(Final) \
@@ -115,6 +127,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
 #define BOOST_OPAQUE_BITWISE_ANDABLE1(Final) \
         BOOST_OPAQUE_USING_BITWISE_AND_ASSIGN(Final) \
         BOOST_OPAQUE_USING_BITWISE_AND(Final)
@@ -126,6 +140,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
 #define BOOST_OPAQUE_BITWISE_ORABLE1(Final) \
         BOOST_OPAQUE_USING_BITWISE_OR_ASSIGN(Final) \
         BOOST_OPAQUE_USING_BITWISE_OR(Final)
@@ -136,6 +152,8 @@ namespace opaque {
             BOOST_OPAQUE_BITWISE_ORABLE1(Final)
         };
     };
+
+//////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_INCREMENTABLE(Final) \
         BOOST_OPAQUE_USING_PRE_INCREMENT(Final) \
@@ -149,6 +167,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
 #define BOOST_OPAQUE_DECREMENTABLE(Final) \
         BOOST_OPAQUE_USING_PRE_DECREMENT(Final) \
         BOOST_OPAQUE_USING_POST_DECREMENT(Final)
@@ -160,6 +180,8 @@ namespace opaque {
             BOOST_OPAQUE_DECREMENTABLE(Final)
         };
     };
+
+//////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_LEFT_SHIFTABLE1(Final) \
         BOOST_OPAQUE_USING_LEFT_SHIFT_ASSIGN(Final) \
@@ -173,6 +195,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
 #define BOOST_OPAQUE_RIGHT_SHIFTABLE1(Final) \
         BOOST_OPAQUE_USING_RIGHT_SHIFT_ASSIGN(Final) \
         BOOST_OPAQUE_USING_RIGHT_SHIFT1(Final)
@@ -184,6 +208,8 @@ namespace opaque {
             BOOST_OPAQUE_RIGHT_SHIFTABLE1(Final)
         };
     };
+
+//////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_PARTIALLY_ORDERED1(Final,Bool) \
         BOOST_OPAQUE_USING_LESS_THAN(Final,Bool) \
@@ -200,6 +226,8 @@ namespace opaque {
     };
 
 
+//////////////////////////////////////////////////////////////////////////////
+
 #define BOOST_OPAQUE_TOTALY_ORDERED1(Final,Bool) \
         BOOST_OPAQUE_EQUALITY_COMPARABLE1(Final,Bool) \
         BOOST_OPAQUE_LESS_THAN_COMPARABLE1(Final,Bool)
@@ -212,11 +240,15 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
     //~ template <class T, class U, typename Base = base_new_type >
     //~ struct additive2
         //~ : opaque::addable2<T, U
         //~ , opaque::subtractable2<T, U, Base
           //~ > > {};
+
+//////////////////////////////////////////////////////////////////////////////
 
     #define BOOST_OPAQUE_ADDITIVE1(Final) \
         BOOST_OPAQUE_ADDABLE1(Final) \
@@ -229,16 +261,19 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
     //~ template <class T, class U, typename Base = base_new_type >
     //~ struct multiplicative2
         //~ : opaque::multipliable2<T, U
         //~ , opaque::dividable2<T, U, Base
           //~ > > {};
 
+//////////////////////////////////////////////////////////////////////////////
+
     #define BOOST_OPAQUE_MULTIPLICATIVE1(Final) \
         BOOST_OPAQUE_MULTIPLIABLE1(Final) \
         BOOST_OPAQUE_DIVIDABLE1(Final)
-
 
     struct using_multiplicative1 {
         template <typename Final, typename Base>
@@ -247,11 +282,15 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
     //~ template <class T, class U, typename Base = base_new_type >
     //~ struct integer_multiplicative2
         //~ : opaque::multiplicative2<T, U
         //~ , opaque::modable2<T, U, Base
           //~ > > {};
+
+//////////////////////////////////////////////////////////////////////////////
 
     #define BOOST_OPAQUE_INTEGER_MULTIPLICATIVE1(Final) \
         BOOST_OPAQUE_MULTIPLICATIVE1(Final) \
@@ -266,16 +305,19 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
     //~ template <class T, class U, typename Base = base_new_type >
     //~ struct arithmetic2
         //~ : opaque::additive2<T, U
         //~ , opaque::multiplicative2<T, U, Base
           //~ > > {};
 
+//////////////////////////////////////////////////////////////////////////////
+
     #define BOOST_OPAQUE_ARITHMETIC1(Final) \
         BOOST_OPAQUE_ADDITIVE1(Final) \
         BOOST_OPAQUE_MULTIPLICATIVE1(Final)
-
 
     struct using_arithmetic1
     {
@@ -286,11 +328,15 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
     //~ template <class T, class U, typename Base = base_new_type >
     //~ struct integer_arithmetic2
         //~ : additive2<T, U
         //~ , integer_multiplicative2<T, U, Base
           //~ > > {};
+
+//////////////////////////////////////////////////////////////////////////////
 
     #define BOOST_OPAQUE_INTEGER_ARITHMETIC1(Final) \
         BOOST_OPAQUE_ADDITIVE1(Final) \
@@ -305,12 +351,16 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
     //~ template <class T, class U, typename Base = base_new_type >
     //~ struct bitwise2
         //~ : opaque::xorable2<T, U
         //~ , opaque::andable2<T, U
         //~ , opaque::orable2<T, U, Base
           //~ > > > {};
+
+//////////////////////////////////////////////////////////////////////////////
 
     #define BOOST_OPAQUE_BITWISE1(Final) \
         BOOST_OPAQUE_BITWISE_XORABLE1(Final) \
@@ -326,6 +376,8 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
     #define BOOST_OPAQUE_UNIT_STEPABLE(Final) \
         BOOST_OPAQUE_INCREMENTABLE(Final) \
         BOOST_OPAQUE_DECREMENTABLE(Final)
@@ -339,11 +391,15 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
     //~ template <class T, class U, typename Base = base_new_type >
     //~ struct shiftable2
         //~ : opaque::left_shiftable2<T, U
         //~ , opaque::right_shiftable2<T, U, Base
           //~ > > {};
+
+//////////////////////////////////////////////////////////////////////////////
 
     #define BOOST_OPAQUE_SHIFTABLE1(Final) \
         BOOST_OPAQUE_LEFT_SHIFTABLE1(Final) \
@@ -358,12 +414,16 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
     //~ template <class T, class U, typename Base = base_new_type >
     //~ struct ring_operators2
         //~ : opaque::additive2<T, U
         //~ , opaque::subtractable2_left<T, U
         //~ , opaque::multipliable2<T, U, Base
           //~ > > > {};
+
+//////////////////////////////////////////////////////////////////////////////
 
     #define BOOST_OPAQUE_RING1(Final) \
         BOOST_OPAQUE_ADDITIVE1(Final) \
@@ -378,11 +438,15 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
     //~ template <class T, class U, typename Base = base_new_type >
     //~ struct ordered_ring_operators2
         //~ : opaque::ring_operators2<T, U
         //~ , opaque::totally_ordered2<T, U, Base
           //~ > > {};
+
+//////////////////////////////////////////////////////////////////////////////
 
     #define BOOST_OPAQUE_ORDERED_RING1(Final, Bool) \
         BOOST_OPAQUE_RING1(Final) \
@@ -398,12 +462,16 @@ namespace opaque {
         };
     };
 
+//////////////////////////////////////////////////////////////////////////////
+
     //~ template <class T, class U, typename Base = base_new_type >
     //~ struct field_operators2
         //~ : opaque::ring_operators2<T, U
         //~ , opaque::dividable2<T, U
         //~ , opaque::dividable2_left<T, U, Base
           //~ > > > {};
+
+//////////////////////////////////////////////////////////////////////////////
 
     #define BOOST_OPAQUE_FIELD1(Final) \
         BOOST_OPAQUE_RING1(Final) \
@@ -417,11 +485,16 @@ namespace opaque {
             BOOST_OPAQUE_FIELD1(Final)
         };
     };
+
+//////////////////////////////////////////////////////////////////////////////
+
     //~ template <class T, class U, typename Base = base_new_type >
     //~ struct ordered_field_operators2
         //~ : opaque::field_operators2<T, U
         //~ , opaque::totally_ordered2<T, U, Base
           //~ > > {};
+
+//////////////////////////////////////////////////////////////////////////////
 
     #define BOOST_OPAQUE_ORDERED_FIELD1(Final, Bool) \
         BOOST_OPAQUE_FIELD1(Final) \
