@@ -21,6 +21,7 @@
 #include <boost/mpl/push_front.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/vector.hpp>
+#include <boost/mpl/push_back.hpp>
 
 namespace boost {
 
@@ -63,6 +64,7 @@ namespace boost {
     >
     class public_opaque_class
         : public
+#if 0        
             new_class< Final, T, MetaMixinSeq,
 #define COMPILER_WORKS
 #if !defined(COMPILER_WORKS)
@@ -76,9 +78,21 @@ namespace boost {
                 >
 #endif
             >
+#else
+		new_class< Final, T, 
+			typename mpl::push_back<
+				typename mpl::push_back<
+					MetaMixinSeq,
+					transitive_substituable<base_public_opaque_type, T> 
+        		>::type, 	
+        		opaque::inherited_from_underlying<T> 
+			>::type, Base
+		>        
+#endif
 
     {
         typedef
+#if 0        
             new_class< Final, T, MetaMixinSeq,
 #if !defined(COMPILER_WORKS)
                 typename transitive_substituable_help<base_public_opaque_type,T>
@@ -91,6 +105,17 @@ namespace boost {
                 >
 #endif
             >
+#else
+		new_class< Final, T, 
+			typename mpl::push_back<
+				typename mpl::push_back<
+					MetaMixinSeq,
+					transitive_substituable<base_public_opaque_type, T> 
+        		>::type, 	
+        		opaque::inherited_from_underlying<T> 
+			>::type, Base
+		>
+#endif
         base_type;
 
     public:

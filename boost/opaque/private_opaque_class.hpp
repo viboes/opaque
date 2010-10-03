@@ -19,6 +19,7 @@
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/mpl/and.hpp>
+#include <boost/mpl/push_back.hpp>
 
 namespace boost {
     class base_private_opaque_type {};
@@ -30,23 +31,48 @@ namespace boost {
     	typename Base=base_private_opaque_type
     >
     class private_opaque_class 
-    	: public 
+    	: public
+#if 0    	
     		new_class< Final, T, MetaMixinSeq,
-                transitive_explicit_substituable<base_private_opaque_type>
-    					::template type<Final, T,
+                transitive_explicit_substituable<base_private_opaque_type,T>
+    					::template type<Final,
                     typename opaque::inherited_from_underlying<T>
     						::template type<Final, Base>
                 >
             >
+#else
+    		new_class< Final, T, 
+    			typename mpl::push_back<
+    				typename mpl::push_back<
+    					MetaMixinSeq,
+    					transitive_explicit_substituable<base_private_opaque_type, T> 
+    				>::type, 	
+    				opaque::inherited_from_underlying<T> 
+    			>::type, Base
+    		>        
+
+#endif
     {
         typedef
-            new_class< Final, T, MetaMixinSeq,
-                transitive_explicit_substituable<base_private_opaque_type>
-        				::template type<Final, T,
+#if 0    	
+    		new_class< Final, T, MetaMixinSeq,
+                transitive_explicit_substituable<base_private_opaque_type,T>
+    					::template type<Final,
                     typename opaque::inherited_from_underlying<T>
-        					::template type<Final, Base>
+    						::template type<Final, Base>
                 >
             >
+#else
+    		new_class< Final, T, 
+    			typename mpl::push_back<
+    		    	typename mpl::push_back<
+    		    		MetaMixinSeq,
+    		    		transitive_explicit_substituable<base_private_opaque_type, T> 
+    		    	>::type, 	
+    		    	opaque::inherited_from_underlying<T> 
+    		    >::type, Base
+    		>        
+#endif
         base_type;
                 
     public:
