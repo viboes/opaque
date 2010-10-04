@@ -22,14 +22,14 @@ typedef short UT2;
 struct NT : 
     boost::new_class<NT, UT
     , boost::mpl::vector<
-    	boost::opaque::using_greater_than<> 
+    	boost::opaque::using_plus_assign 
     >
     >
 {
     typedef 
     boost::new_class<NT, UT
     , boost::mpl::vector<
-    	boost::opaque::using_greater_than<> 
+    	boost::opaque::using_plus_assign 
     >
     >
     base_type;
@@ -82,16 +82,15 @@ void opaque_static_cast_test() {
     BOOST_CHECK(i==a.underlying());
 }
 #endif
-void greater_than_test() {
+void plus_assign_test() {
     NT a1(1), b2(2), c2(2);
-    BOOST_CHECK(b2>a1);
-    BOOST_CHECK((a1>b2)==false);
-    BOOST_CHECK((b2>c2)==false);
+    a1+=b2;
+    BOOST_CHECK(a1.underlying()=3);
 }
 
 test_suite* init_unit_test_suite(int, char*[])
 {
-  test_suite* test = BOOST_TEST_SUITE("new_class.greater_than_pass");
+  test_suite* test = BOOST_TEST_SUITE("new_class.using_plus_assign_pass");
 
   test->add(BOOST_TEST_CASE(&size_test));
 #if 0
@@ -102,7 +101,7 @@ test_suite* init_unit_test_suite(int, char*[])
   test->add(BOOST_TEST_CASE(&assign_test));
   test->add(BOOST_TEST_CASE(&opaque_static_cast_test));
 #endif  
-  test->add(BOOST_TEST_CASE(&greater_than_test));
+  test->add(BOOST_TEST_CASE(&plus_assign_test));
 
   return test;
 }

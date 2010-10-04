@@ -51,12 +51,19 @@ project
         [ run new_class/using_greater_than_pass.cpp ]
         [ run new_class/using_greater_than_equal_pass.cpp ]
         [ run new_class/using_equal_pass.cpp ]
+        [ run new_class/using_not_equal_pass.cpp ]
 
         [ compile-fail new_class/less_than_fail.cpp ]
         [ compile-fail new_class/less_than_equal_fail.cpp ]
         [ compile-fail new_class/greater_than_fail.cpp ]
         [ compile-fail new_class/greater_than_equal_fail.cpp ]
         [ compile-fail new_class/equal_fail.cpp ]
+        [ compile-fail new_class/not_equal_fail.cpp ]
+
+        [ run new_class/using_plus_assign_pass.cpp ]
+        [ compile-fail new_class/plus_assign_fail.cpp ]
+        [ run new_class/using_minus_assign_pass.cpp ]
+        [ compile-fail new_class/minus_assign_fail.cpp ]
         
         ;
 

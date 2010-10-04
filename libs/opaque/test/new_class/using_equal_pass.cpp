@@ -90,7 +90,7 @@ void equal_test() {
 
 test_suite* init_unit_test_suite(int, char*[])
 {
-  test_suite* test = BOOST_TEST_SUITE("new_class.less_than_pass");
+  test_suite* test = BOOST_TEST_SUITE("new_class.equal_pass");
 
   test->add(BOOST_TEST_CASE(&size_test));
 #if 0
