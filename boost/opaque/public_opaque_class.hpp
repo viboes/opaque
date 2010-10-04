@@ -33,7 +33,7 @@ namespace boost {
     template <typename T>
     struct get_substituables<T,true> {
         typedef typename mpl::push_front<typename T::substituables, T
-        	>::type type;
+            >::type type;
     };
 
     template <typename T>
@@ -45,9 +45,9 @@ namespace boost {
     struct transitive_substituable_help {
         template <typename Final, typename Base>
         struct type
-        	: transitive_substituable<BaseClass, UT>::template type<Final,
-            	typename opaque::inherited_from_underlying<UT>
-        				::template type<Final, Base>
+            : transitive_substituable<BaseClass, UT>::template type<Final,
+                typename opaque::inherited_from_underlying<UT>
+                        ::template type<Final, Base>
               >
         {
             operator UT() const {
@@ -57,10 +57,10 @@ namespace boost {
     };
 
     template <
-    	typename Final,
-    	typename T,
-    	typename MetaMixinSeq=boost::mpl::vector0<>,
-    	typename Base=base_public_opaque_type
+        typename Final,
+        typename T,
+        typename MetaMixinSeq=boost::mpl::vector0<>,
+        typename Base=base_public_opaque_type
     >
     class public_opaque_class
         : public
@@ -69,25 +69,25 @@ namespace boost {
 #define COMPILER_WORKS
 #if !defined(COMPILER_WORKS)
                 typename transitive_substituable_help<base_public_opaque_type,T>
-        			::template type<Final, Base>
+                    ::template type<Final, Base>
 #else
                 typename transitive_substituable<base_public_opaque_type, T>
-        				::template type<Final,
+                        ::template type<Final,
                     typename opaque::inherited_from_underlying<T>
-        					::template type<Final, Base>
+                            ::template type<Final, Base>
                 >
 #endif
             >
 #else
-		new_class< Final, T,
-			typename mpl::push_back<
-				typename mpl::push_back<
-					MetaMixinSeq,
-					transitive_substituable<base_public_opaque_type, T>
-        		>::type,
-        		opaque::inherited_from_underlying<T>
-			>::type, Base
-		>
+        new_class< Final, T,
+            typename mpl::push_back<
+                typename mpl::push_back<
+                    MetaMixinSeq,
+                    transitive_substituable<base_public_opaque_type, T>
+                >::type,
+                opaque::inherited_from_underlying<T>
+            >::type, Base
+        >
 #endif
 
     {
@@ -96,33 +96,33 @@ namespace boost {
             new_class< Final, T, MetaMixinSeq,
 #if !defined(COMPILER_WORKS)
                 typename transitive_substituable_help<base_public_opaque_type,T>
-        				::template type<Final, Base>
+                        ::template type<Final, Base>
 #else
                 typename transitive_substituable<base_public_opaque_type, T>
-        				::template type<Final,
+                        ::template type<Final,
                     typename opaque::inherited_from_underlying<T>
-        					::template type<Final, Base>
+                            ::template type<Final, Base>
                 >
 #endif
             >
 #else
-		new_class< Final, T,
-			typename mpl::push_back<
-				typename mpl::push_back<
-					MetaMixinSeq,
-					transitive_substituable<base_public_opaque_type, T>
-        		>::type,
-        		opaque::inherited_from_underlying<T>
-			>::type, Base
-		>
+        new_class< Final, T,
+            typename mpl::push_back<
+                typename mpl::push_back<
+                    MetaMixinSeq,
+                    transitive_substituable<base_public_opaque_type, T>
+                >::type,
+                opaque::inherited_from_underlying<T>
+            >::type, Base
+        >
 #endif
         base_type;
 
     public:
         typedef typename get_substituables<T,
-                	mpl::and_<	is_class<T>,
-                			is_base_of<base_public_opaque_type,T>
-        			>::value
+                    mpl::and_<    is_class<T>,
+                            is_base_of<base_public_opaque_type,T>
+                    >::value
                  >::type substituables;
 
         //~ Can instances of UT be explicitly converted to instances of OT? Yes
@@ -132,14 +132,14 @@ namespace boost {
 
         public_opaque_class() {}
         public_opaque_class(const public_opaque_class & rhs)
-        	: base_type(rhs.val_){}
+            : base_type(rhs.val_){}
         public_opaque_class(const Final & rhs)
-        	: base_type(rhs.val_){}
+            : base_type(rhs.val_){}
         explicit public_opaque_class(T v)
-        	: base_type(v) {}
+            : base_type(v) {}
         template <typename W>
         explicit public_opaque_class(W v)
-        	: base_type(v) {}
+            : base_type(v) {}
 
     };
 

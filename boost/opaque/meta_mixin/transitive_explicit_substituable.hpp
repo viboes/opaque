@@ -27,27 +27,27 @@ namespace boost {
     namespace detail {
 
     template <
-    	typename BaseClass,
-    	typename Final,
-    	typename UT,
-    	typename Base,
-    	bool B>
+        typename BaseClass,
+        typename Final,
+        typename UT,
+        typename Base,
+        bool B>
     struct transitive_explicit_substituable_next_level;
 
     template <
-    	typename BaseClass,
-    	typename Final,
-    	typename UT,
-    	typename Base>
+        typename BaseClass,
+        typename Final,
+        typename UT,
+        typename Base>
     struct transitive_explicit_substituable_next_level<BaseClass, Final, UT, Base, true>
         :  transitive_explicit_substituable<BaseClass, typename UT::underlying_type>
-    			::template type<Final, Base>
+                ::template type<Final, Base>
     {};
     template <
-    	typename BaseClass,
-    	typename Final,
-    	typename UT,
-    	typename Base
+        typename BaseClass,
+        typename Final,
+        typename UT,
+        typename Base
     >
     struct transitive_explicit_substituable_next_level<BaseClass, Final, UT, Base, false>
         :  Base
@@ -68,7 +68,7 @@ namespace boost {
         {
     #if defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
             friend UT convert_to(Final const& rhs,
-            						boost::dummy::type_tag<UT> const&)
+                                    boost::dummy::type_tag<UT> const&)
             {
                     return Final::final(&rhs).underlying();
             }

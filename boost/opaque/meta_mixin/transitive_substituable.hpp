@@ -25,28 +25,28 @@ namespace boost {
     namespace detail {
 
     template <
-    	typename BaseClass,
-    	typename Final,
-    	typename UT,
-    	typename Base,
-    	bool IsConvertible
+        typename BaseClass,
+        typename Final,
+        typename UT,
+        typename Base,
+        bool IsConvertible
     >
     struct transitive_substituable_next_level;
 
     template <
-    	typename BaseClass,
-    	typename Final,
-    	typename UT,
-    	typename Base
+        typename BaseClass,
+        typename Final,
+        typename UT,
+        typename Base
     >
     struct transitive_substituable_next_level<BaseClass, Final, UT, Base, true>
         :  transitive_substituable<BaseClass, typename UT::underlying_type>
-    		::template type<Final, Base>
+            ::template type<Final, Base>
     { };
 
     template <typename BaseClass, typename Final, typename UT, typename Base>
     struct transitive_substituable_next_level<BaseClass, Final, UT, Base, false>
-    	:  Base
+        :  Base
     { };
 
     }
@@ -56,9 +56,9 @@ namespace boost {
         template <typename Final, typename Base>
         struct type
             : detail::transitive_substituable_next_level<
-            		BaseClass, Final, UT, Base,
+                    BaseClass, Final, UT, Base,
                     mpl::and_<is_class<UT>, is_base_of<BaseClass, UT>
-            	>::value>
+                >::value>
         {
             operator UT() const {
                     return Final::final(this).underlying();

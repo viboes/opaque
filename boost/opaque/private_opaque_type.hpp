@@ -18,33 +18,33 @@
 namespace boost {
 
     template <
-    	typename T,
-    	typename Tag=void,
-    	typename MetaMixinSeq=boost::mpl::vector0<>,
-    	typename Base=base_private_opaque_type
+        typename T,
+        typename Tag=void,
+        typename MetaMixinSeq=boost::mpl::vector0<>,
+        typename Base=base_private_opaque_type
     >
     class private_opaque_type : public
             private_opaque_class< private_opaque_type<T,Tag,MetaMixinSeq,Base>,
-            	T, MetaMixinSeq, Base>
+                T, MetaMixinSeq, Base>
     {
         typedef
             private_opaque_class< private_opaque_type<T,Tag,MetaMixinSeq,Base>,
-            	T, MetaMixinSeq, Base>
+                T, MetaMixinSeq, Base>
         base_type;
 
     public:
         //~ Can instances of UT be explicitly converted to instances of OT? Yes
         //~ Can instances of UT be implicitly converted to instances of OT? No
         //~ Can instances of OT be explicitly converted to instances of UT? Yes.
-        //~ 	Waiting for explicit conversion operators,, the explicit
-    	//~ 	conversion must be done through the underlying function
+        //~     Waiting for explicit conversion operators,, the explicit
+        //~     conversion must be done through the underlying function
         //~ Can instances of OT be implicitly converted to instances of UT? No
 
         private_opaque_type() {};
         private_opaque_type(const private_opaque_type & rhs)
-        	: base_type(rhs.val_) {}
+            : base_type(rhs.val_) {}
         explicit private_opaque_type(T v)
-        	: base_type(v) {};
+            : base_type(v) {};
         template <typename W>
         explicit private_opaque_type(W v)
             : base_type(v)
