@@ -22,15 +22,15 @@ namespace boost {
     template <
         typename T,
         typename Tag,
-        typename Concepts=boost::mpl::vector0<>,
+        typename MetaMixinSeq=boost::mpl::vector0<>,
         typename Base=base_new_type
     >
     class new_type
-        : public new_class<new_type<T, Tag, Concepts, Base>,
-                T, Concepts, Base>
+        : public new_class<new_type<T, Tag, MetaMixinSeq, Base>,
+                T, MetaMixinSeq, Base>
     {
-        typedef new_class<new_type<T, Tag, Concepts, Base>,
-                    T, Concepts, Base> base_type;
+        typedef new_class<new_type<T, Tag, MetaMixinSeq, Base>,
+                    T, MetaMixinSeq, Base> base_type;
     public:
         template <typename W>
         explicit new_type(W v) : base_type(v) {}
@@ -40,8 +40,14 @@ namespace boost {
 
     };
 
-    template <typename T, typename UT, typename Tag, typename Concepts, typename Base >
-    T opaque_static_cast(new_type<UT,Tag,Concepts,Base> const& v)
+    template <
+    	typename T, 
+    	typename UT, 
+    	typename Tag, 
+    	typename MetaMixinSeq, 
+    	typename Base 
+    >
+    T opaque_static_cast(new_type<UT,Tag,MetaMixinSeq,Base> const& v)
     {
         return static_cast<T>(v.underlying());
     }
