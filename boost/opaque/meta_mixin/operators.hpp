@@ -20,30 +20,30 @@ namespace opaque {
 
 //////////////////////////////////////////////////////////////////////////////
 
-#define BOOST_OPAQUE_HIDING_COPY(T) \
+#define BOOST_OPAQUE_HIDING_COPY_CONSTRUCTOR(T) \
         private:  \
             T( const T& );
 
-    struct hiding_copy {
+    struct hiding_copy_constructor {
         template <typename Final, typename Base>
         struct type : Base {
-            BOOST_OPAQUE_HIDING_COPY(type)
+            BOOST_OPAQUE_HIDING_COPY_CONSTRUCTOR(type)
         };
     };
 
 //////////////////////////////////////////////////////////////////////////////
 
-#define BOOST_OPAQUE_HIDING_ASSIGN(T) \
+#define BOOST_OPAQUE_HIDING_ASSIGNEMENT(T) \
         private: \
             T& operator=(T const&);
 
-    struct hiding_assign {
+    struct hiding_assignment {
         template <typename Final, typename Base>
         struct type : Base {
-            BOOST_OPAQUE_HIDING_ASSIGN(type)
+            BOOST_OPAQUE_HIDING_ASSIGNEMENT(type)
         };
     };
-
+    
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_CONVERSION(Final,UT) \
@@ -361,6 +361,36 @@ namespace opaque {
     };
 
 //////////////////////////////////////////////////////////////////////////////
+#define BOOST_OPAQUE_USING_LOGICAL_AND(Final,Bool) \
+    public :\
+        Bool operator&&(const Final& rhs) const  { \
+            return Bool(Final::underlying(this) && rhs.underlying());\
+        }
+
+    template <typename Bool=bool>
+    struct using_logical_and {
+        template <typename Final, typename Base>
+        struct type: Base {
+            BOOST_OPAQUE_USING_LOGICAL_AND(Final,Bool)
+        };
+    };
+
+//////////////////////////////////////////////////////////////////////////////
+#define BOOST_OPAQUE_USING_LOGICAL_OR(Final,Bool) \
+    public :\
+        Bool operator||(const Final& rhs) const  { \
+            return Bool(Final::underlying(this) || rhs.underlying());\
+        }
+
+    template <typename Bool=bool>
+    struct using_logical_or {
+        template <typename Final, typename Base>
+        struct type: Base {
+            BOOST_OPAQUE_USING_LOGICAL_OR(Final,Bool)
+        };
+    };
+
+//////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_UNARY_PLUS(Final) \
     public :\
@@ -408,37 +438,37 @@ namespace opaque {
 //////////////////////////////////////////////////////////////////////////////
 
 //~ template <typename Final, typename Base>
-//~ struct address_of : Base {
-//~ 	Final* operator&()  {
-//~ 		return this;
-//~ 	}
+//~ struct using_address_of : Base {
+//~     Final* operator&()  {
+//~         return this;
+//~     }
 //~ };
 
 //////////////////////////////////////////////////////////////////////////////
 
 //~ template <typename Final, typename Derreference=typename reference<Final::underlying_type>::type, typename Base>
-//~ struct derreference : Base {
-//~ 	Derreference operator*()  {
-//~ 		return *(x.underlying());
-//~ 	}
+//~ struct using_derreference : Base {
+//~     Derreference operator*()  {
+//~         return *(x.underlying());
+//~     }
 //~ };
 
 //////////////////////////////////////////////////////////////////////////////
 
 //~ template <typename Final, typename Pointer=typename pointer<Final::underlying_type>::type, typename Base>
-//~ struct member_access : Base {
-//~ 	Pointer operator->()  {
-//~ 		return x.underlying().operator->();
-//~ 	}
+//~ struct using_member_access : Base {
+//~     Pointer operator->()  {
+//~         return x.underlying().operator->();
+//~     }
 //~ };
 
 //////////////////////////////////////////////////////////////////////////////
 
 //~ template <typename Final, class I, class R, typename Base>
-//~ struct subscript : Base {
-//~ 	R operator[](I n)  {
-//~ 		return x.underlying()[i];
-//~ 	}
+//~ struct using_subscript : Base {
+//~     R operator[](I n)  {
+//~         return x.underlying()[i];
+//~     }
 //~ };
 
 // Increment and decrement
