@@ -39,6 +39,13 @@ project
         :
         [ run new_type_test.cpp ]
         [ run new_class_test.cpp ]
+        [ run new_class/regular_pass.cpp ]
+        [ compile-fail new_class/assign_siblings_fail.cpp ]
+        [ compile-fail new_class/assign_up_fail.cpp ]
+        [ compile-fail new_class/assign_down_fail.cpp ]
+        #[ compile-fail new_class/bad_metamixin_fail.cpp ]
+        [ compile-fail new_class/copy_construct_from_non_convertible_fail.cpp ]
+        
         ;
 
    test-suite "opaque"
@@ -62,7 +69,7 @@ project
    test-suite "compile_fail"
         :
         [ compile-fail add_siblings_fail.cpp ]
-        [ compile-fail assign_siblings_fail.cpp ]
+        #[ compile-fail assign_siblings_fail.cpp ]
         [ compile-fail add_pub_siblings_fail.cpp ]
         [ compile-fail assign_pub_siblings_fail.cpp ]
         ;

@@ -10,21 +10,33 @@
 
 #include <boost/opaque/opaque.hpp>
 
-#include <boost/test/unit_test.hpp>
-
 using namespace boost;
-using namespace boost::unit_test;
 
-// Listing 5
+typedef unsigned UT;
+typedef std::string NUT;
 
-BOOST_OPAQUE_PRIVATE_TYPEDEF(int,A);
-BOOST_OPAQUE_PRIVATE_TYPEDEF(int,B);
+// NEW_CLASS(NT1,UT)
+struct NT1 : boost::new_class<NT1, UT> 
+{
+    typedef 
+    boost::new_class<NT1, UT>
+    base_type;
+    
+    NT1(){} 
+    explicit NT1(unsigned v) : base_type(v) {}
+    template <typename W> 
+    explicit NT1(W w) 
+        : base_type(w) 
+    {}
+    NT1(NT1 const& r) 
+        : base_type(r.val_) 
+    {}
+};
 
+void fail() {
+    NUT a;
+    NT1 b(a); // compile error
 
-void public_multiple_levels_fail() {
-    A a;
-    B b;
-    a=b; // compile error
 
 }
 
