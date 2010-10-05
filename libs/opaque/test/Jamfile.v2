@@ -19,9 +19,9 @@ if ! $(BOOST_ROOT)
 project
     : requirements
         <library>/boost/test//boost_unit_test_framework/<link>static
-        
+
         # uncomment the line above if you build outside the Boost release
-        #<include>$(BOOST_ROOT) 
+        #<include>$(BOOST_ROOT)
         # uncomment the line above if you build outside the Boost release
         #<include>../../..
 #        <toolset>msvc:<asynch-exceptions>on
@@ -29,9 +29,13 @@ project
         <define>BOOST_RATIO_USES_MPL_ASSERT
         <warnings>all
         <toolset>gcc:<cxxflags>-Wextra
-        <toolset>gcc:<cxxflags>-Wno-long-long        
-        <toolset>gcc-mingw-4.5.0:<cxxflags>-Wno-missing-field-initializers        
+        <toolset>gcc:<cxxflags>-Wno-long-long
+        <toolset>gcc-mingw-4.5.0:<cxxflags>-Wno-missing-field-initializers
+        #<toolset>gcc-mingw-4.5.0:<cxxflags>-Wnon-template-friend
+        #<toolset>gcc-mingw-4.5.0:<cxxflags>-Wno-non-template-friend
         <toolset>gcc-mingw-4.5.0:<cxxflags>-fdiagnostics-show-option
+        #<toolset>gcc-3.4.4:<cxxflags>-Wno-non-template-friend
+        #<toolset>gcc-4.3.4:<cxxflags>-Wno-non-template-friend
         <toolset>msvc:<cxxflags>/wd4127
     ;
 
@@ -39,7 +43,12 @@ project
         :
         [ run new_type_test.cpp ]
         [ run new_class_test.cpp ]
+        ;
+
+   test-suite "new_class"
+        :
         [ run new_class/regular_pass.cpp ]
+
         [ compile-fail new_class/assign_siblings_fail.cpp ]
         [ compile-fail new_class/assign_up_fail.cpp ]
         [ compile-fail new_class/assign_down_fail.cpp ]
@@ -47,29 +56,44 @@ project
         [ compile-fail new_class/copy_construct_from_non_convertible_fail.cpp ]
 
         [ run new_class/using_less_than_pass.cpp ]
-        [ run new_class/using_less_than_equal_pass.cpp ]
-        [ run new_class/using_greater_than_pass.cpp ]
-        [ run new_class/using_greater_than_equal_pass.cpp ]
-        [ run new_class/using_equal_pass.cpp ]
-        [ run new_class/using_not_equal_pass.cpp ]
-
         [ compile-fail new_class/less_than_fail.cpp ]
+        [ compile-fail new_class/hiding_less_than_fail.cpp ]
+
+        [ run new_class/using_less_than_equal_pass.cpp ]
         [ compile-fail new_class/less_than_equal_fail.cpp ]
+
+        [ run new_class/using_greater_than_pass.cpp ]
         [ compile-fail new_class/greater_than_fail.cpp ]
+
+        [ run new_class/using_greater_than_equal_pass.cpp ]
         [ compile-fail new_class/greater_than_equal_fail.cpp ]
+
+        [ run new_class/using_equal_pass.cpp ]
         [ compile-fail new_class/equal_fail.cpp ]
+
+        [ run new_class/using_not_equal_pass.cpp ]
         [ compile-fail new_class/not_equal_fail.cpp ]
+
 
         [ run new_class/using_plus_assign_pass.cpp ]
         [ compile-fail new_class/plus_assign_fail.cpp ]
+
         [ run new_class/using_minus_assign_pass.cpp ]
         [ compile-fail new_class/minus_assign_fail.cpp ]
-        
-        ;
 
-   test-suite "opaque"
-        :
-        [ run test.cpp ]
+        [ run new_class/using_multiply_assign_pass.cpp ]
+        [ compile-fail new_class/multiply_assign_fail.cpp ]
+
+        [ run new_class/using_plus_pass.cpp ]
+        [ compile-fail new_class/plus_fail.cpp ]
+        #[ compile-fail new_class/hiding_plus_fail.cpp ]
+
+        [ run new_class/using_multiply_pass.cpp ]
+        #[ compile-fail new_class/multiply_fail.cpp ]
+
+        [ run new_class/using_divide_pass.cpp ]
+        #[ compile-fail new_class/divide_fail.cpp ]
+
         ;
 
    test-suite "public"
@@ -82,7 +106,7 @@ project
         :
         [ run private_opaque_test.cpp ]
         [ compile-fail private_opaque_explicit_conversion_fail.cpp ]
-        
+
         ;
 
    test-suite "compile_fail"
