@@ -19,7 +19,7 @@
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/mpl/and.hpp>
-#include <boost/mpl/push_back.hpp>
+#include <boost/mpl/push_front.hpp>
 
 namespace boost {
     class base_private_opaque_type {};
@@ -42,8 +42,8 @@ namespace boost {
             >
 #else
             new_class< Final, T,
-                typename mpl::push_back<
-                    typename mpl::push_back<
+                typename mpl::push_front<
+                    typename mpl::push_front<
                         MetaMixinSeq,
                         transitive_explicit_substituable<base_private_opaque_type, T>
                     >::type,
@@ -64,8 +64,8 @@ namespace boost {
             >
 #else
             new_class< Final, T,
-                typename mpl::push_back<
-                    typename mpl::push_back<
+                typename mpl::push_front<
+                    typename mpl::push_front<
                         MetaMixinSeq,
                         transitive_explicit_substituable<base_private_opaque_type, T>
                     >::type,

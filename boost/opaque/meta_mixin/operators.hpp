@@ -102,6 +102,18 @@ namespace opaque {
         };
     };
 
+#define BOOST_OPAQUE_HIDING_LESS_THAN(Final, Bool) \
+    private :\
+        Bool operator<(const Final& rhs) const;
+
+    template <typename Bool=bool>
+    struct hiding_less_than {
+        template <typename Final, typename Base>
+        struct type: Base {
+        	BOOST_OPAQUE_HIDING_LESS_THAN(Final,Bool)
+        };
+    };
+
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final,Bool) \
@@ -437,39 +449,82 @@ namespace opaque {
 
 //////////////////////////////////////////////////////////////////////////////
 
-//~ template <typename Final, typename Base>
-//~ struct using_address_of : Base {
-//~     Final* operator&()  {
-//~         return this;
-//~     }
-//~ };
+template <typename Final, typename Address, typename Base>
+struct using_address_of : Base {
+	Address operator&()  {
+		return Address(&(Final::underlying(this)));
+	}
+};
 
 //////////////////////////////////////////////////////////////////////////////
 
-//~ template <typename Final, typename Derreference=typename reference<Final::underlying_type>::type, typename Base>
-//~ struct using_derreference : Base {
-//~     Derreference operator*()  {
-//~         return *(x.underlying());
-//~     }
-//~ };
+template <typename Final, typename Reference, typename Base>
+struct using_derreference : Base {
+	Reference operator*()  {
+		return Reference(*(Final::underlying(this)));
+	}
+};
 
 //////////////////////////////////////////////////////////////////////////////
 
-//~ template <typename Final, typename Pointer=typename pointer<Final::underlying_type>::type, typename Base>
-//~ struct using_member_access : Base {
-//~     Pointer operator->()  {
-//~         return x.underlying().operator->();
-//~     }
-//~ };
+template <typename Final, typename Pointer, typename Base>
+struct using_member_access : Base {
+    Pointer operator->()  {
+        return Final::underlying(this).operator->();
+    }
+};
 
 //////////////////////////////////////////////////////////////////////////////
 
-//~ template <typename Final, class I, class R, typename Base>
-//~ struct using_subscript : Base {
-//~     R operator[](I n)  {
-//~         return x.underlying()[i];
-//~     }
-//~ };
+template <typename Final, class I, class R, typename Base>
+struct using_subscript : Base {
+    R operator[](I n)  {
+        return Final::underlying(this)[n];
+    }
+};
+
+//////////////////////////////////////////////////////////////////////////////
+
+template <typename Final, class RHS, class R, typename Base>
+struct using_comma : Base {
+    R operator,(RHS rhs)  {
+        return (Final::underlying(this),rhs);
+    }
+};
+
+//////////////////////////////////////////////////////////////////////////////
+
+template <typename Final, class Sig, typename Base>
+struct using_function_call;
+
+template <typename Final, class R, typename Base>
+struct using_function_call<Final, R(), Base> : Base {
+    R operator()()  {
+        return Final::underlying(this)();
+    }
+};
+
+template <typename Final, class R, class P1, typename Base>
+struct using_function_call<Final, R(P1), Base> : Base {
+    R operator()(P1 p1)  {
+        return Final::underlying(this)(p1);
+    }
+};
+
+//////////////////////////////////////////////////////////////////////////////
+
+// As the NT is not related to the UT by derivation, we can not overload the 
+// operator ->* with a pointer to a member of the UT.
+// The user will need to define a specific member function
+
+//template <typename Final, class PTM, class R, typename Base>
+//struct using_pointer_to_member : Base {
+//    R operator->*(PTM m)  {
+//        return Final::underlying(this)->*m;
+//    }
+//};
+
+
 
 // Increment and decrement
 //////////////////////////////////////////////////////////////////////////////
@@ -540,6 +595,8 @@ namespace opaque {
 
 #if 0
 // I don't know why this doesn't works :(
+// It works for gcc-3.4    
+// It doesn't work for gcc-4.3    
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -573,6 +630,16 @@ namespace opaque {
         template <typename Final, typename Base>
         struct type: Base {
             BOOST_OPAQUE_USING_PLUS(Final)
+        };
+    };
+
+//////////////////////////////////////////////////////////////////////////////
+    struct hiding_plus {
+        template <typename Final, typename Base>
+        struct type: Base {
+        private :
+        	//friend Final operator+(const Final& lhs, const Final& rhs);
+            Final operator+(const Final& rhs) const;
         };
     };
 

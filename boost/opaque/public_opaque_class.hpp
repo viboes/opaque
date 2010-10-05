@@ -21,7 +21,7 @@
 #include <boost/mpl/push_front.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/vector.hpp>
-#include <boost/mpl/push_back.hpp>
+#include <boost/mpl/push_front.hpp>
 
 namespace boost {
 
@@ -80,11 +80,13 @@ namespace boost {
             >
 #else
         new_class< Final, T,
-            typename mpl::push_back<
-                typename mpl::push_back<
+            typename mpl::push_front<
+                typename mpl::push_front<
                     MetaMixinSeq,
                     transitive_substituable<base_public_opaque_type, T>
+        //opaque::inherited_from_underlying<T>
                 >::type,
+          //      transitive_substituable<base_public_opaque_type, T>
                 opaque::inherited_from_underlying<T>
             >::type, Base
         >
@@ -107,8 +109,8 @@ namespace boost {
             >
 #else
         new_class< Final, T,
-            typename mpl::push_back<
-                typename mpl::push_back<
+            typename mpl::push_front<
+                typename mpl::push_front<
                     MetaMixinSeq,
                     transitive_substituable<base_public_opaque_type, T>
                 >::type,
