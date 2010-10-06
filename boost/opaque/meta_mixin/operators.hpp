@@ -614,9 +614,15 @@ struct using_function_call<Final, R(P1), Base> : Base {
 #else
 #define BOOST_OPAQUE_USING_PLUS(Final) \
     public :\
+	    Final using_plus_op(const Final& rhs) const { \
+	        return Final(Final::underlying(this) + rhs.underlying()); \
+	    } \
         friend Final operator+(const Final& lhs, const Final& rhs) { \
-            return Final(lhs.underlying() + rhs.underlying()); \
+            return lhs.using_plus_op(rhs); \
         }
+
+    //return Final(lhs.underlying() + rhs.underlying()); 
+    
 #define BOOST_OPAQUE_USING_MINUS(Final) \
     public :\
         friend Final  operator-(const Final& lhs, const Final& rhs) { \
@@ -639,7 +645,8 @@ struct using_function_call<Final, R(P1), Base> : Base {
         struct type: Base {
         private :
         	//friend Final operator+(const Final& lhs, const Final& rhs);
-            Final operator+(const Final& rhs) const;
+    	    Final using_plus_op(const Final& rhs) const;
+            //Final operator+(const Final& rhs) const;
         };
     };
 
