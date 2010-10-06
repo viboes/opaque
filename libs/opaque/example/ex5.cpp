@@ -14,11 +14,15 @@ struct A { };
 struct B { B(A); };
 struct C { C(B); };
 
+void remove_warning(C) {}
+
 void test() {
 	A a;
 	B ba = a; // okay: is_subst(A,B)
 	C cb = ba; // okay: is_subst(B,C)
 	C ca = a; // oops: ! is_subst(A,C) per [ISO03, §13.3.3.1.2/1]
 	// error: conversion from `A' to non-scalar type `C' requested
+	remove_warning(cb);
+	remove_warning(ca);
 }
 

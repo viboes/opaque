@@ -42,9 +42,11 @@ struct NT :
     {}
 };
 
+void remove_warning(NT) {}
 
 void fail() {
     NT a1(1), b2(2);
     NT c = (a1 + b2);
+    remove_warning(c);
 }
 

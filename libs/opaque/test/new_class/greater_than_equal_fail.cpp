@@ -31,10 +31,12 @@ struct NT1 : boost::new_class<NT1, UT>
         : base_type(r.val_) 
     {}
 };
+void remove_warning(bool) {}
 
 void fail() {
 	NT1 a1(1), b2(2);
 	bool b =(a1 >= b2);
+	remove_warning(b);
 }
 
 

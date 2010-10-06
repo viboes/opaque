@@ -46,9 +46,11 @@ struct NT :
     {}
 };
 
+void remove_warning(bool) {}
 
 void fail() {
     NT a1(1), b2(2);
     bool b = (a1 < b2);
+	remove_warning(b);
 }
 

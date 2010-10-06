@@ -86,7 +86,7 @@ project
 
         [ run new_class/using_plus_pass.cpp ]
         [ compile-fail new_class/plus_fail.cpp ]
-        #[ compile-fail new_class/hiding_plus_fail.cpp ]
+        [ compile-fail new_class/hiding_plus_fail.cpp ]
 
         [ run new_class/using_multiply_pass.cpp ]
         #[ compile-fail new_class/multiply_fail.cpp ]
