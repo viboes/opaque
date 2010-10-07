@@ -8,7 +8,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#include <boost/opaque/opaque.hpp>
+#include <boost/opaque/new_class.hpp>
 
 using namespace boost;
 

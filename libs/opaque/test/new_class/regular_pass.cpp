@@ -8,7 +8,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#include <boost/opaque/opaque.hpp>
+#include <boost/opaque/new_class.hpp>
 
 #include <boost/test/unit_test.hpp>
 
@@ -20,10 +20,10 @@ typedef short UT2;
 
 // NEW_CLASS(NT,UT,((opaque::using_equality_comparable1<>)))
 struct NT : 
-    boost::new_class<NT, UT>
+    boost::opaque::new_class<NT, UT>
 {
     typedef 
-    boost::new_class<NT, UT>
+    boost::opaque::new_class<NT, UT>
     base_type;
     
     NT(){} 
@@ -70,7 +70,7 @@ void assign_test() {
 void opaque_static_cast_test() {
 	NT a(1);
     UT2 i;
-    i=opaque_static_cast<UT2>(a);
+    i=opaque::opaque_static_cast<UT2>(a);
     BOOST_CHECK(i==a.underlying());
 }
 

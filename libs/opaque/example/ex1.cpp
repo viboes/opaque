@@ -13,6 +13,7 @@
 #include <boost/test/unit_test.hpp>
 
 using namespace boost;
+using namespace boost::opaque;
 using namespace boost::unit_test;
 
 #if 0
@@ -25,7 +26,7 @@ bool gt(Int a, Int b)
 } 
 #else
 struct private_unsigned_tag;
-typedef boost::new_type<unsigned, private_unsigned_tag, boost::mpl::vector<
+typedef boost::opaque::new_type<unsigned, private_unsigned_tag, boost::mpl::vector<
     opaque::using_totally_ordered1<opaque::boolean> 
 > > Int;
 //~ BOOST_OPAQUE_PRIVATE_TYPEDEF(int, Int);

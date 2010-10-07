@@ -10,10 +10,6 @@
 
 #include <boost/opaque/opaque.hpp>
 
-#include <boost/test/unit_test.hpp>
-
-using namespace boost;
-using namespace boost::unit_test;
 
 
 BOOST_OPAQUE_PRIVATE_TYPEDEF(int,A);

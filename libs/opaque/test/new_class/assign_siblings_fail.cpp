@@ -8,17 +8,17 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#include <boost/opaque/opaque.hpp>
+#include <boost/opaque/new_class.hpp>
 
 using namespace boost;
 
 typedef unsigned UT;
 
 // NEW_CLASS(NT1,UT)
-struct NT1 : boost::new_class<NT1, UT> 
+struct NT1 : boost::opaque::new_class<NT1, UT> 
 {
     typedef 
-    boost::new_class<NT1, UT>
+    boost::opaque::new_class<NT1, UT>
     base_type;
     
     NT1(){} 
@@ -33,10 +33,10 @@ struct NT1 : boost::new_class<NT1, UT>
 };
 
 // NEW_CLASS(NT2,UT)
-struct NT2 : boost::new_class<NT2, UT> 
+struct NT2 : boost::opaque::new_class<NT2, UT> 
 {
     typedef 
-    boost::new_class<NT2, UT>
+    boost::opaque::new_class<NT2, UT>
     base_type;
     
     NT2(){} 

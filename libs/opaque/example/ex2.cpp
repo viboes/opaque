@@ -13,6 +13,7 @@
 #include <boost/test/unit_test.hpp>
 
 using namespace boost;
+using namespace boost::opaque;
 using namespace boost::unit_test;
 
 

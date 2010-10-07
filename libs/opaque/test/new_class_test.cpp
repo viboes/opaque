@@ -17,13 +17,13 @@ using namespace boost::unit_test;
 
 
 struct private_unsigned : 
-    boost::new_class<private_unsigned, unsigned 
+    boost::opaque::new_class<private_unsigned, unsigned 
     , boost::mpl::vector<opaque::using_equality_comparable1<> 
     > 
     >
 {
     typedef 
-    boost::new_class<private_unsigned, unsigned 
+    boost::opaque::new_class<private_unsigned, unsigned 
     , boost::mpl::vector<opaque::using_equality_comparable1<> 
     > 
     >
@@ -40,9 +40,9 @@ struct private_unsigned :
     {}
 };
 
-struct private_unsigned2: boost::new_class<private_unsigned2, unsigned> 
+struct private_unsigned2: boost::opaque::new_class<private_unsigned2, unsigned> 
 {
-    typedef boost::new_class<private_unsigned2, unsigned> base_type;
+    typedef boost::opaque::new_class<private_unsigned2, unsigned> base_type;
     
     private_unsigned2(){} 
     explicit private_unsigned2(unsigned v) : base_type(v) {}
@@ -70,7 +70,7 @@ void private_assign_test() {
 
     unsigned short i;
 
-    i=opaque_static_cast<unsigned short>(a);
+    i=opaque::opaque_static_cast<unsigned short>(a);
     //~ i=a; // error
 
     //~ a=i; // error

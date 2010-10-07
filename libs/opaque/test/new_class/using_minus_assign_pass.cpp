@@ -8,7 +8,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#include <boost/opaque/opaque.hpp>
+#include <boost/opaque/new_class.hpp>
+#include <boost/opaque/meta_mixin/operators.hpp>
 
 #include <boost/test/unit_test.hpp>
 
@@ -20,14 +21,14 @@ typedef short UT2;
 
 // NEW_CLASS(NT,UT,((opaque::using_equality_comparable1<>)))
 struct NT : 
-    boost::new_class<NT, UT
+    boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
     	boost::opaque::using_minus_assign 
     >
     >
 {
     typedef 
-    boost::new_class<NT, UT
+    boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
     	boost::opaque::using_minus_assign 
     >
