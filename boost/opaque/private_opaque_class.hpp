@@ -22,6 +22,7 @@
 #include <boost/mpl/push_front.hpp>
 
 namespace boost {
+namespace opaque {
     class base_private_opaque_type {};
 
     template <
@@ -34,7 +35,7 @@ namespace boost {
         : public
 #if 0
             new_class< Final, T, MetaMixinSeq,
-                transitive_explicit_substituable<base_private_opaque_type,T>
+            	opaque::transitive_explicit_substituable<base_private_opaque_type,T>
                         ::template type<Final,
                     typename opaque::inherited_from_underlying<T>
                             ::template type<Final, Base>
@@ -45,7 +46,7 @@ namespace boost {
                 typename mpl::push_front<
                     typename mpl::push_front<
                         MetaMixinSeq,
-                        transitive_explicit_substituable<base_private_opaque_type, T>
+                        opaque::transitive_explicit_substituable<base_private_opaque_type, T>
                     >::type,
                     opaque::inherited_from_underlying<T>
                 >::type, Base
@@ -56,7 +57,7 @@ namespace boost {
         typedef
 #if 0
             new_class< Final, T, MetaMixinSeq,
-                transitive_explicit_substituable<base_private_opaque_type,T>
+            	opaque::transitive_explicit_substituable<base_private_opaque_type,T>
                         ::template type<Final,
                     typename opaque::inherited_from_underlying<T>
                             ::template type<Final, Base>
@@ -67,7 +68,7 @@ namespace boost {
                 typename mpl::push_front<
                     typename mpl::push_front<
                         MetaMixinSeq,
-                        transitive_explicit_substituable<base_private_opaque_type, T>
+                        opaque::transitive_explicit_substituable<base_private_opaque_type, T>
                     >::type,
                     opaque::inherited_from_underlying<T>
                 >::type, Base
@@ -95,7 +96,7 @@ namespace boost {
             : base_type(v)
         {}
     };
-
+}
 }
 
 

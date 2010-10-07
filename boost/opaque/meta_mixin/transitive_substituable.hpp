@@ -18,11 +18,12 @@
 #include <boost/mpl/and.hpp>
 
 namespace boost {
+namespace opaque {
 
     template <typename BaseClass, typename UT>
     struct transitive_substituable;
 
-    namespace detail {
+    namespace opaque_detail {
 
     template <
         typename BaseClass,
@@ -55,7 +56,7 @@ namespace boost {
     struct transitive_substituable {
         template <typename Final, typename Base>
         struct type
-            : detail::transitive_substituable_next_level<
+            : opaque_detail::transitive_substituable_next_level<
                     BaseClass, Final, UT, Base,
                     mpl::and_<is_class<UT>, is_base_of<BaseClass, UT>
                 >::value>
@@ -66,6 +67,7 @@ namespace boost {
         };
     };
 
+}
 }
 
 #endif

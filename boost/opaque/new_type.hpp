@@ -17,6 +17,7 @@
 #include <boost/mpl/vector.hpp>
 
 namespace boost {
+namespace opaque {
 
 
     template <
@@ -51,7 +52,7 @@ namespace boost {
     {
         return static_cast<T>(v.underlying());
     }
-
+}
 }
 
 

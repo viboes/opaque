@@ -16,6 +16,7 @@
 #include <boost/opaque/meta_mixin/linear_hierarchy.hpp>
 
 namespace boost {
+namespace opaque {
 
     class base_new_type {};
 
@@ -37,9 +38,9 @@ namespace boost {
         explicit new_class(T v) : val_(v) {}
     protected:
         T val_;
-        new_class & operator=(const new_class & rhs) {
-            val_ = rhs.val_; return *this;
-        }
+//        new_class & operator=(const new_class & rhs) {
+//            val_ = rhs.val_; return *this;
+//        }
 
     public:
         underlying_type const& underlying() const {
@@ -81,7 +82,7 @@ namespace boost {
     {
         return static_cast<T>(v.underlying());
     }
-
+}
 }
 
 

@@ -17,9 +17,10 @@
 #include <boost/mpl/fold.hpp>
 
 namespace boost {
+namespace opaque {
 
     ////// implementation //////
-    namespace detail{
+    namespace opaque_detail{
 
     template<typename Final, typename State, typename MetaMixin>
     struct do_inhetit : MetaMixin::template type< Final, State> {
@@ -37,9 +38,10 @@ namespace boost {
 
     template<typename MetaMixinSeq, typename Final, typename Base>
     struct linear_hierarchy {
-        typedef typename boost::mpl::fold<MetaMixinSeq, Base, detail::inherit<Final> >::type type;
+        typedef typename boost::mpl::fold<MetaMixinSeq, Base, 
+        	opaque_detail::inherit<Final> >::type type;
     };
-
+}
 }
 
 

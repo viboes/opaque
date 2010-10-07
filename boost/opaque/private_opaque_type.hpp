@@ -16,6 +16,7 @@
 #include <boost/opaque/private_opaque_class.hpp>
 
 namespace boost {
+namespace opaque {
 
     template <
         typename T,
@@ -50,7 +51,7 @@ namespace boost {
             : base_type(v)
         {}
     };
-
+}
 }
 
 
