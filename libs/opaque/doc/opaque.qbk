@@ -405,9 +405,61 @@ It seems natural that this relation satisfy the transitivity property.
 
 [section Using UDT as Underlying types]
 
-Talk about the problem with direct data access that can not be wrapped by the underlying type.
+Talk about the problem with direct member access that can not be wrapped by the underlying type.
 
 For example we can access the fisrt field of the UT pair, but the OT can not give this access. Instead the OT could define some function accessors that inderectly will almost behave as the data member.
+
+    struct UT {
+        T member_;   
+    };
+
+    UT ut;
+    ut.member_ = 88;
+
+
+    struct OT : new_class<OT,UT> {
+        T& member() {
+            return underlying().member_;
+        }
+        T member() const {
+            return underlying().member_;
+        }
+    };
+    
+    OT ot;
+    //ot.member_=88 // compile-error
+    ot.member() = 88;
+
+For pointer to members, we have the same problem
+
+    T UT::* pm = &UT::member_;
+    UT* utp;
+    utp->*pm = 88;
+
+
+If UT had overloaded the pointer to member operator, OT should do the same think
+
+    struct OT : new_class<OT,UT> {
+        T UT::* pmt(T UT::* pm) {
+            return underlying().member_;
+        }
+        T member() const {
+            return underlying().member_;
+        }
+        T& operator->*(T& (OT::* m)()) {
+            
+        }
+    };
+
+
+    T UT::* pm = &UT::member_;
+    T& (OT::* pm) = &OT::member;
+    UT* utp;
+    utp->*pm = 88;
+
+    OT* otp;
+    otp->*pm() = 88;
+
 
 [endsect]
 
