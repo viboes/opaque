@@ -16,48 +16,12 @@ using namespace boost;
 using namespace boost::unit_test;
 
 
-#if 0
-struct private_unsigned : boost::opaque::new_class<private_unsigned, unsigned 
-    , opaque::equality_comparable1<private_unsigned 
-    > 
-    > 
-{
-    typedef boost::opaque::new_class<private_unsigned, unsigned 
-    , opaque::equality_comparable1<private_unsigned 
-    > 
-    > base_type;
-    
-    private_unsigned(){} 
-    explicit private_unsigned(unsigned v) : base_type(v) {}
-    template <typename W> 
-    explicit private_unsigned(W w) 
-        : base_type(w) 
-    {}
-    private_unsigned(private_unsigned const& r) 
-        : base_type(r.val_) 
-    {}
-};
-struct private_unsigned2: boost::opaque::new_class<private_unsigned2, unsigned> 
-{
-    typedef boost::opaque::new_class<private_unsigned2, unsigned> base_type;
-    
-    private_unsigned2(){} 
-    explicit private_unsigned2(unsigned v) : base_type(v) {}
-    template <typename W> 
-    explicit private_unsigned2(W w) 
-        : base_type(w) 
-    {}
-    private_unsigned2(private_unsigned2 const& r) 
-        : base_type(r.val_) 
-    {}
-};
-#else
 struct private_unsigned_tag;
 typedef boost::opaque::new_type<unsigned, private_unsigned_tag, boost::mpl::vector<opaque::using_equality_comparable1<> > > private_unsigned;
 struct private_unsigned2_tag;
 typedef boost::opaque::new_type<unsigned, private_unsigned2_tag> private_unsigned2;
 
-#endif
+
 void size_test() {
 
     BOOST_CHECK(sizeof(private_unsigned)==sizeof(unsigned));

@@ -19,7 +19,7 @@ using namespace boost::unit_test;
 typedef int UT;
 typedef short UT2;
 
-// NEW_CLASS(NT,UT,((opaque::using_equality_comparable1<>)))
+// NEW_CLASS(NT,UT,(opaque::using_plus_assign))
 struct NT : 
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
