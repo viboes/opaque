@@ -23,9 +23,9 @@
 #include <boost/opaque/public_opaque_class.hpp>
 #include <boost/opaque/boolean.hpp>
 #include <boost/opaque/macros.hpp>
-
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/assert.hpp>
+
 #define BOOST_OPAQUE_STATIC_ASSERT(CND, MSG, TYPES)                                 \
     BOOST_MPL_ASSERT_MSG(boost::mpl::bool_< (CND) >::type::value, MSG, TYPES)
 
