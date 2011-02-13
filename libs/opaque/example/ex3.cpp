@@ -10,11 +10,9 @@
 
 #include <boost/opaque/opaque.hpp>
 
-#include <boost/test/unit_test.hpp>
 
 using namespace boost;
 using namespace boost::opaque;
-using namespace boost::unit_test;
 
 // Listing 7
 #if 1
@@ -43,13 +41,12 @@ void public_multiple_levels_test() {
 }
 
 
-test_suite* init_unit_test_suite(int, char*[])
+int main()
 {
-  test_suite* test = BOOST_TEST_SUITE("ex3");
-  test->add(BOOST_TEST_CASE(&public_multiple_levels_test));
+  public_multiple_levels_test();
 
 
-  return test;
+  return 0;
 }
 
 

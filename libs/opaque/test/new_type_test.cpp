@@ -10,10 +10,9 @@
 
 #include <boost/opaque/opaque.hpp>
 
-#include <boost/test/unit_test.hpp>
+#include <boost/detail/lightweight_test.hpp>
 
 using namespace boost;
-using namespace boost::unit_test;
 
 
 struct private_unsigned_tag;
@@ -24,8 +23,8 @@ typedef boost::opaque::new_type<unsigned, private_unsigned2_tag> private_unsigne
 
 void size_test() {
 
-    BOOST_CHECK(sizeof(private_unsigned)==sizeof(unsigned));
-    BOOST_CHECK(sizeof(private_unsigned2)==sizeof(unsigned));
+    BOOST_TEST(sizeof(private_unsigned)==sizeof(unsigned));
+    BOOST_TEST(sizeof(private_unsigned2)==sizeof(unsigned));
 }
 
 void private_assign_test() {
@@ -45,105 +44,94 @@ void private_assign_test() {
 
 void private_eq_test() {
     private_unsigned a(1), b(2), c(2);
-    BOOST_CHECK(b==c);
-    BOOST_CHECK((a==b)==false);
+    BOOST_TEST(b==c);
+    BOOST_TEST((a==b)==false);
 }
 void private_neq_test() {
     private_unsigned a(1), b(2), c(2);
-    BOOST_CHECK(a!=b);
-    BOOST_CHECK((b!=c)==false);
+    BOOST_TEST(a!=b);
+    BOOST_TEST((b!=c)==false);
 }
 //~ void private_lt_test() {
     //~ private_unsigned a(1), b(2), c(2);
-    //~ BOOST_CHECK(a<b);
-    //~ BOOST_CHECK((b<a)==false);
-    //~ BOOST_CHECK((b<c)==false);
+    //~ BOOST_TEST(a<b);
+    //~ BOOST_TEST((b<a)==false);
+    //~ BOOST_TEST((b<c)==false);
 //~ }
 #if 0
 
 void private_gt_test() {
     private_unsigned a(1), b(2), c(2);
-    BOOST_CHECK(b>a);
-    BOOST_CHECK((a>b)==false);
-    BOOST_CHECK((b>c)==false);
+    BOOST_TEST(b>a);
+    BOOST_TEST((a>b)==false);
+    BOOST_TEST((b>c)==false);
 }
 
 void private_le_test() {
     private_unsigned a(1), b(2), c(2);
-    BOOST_CHECK(a<=b);
-    BOOST_CHECK((b<=a)==false);
-    BOOST_CHECK(b<=c);
+    BOOST_TEST(a<=b);
+    BOOST_TEST((b<=a)==false);
+    BOOST_TEST(b<=c);
 }
 void private_ge_test() {
     private_unsigned a(1), b(2), c(2);
-    BOOST_CHECK(b>=a);
-    BOOST_CHECK((a>=b)==false);
-    BOOST_CHECK(b>=c);
+    BOOST_TEST(b>=a);
+    BOOST_TEST((a>=b)==false);
+    BOOST_TEST(b>=c);
 }
 
 void private_add_test() {
     private_unsigned a(1), b(2), c(3),d(4);
-    BOOST_CHECK(a+b==c);
-    BOOST_CHECK(c==a+b);
-    BOOST_CHECK((a+b==d)==false);
-    BOOST_CHECK((d==a+b)==false);
+    BOOST_TEST(a+b==c);
+    BOOST_TEST(c==a+b);
+    BOOST_TEST((a+b==d)==false);
+    BOOST_TEST((d==a+b)==false);
 
     private_unsigned2 x;
     //~ a=a+x; // error
 
     //~ unsigned u=3,v=0;
-    //~ BOOST_CHECK(a+b==3u);
-    //~ BOOST_CHECK(u==a+b);
-    //~ BOOST_CHECK(a+b==u);
-    //~ BOOST_CHECK((a+b==v)==false);
-    //~ BOOST_CHECK((v==a+b)==false);
+    //~ BOOST_TEST(a+b==3u);
+    //~ BOOST_TEST(u==a+b);
+    //~ BOOST_TEST(a+b==u);
+    //~ BOOST_TEST((a+b==v)==false);
+    //~ BOOST_TEST((v==a+b)==false);
 
 }
 
 void private_substract_test() {
     private_unsigned a(1), b(2), c(3),d(4);
-    BOOST_CHECK(c-b==a);
-    BOOST_CHECK(a==c-b);
-    BOOST_CHECK((c-b==d)==false);
-    BOOST_CHECK((d==c-b)==false);
+    BOOST_TEST(c-b==a);
+    BOOST_TEST(a==c-b);
+    BOOST_TEST((c-b==d)==false);
+    BOOST_TEST((d==c-b)==false);
 
     //~ unsigned u=1,v=0;
-    //~ BOOST_CHECK(c-b==1u);
-    //~ BOOST_CHECK(u==c-b);
-    //~ BOOST_CHECK(c-b==u);
-    //~ BOOST_CHECK((c-b==v)==false);
-    //~ BOOST_CHECK((v==c-b)==false);
+    //~ BOOST_TEST(c-b==1u);
+    //~ BOOST_TEST(u==c-b);
+    //~ BOOST_TEST(c-b==u);
+    //~ BOOST_TEST((c-b==v)==false);
+    //~ BOOST_TEST((v==c-b)==false);
 
-}
-
-test_suite* init_unit_test_suite(int, char*[])
-{
-  test_suite* test = BOOST_TEST_SUITE("private");
-
-
-  test->add(BOOST_TEST_CASE(&size_test));
-  test->add(BOOST_TEST_CASE(&private_assign_test));
-  test->add(BOOST_TEST_CASE(&private_eq_test));
-  test->add(BOOST_TEST_CASE(&private_lt_test));
-  test->add(BOOST_TEST_CASE(&private_gt_test));
-  test->add(BOOST_TEST_CASE(&private_le_test));
-  test->add(BOOST_TEST_CASE(&private_ge_test));
-  test->add(BOOST_TEST_CASE(&private_add_test));
-  test->add(BOOST_TEST_CASE(&private_substract_test));
-
-  return test;
 }
 
 #endif
 
-test_suite* init_unit_test_suite(int, char*[])
+int main()
 {
-  test_suite* test = BOOST_TEST_SUITE("new");
 
 
-  test->add(BOOST_TEST_CASE(&private_assign_test));
-  test->add(BOOST_TEST_CASE(&private_eq_test));
-  test->add(BOOST_TEST_CASE(&private_neq_test));
+  private_assign_test();
+  private_eq_test();
+  private_neq_test();
 
-  return test;
+  //~ size_test();
+  //~ private_lt_test();
+  //~ private_gt_test();
+  //~ private_le_test();
+  //~ private_ge_test();
+  //~ private_add_test();
+  //~ private_substract_test();
+	
+  return boost::report_errors();
 }

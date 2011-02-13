@@ -10,11 +10,10 @@
 
 #include <boost/opaque/opaque.hpp>
 
-#include <boost/test/unit_test.hpp>
+#include <boost/detail/lightweight_test.hpp>
 
 using namespace boost;
 using namespace boost::opaque;
-using namespace boost::unit_test;
 
 #if 0
 typedef int Int;
@@ -40,16 +39,15 @@ opaque::boolean gt(Int a, Int b)
 
     
 void t() {
-    BOOST_CHECK(gt(Int(1),Int(0)));
+    BOOST_TEST(gt(Int(1),Int(0)));
 }
 
-test_suite* init_unit_test_suite(int, char*[])
+int main()
 {
-  test_suite* test = BOOST_TEST_SUITE("ex1");
 
-  test->add(BOOST_TEST_CASE(&t));
+  t();
 
-  return test;
+  return boost::report_errors();
 }
 
 

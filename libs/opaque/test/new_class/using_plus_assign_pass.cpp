@@ -11,10 +11,9 @@
 #include <boost/opaque/new_class.hpp>
 #include <boost/opaque/meta_mixin/operators.hpp>
 
-#include <boost/test/unit_test.hpp>
+#include <boost/detail/lightweight_test.hpp>
 
 using namespace boost;
-using namespace boost::unit_test;
 
 typedef int UT;
 typedef short UT2;
@@ -48,7 +47,7 @@ struct NT :
 
 
 void size_test() {
-    BOOST_CHECK(sizeof(NT)==sizeof(UT));
+    BOOST_TEST(sizeof(NT)==sizeof(UT));
 }
 #if 0
 void default_constructor_test() {
@@ -57,52 +56,50 @@ void default_constructor_test() {
 void copy_from_ut_test() {
 	UT ut(1);
 	NT a(ut);
-    BOOST_CHECK(a.underlying()==ut);
+    BOOST_TEST(a.underlying()==ut);
 }
 void copy_from_ut2_test() {
 	UT2 ut(1);
 	NT a(ut);
-    BOOST_CHECK(a.underlying()==ut);
+    BOOST_TEST(a.underlying()==ut);
 }
 void copy_constructor_test() {
 	NT a(1);
 	NT b(a);
-    BOOST_CHECK(a.underlying()==b.underlying());
+    BOOST_TEST(a.underlying()==b.underlying());
 }
 
 void assign_test() {
 	NT a1, a2(2);
     a1=a2; // OK
-    BOOST_CHECK(a1.underlying()==a2.underlying());
+    BOOST_TEST(a1.underlying()==a2.underlying());
 }
 
 void opaque_static_cast_test() {
 	NT a(1);
     UT2 i;
     i=opaque_static_cast<UT2>(a);
-    BOOST_CHECK(i==a.underlying());
+    BOOST_TEST(i==a.underlying());
 }
 #endif
 void plus_assign_test() {
     NT a1(1), b2(2), c2(2);
     a1+=b2;
-    BOOST_CHECK(a1.underlying()=3);
+    BOOST_TEST(a1.underlying()=3);
 }
 
-test_suite* init_unit_test_suite(int, char*[])
+int main()
 {
-  test_suite* test = BOOST_TEST_SUITE("new_class.using_plus_assign_pass");
-
-  test->add(BOOST_TEST_CASE(&size_test));
+  size_test();
 #if 0
-  test->add(BOOST_TEST_CASE(&default_constructor_test));
-  test->add(BOOST_TEST_CASE(&copy_from_ut_test));
-  test->add(BOOST_TEST_CASE(&copy_from_ut2_test));
-  test->add(BOOST_TEST_CASE(&copy_constructor_test));
-  test->add(BOOST_TEST_CASE(&assign_test));
-  test->add(BOOST_TEST_CASE(&opaque_static_cast_test));
+  default_constructor_test();
+  copy_from_ut_test();
+  copy_from_ut2_test();
+  copy_constructor_test();
+  assign_test();
+  opaque_static_cast_test();
 #endif  
-  test->add(BOOST_TEST_CASE(&plus_assign_test));
+  plus_assign_test();
 
-  return test;
+  return boost::report_errors();
 }

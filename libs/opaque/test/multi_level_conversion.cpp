@@ -13,10 +13,9 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/contains.hpp>
 
-#include <boost/test/unit_test.hpp>
+#include <boost/detail/lightweight_test.hpp>
 
 using namespace boost;
-using namespace boost::unit_test;
 
 // Listing 7
 BOOST_OPAQUE_PUBLIC_TYPEDEF(double,mass1_leng2_per_time2);
@@ -98,11 +97,10 @@ void public_multiple_levels() {
 }
 
 
-test_suite* init_unit_test_suite(int, char*[])
+int main()
 {
-  test_suite* test = BOOST_TEST_SUITE("public_multiple_levels");
-  test->add(BOOST_TEST_CASE(&public_multiple_levels));
+    public_multiple_levels();
 
-  return test;
+    return boost::report_errors();
 }
 

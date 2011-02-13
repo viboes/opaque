@@ -9,11 +9,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <boost/opaque/opaque.hpp>
-#include <boost/test/unit_test.hpp>
 
 using namespace boost;
 using namespace boost::opaque;
-using namespace boost::unit_test;
 
 // Listing 1
 // Cartesian 3D coordinate types
@@ -37,12 +35,11 @@ void test() {
 }
 
 
-test_suite* init_unit_test_suite(int, char*[])
+int main()
 {
-  test_suite* tests = BOOST_TEST_SUITE("ex4");
-  tests->add(BOOST_TEST_CASE(&test));
+  test();
 
-  return tests;
+  return 0;
 }
 
 

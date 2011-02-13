@@ -10,11 +10,10 @@
 
 #include <boost/opaque/opaque.hpp>
 
-#include <boost/test/unit_test.hpp>
+#include <boost/detail/lightweight_test.hpp>
 
 using namespace boost;
 using namespace boost::opaque;
-using namespace boost::unit_test;
 
 
 BOOST_OPAQUE_PRIVATE_TYPEDEF(unsigned,game_score);
@@ -33,42 +32,41 @@ serial_number next_id( serial_number n ) {
 void accumulate_test() {
     game_score gs1(1), gs2(2), res;
     res= accumulate(gs1,gs2);
-    BOOST_CHECK(gs1<gs2);
-    BOOST_CHECK(gs1<=gs2);
-    BOOST_CHECK(gs2>=gs1);
-    BOOST_CHECK(res==game_score(3));
-    BOOST_CHECK(game_score(3)==res);
+    BOOST_TEST(gs1<gs2);
+    BOOST_TEST(gs1<=gs2);
+    BOOST_TEST(gs2>=gs1);
+    BOOST_TEST(res==game_score(3));
+    BOOST_TEST(game_score(3)==res);
 
     game_score res2;
     res2=res+res;
-    BOOST_CHECK(res+res==game_score(6));
+    BOOST_TEST(res+res==game_score(6));
 }
 
 void next_id_test() {
     serial_number sn(1), res;
     res= next_id(sn);
-    BOOST_CHECK(res==serial_number(2));
-    BOOST_CHECK(serial_number(2)==res);
+    BOOST_TEST(res==serial_number(2));
+    BOOST_TEST(serial_number(2)==res);
 
-    BOOST_CHECK(res+res==serial_number(4));
+    BOOST_TEST(res+res==serial_number(4));
 
-    BOOST_CHECK(sn<res);
+    BOOST_TEST(sn<res);
 }
 
 //~ void mix_test_fail() {
     //~ game_score sn(1), res;
     //~ res= next_id(sn);
-    //~ BOOST_CHECK(serial_number(3)==game_score(3));
+    //~ BOOST_TEST(serial_number(3)==game_score(3));
 //~ }
 
 
-test_suite* init_unit_test_suite(int, char*[])
+int main()
 {
-  test_suite* test = BOOST_TEST_SUITE("ex2");
-  test->add(BOOST_TEST_CASE(&accumulate_test));
-  test->add(BOOST_TEST_CASE(&next_id_test));
+  accumulate_test();
+  next_id_test();
 
-  return test;
+  return boost::report_errors();
 }
 
 

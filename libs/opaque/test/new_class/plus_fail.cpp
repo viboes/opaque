@@ -10,8 +10,6 @@
 
 #include <boost/opaque/new_class.hpp>
 
-#include <boost/test/unit_test.hpp>
-
 using namespace boost;
 
 typedef int UT;
