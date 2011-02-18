@@ -47,7 +47,7 @@ boostbook standalone
         # Path for libraries index:
         <xsl:param>boost.libraries=../../../../libs/libraries.htm
         # Use the main Boost stylesheet:
-        <xsl:param>html.stylesheet=../../../../doc/html/boostbook.css
+        <xsl:param>html.stylesheet=../../../../doc/src/boostbook.css
 
         # PDF Options:
         # TOC Generation: this is needed for FOP-0.9 and later:
@@ -73,3 +73,4 @@ boostbook standalone
    ;
 
 install pdf-install : standalone : <location>. <install-type>PDF ;
+
