@@ -19,29 +19,29 @@ typedef int UT;
 typedef short UT2;
 
 // NEW_CLASS(NT,UT,(opaque::using_divide))
-struct NT : 
+struct NT :
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-    	boost::opaque::using_divide 
+    	boost::opaque::using_divide
     >
     >
 {
-    typedef 
+    typedef
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-    	boost::opaque::using_divide 
+    	boost::opaque::using_divide
     >
     >
     base_type;
-    
-    NT(){} 
+
+    NT(){}
     explicit NT(unsigned v) : base_type(v) {}
-    template <typename W> 
-    explicit NT(W w) 
-        : base_type(w) 
+    template <typename W>
+    explicit NT(W w)
+        : base_type(w)
     {}
-    NT(NT const& r) 
-        : base_type(r.val_) 
+    NT(NT const& r)
+        : base_type(r.val_)
     {}
 };
 
@@ -85,7 +85,7 @@ void opaque_static_cast_test() {
 void divide_test() {
     NT a2(2), b3(3), c6(6);
     a2 = c6 / b3;
-    BOOST_TEST(a2.underlying()=2);
+    BOOST_TEST(a2.underlying()==2);
 }
 
 int main()
@@ -99,7 +99,7 @@ int main()
   copy_constructor_test();
   assign_test();
   opaque_static_cast_test();
-#endif  
+#endif
   divide_test();
 
   return boost::report_errors();

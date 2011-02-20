@@ -19,29 +19,29 @@ typedef int UT;
 typedef short UT2;
 
 // NEW_CLASS(NT,UT,(opaque::using_plus_assign))
-struct NT : 
+struct NT :
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-    	boost::opaque::using_plus_assign 
+    	boost::opaque::using_plus_assign
     >
     >
 {
-    typedef 
+    typedef
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-    	boost::opaque::using_plus_assign 
+    	boost::opaque::using_plus_assign
     >
     >
     base_type;
-    
-    NT(){} 
+
+    NT(){}
     explicit NT(unsigned v) : base_type(v) {}
-    template <typename W> 
-    explicit NT(W w) 
-        : base_type(w) 
+    template <typename W>
+    explicit NT(W w)
+        : base_type(w)
     {}
-    NT(NT const& r) 
-        : base_type(r.val_) 
+    NT(NT const& r)
+        : base_type(r.val_)
     {}
 };
 
@@ -85,7 +85,7 @@ void opaque_static_cast_test() {
 void plus_assign_test() {
     NT a1(1), b2(2), c2(2);
     a1+=b2;
-    BOOST_TEST(a1.underlying()=3);
+    BOOST_TEST(a1.underlying()==3);
 }
 
 int main()
@@ -98,7 +98,7 @@ int main()
   copy_constructor_test();
   assign_test();
   opaque_static_cast_test();
-#endif  
+#endif
   plus_assign_test();
 
   return boost::report_errors();

@@ -7,9 +7,6 @@
 
 # See library home page at http://www.boost.org/libs/opaque
 
-# uncomment one if the above lines if you build outside the Boost release
-#local BOOST_ROOT = /boost_1_41_0 ;
-#local BOOST_ROOT = c:/cygwin/boost_1_41_0 ;
 
 if ! $(BOOST_ROOT)
 {
@@ -19,22 +16,26 @@ if ! $(BOOST_ROOT)
 project
     : requirements
 
-        # uncomment the line above if you build outside the Boost release
+        # uncomment the line above if you build outside a Boost release
         #<include>$(BOOST_ROOT)
-        # uncomment the line above if you build outside the Boost release
-        #<include>../../..
-#        <toolset>msvc:<asynch-exceptions>on
+
         <define>BOOST_ENABLE_WARNINGS
         <define>BOOST_RATIO_USES_MPL_ASSERT
         <warnings>all
         <toolset>gcc:<cxxflags>-Wextra
+        <toolset>gcc:<cxxflags>-pedantic
         <toolset>gcc:<cxxflags>-Wno-long-long
+        <toolset>darwin:<cxxflags>-Wextra
+        <toolset>darwin:<cxxflags>-pedantic
+        <toolset>darwin:<cxxflags>-Wno-long-long
+        #<toolset>pathscale:<cxxflags>-Wextra
+        <toolset>pathscale:<cxxflags>-Wno-long-long
+        <toolset>pathscale:<cxxflags>-pedantic
+        <toolset>clang:<cxxflags>-Wextra
+        <toolset>clang:<cxxflags>-pedantic
+        <toolset>clang:<cxxflags>-Wno-long-long
         <toolset>gcc-mingw-4.5.0:<cxxflags>-Wno-missing-field-initializers
-        #<toolset>gcc-mingw-4.5.0:<cxxflags>-Wnon-template-friend
-        #<toolset>gcc-mingw-4.5.0:<cxxflags>-Wno-non-template-friend
         <toolset>gcc-mingw-4.5.0:<cxxflags>-fdiagnostics-show-option
-        #<toolset>gcc-3.4.4:<cxxflags>-Wno-non-template-friend
-        #<toolset>gcc-4.3.4:<cxxflags>-Wno-non-template-friend
         <toolset>msvc:<cxxflags>/wd4127
     ;
 
