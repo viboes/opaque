@@ -20,16 +20,16 @@ typedef short UT2;
 struct NT : 
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-		boost::opaque::using_less_than<>, 
-		boost::opaque::hiding_less_than<> 
+        boost::opaque::using_less_than<>, 
+        boost::opaque::hiding_less_than<> 
     >
     >
 {
     typedef 
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-		boost::opaque::using_less_than<>, 
-    	boost::opaque::hiding_less_than<> 
+        boost::opaque::using_less_than<>, 
+        boost::opaque::hiding_less_than<> 
     >
     >
     base_type;
@@ -50,6 +50,6 @@ void remove_warning(bool) {}
 void fail() {
     NT a1(1), b2(2);
     bool b = (a1 < b2);
-	remove_warning(b);
+    remove_warning(b);
 }
 

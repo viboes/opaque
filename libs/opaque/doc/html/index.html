@@ -27,7 +27,7 @@
 </h3></div></div></div>
 <div><p class="copyright">Copyright &#169; 2010 Vicente J. Botet Escriba</p></div>
 <div><div class="legalnotice">
-<a name="id3234686"></a><p>
+<a name="id3067160"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -109,7 +109,7 @@
 <dt><span class="section"><a href="index.html#boost.opaque.overview.description">Description</a></span></dt>
 </dl></div>
 <a name="boost.opaque.overview.how_to_use_this_documentation"></a><h4>
-<a name="id3234761"></a>
+<a name="id3067235"></a>
       <a class="link" href="index.html#boost.opaque.overview.how_to_use_this_documentation">How to
       Use This Documentation</a>
     </h4>
@@ -284,7 +284,7 @@
         Boost.Opaque</a>
 </h4></div></div></div>
 <a name="boost.opaque.users_guide.getting_started.install.getting_boost_opaque"></a><h6>
-<a name="id3193724"></a>
+<a name="id3026198"></a>
           <a class="link" href="index.html#boost.opaque.users_guide.getting_started.install.getting_boost_opaque">Getting
           Boost.Opaque</a>
         </h6>
@@ -298,7 +298,7 @@
           Sandbox</a>.
         </p>
 <a name="boost.opaque.users_guide.getting_started.install.building_boost_opaque"></a><h6>
-<a name="id3193780"></a>
+<a name="id3026254"></a>
           <a class="link" href="index.html#boost.opaque.users_guide.getting_started.install.building_boost_opaque">Building
           Boost.Opaque</a>
         </h6>
@@ -308,7 +308,7 @@
           in your compiler include path.
         </p>
 <a name="boost.opaque.users_guide.getting_started.install.requirements"></a><h6>
-<a name="id3193815"></a>
+<a name="id3026288"></a>
           <a class="link" href="index.html#boost.opaque.users_guide.getting_started.install.requirements">Requirements</a>
         </h6>
 <p>
@@ -316,7 +316,7 @@
           (and all libraries it depends on).
         </p>
 <a name="boost.opaque.users_guide.getting_started.install.exceptions_safety"></a><h6>
-<a name="id3244347"></a>
+<a name="id3076821"></a>
           <a class="link" href="index.html#boost.opaque.users_guide.getting_started.install.exceptions_safety">Exceptions
           safety</a>
         </h6>
@@ -325,7 +325,7 @@
           of exception safety as long as the underlying parameters provide it.
         </p>
 <a name="boost.opaque.users_guide.getting_started.install.thread_safety"></a><h6>
-<a name="id3244373"></a>
+<a name="id3076847"></a>
           <a class="link" href="index.html#boost.opaque.users_guide.getting_started.install.thread_safety">Thread
           safety</a>
         </h6>
@@ -333,7 +333,7 @@
           All functions in the library are thread-unsafe except when noted explicitly.
         </p>
 <a name="boost.opaque.users_guide.getting_started.install.tested_compilers"></a><h6>
-<a name="id3244398"></a>
+<a name="id3076871"></a>
           <a class="link" href="index.html#boost.opaque.users_guide.getting_started.install.tested_compilers">Tested
           compilers</a>
         </h6>
@@ -1123,6 +1123,7 @@
     <span class="keyword">template</span> <span class="special">&lt;</span>
         <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
         <span class="keyword">typename</span> <span class="identifier">Tag</span><span class="special">,</span>
+ <span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">=</span><span class="keyword">bool</span><span class="special">,</span>
         <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
         <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_new_type</span><span class="special">&gt;</span>
     <span class="keyword">class</span> <span class="identifier">new_type</span><span class="special">;</span>
@@ -1138,21 +1139,22 @@
           <code class="computeroutput"><span class="identifier">new_type</span><span class="special">&lt;&gt;</span></code>
           provides the equivalent of <code class="computeroutput"><span class="identifier">new_class</span><span class="special">&lt;&gt;</span></code> but can be used as a typedef.
         </p>
-<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
-    <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">Tag</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">Base</span>
-<span class="keyword">class</span> <span class="identifier">new_type</span>
-    <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">new_class</span><span class="special">&lt;</span><span class="identifier">new_type</span><span class="special">&lt;</span><span class="identifier">UT</span><span class="special">,</span> <span class="identifier">Tag</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;,</span> <span class="identifier">UT</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;</span>
-<span class="special">{</span>
-<span class="keyword">public</span><span class="special">:</span>
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
-    <span class="keyword">explicit</span> <span class="identifier">new_type</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
-    <span class="identifier">new_type</span><span class="special">();</span>
-    <span class="identifier">new_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">new_type</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
-    <span class="keyword">explicit</span> <span class="identifier">new_type</span><span class="special">(</span><span class="identifier">UT</span> <span class="identifier">v</span><span class="special">);</span>
-<span class="special">};</span>
+<pre class="programlisting">   <span class="keyword">template</span> <span class="special">&lt;</span>
+       <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
+       <span class="keyword">typename</span> <span class="identifier">Tag</span><span class="special">,</span>
+<span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">,</span>
+       <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span>
+       <span class="keyword">typename</span> <span class="identifier">Base</span>
+   <span class="keyword">class</span> <span class="identifier">new_type</span>
+       <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">new_class</span><span class="special">&lt;</span><span class="identifier">new_type</span><span class="special">&lt;</span><span class="identifier">UT</span><span class="special">,</span> <span class="identifier">Tag</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;,</span> <span class="identifier">UT</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+   <span class="special">{</span>
+   <span class="keyword">public</span><span class="special">:</span>
+       <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
+       <span class="keyword">explicit</span> <span class="identifier">new_type</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
+       <span class="identifier">new_type</span><span class="special">();</span>
+       <span class="identifier">new_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">new_type</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+       <span class="keyword">explicit</span> <span class="identifier">new_type</span><span class="special">(</span><span class="identifier">UT</span> <span class="identifier">v</span><span class="special">);</span>
+   <span class="special">};</span>
 </pre>
 <p>
           <span class="bold"><strong>Requirements</strong></span>
@@ -1242,6 +1244,7 @@
     <span class="keyword">template</span> <span class="special">&lt;</span>
         <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
         <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
+ <span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">=</span><span class="keyword">bool</span><span class="special">,</span>
         <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
         <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_private_opaque_type</span>
     <span class="special">&gt;</span>
@@ -1325,7 +1328,7 @@
             <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">push</span><span class="special">&lt;</span>
                 <span class="identifier">transitive_explicit_substituable</span><span class="special">&lt;</span><span class="identifier">base_private_opaque_type</span><span class="special">&gt;,</span>
                 <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">push</span><span class="special">&lt;</span>
-                    <span class="identifier">inherited_from_underlying</span><span class="special">&lt;</span><span class="identifier">UT</span><span class="special">&gt;,</span>
+                    <span class="identifier">inherited_from_underlying</span><span class="special">&lt;</span><span class="identifier">UT</span><span class="special">,</span><span class="identifier">Bool</span><span class="special">&gt;,</span>
                     <span class="identifier">MetaMixinSeq</span>
                 <span class="special">&gt;</span>
             <span class="special">&gt;,</span>
@@ -1355,8 +1358,9 @@
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
 <span class="keyword">namespace</span> <span class="identifier">opaque</span> <span class="special">{</span>
     <span class="keyword">template</span> <span class="special">&lt;</span>
-        <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
-        <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+        <span class="keyword">typename</span> <span class="identifier">Tag</span><span class="special">=</span><span class="keyword">void</span><span class="special">,</span>
+ <span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">=</span><span class="keyword">bool</span><span class="special">,</span>
         <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
         <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_private_opaque_type</span>
     <span class="special">&gt;</span>
@@ -1373,25 +1377,26 @@
           <code class="computeroutput"><span class="identifier">private_opaque_type</span><span class="special">&lt;&gt;</span></code>
           provides the equivalent of <code class="computeroutput"><span class="identifier">private_opaque_class</span><span class="special">&lt;&gt;</span></code> but can be used as a typedef.
         </p>
-<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
-    <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">Base</span>
-<span class="special">&gt;</span>
-<span class="keyword">class</span> <span class="identifier">private_opaque_type</span> <span class="special">:</span> <span class="keyword">public</span>
-    <span class="identifier">private_opaque_class</span><span class="special">&lt;</span>
-        <span class="identifier">private_opaque_type</span><span class="special">&lt;</span><span class="identifier">UT</span><span class="special">,</span><span class="identifier">Tag</span><span class="special">,</span><span class="identifier">MetaMixinSeq</span><span class="special">,</span><span class="identifier">Base</span><span class="special">&gt;,</span> <span class="identifier">UT</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;</span>
-<span class="special">{</span>
-<span class="keyword">public</span><span class="special">:</span>
+<pre class="programlisting">   <span class="keyword">template</span> <span class="special">&lt;</span>
+       <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
+       <span class="keyword">typename</span> <span class="identifier">Tag</span><span class="special">,</span>
+<span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">,</span>
+       <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span>
+       <span class="keyword">typename</span> <span class="identifier">Base</span>
+   <span class="special">&gt;</span>
+   <span class="keyword">class</span> <span class="identifier">private_opaque_type</span> <span class="special">:</span> <span class="keyword">public</span>
+       <span class="identifier">private_opaque_class</span><span class="special">&lt;</span>
+           <span class="identifier">private_opaque_type</span><span class="special">&lt;</span><span class="identifier">UT</span><span class="special">,</span><span class="identifier">Tag</span><span class="special">,</span><span class="identifier">Bool</span><span class="special">,</span><span class="identifier">MetaMixinSeq</span><span class="special">,</span><span class="identifier">Base</span><span class="special">&gt;,</span> <span class="identifier">UT</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+   <span class="special">{</span>
+   <span class="keyword">public</span><span class="special">:</span>
 
-    <span class="identifier">private_opaque_type</span><span class="special">();</span>
-    <span class="identifier">private_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">private_opaque_class</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
-    <span class="identifier">private_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
-    <span class="keyword">explicit</span> <span class="identifier">private_opaque_type</span><span class="special">(</span><span class="identifier">UT</span> <span class="identifier">v</span><span class="special">);</span>
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
-    <span class="keyword">explicit</span> <span class="identifier">private_opaque_type</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
-<span class="special">};</span>
+       <span class="identifier">private_opaque_type</span><span class="special">();</span>
+       <span class="identifier">private_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">private_opaque_class</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+       <span class="identifier">private_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+       <span class="keyword">explicit</span> <span class="identifier">private_opaque_type</span><span class="special">(</span><span class="identifier">UT</span> <span class="identifier">v</span><span class="special">);</span>
+       <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
+       <span class="keyword">explicit</span> <span class="identifier">private_opaque_type</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
+   <span class="special">};</span>
 </pre>
 <p>
           <span class="bold"><strong>Requirements</strong></span>
@@ -1405,6 +1410,10 @@
 <li class="listitem">
               <code class="computeroutput"><span class="identifier">Tag</span></code> must be a unique
               class.
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">Bool</span></code> must be a model
+              of a boolean
             </li>
 <li class="listitem">
               <code class="computeroutput"><span class="identifier">MetaMixinSeq</span></code> must be
@@ -1441,6 +1450,7 @@
     <span class="keyword">template</span> <span class="special">&lt;</span>
         <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
         <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
+ <span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">=</span><span class="keyword">bool</span><span class="special">,</span>
         <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
         <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_public_opaque_type</span>
     <span class="special">&gt;</span>
@@ -1513,35 +1523,36 @@
           the substituables. The nested typedef <code class="computeroutput"><span class="identifier">substituables</span></code>
           is the MPL sequence of all the UT in the opaque type hierarchy.
         </p>
-<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
-    <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
-    <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_public_opaque_type</span>
-<span class="special">&gt;</span>
-<span class="keyword">class</span> <span class="identifier">public_opaque_class</span>
-    <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">new_class</span><span class="special">&lt;</span> <span class="identifier">Final</span><span class="special">,</span> <span class="identifier">UT</span><span class="special">,</span>
-        <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">push</span><span class="special">&lt;</span>
-            <span class="identifier">transitive_substituable</span><span class="special">&lt;</span><span class="identifier">base_public_opaque_type</span><span class="special">&gt;,</span>
-            <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">push</span><span class="special">&lt;</span>
-                <span class="identifier">inherited_from_underlying</span><span class="special">&lt;</span><span class="identifier">UT</span><span class="special">&gt;,</span>
-                <span class="identifier">MetaMixinSeq</span>
-            <span class="special">&gt;</span>
-        <span class="special">&gt;,</span>
-        <span class="identifier">Base</span>
-    <span class="special">&gt;</span>
-<span class="special">{</span>
-<span class="keyword">public</span><span class="special">:</span>
-    <span class="keyword">typedef</span> <span class="special">&lt;</span><span class="identifier">see</span> <span class="identifier">below</span><span class="special">&gt;</span> <span class="identifier">substituables</span><span class="special">;</span>
+<pre class="programlisting">   <span class="keyword">template</span> <span class="special">&lt;</span>
+       <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+       <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
+<span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">,</span>
+       <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
+       <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_public_opaque_type</span>
+   <span class="special">&gt;</span>
+   <span class="keyword">class</span> <span class="identifier">public_opaque_class</span>
+       <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">new_class</span><span class="special">&lt;</span> <span class="identifier">Final</span><span class="special">,</span> <span class="identifier">UT</span><span class="special">,</span>
+           <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">push</span><span class="special">&lt;</span>
+               <span class="identifier">transitive_substituable</span><span class="special">&lt;</span><span class="identifier">base_public_opaque_type</span><span class="special">&gt;,</span>
+               <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">push</span><span class="special">&lt;</span>
+                   <span class="identifier">inherited_from_underlying</span><span class="special">&lt;</span><span class="identifier">UT</span><span class="special">,</span><span class="identifier">Bool</span><span class="special">&gt;,</span>
+                   <span class="identifier">MetaMixinSeq</span>
+               <span class="special">&gt;</span>
+           <span class="special">&gt;,</span>
+           <span class="identifier">Base</span>
+       <span class="special">&gt;</span>
+   <span class="special">{</span>
+   <span class="keyword">public</span><span class="special">:</span>
+       <span class="keyword">typedef</span> <span class="special">&lt;</span><span class="identifier">see</span> <span class="identifier">below</span><span class="special">&gt;</span> <span class="identifier">substituables</span><span class="special">;</span>
 
-    <span class="identifier">public_opaque_class</span><span class="special">();</span>
-    <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">public_opaque_class</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
-    <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
-    <span class="keyword">explicit</span> <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="identifier">UT</span> <span class="identifier">v</span><span class="special">);</span>
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
-    <span class="keyword">explicit</span> <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
+       <span class="identifier">public_opaque_class</span><span class="special">();</span>
+       <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">public_opaque_class</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+       <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+       <span class="keyword">explicit</span> <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="identifier">UT</span> <span class="identifier">v</span><span class="special">);</span>
+       <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
+       <span class="keyword">explicit</span> <span class="identifier">public_opaque_class</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
 
-<span class="special">};</span>
+   <span class="special">};</span>
 </pre>
 </div>
 </div>
@@ -1557,6 +1568,7 @@
     <span class="keyword">template</span> <span class="special">&lt;</span>
         <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
         <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
+ <span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">=</span><span class="keyword">bool</span><span class="special">,</span>
         <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;&gt;,</span>
         <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">=</span><span class="identifier">base_public_opaque_type</span>
     <span class="special">&gt;</span>
@@ -1573,25 +1585,26 @@
           <code class="computeroutput"><span class="identifier">public_opaque_type</span><span class="special">&lt;&gt;</span></code>
           provides the equivalent of <code class="computeroutput"><span class="identifier">public_opaque_class</span><span class="special">&lt;&gt;</span></code> but can be used as a typedef.
         </p>
-<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span>
-    <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">Base</span>
-<span class="special">&gt;</span>
-<span class="keyword">class</span> <span class="identifier">public_opaque_type</span> <span class="special">:</span> <span class="keyword">public</span>
-    <span class="identifier">public_opaque_class</span><span class="special">&lt;</span>
-        <span class="identifier">public_opaque_type</span><span class="special">&lt;</span><span class="identifier">UT</span><span class="special">,</span><span class="identifier">Tag</span><span class="special">,</span><span class="identifier">MetaMixinSeq</span><span class="special">,</span><span class="identifier">Base</span><span class="special">&gt;,</span> <span class="identifier">UT</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;</span>
-<span class="special">{</span>
-<span class="keyword">public</span><span class="special">:</span>
+<pre class="programlisting">   <span class="keyword">template</span> <span class="special">&lt;</span>
+       <span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span>
+       <span class="keyword">typename</span> <span class="identifier">UT</span><span class="special">,</span>
+<span class="keyword">typename</span> <span class="identifier">Bool</span><span class="special">,</span>
+       <span class="keyword">typename</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span>
+       <span class="keyword">typename</span> <span class="identifier">Base</span>
+   <span class="special">&gt;</span>
+   <span class="keyword">class</span> <span class="identifier">public_opaque_type</span> <span class="special">:</span> <span class="keyword">public</span>
+       <span class="identifier">public_opaque_class</span><span class="special">&lt;</span>
+           <span class="identifier">public_opaque_type</span><span class="special">&lt;</span><span class="identifier">UT</span><span class="special">,</span><span class="identifier">Tag</span><span class="special">,</span><span class="identifier">Bool</span><span class="special">,</span><span class="identifier">MetaMixinSeq</span><span class="special">,</span><span class="identifier">Base</span><span class="special">&gt;,</span> <span class="identifier">UT</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+   <span class="special">{</span>
+   <span class="keyword">public</span><span class="special">:</span>
 
-    <span class="identifier">public_opaque_type</span><span class="special">();</span>
-    <span class="identifier">public_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">public_opaque_type</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
-    <span class="identifier">public_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
-    <span class="keyword">explicit</span> <span class="identifier">public_opaque_type</span><span class="special">(</span><span class="identifier">UT</span> <span class="identifier">v</span><span class="special">);</span>
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
-    <span class="keyword">explicit</span> <span class="identifier">public_opaque_type</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
-<span class="special">};</span>
+       <span class="identifier">public_opaque_type</span><span class="special">();</span>
+       <span class="identifier">public_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">public_opaque_type</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+       <span class="identifier">public_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+       <span class="keyword">explicit</span> <span class="identifier">public_opaque_type</span><span class="special">(</span><span class="identifier">UT</span> <span class="identifier">v</span><span class="special">);</span>
+       <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">W</span><span class="special">&gt;</span>
+       <span class="keyword">explicit</span> <span class="identifier">public_opaque_type</span><span class="special">(</span><span class="identifier">W</span> <span class="identifier">v</span><span class="special">);</span>
+   <span class="special">};</span>
 </pre>
 <p>
           <span class="bold"><strong>Requirements</strong></span>
@@ -4775,7 +4788,7 @@
       Rationale</a>
 </h3></div></div></div>
 <a name="boost.opaque.appendices.rationale.lala"></a><h5>
-<a name="id3269958"></a>
+<a name="id3102697"></a>
         <a class="link" href="index.html#boost.opaque.appendices.rationale.lala">lala</a>
       </h5>
 </div>
@@ -4785,7 +4798,7 @@
       Notes</a>
 </h3></div></div></div>
 <a name="boost.opaque.appendices.implementation.lala"></a><h5>
-<a name="id3269996"></a>
+<a name="id3102734"></a>
         <a class="link" href="index.html#boost.opaque.appendices.implementation.lala">lala</a>
       </h5>
 </div>
@@ -6177,7 +6190,7 @@
 <a name="boost.opaque.appendices.todo"></a><a class="link" href="index.html#boost.opaque.appendices.todo" title="Appendix F: Future plans">Appendix F: Future plans</a>
 </h3></div></div></div>
 <a name="boost.opaque.appendices.todo.tasks_to_do_before_review"></a><h5>
-<a name="id3273220"></a>
+<a name="id3105959"></a>
         <a class="link" href="index.html#boost.opaque.appendices.todo.tasks_to_do_before_review">Tasks
         to do before review</a>
       </h5>
@@ -6193,7 +6206,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: February 18, 2011 at 22:07:37 GMT</small></p></td>
+<td align="left"><p><small>Last revised: February 23, 2011 at 18:58:39 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

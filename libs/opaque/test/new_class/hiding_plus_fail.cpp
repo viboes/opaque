@@ -20,16 +20,16 @@ typedef short UT2;
 struct NT : 
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-		boost::opaque::using_plus, 
-		boost::opaque::hiding_plus 
+        boost::opaque::using_plus, 
+        boost::opaque::hiding_plus 
     >
     >
 {
     typedef 
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-	boost::opaque::using_plus, 
-	boost::opaque::hiding_plus 
+    boost::opaque::using_plus, 
+    boost::opaque::hiding_plus 
     >
     >
     base_type;

@@ -667,6 +667,7 @@ Resuming:
         template <
             typename UT,
             typename Tag,
+	    typename Bool=bool,
             typename MetaMixinSeq=boost::mpl::vector0<>,
             typename Base=base_new_type>
         class new_type;
@@ -682,10 +683,11 @@ Resuming:
         template <
             typename UT,
             typename Tag,
+	    typename Bool,
             typename MetaMixinSeq,
             typename Base
         class new_type
-            : public new_class<new_type<UT, Tag, MetaMixinSeq, Base>, UT, MetaMixinSeq, Base>
+            : public new_class<new_type<UT, Tag, Bool, MetaMixinSeq, Base>, UT, MetaMixinSeq, Base>
         {
         public:
             template <typename W>
@@ -766,6 +768,7 @@ Resuming:
         template <
             typename Final,
             typename UT,
+	    typename Bool=bool,
             typename MetaMixinSeq=boost::mpl::vector0<>,
             typename Base=base_private_opaque_type
         >
@@ -815,7 +818,7 @@ Resuming:
                 mpl::push<
                     transitive_explicit_substituable<base_private_opaque_type>,
                     mpl::push<
-                        inherited_from_underlying<UT>,
+                        inherited_from_underlying<UT,Bool>,
                         MetaMixinSeq
                     >
                 >,
@@ -844,8 +847,9 @@ Resuming:
     namespace boost {
     namespace opaque {
         template <
-            typename Final,
-            typename UT,
+            typename T,
+            typename Tag=void,
+	    typename Bool=bool,
             typename MetaMixinSeq=boost::mpl::vector0<>,
             typename Base=base_private_opaque_type
         >
@@ -860,14 +864,15 @@ Resuming:
 `private_opaque_type<>` provides the equivalent of `private_opaque_class<>` but can be used as a typedef.
 
     template <
-        typename Final,
-        typename UT,
+        typename T,
+        typename Tag,
+	typename Bool,
         typename MetaMixinSeq,
         typename Base
     >
     class private_opaque_type : public
         private_opaque_class<
-            private_opaque_type<UT,Tag,MetaMixinSeq,Base>, UT, MetaMixinSeq, Base>
+            private_opaque_type<UT,Tag,Bool,MetaMixinSeq,Base>, UT, MetaMixinSeq, Base>
     {
     public:
 
@@ -883,6 +888,7 @@ Resuming:
 
 * `UT` must be a model of a `CopyConstructible` and `Assignable`.
 * `Tag` must be a unique class.
+* `Bool` must be a model of a boolean 
 * `MetaMixinSeq` must be a model of `MetaMixinSeq`: defaulted to the empty sequence.
 * `Base` is defaulted to the base class of all the new types `base_new_type`.
 
@@ -904,6 +910,7 @@ Resuming:
         template <
             typename Final,
             typename UT,
+	    typename Bool=bool,
             typename MetaMixinSeq=boost::mpl::vector0<>,
             typename Base=base_public_opaque_type
         >
@@ -953,6 +960,7 @@ Resuming:
         template <
             typename Final,
             typename UT,
+	    typename Bool,
             typename MetaMixinSeq=boost::mpl::vector0<>,
             typename Base=base_public_opaque_type
         >
@@ -961,7 +969,7 @@ Resuming:
                 mpl::push<
                     transitive_substituable<base_public_opaque_type>,
                     mpl::push<
-                        inherited_from_underlying<UT>,
+                        inherited_from_underlying<UT,Bool>,
                         MetaMixinSeq
                     >
                 >,
@@ -994,6 +1002,7 @@ Resuming:
         template <
             typename Final,
             typename UT,
+	    typename Bool=bool,
             typename MetaMixinSeq=boost::mpl::vector0<>,
             typename Base=base_public_opaque_type
         >
@@ -1010,12 +1019,13 @@ Resuming:
     template <
         typename Final,
         typename UT,
+	typename Bool,
         typename MetaMixinSeq,
         typename Base
     >
     class public_opaque_type : public
         public_opaque_class<
-            public_opaque_type<UT,Tag,MetaMixinSeq,Base>, UT, MetaMixinSeq, Base>
+            public_opaque_type<UT,Tag,Bool,MetaMixinSeq,Base>, UT, MetaMixinSeq, Base>
     {
     public:
 

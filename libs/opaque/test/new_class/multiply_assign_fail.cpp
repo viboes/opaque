@@ -33,8 +33,8 @@ struct NT1 : boost::opaque::new_class<NT1, UT>
 };
 
 void fail() {
-	NT1 a1(1), b2(2);
-	a1 *= b2;
+    NT1 a1(1), b2(2);
+    a1 *= b2;
 }
 
 

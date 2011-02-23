@@ -132,6 +132,6 @@ int main()
   //~ private_ge_test();
   //~ private_add_test();
   //~ private_substract_test();
-	
+    
   return boost::report_errors();
 }
