@@ -110,7 +110,7 @@ namespace opaque {
     struct hiding_less_than {
         template <typename Final, typename Base>
         struct type: Base {
-        	BOOST_OPAQUE_HIDING_LESS_THAN(Final,Bool)
+            BOOST_OPAQUE_HIDING_LESS_THAN(Final,Bool)
         };
     };
 
@@ -588,18 +588,18 @@ namespace opaque {
 
 template <typename Final, typename Address, typename Base>
 struct using_address_of : Base {
-	Address operator&()  {
-		return Address(&(Final::underlying(this)));
-	}
+    Address operator&()  {
+        return Address(&(Final::underlying(this)));
+    }
 };
 
 //////////////////////////////////////////////////////////////////////////////
 
 template <typename Final, typename Reference, typename Base>
 struct using_derreference : Base {
-	Reference operator*()  {
-		return Reference(*(Final::underlying(this)));
-	}
+    Reference operator*()  {
+        return Reference(*(Final::underlying(this)));
+    }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -759,9 +759,9 @@ struct using_function_call<Final, R(P1), Base> : Base {
     
 #define BOOST_OPAQUE_USING_PLUS(Final) \
     private : \
-	    Final using_plus_op(const Final& rhs) const { \
-	        return Final(Final::underlying(this) + rhs.underlying()); \
-	    } \
+        Final using_plus_op(const Final& rhs) const { \
+            return Final(Final::underlying(this) + rhs.underlying()); \
+        } \
         friend Final operator+(const Final& lhs, const Final& rhs) { \
             return lhs.using_plus_op(rhs); \
         }
@@ -777,7 +777,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         template <typename Final, typename Base>
         struct type: Base {
         private :
-    	    Final using_plus_op(const Final& rhs) const;
+            Final using_plus_op(const Final& rhs) const;
         };
     };
    
@@ -785,9 +785,9 @@ struct using_function_call<Final, R(P1), Base> : Base {
     
 #define BOOST_OPAQUE_USING_MINUS(Final) \
     private : \
-    	Final using_minus_op(const Final& rhs) const { \
-        	return Final(Final::underlying(this) - rhs.underlying()); \
-    	} \
+        Final using_minus_op(const Final& rhs) const { \
+            return Final(Final::underlying(this) - rhs.underlying()); \
+        } \
         friend Final  operator-(const Final& lhs, const Final& rhs) { \
             return lhs.using_minus_op(rhs); \
         }
@@ -804,7 +804,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         template <typename Final, typename Base>
         struct type: Base {
         private :
-    	    Final using_minus_op(const Final& rhs) const;
+            Final using_minus_op(const Final& rhs) const;
         };
     };
        
@@ -812,9 +812,9 @@ struct using_function_call<Final, R(P1), Base> : Base {
 
 #define BOOST_OPAQUE_USING_MULTIPLY(Final) \
     private : \
-		Final using_multiply_op(const Final& rhs) const { \
-    		return Final(Final::underlying(this) * rhs.underlying()); \
-		} \
+        Final using_multiply_op(const Final& rhs) const { \
+            return Final(Final::underlying(this) * rhs.underlying()); \
+        } \
         friend Final  operator*(const Final& lhs, const Final& rhs) { \
             return lhs.using_multiply_op(rhs); \
         }
@@ -830,7 +830,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         template <typename Final, typename Base>
         struct type: Base {
         private :
-    	    Final using_multiply_op(const Final& rhs) const;
+            Final using_multiply_op(const Final& rhs) const;
         };
     };
     
@@ -838,9 +838,9 @@ struct using_function_call<Final, R(P1), Base> : Base {
 
 #define BOOST_OPAQUE_USING_DIVIDE(Final) \
     private : \
-		Final using_divide_op(const Final& rhs) const { \
-			return Final(Final::underlying(this) / rhs.underlying()); \
-		} \
+        Final using_divide_op(const Final& rhs) const { \
+            return Final(Final::underlying(this) / rhs.underlying()); \
+        } \
         friend Final  operator/(const Final& lhs, const Final& rhs) { \
             return lhs.using_divide_op(rhs); \
         }
@@ -856,7 +856,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         template <typename Final, typename Base>
         struct type: Base {
         private :
-    	    Final using_divide_op(const Final& rhs) const;
+            Final using_divide_op(const Final& rhs) const;
         };
     };
 
@@ -864,9 +864,9 @@ struct using_function_call<Final, R(P1), Base> : Base {
 
 #define BOOST_OPAQUE_USING_MODULUS(Final) \
     private : \
-		Final using_modulus_op(const Final& rhs) const { \
-			return Final(Final::underlying(this) % rhs.underlying()); \
-		} \
+        Final using_modulus_op(const Final& rhs) const { \
+            return Final(Final::underlying(this) % rhs.underlying()); \
+        } \
         friend Final  operator%(const Final& lhs, const Final& rhs) { \
             return lhs.using_modulus_op(rhs); \
         }
@@ -882,7 +882,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         template <typename Final, typename Base>
         struct type: Base {
         private :
-    	    Final using_modulus_op(const Final& rhs) const;
+            Final using_modulus_op(const Final& rhs) const;
         };
     };
     
@@ -890,9 +890,9 @@ struct using_function_call<Final, R(P1), Base> : Base {
 
 #define BOOST_OPAQUE_USING_BITWISE_XOR(Final) \
     private : \
-		Final using_bitwise_xor_op(const Final& rhs) const { \
-			return Final(Final::underlying(this) ^ rhs.underlying()); \
-		} \
+        Final using_bitwise_xor_op(const Final& rhs) const { \
+            return Final(Final::underlying(this) ^ rhs.underlying()); \
+        } \
         friend Final  operator^(const Final& lhs, const Final& rhs) { \
             return lhs.using_bitwise_xor_op(rhs); \
         }
@@ -908,7 +908,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         template <typename Final, typename Base>
         struct type: Base {
         private :
-    	    Final using_bitwise_xor_op(const Final& rhs) const;
+            Final using_bitwise_xor_op(const Final& rhs) const;
         };
     };
 
@@ -916,9 +916,9 @@ struct using_function_call<Final, R(P1), Base> : Base {
 
 #define BOOST_OPAQUE_USING_BITWISE_OR(Final) \
     private : \
-		Final using_bitwise_or_op(const Final& rhs) const { \
-			return Final(Final::underlying(this) | rhs.underlying()); \
-		} \
+        Final using_bitwise_or_op(const Final& rhs) const { \
+            return Final(Final::underlying(this) | rhs.underlying()); \
+        } \
         friend Final  operator|(const Final& lhs, const Final& rhs) { \
             return lhs.using_bitwise_or_op(rhs); \
         }
@@ -934,7 +934,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         template <typename Final, typename Base>
         struct type: Base {
         private :
-    	    Final using_bitwise_or_op(const Final& rhs) const;
+            Final using_bitwise_or_op(const Final& rhs) const;
         };
     };
 
@@ -942,9 +942,9 @@ struct using_function_call<Final, R(P1), Base> : Base {
 
 #define BOOST_OPAQUE_USING_BITWISE_AND(Final) \
     private : \
-		Final using_bitwise_and_op(const Final& rhs) const { \
-			return Final(Final::underlying(this) & rhs.underlying()); \
-		} \
+        Final using_bitwise_and_op(const Final& rhs) const { \
+            return Final(Final::underlying(this) & rhs.underlying()); \
+        } \
         friend Final  operator&(const Final& lhs, const Final& rhs) { \
             return lhs.using_bitwise_and_op(rhs); \
         }
@@ -960,7 +960,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         template <typename Final, typename Base>
         struct type: Base {
         private :
-    	    Final using_bitwise_and_op(const Final& rhs) const;
+            Final using_bitwise_and_op(const Final& rhs) const;
         };
     };
     
@@ -968,9 +968,9 @@ struct using_function_call<Final, R(P1), Base> : Base {
 
 #define BOOST_OPAQUE_USING_LEFT_SHIFT1(Final) \
     private : \
-		Final using_left_shift_op(const Final& rhs) const { \
-			return Final(Final::underlying(this) << rhs.underlying()); \
-		} \
+        Final using_left_shift_op(const Final& rhs) const { \
+            return Final(Final::underlying(this) << rhs.underlying()); \
+        } \
         friend Final  operator<<(const Final& lhs, const Final& rhs) { \
             return lhs.using_left_shift_op(rhs); \
         }
@@ -986,7 +986,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         template <typename Final, typename Base>
         struct type: Base {
         private :
-    	    Final using_left_shift_op(const Final& rhs) const;
+            Final using_left_shift_op(const Final& rhs) const;
         };
     };
     
@@ -994,9 +994,9 @@ struct using_function_call<Final, R(P1), Base> : Base {
 
 #define BOOST_OPAQUE_USING_RIGHT_SHIFT1(Final) \
     private : \
-		Final using_right_shift_op(const Final& rhs) const { \
-			return Final(Final::underlying(this) >> rhs.underlying()); \
-		} \
+        Final using_right_shift_op(const Final& rhs) const { \
+            return Final(Final::underlying(this) >> rhs.underlying()); \
+        } \
         friend Final  operator>>(const Final& lhs, const Final& rhs) { \
             return lhs.using_right_shift_op(rhs); \
         }
@@ -1012,7 +1012,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         template <typename Final, typename Base>
         struct type: Base {
         private :
-    	    Final using_right_shift_op(const Final& rhs) const;
+            Final using_right_shift_op(const Final& rhs) const;
         };
     };
     
