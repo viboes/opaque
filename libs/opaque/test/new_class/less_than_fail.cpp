@@ -13,23 +13,23 @@
 using namespace boost;
 
 typedef unsigned UT;
-typedef std::string NUT;
+//~ typedef std::string NUT;
 
 // NEW_CLASS(NT1,UT)
-struct NT1 : boost::opaque::new_class<NT1, UT> 
+struct NT1 : boost::opaque::new_class<NT1, UT>
 {
-    typedef 
+    typedef
     boost::opaque::new_class<NT1, UT>
     base_type;
-    
-    NT1(){} 
+
+    NT1(){}
     explicit NT1(unsigned v) : base_type(v) {}
-    template <typename W> 
-    explicit NT1(W w) 
-        : base_type(w) 
+    template <typename W>
+    explicit NT1(W w)
+        : base_type(w)
     {}
-    NT1(NT1 const& r) 
-        : base_type(r.val_) 
+    NT1(NT1 const& r)
+        : base_type(r.val_)
     {}
 };
 

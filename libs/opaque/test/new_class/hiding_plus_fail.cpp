@@ -17,31 +17,31 @@ typedef int UT;
 typedef short UT2;
 
 // NEW_CLASS(NT,UT,((opaque::using_equality_comparable1<>)))
-struct NT : 
+struct NT :
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-        boost::opaque::using_plus, 
-        boost::opaque::hiding_plus 
-    >
+        boost::opaque::using_plus,
+        boost::opaque::hiding_plus
+      >
     >
 {
-    typedef 
+    typedef
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-    boost::opaque::using_plus, 
-    boost::opaque::hiding_plus 
-    >
+        boost::opaque::using_plus,
+        boost::opaque::hiding_plus
+      >
     >
     base_type;
-    
-    NT(){} 
+
+    NT(){}
     explicit NT(unsigned v) : base_type(v) {}
-    template <typename W> 
-    explicit NT(W w) 
-        : base_type(w) 
+    template <typename W>
+    explicit NT(W w)
+        : base_type(w)
     {}
-    NT(NT const& r) 
-        : base_type(r.val_) 
+    NT(NT const& r)
+        : base_type(r.val_)
     {}
 };
 

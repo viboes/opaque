@@ -36,7 +36,7 @@ void private_assign_test() {
 
     unsigned short i;
 
-    i=opaque::opaque_static_cast<unsigned short>(a);
+    i=opaque_static_cast<unsigned short>(a);
     //~ i=a; // error
 
     //~ a=i; // error
@@ -132,6 +132,6 @@ int main()
   //~ private_ge_test();
   //~ private_add_test();
   //~ private_substract_test();
-    
+
   return boost::report_errors();
 }

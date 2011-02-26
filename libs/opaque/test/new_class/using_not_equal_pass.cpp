@@ -8,7 +8,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#include <boost/opaque/new_class.hpp>
+#include <boost/opaque/new_class_macro.hpp>
+//~ #include <boost/opaque/new_class.hpp>
 #include <boost/opaque/meta_mixin/operators.hpp>
 
 #include <boost/detail/lightweight_test.hpp>
@@ -18,38 +19,47 @@ using namespace boost;
 typedef int UT;
 typedef short UT2;
 
-// NEW_CLASS(NT,UT,(opaque::using_not_equal<>))
-struct NT : 
+#ifdef BOOST_OPAQUE_NEW_CLASS
+
+struct NT : public
+BOOST_OPAQUE_NEW_CLASS(NT,UT,(opaque::using_not_equal<>))
+{
+  BOOST_OPAQUE_FORWARD_CONSTRUCTORS(NT,BOOST_OPAQUE_NEW_CLASS(NT,UT,(opaque::using_not_equal<>)));
+
+};
+#else
+struct NT : public
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-        boost::opaque::using_not_equal<> 
+        boost::opaque::using_not_equal<>
     >
     >
 {
-    typedef 
+    typedef
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-        boost::opaque::using_not_equal<> 
+        boost::opaque::using_not_equal<>
     >
     >
     base_type;
-    
-    NT(){} 
+
+    NT(){}
     explicit NT(unsigned v) : base_type(v) {}
-    template <typename W> 
-    explicit NT(W w) 
-        : base_type(w) 
+    template <typename W>
+    explicit NT(W w)
+        : base_type(w)
     {}
-    NT(NT const& r) 
-        : base_type(r.val_) 
+    NT(NT const& r)
+        : base_type(r.val_)
     {}
 };
+#endif
 
 
 void size_test() {
     BOOST_TEST(sizeof(NT)==sizeof(UT));
 }
-#if 0
+
 void default_constructor_test() {
     NT a;
 }
@@ -81,7 +91,7 @@ void opaque_static_cast_test() {
     i=opaque_static_cast<UT2>(a);
     BOOST_TEST(i==a.underlying());
 }
-#endif
+
 void not_equal_test() {
     NT a1(1), b2(2), c2(2);
     BOOST_TEST(a1!=c2);
@@ -92,14 +102,12 @@ int main()
 {
 
   size_test();
-#if 0
   default_constructor_test();
   copy_from_ut_test();
   copy_from_ut2_test();
   copy_constructor_test();
   assign_test();
   opaque_static_cast_test();
-#endif  
   not_equal_test();
 
   return boost::report_errors();

@@ -15,42 +15,42 @@
 using namespace boost;
 
 
-struct private_unsigned : 
-    boost::opaque::new_class<private_unsigned, unsigned 
-    , boost::mpl::vector<opaque::using_equality_comparable1<> 
-    > 
+struct private_unsigned :
+    boost::opaque::new_class<private_unsigned, unsigned
+    , boost::mpl::vector<opaque::using_equality_comparable1<>
+    >
     >
 {
-    typedef 
-    boost::opaque::new_class<private_unsigned, unsigned 
-    , boost::mpl::vector<opaque::using_equality_comparable1<> 
-    > 
+    typedef
+    boost::opaque::new_class<private_unsigned, unsigned
+    , boost::mpl::vector<opaque::using_equality_comparable1<>
+    >
     >
     base_type;
-    
-    private_unsigned(){} 
+
+    private_unsigned(){}
     explicit private_unsigned(unsigned v) : base_type(v) {}
-    template <typename W> 
-    explicit private_unsigned(W w) 
-        : base_type(w) 
+    template <typename W>
+    explicit private_unsigned(W w)
+        : base_type(w)
     {}
-    private_unsigned(private_unsigned const& r) 
-        : base_type(r.val_) 
+    private_unsigned(private_unsigned const& r)
+        : base_type(r.val_)
     {}
 };
 
-struct private_unsigned2: boost::opaque::new_class<private_unsigned2, unsigned> 
+struct private_unsigned2: boost::opaque::new_class<private_unsigned2, unsigned>
 {
     typedef boost::opaque::new_class<private_unsigned2, unsigned> base_type;
-    
-    private_unsigned2(){} 
+
+    private_unsigned2(){}
     explicit private_unsigned2(unsigned v) : base_type(v) {}
-    template <typename W> 
-    explicit private_unsigned2(W w) 
-        : base_type(w) 
+    template <typename W>
+    explicit private_unsigned2(W w)
+        : base_type(w)
     {}
-    private_unsigned2(private_unsigned2 const& r) 
-        : base_type(r.val_) 
+    private_unsigned2(private_unsigned2 const& r)
+        : base_type(r.val_)
     {}
 };
 
@@ -69,7 +69,7 @@ void private_assign_test() {
 
     unsigned short i;
 
-    i=opaque::opaque_static_cast<unsigned short>(a);
+    i=opaque_static_cast<unsigned short>(a);
     //~ i=a; // error
 
     //~ a=i; // error

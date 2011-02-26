@@ -18,21 +18,21 @@ typedef int UT;
 typedef short UT2;
 
 // NEW_CLASS(NT,UT,())
-struct NT : 
+struct NT :
     boost::opaque::new_class<NT, UT>
 {
-    typedef 
+    typedef
     boost::opaque::new_class<NT, UT>
     base_type;
-    
-    NT(){} 
+
+    NT(){}
     explicit NT(unsigned v) : base_type(v) {}
-    template <typename W> 
-    explicit NT(W w) 
-        : base_type(w) 
+    template <typename W>
+    explicit NT(W w)
+        : base_type(w)
     {}
-    NT(NT const& r) 
-        : base_type(r.val_) 
+    NT(NT const& r)
+        : base_type(r.val_)
     {}
 };
 
@@ -69,7 +69,7 @@ void assign_test() {
 void opaque_static_cast_test() {
     NT a(1);
     UT2 i;
-    i=opaque::opaque_static_cast<UT2>(a);
+    i=opaque_static_cast<UT2>(a);
     BOOST_TEST(i==a.underlying());
 }
 

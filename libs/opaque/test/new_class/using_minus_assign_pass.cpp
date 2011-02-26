@@ -22,14 +22,14 @@ typedef short UT2;
 struct NT :
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-        boost::opaque::using_minus_assign 
+        boost::opaque::using_minus_assign
     >
     >
 {
     typedef
     boost::opaque::new_class<NT, UT
     , boost::mpl::vector<
-        boost::opaque::using_minus_assign 
+        boost::opaque::using_minus_assign
     >
     >
     base_type;
@@ -49,7 +49,7 @@ struct NT :
 void size_test() {
     BOOST_TEST(sizeof(NT)==sizeof(UT));
 }
-#if 0
+#if 1
 void default_constructor_test() {
     NT a;
 }
@@ -92,7 +92,7 @@ int main()
 {
 
   size_test();
-#if 0
+#if 1
   default_constructor_test();
   copy_from_ut_test();
   copy_from_ut2_test();
