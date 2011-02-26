@@ -13,6 +13,13 @@
 #ifndef BOOST_OPAQUE_PRIVATE_OPAQUE_CLASS_HPP
 #define BOOST_OPAQUE_PRIVATE_OPAQUE_CLASS_HPP
 
+//~ Can instances of UT be explicitly converted to instances of OT? Yes
+//~ Can instances of UT be implicitly converted to instances of OT? No
+//~ Can instances of OT be explicitly converted to instances of UT? Yes.
+//~     Waiting for explicit conversion operators, the explicit
+//~     conversion must be done through the underlying function
+//~ Can instances of OT be implicitly converted to instances of UT? No
+
 #include <boost/opaque/meta_mixin/inherited_from_underlying.hpp>
 #include <boost/opaque/meta_mixin/transitive_explicit_substituable.hpp>
 
@@ -28,61 +35,35 @@ namespace opaque {
     template <
         typename Final,
         typename T,
+        typename Bool=bool,
         typename MetaMixinSeq=boost::mpl::vector0<>,
         typename Base=base_private_opaque_type
     >
     class private_opaque_class
         : public
-#if 0
-            new_class< Final, T, MetaMixinSeq,
-            	opaque::transitive_explicit_substituable<base_private_opaque_type,T>
-                        ::template type<Final,
-                    typename opaque::inherited_from_underlying<T>
-                            ::template type<Final, Base>
-                >
-            >
-#else
             new_class< Final, T,
                 typename mpl::push_front<
                     typename mpl::push_front<
                         MetaMixinSeq,
                         opaque::transitive_explicit_substituable<base_private_opaque_type, T>
                     >::type,
-                    opaque::inherited_from_underlying<T>
+                    opaque::inherited_from_underlying<T,Bool>
                 >::type, Base
             >
-
-#endif
     {
         typedef
-#if 0
-            new_class< Final, T, MetaMixinSeq,
-            	opaque::transitive_explicit_substituable<base_private_opaque_type,T>
-                        ::template type<Final,
-                    typename opaque::inherited_from_underlying<T>
-                            ::template type<Final, Base>
-                >
-            >
-#else
             new_class< Final, T,
                 typename mpl::push_front<
                     typename mpl::push_front<
                         MetaMixinSeq,
                         opaque::transitive_explicit_substituable<base_private_opaque_type, T>
                     >::type,
-                    opaque::inherited_from_underlying<T>
+                    opaque::inherited_from_underlying<T,Bool>
                 >::type, Base
             >
-#endif
         base_type;
 
     public:
-        //~ Can instances of UT be explicitly converted to instances of OT? Yes
-        //~ Can instances of UT be implicitly converted to instances of OT? No
-        //~ Can instances of OT be explicitly converted to instances of UT? Yes.
-        //~     Waiting for explicit conversion operators,, the explicit
-        //~     conversion must be done through the underlying function
-        //~ Can instances of OT be implicitly converted to instances of UT? No
 
         private_opaque_class() {};
         private_opaque_class(const private_opaque_class & rhs)

@@ -39,7 +39,7 @@ namespace opaque {
     template<typename MetaMixinSeq, typename Final, typename Base>
     struct linear_hierarchy {
         typedef typename boost::mpl::fold<MetaMixinSeq, Base, 
-        	opaque_detail::inherit<Final> >::type type;
+            opaque_detail::inherit<Final> >::type type;
     };
 }
 }
