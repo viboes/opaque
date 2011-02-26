@@ -67,6 +67,7 @@ namespace opaque {
         }
 
     };
+  }
 
     template <
         typename T,
@@ -75,11 +76,11 @@ namespace opaque {
         typename MetaMixinSeq,
         typename Base
     >
-    T opaque_static_cast(new_class<Final, UT, MetaMixinSeq, Base> const& v)
+    T opaque_static_cast(opaque::new_class<Final, UT, MetaMixinSeq, Base> const& v)
     {
         return static_cast<T>(v.underlying());
     }
-}
+
 }
 
 

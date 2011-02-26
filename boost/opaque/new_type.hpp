@@ -40,19 +40,19 @@ namespace opaque {
         explicit new_type(T v) : base_type(v) {}
 
     };
-
+  }
     template <
-        typename T, 
-        typename UT, 
-        typename Tag, 
-        typename MetaMixinSeq, 
-        typename Base 
+    	typename T,
+    	typename UT,
+    	typename Tag,
+    	typename MetaMixinSeq,
+    	typename Base
     >
-    T opaque_static_cast(new_type<UT,Tag,MetaMixinSeq,Base> const& v)
+    T opaque_static_cast(opaque::new_type<UT,Tag,MetaMixinSeq,Base> const& v)
     {
         return static_cast<T>(v.underlying());
     }
-}
+
 }
 
 
