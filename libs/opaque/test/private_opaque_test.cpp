@@ -14,8 +14,6 @@
 
 using namespace boost;
 
-
-
 BOOST_OPAQUE_PRIVATE_TYPEDEF(unsigned,private_unsigned);
 BOOST_OPAQUE_PRIVATE_TYPEDEF(unsigned,private_unsigned2);
 

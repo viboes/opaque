@@ -9,7 +9,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <boost/opaque/new_class_macro.hpp>
-//~ #include <boost/opaque/new_class.hpp>
+//#include <boost/opaque/new_class.hpp>
 #include <boost/opaque/meta_mixin/operators.hpp>
 
 #include <boost/detail/lightweight_test.hpp>

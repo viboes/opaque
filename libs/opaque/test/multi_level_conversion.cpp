@@ -19,64 +19,70 @@ using namespace boost;
 
 // Listing 7
 BOOST_OPAQUE_PUBLIC_TYPEDEF(double,mass1_leng2_per_time2);
+BOOST_OPAQUE_INHERIT_FROM_UNDERLYING(mass1_leng2_per_time2)
 BOOST_OPAQUE_PUBLIC_TYPEDEF(mass1_leng2_per_time2,energy);
+BOOST_OPAQUE_INHERIT_FROM_UNDERLYING(energy)
 BOOST_OPAQUE_PUBLIC_TYPEDEF(energy,kinetic_energy);
+BOOST_OPAQUE_INHERIT_FROM_UNDERLYING(kinetic_energy)
 BOOST_OPAQUE_PUBLIC_TYPEDEF(energy,potential_energy);
+BOOST_OPAQUE_INHERIT_FROM_UNDERLYING(potential_energy)
 BOOST_OPAQUE_PUBLIC_TYPEDEF(energy,heat_energy);
+BOOST_OPAQUE_INHERIT_FROM_UNDERLYING(heat_energy)
 BOOST_OPAQUE_PUBLIC_TYPEDEF(potential_energy,potential_energy2);
+BOOST_OPAQUE_INHERIT_FROM_UNDERLYING(potential_energy2)
 
 BOOST_OPAQUE_STATIC_ASSERT((
     is_same<
-        mass1_leng2_per_time2::substituables,
+        mass1_leng2_per_time2::undelying_type_hierarchy,
         mpl::vector<double>
     >::value),
     SSSSSSSSSSS,
-    (mass1_leng2_per_time2::substituables)
+    (mass1_leng2_per_time2::undelying_type_hierarchy)
 );
 
 BOOST_OPAQUE_STATIC_ASSERT((
     mpl::contains<
-        energy::substituables,
+        energy::undelying_type_hierarchy,
         mass1_leng2_per_time2
     >::value),
     SSSSSSSSSSS,
-    (energy::substituables)
+    (energy::undelying_type_hierarchy)
 );
 
 BOOST_OPAQUE_STATIC_ASSERT((
     mpl::contains<
-        energy::substituables,
+        energy::undelying_type_hierarchy,
         double
     >::value),
     SSSSSSSSSSS,
-    (energy::substituables)
+    (energy::undelying_type_hierarchy)
 );
 
 BOOST_OPAQUE_STATIC_ASSERT((
     mpl::contains<
-        potential_energy::substituables,
+        potential_energy::undelying_type_hierarchy,
         energy
     >::value),
     SSSSSSSSSSS,
-    (potential_energy::substituables)
+    (potential_energy::undelying_type_hierarchy)
 );
 
 BOOST_OPAQUE_STATIC_ASSERT((
     mpl::contains<
-        potential_energy::substituables,
+        potential_energy::undelying_type_hierarchy,
         mass1_leng2_per_time2
     >::value),
     SSSSSSSSSSS,
-    (potential_energy::substituables)
+    (potential_energy::undelying_type_hierarchy)
 );
 
 BOOST_OPAQUE_STATIC_ASSERT((
     mpl::contains<
-        potential_energy::substituables,
+        potential_energy::undelying_type_hierarchy,
         double
     >::value),
     SSSSSSSSSSS,
-    (potential_energy::substituables)
+    (potential_energy::undelying_type_hierarchy)
 );
 
 void public_multiple_levels() {
