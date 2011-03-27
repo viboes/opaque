@@ -25,15 +25,18 @@ project
         <toolset>gcc:<cxxflags>-Wextra
         <toolset>gcc:<cxxflags>-pedantic
         <toolset>gcc:<cxxflags>-Wno-long-long
+	<toolset>gcc:<cxxflags>-Wno-non-template-friend
         <toolset>darwin:<cxxflags>-Wextra
         <toolset>darwin:<cxxflags>-pedantic
         <toolset>darwin:<cxxflags>-Wno-long-long
+	<toolset>darwin:<cxxflags>-Wno-non-template-friend
         #<toolset>pathscale:<cxxflags>-Wextra
         <toolset>pathscale:<cxxflags>-Wno-long-long
         <toolset>pathscale:<cxxflags>-pedantic
         <toolset>clang:<cxxflags>-Wextra
         <toolset>clang:<cxxflags>-pedantic
         <toolset>clang:<cxxflags>-Wno-long-long
+	<toolset>clang:<cxxflags>-Wno-non-template-friend
         <toolset>gcc-mingw-4.5.0:<cxxflags>-Wno-missing-field-initializers
         <toolset>gcc-mingw-4.5.0:<cxxflags>-fdiagnostics-show-option
         <toolset>msvc:<cxxflags>/wd4127

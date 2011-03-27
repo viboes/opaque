@@ -1,3 +1,4 @@
+
 //////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Vicente J. Botet Escriba 2010. Distributed under the Boost
@@ -49,39 +50,7 @@ struct NT :
 void size_test() {
     BOOST_TEST(sizeof(NT)==sizeof(UT));
 }
-#if 0
-void default_constructor_test() {
-    NT a;
-}
-void copy_from_ut_test() {
-    UT ut(1);
-    NT a(ut);
-    BOOST_TEST(a.underlying()==ut);
-}
-void copy_from_ut2_test() {
-    UT2 ut(1);
-    NT a(ut);
-    BOOST_TEST(a.underlying()==ut);
-}
-void copy_constructor_test() {
-    NT a(1);
-    NT b(a);
-    BOOST_TEST(a.underlying()==b.underlying());
-}
 
-void assign_test() {
-    NT a1, a2(2);
-    a1=a2; // OK
-    BOOST_TEST(a1.underlying()==a2.underlying());
-}
-
-void opaque_static_cast_test() {
-    NT a(1);
-    UT2 i;
-    i=opaque_static_cast<UT2>(a);
-    BOOST_TEST(i==a.underlying());
-}
-#endif
 void divide_test() {
     NT a2(2), b3(3), c6(6);
     a2 = c6 / b3;
@@ -92,14 +61,6 @@ int main()
 {
 
   size_test();
-#if 0
-  default_constructor_test();
-  copy_from_ut_test();
-  copy_from_ut2_test();
-  copy_constructor_test();
-  assign_test();
-  opaque_static_cast_test();
-#endif
   divide_test();
 
   return boost::report_errors();
