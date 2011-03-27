@@ -16,7 +16,7 @@
 
 
 #include <boost/opaque/meta_mixin/inherited_from_underlying.hpp>
-#include <boost/opaque/meta_mixin/transitive_explicit_substituable.hpp>
+#include <boost/opaque/meta_mixin/using_explicit_conversion_to_ut_hierarchy.hpp>
 
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>

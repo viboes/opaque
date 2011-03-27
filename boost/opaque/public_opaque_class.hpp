@@ -14,7 +14,7 @@
 #define BOOST_OPAQUE_PUBLIC_OPAQUE_CLASS_HPP
 
 #include <boost/opaque/meta_mixin/inherited_from_underlying.hpp>
-#include <boost/opaque/meta_mixin/transitive_substituable.hpp>
+#include <boost/opaque/meta_mixin/using_implicit_conversion_to_ut_hierarchy.hpp>
 
 
 namespace boost {
