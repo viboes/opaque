@@ -63,7 +63,9 @@
 #define BOOST_OPAQUE_OPERATORS_HPP
 #if !defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
 
-#include <boost/operators.hpp>
+//#include <boost/operators.hpp>
+#include <boost/config.hpp>
+#include <boost/conversion/convert_to.hpp>
 
 namespace boost {
   namespace opaque {
@@ -97,7 +99,7 @@ namespace boost {
     
 //////////////////////////////////////////////////////////////////////////////
 
-#define BOOST_OPAQUE_USING_CONVERSION(Final,UT) \
+#define BOOST_OPAQUE_USING_CONVERSION_TO_UNDERLYING_TYPE(Final,UT) \
     public: \
             operator UT() const{ \
                 return Final::underlying(this); \
@@ -107,10 +109,10 @@ namespace boost {
      *
      */
     template <typename UT>
-    struct using_underlying_conversion {
+    struct using_conversion_to_underlying_type {
         template <typename Final, typename Base>
         struct type: Base {
-            BOOST_OPAQUE_USING_CONVERSION(Final,UT)
+          BOOST_OPAQUE_USING_CONVERSION_TO_UNDERLYING_TYPE(Final,UT)
         };
     };
 
@@ -121,9 +123,29 @@ namespace boost {
     struct using_conversion_to {
         template <typename Final, typename Base>
         struct type: Base {
-            operator T() const{
+            operator T() const {
                 return T(Final::underlying(this));
             }
+        };
+    };
+
+//////////////////////////////////////////////////////////////////////////////
+
+    template <typename T>
+    struct using_explicit_conversion_to {
+        template <typename Final, typename Base>
+        struct type: Base {
+            friend T convert_to(Final const& rhs,
+                boost::dummy::type_tag<T> const&)
+            {
+              return T(Final::underlying(rhs));
+            }
+    #if !defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
+            explicit operator UT() const
+            {
+              return T(Final::underlying(this));
+            }
+    #endif
         };
     };
 
@@ -143,153 +165,180 @@ namespace boost {
 
 //////////////////////////////////////////////////////////////////////////////
 
-#define BOOST_OPAQUE_USING_LESS_THAN(Final, Bool) \
-    public :\
-        Bool operator<(const Final& rhs) const  { \
-            return Bool(Final::underlying(this) < rhs.underlying());\
+
+#define BOOST_OPAQUE_DCL_META_MIXIN_REL(OP, NAME) \
+    template <typename Bool=bool> \
+    struct BOOST_JOIN(using_,NAME) \
+    { \
+      template <typename Final, typename Base> \
+      struct type: Base \
+      { \
+        Bool operator OP (const Final& rhs) const \
+        { \
+          return Bool(Final::underlying(this) OP rhs.underlying()); \
+        } \
+      }; \
+    }; \
+    template <typename Bool=bool> \
+    struct BOOST_JOIN(hiding_,NAME) \
+    { \
+      template <typename Final, typename Base> \
+      struct type: Base \
+      { \
+      private :\
+        Bool operator OP (const Final& rhs) const; \
+      }; \
+    }; \
+    template <typename U, typename Bool=bool> \
+    struct BOOST_JOIN(BOOST_JOIN(using_,NAME),2) \
+    { \
+      template <typename Final, typename Base> \
+      struct type: Base \
+      { \
+        friend Bool operator OP (const Final& lhs, const U& rhs)  \
+        { \
+          return Bool(lhs.underlying() OP rhs);\
+        } \
+        friend Bool operator OP (const U& lhs, const Final& rhs)   \
+        { \
+          return Bool(lhs OP rhs.underlying());\
+        } \
+      }; \
+    }; \
+    template <typename U, typename Bool=bool> \
+    struct BOOST_JOIN(BOOST_JOIN(hiding,NAME),2)  \
+    { \
+        template <typename Final, typename Base> \
+        struct type: Base \
+        { \
+        private :\
+          friend Bool operator OP (const Final& lhs, const U& rhs);  \
+          friend Bool operator OP (const U& lhs, const Final& rhs);   \
+        }; \
+    }; \
+
+#define BOOST_OPAQUE_USING_OP(Final, Bool, OP) \
+        Bool operator OP(const Final& rhs) const  { \
+            return Bool(Final::underlying(this) OP rhs.underlying());\
         }
 
-    /**
-     * Adds the <c>Bool operator<(const Final& rhs) const</c>.
-     *
-     * @Requires <c>Bool(Final::underlying(this) < rhs.underlying())</c> is correct.
-     */
-    template <typename Bool=bool>
-    struct using_less_than {
-        template <typename Final, typename Base>
-        struct type: Base {
-           BOOST_OPAQUE_USING_LESS_THAN(Final,Bool)
-        };
-    };
+#define BOOST_OPAQUE_HIDING_OP(Final, Bool, OP) \
+    private :\
+        Bool operator OP(const Final& rhs) const;\
+    public :
+
+#define BOOST_OPAQUE_USING_OP2(Final, U, Bool, OP) \
+    friend Bool operator OP (const Final& lhs, const U& rhs)  \
+    { \
+      return Bool(lhs.underlying() OP rhs);\
+    } \
+    friend Bool operator OP (const U& lhs, const Final& rhs)   \
+    { \
+      return Bool(lhs OP rhs.underlying());\
+    }
+
+#define BOOST_OPAQUE_HIDING_OP2(Final, U, Bool, OP) \
+    private :\
+      friend Bool operator OP (const Final& lhs, const U& rhs);  \
+      friend Bool operator OP (const U& lhs, const Final& rhs);   \
+    public :
+
+//////////////////////////////////////////////////////////////////////////////
+
+#define BOOST_OPAQUE_USING_LESS_THAN(Final, Bool) \
+    BOOST_OPAQUE_USING_OP(Final, Bool, <)
 
 #define BOOST_OPAQUE_HIDING_LESS_THAN(Final, Bool) \
-    private :\
-        Bool operator<(const Final& rhs) const;
+    BOOST_OPAQUE_HIDING_OP(Final, Bool, <)
 
-    template <typename Bool=bool>
-    struct hiding_less_than {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_HIDING_LESS_THAN(Final,Bool)
-        };
-    };
+#define BOOST_OPAQUE_USING_LESS_THAN2(Final, U, Bool) \
+    BOOST_OPAQUE_USING_OP2(Final, U, Bool, <)
 
-//////////////////////////////////////////////////////////////////////////////
+#define BOOST_OPAQUE_HIDING_LESS_THAN2(Final, U, Bool) \
+    BOOST_OPAQUE_HIDING_OP2(Final, Bool, U, <)
 
-#define BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final,Bool) \
-    public :\
-        Bool operator<=(const Final& rhs) const  { \
-            return Bool(Final::underlying(this) <= rhs.underlying());\
-        }
-
-    template <typename Bool=bool>
-    struct using_less_than_equal {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final,Bool)
-        };
-    };
-
-    template <typename Bool=bool>
-    struct hiding_less_than_equal {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Bool operator<=(const Final& rhs) const;
-        };
-    };
-    
-//////////////////////////////////////////////////////////////////////////////
-
-#define BOOST_OPAQUE_USING_GREATER_THAN(Final,Bool) \
-    public :\
-        Bool operator>(const Final& rhs) const  { \
-            return Bool(Final::underlying(this) > rhs.underlying());\
-        }
-
-    template <typename Bool=bool>
-    struct using_greater_than {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_GREATER_THAN(Final,Bool)
-        };
-    };
-    template <typename Bool=bool>
-    struct hiding_greater_than {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Bool operator>(const Final& rhs) const;
-        };
-    };
-
-//////////////////////////////////////////////////////////////////////////////
-
-#define BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final,Bool) \
-    public :\
-        Bool operator>=(const Final& rhs) const  { \
-            return Bool(Final::underlying(this) >= rhs.underlying());\
-        }
-
-    template <typename Bool=bool>
-    struct using_greater_than_equal {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final,Bool)
-        };
-    };
-    template <typename Bool=bool>
-    struct hiding_greater_than_equal {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Bool operator>=(const Final& rhs) const;
-        };
-    };
+BOOST_OPAQUE_DCL_META_MIXIN_REL(<, less_than)
 
 
 //////////////////////////////////////////////////////////////////////////////
 
-#define BOOST_OPAQUE_USING_EQUAL(Final,Bool) \
-    public :\
-        Bool operator==(const Final& rhs) const  { \
-            return Bool(Final::underlying(this) == rhs.underlying());\
-        }
+#define BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final, Bool) \
+    BOOST_OPAQUE_USING_OP(Final, Bool, <=)
 
-    template <typename Bool=bool>
-    struct using_equal {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_EQUAL(Final,Bool)
-        };
-    };
-    template <typename Bool=bool>
-    struct hiding_equal {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Bool operator==(const Final& rhs) const;
-        };
-    };
+#define BOOST_OPAQUE_HIDING_LESS_THAN_EQUAL(Final, Bool) \
+    BOOST_OPAQUE_HIDING_OP(Final, Bool, <=)
+
+#define BOOST_OPAQUE_USING_LESS_THAN_EQUAL2(Final, U, Bool) \
+    BOOST_OPAQUE_USING_OP2(Final, U, Bool, <=)
+
+#define BOOST_OPAQUE_HIDING_LESS_THAN_EQUAL2(Final, U, Bool) \
+    BOOST_OPAQUE_HIDING_OP2(Final, Bool, U, <=)
+
+BOOST_OPAQUE_DCL_META_MIXIN_REL(<=, less_than_equal)
 
 //////////////////////////////////////////////////////////////////////////////
 
-#define BOOST_OPAQUE_USING_NOT_EQUAL(Final,Bool) \
-    public :\
-        Bool operator!=(const Final& rhs) const  { \
-            return Bool(Final::underlying(this) != rhs.underlying());\
-        }
+#define BOOST_OPAQUE_USING_GREATER_THAN(Final, Bool) \
+    BOOST_OPAQUE_USING_OP(Final, Bool, >)
 
-    template <typename Bool=bool>
-    struct using_not_equal {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_NOT_EQUAL(Final,Bool)
-        };
-    };
-    template <typename Bool=bool>
-    struct hiding_not_equal {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Bool operator!=(const Final& rhs) const;
-        };
-    };
+#define BOOST_OPAQUE_HIDING_GREATER_THAN(Final, Bool) \
+    BOOST_OPAQUE_HIDING_OP(Final, Bool, >)
+
+#define BOOST_OPAQUE_USING_GREATER_THAN2(Final, U, Bool) \
+    BOOST_OPAQUE_USING_OP2(Final, U, Bool, >)
+
+#define BOOST_OPAQUE_HIDING_GREATER_THAN2(Final, U, Bool) \
+    BOOST_OPAQUE_HIDING_OP2(Final, Bool, U, >)
+
+BOOST_OPAQUE_DCL_META_MIXIN_REL(>, greater_than)
+
+//////////////////////////////////////////////////////////////////////////////
+
+#define BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final, Bool) \
+    BOOST_OPAQUE_USING_OP(Final, Bool, >=)
+
+#define BOOST_OPAQUE_HIDING_GREATER_THAN_EQUAL(Final, Bool) \
+    BOOST_OPAQUE_HIDING_OP(Final, Bool, >=)
+
+#define BOOST_OPAQUE_USING_GREATER_THAN_EQUAL2(Final, U, Bool) \
+    BOOST_OPAQUE_USING_OP2(Final, U, Bool, >=)
+
+#define BOOST_OPAQUE_HIDING_GREATER_THAN_EQUAL2(Final, U, Bool) \
+    BOOST_OPAQUE_HIDING_OP2(Final, Bool, U, >=)
+
+BOOST_OPAQUE_DCL_META_MIXIN_REL(>=, greater_than_equal)
+
+//////////////////////////////////////////////////////////////////////////////
+
+#define BOOST_OPAQUE_USING_EQUAL(Final, Bool) \
+    BOOST_OPAQUE_USING_OP(Final, Bool, ==)
+
+#define BOOST_OPAQUE_HIDING_EQUAL(Final, Bool) \
+    BOOST_OPAQUE_HIDING_OP(Final, Bool, ==)
+
+#define BOOST_OPAQUE_USING_EQUAL2(Final, U, Bool) \
+    BOOST_OPAQUE_USING_OP2(Final, U, Bool, ==)
+
+#define BOOST_OPAQUE_HIDING_EQUAL2(Final, U, Bool) \
+    BOOST_OPAQUE_HIDING_OP2(Final, Bool, U, ==)
+
+BOOST_OPAQUE_DCL_META_MIXIN_REL(==, equal)
+
+//////////////////////////////////////////////////////////////////////////////
+
+#define BOOST_OPAQUE_USING_NOT_EQUAL(Final, Bool) \
+    BOOST_OPAQUE_USING_OP(Final, Bool, !=)
+
+#define BOOST_OPAQUE_HIDING_NOT_EQUAL(Final, Bool) \
+    BOOST_OPAQUE_HIDING_OP(Final, Bool, !=)
+
+#define BOOST_OPAQUE_USING_NOT_EQUAL2(Final, U, Bool) \
+    BOOST_OPAQUE_USING_OP2(Final, U, Bool, !=)
+
+#define BOOST_OPAQUE_HIDING_NOT_EQUAL2(Final, U, Bool) \
+    BOOST_OPAQUE_HIDING_OP2(Final, Bool, U, !=)
+
+BOOST_OPAQUE_DCL_META_MIXIN_REL(!=, not_equal)
 
 //////////////////////////////////////////////////////////////////////////////
 

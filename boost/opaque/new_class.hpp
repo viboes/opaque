@@ -13,7 +13,7 @@
 
 /**
  * @file
- * Defines the new_class<> class.
+ * Defines the new_class<> class, which is the main class of the library.
  */
 
 
