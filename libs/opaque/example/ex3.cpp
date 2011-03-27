@@ -28,6 +28,11 @@ BOOST_OPAQUE_PUBLIC_CLASS(energy,kinetic_energy);
 BOOST_OPAQUE_PUBLIC_CLASS(energy,potential_energy);
 BOOST_OPAQUE_PUBLIC_CLASS(energy,heat_energy);
 #endif
+BOOST_OPAQUE_INHERIT_FROM_UNDERLYING(mass1_leng2_per_time2)
+BOOST_OPAQUE_INHERIT_FROM_UNDERLYING(energy)
+BOOST_OPAQUE_INHERIT_FROM_UNDERLYING(kinetic_energy)
+BOOST_OPAQUE_INHERIT_FROM_UNDERLYING(potential_energy)
+BOOST_OPAQUE_INHERIT_FROM_UNDERLYING(heat_energy)
 
 void public_multiple_levels_test() {
     energy e;

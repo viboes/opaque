@@ -17,6 +17,7 @@ using namespace boost::opaque;
 
 
 BOOST_OPAQUE_PRIVATE_TYPEDEF(unsigned,game_score);
+//BOOST_OPAQUE_INHERIT_FROM_UNDERLYING(game_score)
 
 game_score accumulate( game_score g1, game_score g2 ) {
  return g1 + g2;
