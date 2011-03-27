@@ -10,24 +10,33 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @file
+ * Includes all the opaque public headers.
+ */
+
 #ifndef BOOST_OPAQUE_OPAQUE_HPP
 #define BOOST_OPAQUE_OPAQUE_HPP
 
 #include <boost/opaque/new_type.hpp>
 #include <boost/opaque/new_class.hpp>
-#include <boost/opaque/meta_mixin/operators.hpp>
-#include <boost/opaque/meta_mixin/combined_operators.hpp>
 #include <boost/opaque/private_opaque_type.hpp>
 #include <boost/opaque/private_opaque_class.hpp>
 #include <boost/opaque/public_opaque_type.hpp>
 #include <boost/opaque/public_opaque_class.hpp>
 #include <boost/opaque/boolean.hpp>
+#include <boost/opaque/meta_mixin/operators.hpp>
+#include <boost/opaque/meta_mixin/combined_operators.hpp>
 #include <boost/opaque/macros.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/assert.hpp>
 
+#if !defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
+
 #define BOOST_OPAQUE_STATIC_ASSERT(CND, MSG, TYPES)                                 \
     BOOST_MPL_ASSERT_MSG(boost::mpl::bool_< (CND) >::type::value, MSG, TYPES)
+
+#endif
 
 namespace boost {
 

@@ -10,10 +10,13 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @file
+ * Defines the @c base_private_opaque_type and @c private_opaque_class classes.
+ */
+
 #ifndef BOOST_OPAQUE_PRIVATE_OPAQUE_CLASS_HPP
 #define BOOST_OPAQUE_PRIVATE_OPAQUE_CLASS_HPP
-
-
 
 #include <boost/opaque/meta_mixin/inherited_from_underlying.hpp>
 #include <boost/opaque/meta_mixin/using_explicit_conversion_to_ut_hierarchy.hpp>

@@ -10,6 +10,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @file
+ * Defines the new_type<> class.
+ */
+
 #ifndef BOOST_OPAQUE_NEW_TYPE_HPP
 #define BOOST_OPAQUE_NEW_TYPE_HPP
 

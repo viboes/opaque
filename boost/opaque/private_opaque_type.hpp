@@ -10,6 +10,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @file
+ * Defines the @c private_opaque_type class.
+ */
+
 #ifndef BOOST_OPAQUE_PRIVATE_OPAQUE_TYPE_HPP
 #define BOOST_OPAQUE_PRIVATE_OPAQUE_TYPE_HPP
 

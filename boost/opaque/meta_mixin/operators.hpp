@@ -17,6 +17,11 @@
  * There is a meta-mixin for each one of the C++ overloadable operators.
  * These meta-mixins have names that follows the naming used in <b>Boost.ConceptsTraits</b>, but prefixed by using_.
  *
+ * See the section for a complete list of operators meta-mixins.
+ */
+
+/*
+ * In this section the meta-mixin follows the schema
  * <b>Arithmetic Operators</b>
  *
  * The arithmetic meta-mixins ease the task of creating a custom numeric type based on the underlying type.
@@ -32,8 +37,6 @@
  * These meta-mixins are "simple" since they provide an operator based on a single operation the underlying type
  * has to provide. They have an additional optional template parameter Base, which is not shown, for the base class
  * chaining technique.
- *
- * In this section the meta-mixin follows the schema
  *
  * @code
  * struct meta-mixin {
@@ -53,14 +56,12 @@
  * - @c lhs_ut is the instance @c UT reference obtained @c lhs.underlying().
  * - @c rhs_ut is the instance @c UT reference obtained @c rhs.underlying().
  *
-
-
-
  *
  */
 
 #ifndef BOOST_OPAQUE_OPERATORS_HPP
 #define BOOST_OPAQUE_OPERATORS_HPP
+#if !defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
 
 #include <boost/operators.hpp>
 
@@ -1078,4 +1079,5 @@ struct using_function_call<Final, R(P1), Base> : Base {
 }
 }
 
+#endif
 #endif

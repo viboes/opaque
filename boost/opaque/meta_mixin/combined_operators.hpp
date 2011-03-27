@@ -10,8 +10,20 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @file
+ * This file includes meta-mixins combining several operators.
+ *
+ * These meta-mixins have names that follows the naming used in <b>Boost.Operators</b>, but prefixed by @c using_.
+ *
+ * The composite operator templates only list what other templates they use.
+ * The supplied operations and requirements of the composite operator templates can be inferred from the
+ * operations and requirements of the listed components.
+ */
+
 #ifndef BOOST_OPAQUE_COMBINED_OPERATORS_HPP
 #define BOOST_OPAQUE_COMBINED_OPERATORS_HPP
+#if !defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
 
 #include <boost/operators.hpp>
 #include <boost/opaque/meta_mixin/operators.hpp>
@@ -514,4 +526,5 @@ namespace opaque {
 }
 
 
+#endif
 #endif

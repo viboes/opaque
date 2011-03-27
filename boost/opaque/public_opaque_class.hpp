@@ -10,6 +10,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @file
+ * Defines the @c base_public_opaque_type and @c public_opaque_class classes.
+ */
+
 #ifndef BOOST_OPAQUE_PUBLIC_OPAQUE_CLASS_HPP
 #define BOOST_OPAQUE_PUBLIC_OPAQUE_CLASS_HPP
 

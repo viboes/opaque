@@ -10,6 +10,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @file
+ * Defines the @c using_explicit_conversion_to_underlying_type_hierarchy meta-mixin.
+ */
+
 #ifndef BOOST_OPAQUE_TRANSITIVE_EXPLICIT_SUBSTITUABLE_HPP
 #define BOOST_OPAQUE_TRANSITIVE_EXPLICIT_SUBSTITUABLE_HPP
 

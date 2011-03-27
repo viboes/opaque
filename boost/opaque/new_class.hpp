@@ -12,7 +12,8 @@
 
 
 /**
- * @File Defines the new_class<> class.
+ * @file
+ * Defines the new_class<> class.
  */
 
 

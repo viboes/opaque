@@ -10,6 +10,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @file
+ * Defines the @c inherited_from_underlying meta-function, the helper inherited_from_arithmetic and the specialization for the builtin type.
+ */
+
 #ifndef BOOST_OPAQUE_INHERITED_FROM_UNDERLYING_HPP
 #define BOOST_OPAQUE_INHERITED_FROM_UNDERLYING_HPP
 

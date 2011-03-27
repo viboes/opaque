@@ -10,6 +10,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @file
+ * Defines the @c linear_hierarchy meta-function.
+ */
+
 #ifndef BOOST_OPAQUE_LINEAR_HIERARCHY_HPP
 #define BOOST_OPAQUE_LINEAR_HIERARCHY_HPP
 

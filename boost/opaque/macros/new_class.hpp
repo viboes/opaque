@@ -10,8 +10,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef BOOST_OPAQUE_NEW_CLASS_MACRO_HPP
-#define BOOST_OPAQUE_NEW_CLASS_MACRO_HPP
+#ifndef BOOST_OPAQUE_MACROS_NEW_CLASS_HPP
+#define BOOST_OPAQUE_MACROS_NEW_CLASS_HPP
 
 #include <boost/config.hpp>
 #include <boost/opaque/new_class.hpp>
@@ -44,4 +44,4 @@
       > >
 
 
-#endif
+#endif // BOOST_OPAQUE_MACROS_NEW_CLASS_HPP

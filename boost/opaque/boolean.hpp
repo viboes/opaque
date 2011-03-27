@@ -11,7 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 
 /**
- * @File Defines an opaque boolean class.
+ * @file
+ * Defines an opaque boolean class.
  */
 
 #ifndef BOOST_OPAQUE_BOOLEAN_HPP
