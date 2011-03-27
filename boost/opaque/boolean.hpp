@@ -10,6 +10,10 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @File Defines an opaque boolean class.
+ */
+
 #ifndef BOOST_OPAQUE_BOOLEAN_HPP
 #define BOOST_OPAQUE_BOOLEAN_HPP
 
@@ -25,12 +29,15 @@ namespace opaque {
 
         operator unspecified_bool_type() const
         { return val_ ? &boolean::val_ : 0; }
+
         boolean operator!() const {
             return boolean(!val_);
         }
+
         boolean operator&&(boolean rhs) const {
             return boolean(val_&&rhs.val_);
         }
+
         boolean operator||(boolean rhs) const {
             return boolean(val_||rhs.val_);
         }

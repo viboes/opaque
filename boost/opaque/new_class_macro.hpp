@@ -18,7 +18,26 @@
 #include <boost/opaque/macros.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 
-#define BOOST_OPAQUE_NEW_CLASS(NC, UT,MMSEQ)                \
+
+/**
+
+ @brief
+
+ @Params
+ @Param{NC,the new class to be defined }
+ @Param{UT,the underlying type}
+ @Param{MMSEQ,the META_MIXIN_SEQ sequence}
+
+ @Result If @c MMSEQ is <c>( (MM1) ... ((MMn) )</c>
+ @code
+  boost::opaque::new_class< NC, UT,
+      boost::mpl::vector<MM1, ..., MMn>
+  >
+ @endcode
+
+ */
+
+#define BOOST_OPAQUE_NEW_CLASS(NC, UT, MMSEQ)                \
   boost::opaque::new_class< NC, UT,       \
       boost::mpl::vector<                                   \
           BOOST_PP_SEQ_ENUM(MMSEQ)                          \

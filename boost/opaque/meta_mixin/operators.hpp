@@ -10,20 +10,70 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @file
+ * This file includes meta-mixins that are used to add an operator overload forwarding from the final type to the underlying type.
+ *
+ * There is a meta-mixin for each one of the C++ overloadable operators.
+ * These meta-mixins have names that follows the naming used in <b>Boost.ConceptsTraits</b>, but prefixed by using_.
+ *
+ * <b>Arithmetic Operators</b>
+ *
+ * The arithmetic meta-mixins ease the task of creating a custom numeric type based on the underlying type.
+ * Given an underlying type, the templates add forward operators from the numeric class to the underlying type.
+ * These operations are like the ones the standard arithmetic types have, and may include comparisons, adding,
+ * incrementing, logical and bitwise manipulations, etc. Further, since most numeric types need more than one
+ * of these operators, some templates are provided to combine several of the basic operator templates in one
+ * declaration.
+ *
+ * The requirements for the types used to instantiate the simple operator templates are specified in terms of
+ * expressions which must be valid and the expression's return type.
+ *
+ * These meta-mixins are "simple" since they provide an operator based on a single operation the underlying type
+ * has to provide. They have an additional optional template parameter Base, which is not shown, for the base class
+ * chaining technique.
+ *
+ * In this section the meta-mixin follows the schema
+ *
+ * @code
+ * struct meta-mixin {
+ *   template <typename NT, typename Base>
+ *   struct type: Base {
+ *      // Supplied Operation
+ *   };
+ * };
+ * @endcode
+ *
+ * - @c NT/NT2 is expected to satisfy the <em>FinalUnderlying</em> requirements.
+ * - @c UT stands for @c NT::underlying_type.
+ * - @c UT2 stands for @c NT2::underlying_type.
+ * - @c this_ut is the instance @c UT reference obtained @c NT::underlying(this).
+ * - @c lhs is a @c NT/NT2 const reference.
+ * - @c rhs is a @c NT/NT2 const reference.
+ * - @c lhs_ut is the instance @c UT reference obtained @c lhs.underlying().
+ * - @c rhs_ut is the instance @c UT reference obtained @c rhs.underlying().
+ *
+
+
+
+ *
+ */
+
 #ifndef BOOST_OPAQUE_OPERATORS_HPP
 #define BOOST_OPAQUE_OPERATORS_HPP
 
 #include <boost/operators.hpp>
 
 namespace boost {
-namespace opaque {
+  namespace opaque {
 
 //////////////////////////////////////////////////////////////////////////////
 
-#define BOOST_OPAQUE_HIDING_COPY_CONSTRUCTOR(T) \
+    #define BOOST_OPAQUE_HIDING_COPY_CONSTRUCTOR(T) \
         private:  \
             T( const T& );
 
+    //!
     struct hiding_copy_constructor {
         template <typename Final, typename Base>
         struct type : Base {
@@ -51,7 +101,10 @@ namespace opaque {
             operator UT() const{ \
                 return Final::underlying(this); \
             }
-
+    /**
+     * Adds the implicit conversion operator to the underlying type.
+     *
+     */
     template <typename UT>
     struct using_underlying_conversion {
         template <typename Final, typename Base>
@@ -61,6 +114,7 @@ namespace opaque {
     };
 
 //////////////////////////////////////////////////////////////////////////////
+
 
     template <typename T>
     struct using_conversion_to {
@@ -94,11 +148,16 @@ namespace opaque {
             return Bool(Final::underlying(this) < rhs.underlying());\
         }
 
+    /**
+     * Adds the <c>Bool operator<(const Final& rhs) const</c>.
+     *
+     * @Requires <c>Bool(Final::underlying(this) < rhs.underlying())</c> is correct.
+     */
     template <typename Bool=bool>
     struct using_less_than {
         template <typename Final, typename Base>
         struct type: Base {
-            BOOST_OPAQUE_USING_LESS_THAN(Final,Bool)
+           BOOST_OPAQUE_USING_LESS_THAN(Final,Bool)
         };
     };
 

@@ -19,8 +19,8 @@
 namespace boost {
 namespace opaque {
 
-    ////// implementation //////
-    namespace opaque_detail{
+#ifndef BOOST_OPAQUE_DOXYGEN_INVOKED
+    namespace opaque_detail {
 
     template<typename Final, typename State, typename MetaMixin>
     struct do_inhetit : MetaMixin::template type< Final, State> {
@@ -35,6 +35,12 @@ namespace opaque {
     };
 
     }
+#endif
+
+    /** The linear_hierarchy metafunction gererates a linear hierarchy by folding the Mixins obtained by application of the MetaMixins in MetaMixinSeq.
+     *
+     * The nested type is equivalent to typename boost::mpl::fold<MetaMixinSeq, Base, implementation_defined<Final> >::type.
+     */
 
     template<typename MetaMixinSeq, typename Final, typename Base>
     struct linear_hierarchy {

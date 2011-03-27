@@ -17,6 +17,25 @@
 #include <boost/opaque/new_type.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 
+/**
+
+ @brief Generates the code to define a new typedef.
+
+ @Params
+ @Param{UT,the underlying type}
+ @Param{NT,the new type to be defined }
+ @Param{MMSEQ,the META_MIXIN_SEQ sequence}
+
+ @Result If @c MMSEQ is <c>( (MM1) ... ((MMn) )</c>
+ @code
+  struct NC_tag {};
+  typedef boost::opaque::new_type< UT, NC_tag,
+      boost::mpl::vector<MM1, ..., MMn>
+  > NT
+ @endcode
+
+ */
+
 #define BOOST_OPAQUE_NEW_TYPE(UT,NT,MMSEQ)                  \
   struct BOOST_JOIN(NT,_tag){};                             \
   typedef boost::opaque::new_type< UT, BOOST_JOIN(NT,_tag), \
