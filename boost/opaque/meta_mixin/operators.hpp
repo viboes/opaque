@@ -169,7 +169,6 @@ namespace boost {
 
 //////////////////////////////////////////////////////////////////////////////
 
-
 #define BOOST_OPAQUE_DCL_META_MIXIN_REL(OP, NAME) \
     template <typename Bool=bool> \
     struct BOOST_JOIN(using_,NAME) \
@@ -231,17 +230,17 @@ namespace boost {
         }; \
     }; \
 
-#define BOOST_OPAQUE_USING_OP(Final, Bool, OP) \
+#define BOOST_OPAQUE_USING_REL_OP(Final, Bool, OP) \
         Bool operator OP(const Final& rhs) const  { \
             return Bool(Final::underlying(this) OP rhs.underlying());\
         }
 
-#define BOOST_OPAQUE_HIDING_OP(Final, Bool, OP) \
+#define BOOST_OPAQUE_HIDING_REL_OP(Final, Bool, OP) \
     private :\
         Bool operator OP(const Final& rhs) const;\
     public :
 
-#define BOOST_OPAQUE_USING_OP2(Final, U, Bool, OP) \
+#define BOOST_OPAQUE_USING_REL_OP2(Final, U, Bool, OP) \
     friend Bool operator OP (const Final& lhs, const U& rhs)  \
     { \
       return Bool(lhs.underlying() OP rhs);\
@@ -251,7 +250,7 @@ namespace boost {
       return Bool(lhs OP rhs.underlying());\
     }
 
-#define BOOST_OPAQUE_HIDING_OP2(Final, U, Bool, OP) \
+#define BOOST_OPAQUE_HIDING_REL_OP2(Final, U, Bool, OP) \
     private :\
       friend Bool operator OP (const Final& lhs, const U& rhs);  \
       friend Bool operator OP (const U& lhs, const Final& rhs);   \
@@ -259,17 +258,127 @@ namespace boost {
 
 //////////////////////////////////////////////////////////////////////////////
 
+#define BOOST_OPAQUE_DCL_META_MIXIN_BINARY(OP, NAME) \
+    struct BOOST_JOIN(using_,NAME) \
+    { \
+      template <typename Final, typename Base> \
+      struct type: Base \
+      { \
+      private:\
+        static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const Final& rhs)  \
+        { \
+          return Final(lhs.underlying() OP rhs.underlying());\
+        } \
+      public:\
+        friend Final operator OP (const Final& lhs, const Final& rhs)  \
+        { \
+          return Final::BOOST_OPAQUE_INTERNAL_NAME(NAME)(lhs, rhs);\
+        } \
+      }; \
+    }; \
+    struct BOOST_JOIN(hiding_,NAME) \
+    { \
+      template <typename Final, typename Base> \
+      struct type: Base \
+      { \
+      private :\
+        static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const Final& rhs);  \
+      }; \
+    }; \
+    template <typename U> \
+    struct BOOST_JOIN(BOOST_JOIN(using_,NAME),2) \
+    { \
+      template <typename Final, typename Base> \
+      struct type: Base \
+      { \
+      private:\
+        static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const U& rhs)  \
+        { \
+          return Final(lhs.underlying() OP rhs);\
+        } \
+        static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const U& lhs, const Final& rhs)   \
+        { \
+          return Final(lhs OP rhs.underlying());\
+        } \
+      public:\
+        friend Final operator OP (const Final& lhs, const U& rhs)  \
+        { \
+          return Final::BOOST_OPAQUE_INTERNAL_NAME(NAME)(lhs, rhs);\
+        } \
+        friend Final operator OP (const U& lhs, const Final& rhs)   \
+        { \
+          return Final::BOOST_OPAQUE_INTERNAL_NAME(NAME)(lhs, rhs);\
+        } \
+      }; \
+    }; \
+    template <typename U> \
+    struct BOOST_JOIN(BOOST_JOIN(hiding,NAME),2)  \
+    { \
+        template <typename Final, typename Base> \
+        struct type: Base \
+        { \
+        private :\
+          static Final BOOST_JOIN(BOOST_JOIN(using_,NAME),_op) (const Final& lhs, const U& rhs);  \
+          static Final BOOST_JOIN(BOOST_JOIN(using_,NAME),_op) (const U& lhs, const Final& rhs);   \
+        }; \
+    }; \
+
+#define BOOST_OPAQUE_USING_BINARY_OP(Final, OP, NAME) \
+    private:\
+      static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const Final& rhs)  \
+      { \
+        return Final(lhs.underlying() OP rhs.underlying());\
+      } \
+    public:\
+      friend Final operator OP (const Final& lhs, const Final& rhs)  \
+      { \
+        return Final::BOOST_OPAQUE_INTERNAL_NAME(NAME)(lhs, rhs);\
+      } \
+
+#define BOOST_OPAQUE_HIDING_BINARY_OP(Final, OP, NAME) \
+    private :\
+      static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const Final& rhs);  \
+    public :
+
+#define BOOST_OPAQUE_USING_BINARY_OP2(Final, U, OP, NAME) \
+    private:\
+      static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const U& rhs)  \
+      { \
+        return Final(lhs.underlying() OP rhs);\
+      } \
+      static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const U& lhs, const Final& rhs)   \
+      { \
+        return Final(lhs OP rhs.underlying());\
+      } \
+    public:\
+      friend Final operator OP (const Final& lhs, const U& rhs)  \
+      { \
+        return Final::BOOST_OPAQUE_INTERNAL_NAME(NAME)(lhs, rhs);\
+      } \
+      friend Final operator OP (const U& lhs, const Final& rhs)   \
+      { \
+        return Final::BOOST_OPAQUE_INTERNAL_NAME(NAME)(lhs, rhs);\
+      } \
+
+#define BOOST_OPAQUE_HIDING_BINARY_OP2(Final, U, OP, NAME) \
+    private :\
+      static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const U& rhs);  \
+      static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const U& lhs, const Final& rhs);   \
+    public :
+
+//////////////////////////////////////////////////////////////////////////////
+
 #define BOOST_OPAQUE_USING_LESS_THAN(Final, Bool) \
-    BOOST_OPAQUE_USING_OP(Final, Bool, <)
+    BOOST_OPAQUE_USING_REL_OP(Final, Bool, <)
 
 #define BOOST_OPAQUE_HIDING_LESS_THAN(Final, Bool) \
-    BOOST_OPAQUE_HIDING_OP(Final, Bool, <)
+    BOOST_OPAQUE_HIDING_REL_OP(Final, Bool, <)
 
 #define BOOST_OPAQUE_USING_LESS_THAN2(Final, U, Bool) \
-    BOOST_OPAQUE_USING_OP2(Final, U, Bool, <)
+    BOOST_OPAQUE_USING_REL_OP2(Final, U, Bool, <)
 
 #define BOOST_OPAQUE_HIDING_LESS_THAN2(Final, U, Bool) \
-    BOOST_OPAQUE_HIDING_OP2(Final, Bool, U, <)
+    BOOST_OPAQUE_HIDING_REL_OP2(Final, Bool, U, <)
 
 BOOST_OPAQUE_DCL_META_MIXIN_REL(<, less_than)
 
@@ -277,303 +386,180 @@ BOOST_OPAQUE_DCL_META_MIXIN_REL(<, less_than)
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_LESS_THAN_EQUAL(Final, Bool) \
-    BOOST_OPAQUE_USING_OP(Final, Bool, <=)
+    BOOST_OPAQUE_USING_REL_OP(Final, Bool, <=)
 
 #define BOOST_OPAQUE_HIDING_LESS_THAN_EQUAL(Final, Bool) \
-    BOOST_OPAQUE_HIDING_OP(Final, Bool, <=)
+    BOOST_OPAQUE_HIDING_REL_OP(Final, Bool, <=)
 
 #define BOOST_OPAQUE_USING_LESS_THAN_EQUAL2(Final, U, Bool) \
-    BOOST_OPAQUE_USING_OP2(Final, U, Bool, <=)
+    BOOST_OPAQUE_USING_REL_OP2(Final, U, Bool, <=)
 
 #define BOOST_OPAQUE_HIDING_LESS_THAN_EQUAL2(Final, U, Bool) \
-    BOOST_OPAQUE_HIDING_OP2(Final, Bool, U, <=)
+    BOOST_OPAQUE_HIDING_REL_OP2(Final, Bool, U, <=)
 
 BOOST_OPAQUE_DCL_META_MIXIN_REL(<=, less_than_equal)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_GREATER_THAN(Final, Bool) \
-    BOOST_OPAQUE_USING_OP(Final, Bool, >)
+    BOOST_OPAQUE_USING_REL_OP(Final, Bool, >)
 
 #define BOOST_OPAQUE_HIDING_GREATER_THAN(Final, Bool) \
-    BOOST_OPAQUE_HIDING_OP(Final, Bool, >)
+    BOOST_OPAQUE_HIDING_REL_OP(Final, Bool, >)
 
 #define BOOST_OPAQUE_USING_GREATER_THAN2(Final, U, Bool) \
-    BOOST_OPAQUE_USING_OP2(Final, U, Bool, >)
+    BOOST_OPAQUE_USING_REL_OP2(Final, U, Bool, >)
 
 #define BOOST_OPAQUE_HIDING_GREATER_THAN2(Final, U, Bool) \
-    BOOST_OPAQUE_HIDING_OP2(Final, Bool, U, >)
+    BOOST_OPAQUE_HIDING_REL_OP2(Final, Bool, U, >)
 
 BOOST_OPAQUE_DCL_META_MIXIN_REL(>, greater_than)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_GREATER_THAN_EQUAL(Final, Bool) \
-    BOOST_OPAQUE_USING_OP(Final, Bool, >=)
+    BOOST_OPAQUE_USING_REL_OP(Final, Bool, >=)
 
 #define BOOST_OPAQUE_HIDING_GREATER_THAN_EQUAL(Final, Bool) \
-    BOOST_OPAQUE_HIDING_OP(Final, Bool, >=)
+    BOOST_OPAQUE_HIDING_REL_OP(Final, Bool, >=)
 
 #define BOOST_OPAQUE_USING_GREATER_THAN_EQUAL2(Final, U, Bool) \
-    BOOST_OPAQUE_USING_OP2(Final, U, Bool, >=)
+    BOOST_OPAQUE_USING_REL_OP2(Final, U, Bool, >=)
 
 #define BOOST_OPAQUE_HIDING_GREATER_THAN_EQUAL2(Final, U, Bool) \
-    BOOST_OPAQUE_HIDING_OP2(Final, Bool, U, >=)
+    BOOST_OPAQUE_HIDING_REL_OP2(Final, Bool, U, >=)
 
 BOOST_OPAQUE_DCL_META_MIXIN_REL(>=, greater_than_equal)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_EQUAL(Final, Bool) \
-    BOOST_OPAQUE_USING_OP(Final, Bool, ==)
+    BOOST_OPAQUE_USING_REL_OP(Final, Bool, ==)
 
 #define BOOST_OPAQUE_HIDING_EQUAL(Final, Bool) \
-    BOOST_OPAQUE_HIDING_OP(Final, Bool, ==)
+    BOOST_OPAQUE_HIDING_REL_OP(Final, Bool, ==)
 
 #define BOOST_OPAQUE_USING_EQUAL2(Final, U, Bool) \
-    BOOST_OPAQUE_USING_OP2(Final, U, Bool, ==)
+    BOOST_OPAQUE_USING_REL_OP2(Final, U, Bool, ==)
 
 #define BOOST_OPAQUE_HIDING_EQUAL2(Final, U, Bool) \
-    BOOST_OPAQUE_HIDING_OP2(Final, Bool, U, ==)
+    BOOST_OPAQUE_HIDING_REL_OP2(Final, Bool, U, ==)
 
 BOOST_OPAQUE_DCL_META_MIXIN_REL(==, equal)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_NOT_EQUAL(Final, Bool) \
-    BOOST_OPAQUE_USING_OP(Final, Bool, !=)
+    BOOST_OPAQUE_USING_REL_OP(Final, Bool, !=)
 
 #define BOOST_OPAQUE_HIDING_NOT_EQUAL(Final, Bool) \
-    BOOST_OPAQUE_HIDING_OP(Final, Bool, !=)
+    BOOST_OPAQUE_HIDING_REL_OP(Final, Bool, !=)
 
 #define BOOST_OPAQUE_USING_NOT_EQUAL2(Final, U, Bool) \
-    BOOST_OPAQUE_USING_OP2(Final, U, Bool, !=)
+    BOOST_OPAQUE_USING_REL_OP2(Final, U, Bool, !=)
 
 #define BOOST_OPAQUE_HIDING_NOT_EQUAL2(Final, U, Bool) \
-    BOOST_OPAQUE_HIDING_OP2(Final, Bool, U, !=)
+    BOOST_OPAQUE_HIDING_REL_OP2(Final, Bool, U, !=)
 
 BOOST_OPAQUE_DCL_META_MIXIN_REL(!=, not_equal)
 
 //////////////////////////////////////////////////////////////////////////////
 
-#define BOOST_OPAQUE_USING_PLUS_ASSIGN(Final) \
+
+#define BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(OP, NAME) \
+    struct BOOST_JOIN(using_,NAME) { \
+        template <typename Final, typename Base> \
+        struct type: Base { \
+          Final&  operator OP (const Final& rhs) { \
+               Final::underlying(this) OP rhs.underlying();\
+               return Final::final(this); \
+           } \
+        }; \
+    }; \
+    struct BOOST_JOIN(hiding_,NAME) \
+    { \
+        template <typename Final, typename Base> \
+        struct type: Base { \
+            Final&  operator OP(const Final& rhs); \
+        }; \
+    };
+
+#define BOOST_OPAQUE_USING_OP_ASSIGN(Final,OP) \
     public :\
-        Final&  operator+=(const Final& rhs) { \
-            Final::underlying(this) += rhs.underlying();\
+        Final&  operator OP(const Final& rhs) { \
+            Final::underlying(this) OP rhs.underlying();\
             return Final::final(this); \
         }
 
-    struct using_plus_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_PLUS_ASSIGN(Final)
-        };
-    };
+//////////////////////////////////////////////////////////////////////////////
 
-    struct hiding_plus_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Final&  operator+=(const Final& rhs);
-        };
-    };
-    
+#define BOOST_OPAQUE_USING_PLUS_ASSIGN(Final) \
+    BOOST_OPAQUE_USING_OP_ASSIGN(Final,+=)
+
+BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(+=, plus_assign)
+
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_MINUS_ASSIGN(Final) \
-    public :\
-        Final&  operator-=(const Final& rhs) { \
-            Final::underlying(this) -= rhs.underlying();\
-            return Final::final(this); \
-        }
+    BOOST_OPAQUE_USING_OP_ASSIGN(Final, -=)
 
-    struct using_minus_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_MINUS_ASSIGN(Final)
-        };
-    };
-    struct hiding_minus_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Final&  operator-=(const Final& rhs);
-        };
-    };
+BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(-=, minus_assign)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_MULTIPLY_ASSIGN(Final) \
-    public :\
-        Final&  operator*=(const Final& rhs) { \
-            Final::underlying(this) *= rhs.underlying();\
-            return Final::final(this); \
-        }
+    BOOST_OPAQUE_USING_OP_ASSIGN(Final, *=)
 
-    struct using_multiply_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_MULTIPLY_ASSIGN(Final)
-        };
-    };
-    struct hiding_multiply_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Final&  operator*=(const Final& rhs);
-        };
-    };
+BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(*=, multiply_assign)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_DIVIDE_ASSIGN(Final) \
-    public :\
-        Final&  operator/=(const Final& rhs) { \
-            Final::underlying(this) /= rhs.underlying();\
-            return Final::final(this); \
-        }
+    BOOST_OPAQUE_USING_OP_ASSIGN(Final, /=)
 
-    struct using_divide_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_DIVIDE_ASSIGN(Final)
-        };
-    };
-    struct hiding_divide_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Final&  operator/=(const Final& rhs);
-        };
-    };
+BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(/=, divide_assign)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_MODULUS_ASSIGN(Final) \
-    public :\
-        Final&  operator%=(const Final& rhs) { \
-            Final::underlying(this) %= rhs.underlying();\
-            return Final::final(this); \
-        }
+    BOOST_OPAQUE_USING_OP_ASSIGN(Final, %=)
 
-    struct using_modulus_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_MODULUS_ASSIGN(Final)
-        };
-    };
-    struct hiding_modulus_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Final&  operator%=(const Final& rhs);
-        };
-    };
+BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(%=, modulus_assign)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_BITWISE_XOR_ASSIGN(Final) \
-    public :\
-        Final&  operator^=(const Final& rhs) { \
-            Final::underlying(this) ^= rhs.underlying();\
-            return Final::final(this); \
-        }
+    BOOST_OPAQUE_USING_OP_ASSIGN(Final, ^=)
 
-    struct using_bitwise_xor_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_BITWISE_XOR_ASSIGN(Final)
-        };
-    };
-    struct hiding_bitwise_xor_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Final&  operator^=(const Final& rhs);
-        };
-    };
+BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(^=, bitwise_xor_assign)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_BITWISE_AND_ASSIGN(Final) \
-    public :\
-        Final&  operator&=(const Final& rhs) { \
-            Final::underlying(this) &= rhs.underlying();\
-            return Final::final(this); \
-        }
+    BOOST_OPAQUE_USING_OP_ASSIGN(Final, &=)
 
-    struct using_bitwise_and_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_BITWISE_AND_ASSIGN(Final)
-        };
-    };
-    struct hiding_bitwise_and_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Final&  operator&=(const Final& rhs);
-        };
-    };
+BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(&=, bitwise_and_assign)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_BITWISE_OR_ASSIGN(Final) \
-    public :\
-        Final&  operator|=(const Final& rhs) { \
-            Final::underlying(this) |= rhs.underlying();\
-            return Final::final(this); \
-        }
+    BOOST_OPAQUE_USING_OP_ASSIGN(Final, |=)
 
-    struct using_bitwise_or_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_BITWISE_OR_ASSIGN(Final)
-        };
-    };
-    struct hiding_bitwise_or_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Final&  operator|=(const Final& rhs);
-        };
-    };
+BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(|=, bitwise_or_assign)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_LEFT_SHIFT_ASSIGN(Final) \
-    public :\
-        Final&  operator<<=(const Final& rhs) { \
-            Final::underlying(this) <<= rhs.underlying();\
-            return Final::final(this); \
-        }
+    BOOST_OPAQUE_USING_OP_ASSIGN(Final, <<=)
 
-    struct using_left_shift_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_LEFT_SHIFT_ASSIGN(Final)
-        };
-    };
-    struct hiding_left_shift_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Final&  operator<<=(const Final& rhs);\
-        };
-    };
+BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(<<=, left_shift_assign)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_RIGHT_SHIFT_ASSIGN(Final) \
-    public :\
-        Final&  operator>>=(const Final& rhs) { \
-            Final::underlying(this) >>= rhs.underlying();\
-            return Final::final(this); \
-        }
+    BOOST_OPAQUE_USING_OP_ASSIGN(Final, >>=)
 
-    struct using_right_shift_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_RIGHT_SHIFT_ASSIGN(Final)
-        };
-    };
-    struct hiding_right_shift_assign {
-        template <typename Final, typename Base>
-        struct type: Base {
-            Final&  operator>>=(const Final& rhs);
-        };
-    };
+BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(>>=, right_shift_assign)
 
 // Unary operators
 
@@ -881,263 +867,164 @@ struct using_function_call<Final, R(P1), Base> : Base {
 //////////////////////////////////////////////////////////////////////////////
     
 #define BOOST_OPAQUE_USING_PLUS(Final) \
-    private : \
-        static Final using_plus_op(const Final& lhs, const Final& rhs) { \
-            return Final(lhs.underlying() + rhs.underlying()); \
-        } \
-        friend Final operator+(const Final& lhs, const Final& rhs) { \
-            return Final::using_plus_op(lhs, rhs); \
-        }
-    
-    struct using_plus {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_PLUS(Final)
-        };
-    };
+    BOOST_OPAQUE_USING_BINARY_OP(Final, +, plus)
 
-    struct hiding_plus {
-        template <typename Final, typename Base>
-        struct type: Base {
-        private :
-          static Final using_plus_op(const Final& lhs, const Final& rhs);
-        };
-    };
-   
+#define BOOST_OPAQUE_HIDING_PLUS(Final) \
+    BOOST_OPAQUE_HIDING_BINARY_OP(Final, +, plus)
+
+#define BOOST_OPAQUE_USING_PLUS2(Final, U) \
+    BOOST_OPAQUE_USING_BINARY_OP2(Final, U, +, plus)
+
+#define BOOST_OPAQUE_HIDING_PLUS2(Final, U) \
+    BOOST_OPAQUE_HIDING_BINARY_OP2(Final, U, +, plus)
+
+BOOST_OPAQUE_DCL_META_MIXIN_BINARY(+, plus)
+
 //////////////////////////////////////////////////////////////////////////////
     
 #define BOOST_OPAQUE_USING_MINUS(Final) \
-    private : \
-        Final using_minus_op(const Final& rhs) const { \
-            return Final(Final::underlying(this) - rhs.underlying()); \
-        } \
-        friend Final operator-(const Final& lhs, const Final& rhs) { \
-            return lhs.using_minus_op(rhs); \
-        }
+    BOOST_OPAQUE_USING_BINARY_OP(Final, -, minus)
 
-    
-    struct using_minus {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_MINUS(Final)
-        };
-    };
+#define BOOST_OPAQUE_HIDING_MINUS(Final) \
+    BOOST_OPAQUE_HIDING_BINARY_OP(Final, -, minus)
 
-    struct hiding_minus {
-        template <typename Final, typename Base>
-        struct type: Base {
-        private :
-            Final using_minus_op(const Final& rhs) const;
-        };
-    };
-       
+#define BOOST_OPAQUE_USING_MINUS2(Final, U) \
+    BOOST_OPAQUE_USING_BINARY_OP2(Final, U, -, minus)
+
+#define BOOST_OPAQUE_HIDING_MINUS2(Final, U) \
+    BOOST_OPAQUE_HIDING_BINARY_OP2(Final, U, -, minus)
+
+BOOST_OPAQUE_DCL_META_MIXIN_BINARY(-, minus)
+
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_MULTIPLY(Final) \
-    private : \
-        Final using_multiply_op(const Final& rhs) const { \
-            return Final(Final::underlying(this) * rhs.underlying()); \
-        } \
-        friend Final  operator*(const Final& lhs, const Final& rhs) { \
-            return lhs.using_multiply_op(rhs); \
-        }
+    BOOST_OPAQUE_USING_BINARY_OP(Final, *, multiply)
 
-    struct using_multiply {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_MULTIPLY(Final)
-        };
-    };
+#define BOOST_OPAQUE_HIDING_MULTIPLY(Final) \
+    BOOST_OPAQUE_HIDING_BINARY_OP(Final, *, multiply)
 
-    struct hiding_multiply {
-        template <typename Final, typename Base>
-        struct type: Base {
-        private :
-            Final using_multiply_op(const Final& rhs) const;
-        };
-    };
+#define BOOST_OPAQUE_USING_MULTIPLY2(Final, U) \
+    BOOST_OPAQUE_USING_BINARY_OP2(Final, U, *, multiply)
+
+#define BOOST_OPAQUE_HIDING_MULTIPLY2(Final, U) \
+    BOOST_OPAQUE_HIDING_BINARY_OP2(Final, U, *, multiply)
+
+BOOST_OPAQUE_DCL_META_MIXIN_BINARY(*, multiply)
+
     
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_DIVIDE(Final) \
-    private : \
-        Final using_divide_op(const Final& rhs) const { \
-            return Final(Final::underlying(this) / rhs.underlying()); \
-        } \
-        friend Final  operator/(const Final& lhs, const Final& rhs) { \
-            return lhs.using_divide_op(rhs); \
-        }
+    BOOST_OPAQUE_USING_BINARY_OP(Final, /, divide)
 
-    struct using_divide {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_DIVIDE(Final)
-        };
-    };
+#define BOOST_OPAQUE_HIDING_DIVIDE(Final) \
+    BOOST_OPAQUE_HIDING_BINARY_OP(Final, /, divide)
 
-    struct hiding_divide {
-        template <typename Final, typename Base>
-        struct type: Base {
-        private :
-            Final using_divide_op(const Final& rhs) const;
-        };
-    };
+#define BOOST_OPAQUE_USING_DIVIDE2(Final, U) \
+    BOOST_OPAQUE_USING_BINARY_OP2(Final, U, /, divide)
+
+#define BOOST_OPAQUE_HIDING_DIVIDE2(Final, U) \
+    BOOST_OPAQUE_HIDING_BINARY_OP2(Final, U, /, divide)
+
+BOOST_OPAQUE_DCL_META_MIXIN_BINARY(/, divide)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_MODULUS(Final) \
-    private : \
-        Final using_modulus_op(const Final& rhs) const { \
-            return Final(Final::underlying(this) % rhs.underlying()); \
-        } \
-        friend Final  operator%(const Final& lhs, const Final& rhs) { \
-            return lhs.using_modulus_op(rhs); \
-        }
+    BOOST_OPAQUE_USING_BINARY_OP(Final, %, modulus)
 
-    struct using_modulus {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_MODULUS(Final)
-        };
-    };
+#define BOOST_OPAQUE_HIDING_MODULUS(Final) \
+    BOOST_OPAQUE_HIDING_BINARY_OP(Final, %, modulus)
 
-    struct hiding_modulus {
-        template <typename Final, typename Base>
-        struct type: Base {
-        private :
-            Final using_modulus_op(const Final& rhs) const;
-        };
-    };
-    
+#define BOOST_OPAQUE_USING_MODULUS2(Final, U) \
+    BOOST_OPAQUE_USING_BINARY_OP2(Final, U, %, modulus)
+
+#define BOOST_OPAQUE_HIDING_MODULUS2(Final, U) \
+    BOOST_OPAQUE_HIDING_BINARY_OP2(Final, U, %, modulus)
+
+BOOST_OPAQUE_DCL_META_MIXIN_BINARY(%, modulus)
+
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_BITWISE_XOR(Final) \
-    private : \
-        Final using_bitwise_xor_op(const Final& rhs) const { \
-            return Final(Final::underlying(this) ^ rhs.underlying()); \
-        } \
-        friend Final  operator^(const Final& lhs, const Final& rhs) { \
-            return lhs.using_bitwise_xor_op(rhs); \
-        }
+    BOOST_OPAQUE_USING_BINARY_OP(Final, ^, bitwise_xor)
 
-    struct using_bitwise_xor {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_BITWISE_XOR(Final)
-        };
-    };
+#define BOOST_OPAQUE_HIDING_BITWISE_XOR(Final) \
+    BOOST_OPAQUE_HIDING_BINARY_OP(Final, ^, bitwise_xor)
 
-    struct hiding_bitwise_xor {
-        template <typename Final, typename Base>
-        struct type: Base {
-        private :
-            Final using_bitwise_xor_op(const Final& rhs) const;
-        };
-    };
+#define BOOST_OPAQUE_USING_BITWISE_XOR2(Final, U) \
+    BOOST_OPAQUE_USING_BINARY_OP2(Final, U, ^, bitwise_xor)
+
+#define BOOST_OPAQUE_HIDING_BITWISE_XOR2(Final, U) \
+    BOOST_OPAQUE_HIDING_BINARY_OP2(Final, U, ^, bitwise_xor)
+
+BOOST_OPAQUE_DCL_META_MIXIN_BINARY(^, bitwise_xor)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_BITWISE_OR(Final) \
-    private : \
-        Final using_bitwise_or_op(const Final& rhs) const { \
-            return Final(Final::underlying(this) | rhs.underlying()); \
-        } \
-        friend Final  operator|(const Final& lhs, const Final& rhs) { \
-            return lhs.using_bitwise_or_op(rhs); \
-        }
+    BOOST_OPAQUE_USING_BINARY_OP(Final, |, bitwise_or)
 
-    struct using_bitwise_or {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_BITWISE_OR(Final)
-        };
-    };
+#define BOOST_OPAQUE_HIDING_BITWISE_OR(Final) \
+    BOOST_OPAQUE_HIDING_BINARY_OP(Final, |, bitwise_or)
 
-    struct hiding_bitwise_or {
-        template <typename Final, typename Base>
-        struct type: Base {
-        private :
-            Final using_bitwise_or_op(const Final& rhs) const;
-        };
-    };
+#define BOOST_OPAQUE_USING_BITWISE_OR2(Final, U) \
+    BOOST_OPAQUE_USING_BINARY_OP2(Final, U, |, bitwise_or)
+
+#define BOOST_OPAQUE_HIDING_BITWISE_OR2(Final, U) \
+    BOOST_OPAQUE_HIDING_BINARY_OP2(Final, U, |, bitwise_or)
+
+BOOST_OPAQUE_DCL_META_MIXIN_BINARY(|, bitwise_or)
 
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_BITWISE_AND(Final) \
-    private : \
-        Final using_bitwise_and_op(const Final& rhs) const { \
-            return Final(Final::underlying(this) & rhs.underlying()); \
-        } \
-        friend Final  operator&(const Final& lhs, const Final& rhs) { \
-            return lhs.using_bitwise_and_op(rhs); \
-        }
+    BOOST_OPAQUE_USING_BINARY_OP(Final, &, bitwise_and)
 
-    struct using_bitwise_and {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_BITWISE_AND(Final)
-        };
-    };
+#define BOOST_OPAQUE_HIDING_BITWISE_AND(Final) \
+    BOOST_OPAQUE_HIDING_BINARY_OP(Final, &, bitwise_and)
 
-    struct hiding_bitwise_and {
-        template <typename Final, typename Base>
-        struct type: Base {
-        private :
-            Final using_bitwise_and_op(const Final& rhs) const;
-        };
-    };
+#define BOOST_OPAQUE_USING_BITWISE_AND2(Final, U) \
+    BOOST_OPAQUE_USING_BINARY_OP2(Final, U, &, bitwise_and)
+
+#define BOOST_OPAQUE_HIDING_BITWISE_AND2(Final, U) \
+    BOOST_OPAQUE_HIDING_BINARY_OP2(Final, U, &, bitwise_and)
+
+BOOST_OPAQUE_DCL_META_MIXIN_BINARY(&, bitwise_and)
     
 //////////////////////////////////////////////////////////////////////////////
 
-#define BOOST_OPAQUE_USING_LEFT_SHIFT1(Final) \
-    private : \
-        Final using_left_shift_op(const Final& rhs) const { \
-            return Final(Final::underlying(this) << rhs.underlying()); \
-        } \
-        friend Final  operator<<(const Final& lhs, const Final& rhs) { \
-            return lhs.using_left_shift_op(rhs); \
-        }
+#define BOOST_OPAQUE_USING_LEFT_SHIFT(Final) \
+    BOOST_OPAQUE_USING_BINARY_OP(Final, <<, left_shift)
 
-    struct using_left_shift1 {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_LEFT_SHIFT1(Final)
-        };
-    };
+#define BOOST_OPAQUE_HIDING_LEFT_SHIFT(Final) \
+    BOOST_OPAQUE_HIDING_BINARY_OP(Final, <<, left_shift)
 
-    struct hiding_left_shift {
-        template <typename Final, typename Base>
-        struct type: Base {
-        private :
-            Final using_left_shift_op(const Final& rhs) const;
-        };
-    };
+#define BOOST_OPAQUE_USING_LEFT_SHIFT2(Final, U) \
+    BOOST_OPAQUE_USING_BINARY_OP2(Final, U, <<, left_shift)
+
+#define BOOST_OPAQUE_HIDING_LEFT_SHIFT2(Final, U) \
+    BOOST_OPAQUE_HIDING_BINARY_OP2(Final, U, <<, left_shift)
+
+BOOST_OPAQUE_DCL_META_MIXIN_BINARY(<<, left_shift)
+
     
 //////////////////////////////////////////////////////////////////////////////
 
-#define BOOST_OPAQUE_USING_RIGHT_SHIFT1(Final) \
-    private : \
-        Final using_right_shift_op(const Final& rhs) const { \
-            return Final(Final::underlying(this) >> rhs.underlying()); \
-        } \
-        friend Final  operator>>(const Final& lhs, const Final& rhs) { \
-            return lhs.using_right_shift_op(rhs); \
-        }
+#define BOOST_OPAQUE_USING_RIGHT_SHIFT(Final) \
+    BOOST_OPAQUE_USING_BINARY_OP(Final, >>, right_shift)
 
-    struct using_right_shift1 {
-        template <typename Final, typename Base>
-        struct type: Base {
-            BOOST_OPAQUE_USING_RIGHT_SHIFT1(Final)
-        };
-    };
+#define BOOST_OPAQUE_HIDING_RIGHT_SHIFT(Final) \
+    BOOST_OPAQUE_HIDING_BINARY_OP(Final, >>, right_shift)
 
-    struct hiding_right_shift {
-        template <typename Final, typename Base>
-        struct type: Base {
-        private :
-            Final using_right_shift_op(const Final& rhs) const;
-        };
-    };
+#define BOOST_OPAQUE_USING_RIGHT_SHIFT2(Final, U) \
+    BOOST_OPAQUE_USING_BINARY_OP2(Final, U, >>, right_shift)
+
+#define BOOST_OPAQUE_HIDING_RIGHT_SHIFT2(Final, U) \
+    BOOST_OPAQUE_HIDING_BINARY_OP2(Final, U, >>, right_shift)
+
+BOOST_OPAQUE_DCL_META_MIXIN_BINARY(>>, right_shift)
     
 }
 }

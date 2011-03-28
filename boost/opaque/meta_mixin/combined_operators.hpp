@@ -199,7 +199,7 @@ namespace opaque {
 
 #define BOOST_OPAQUE_LEFT_SHIFTABLE1(Final) \
         BOOST_OPAQUE_USING_LEFT_SHIFT_ASSIGN(Final) \
-        BOOST_OPAQUE_USING_LEFT_SHIFT1(Final)
+        BOOST_OPAQUE_USING_LEFT_SHIFT(Final)
 
     struct using_left_shiftable1 {
         template <typename Final, typename Base>
@@ -213,7 +213,7 @@ namespace opaque {
 
 #define BOOST_OPAQUE_RIGHT_SHIFTABLE1(Final) \
         BOOST_OPAQUE_USING_RIGHT_SHIFT_ASSIGN(Final) \
-        BOOST_OPAQUE_USING_RIGHT_SHIFT1(Final)
+        BOOST_OPAQUE_USING_RIGHT_SHIFT(Final)
 
     struct using_right_shiftable1 {
         template <typename Final, typename Base>
