@@ -19,6 +19,8 @@
  * The composite operator templates only list what other templates they use.
  * The supplied operations and requirements of the composite operator templates can be inferred from the
  * operations and requirements of the listed components.
+ *
+ * See the section for a complete list of combined meta-mixins.
  */
 
 #ifndef BOOST_OPAQUE_COMBINED_OPERATORS_HPP

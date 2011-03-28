@@ -70,6 +70,10 @@
 namespace boost {
   namespace opaque {
 
+
+#define BOOST_OPAQUE_INTERNAL_NAME(NAME) \
+    BOOST_JOIN(BOOST_JOIN(boost_opaque_internal_,NAME),_op)
+
 //////////////////////////////////////////////////////////////////////////////
 
     #define BOOST_OPAQUE_HIDING_COPY_CONSTRUCTOR(T) \
@@ -195,13 +199,23 @@ namespace boost {
       template <typename Final, typename Base> \
       struct type: Base \
       { \
-        friend Bool operator OP (const Final& lhs, const U& rhs)  \
+      private:\
+        static Bool BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const U& rhs)  \
         { \
           return Bool(lhs.underlying() OP rhs);\
         } \
-        friend Bool operator OP (const U& lhs, const Final& rhs)   \
+        static Bool BOOST_OPAQUE_INTERNAL_NAME(NAME) (const U& lhs, const Final& rhs)   \
         { \
           return Bool(lhs OP rhs.underlying());\
+        } \
+      public:\
+        friend Bool operator OP (const Final& lhs, const U& rhs)  \
+        { \
+          return Final::BOOST_OPAQUE_INTERNAL_NAME(NAME)(lhs, rhs);\
+        } \
+        friend Bool operator OP (const U& lhs, const Final& rhs)   \
+        { \
+          return Final::BOOST_OPAQUE_INTERNAL_NAME(NAME)(lhs, rhs);\
         } \
       }; \
     }; \
@@ -212,8 +226,8 @@ namespace boost {
         struct type: Base \
         { \
         private :\
-          friend Bool operator OP (const Final& lhs, const U& rhs);  \
-          friend Bool operator OP (const U& lhs, const Final& rhs);   \
+          static Bool BOOST_JOIN(BOOST_JOIN(using_,NAME),_op) (const Final& lhs, const U& rhs);  \
+          static Bool BOOST_JOIN(BOOST_JOIN(using_,NAME),_op) (const U& lhs, const Final& rhs);   \
         }; \
     }; \
 
@@ -868,11 +882,11 @@ struct using_function_call<Final, R(P1), Base> : Base {
     
 #define BOOST_OPAQUE_USING_PLUS(Final) \
     private : \
-        Final using_plus_op(const Final& rhs) const { \
-            return Final(Final::underlying(this) + rhs.underlying()); \
+        static Final using_plus_op(const Final& lhs, const Final& rhs) { \
+            return Final(lhs.underlying() + rhs.underlying()); \
         } \
         friend Final operator+(const Final& lhs, const Final& rhs) { \
-            return lhs.using_plus_op(rhs); \
+            return Final::using_plus_op(lhs, rhs); \
         }
     
     struct using_plus {
@@ -886,7 +900,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         template <typename Final, typename Base>
         struct type: Base {
         private :
-            Final using_plus_op(const Final& rhs) const;
+          static Final using_plus_op(const Final& lhs, const Final& rhs);
         };
     };
    
@@ -897,7 +911,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         Final using_minus_op(const Final& rhs) const { \
             return Final(Final::underlying(this) - rhs.underlying()); \
         } \
-        friend Final  operator-(const Final& lhs, const Final& rhs) { \
+        friend Final operator-(const Final& lhs, const Final& rhs) { \
             return lhs.using_minus_op(rhs); \
         }
 
