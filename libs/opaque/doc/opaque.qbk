@@ -247,7 +247,7 @@ Next we use the opaque `new_type` class which has as parameters:
 * the unique tag of the `new type` (`Identifier_tag`),
 * a MPL sequence of additions (`mpl::vector<opaque::using_totally_ordered1>`)
 
-This will declare `Identifier` as new type different from `int` that provides just the operation associated to a /TotallyOrdered/ concept. The concepts are represented by the library in the form a meta-mixin and are named with the `using_` prefix, e.g. as `using_totally_ordered1`. We will see later what a meta-mixin intends for.
+This will declare `Identifier` as new type different from `int` that provides just the operation associated to a /TotallyOrdered/ concept. The concepts are represented by the library in the form a meta-mixin and are named with the `using_` prefix, e.g. as `using_totally_ordered`. We will see later what a meta-mixin intends for.
 
 We can now use `Identifier` as new `int` type, but limited to the totally ordered operations.
 
@@ -626,6 +626,7 @@ Include all the opaque public header files.
 
 
 [xinclude top_ref.xml]
+[xinclude meta_mixin.xml]
 [/
 [/==========================================================================================]
 [section:new_class_hpp Header `<boost/opaque/new_class.hpp>`]
@@ -1146,7 +1147,7 @@ Resuming:
 ]
 
 
-[section Meta-Mixins]
+[section Operators and Combined Meta-Mixins]
 
 [/
 
@@ -1206,10 +1207,10 @@ This class must be specialized for specific types in order to make easier the co
 [endsect]
 ]
 [/==========================================================================================]
-[section:using_operators_hpp Header `<boost/opaque/meta_mixin/using_operators.hpp>`]
+[section:using_operators_hpp Using Operators Meta-Mixins]
 [/==========================================================================================]
 
-This file includes meta-mixins that are used to add an operator overload forwarding from the final type to the underlying type. There is a meta-mixin for each one of the C++ overloadable operators.
+This section includes meta-mixins that are used to add an operator overload forwarding from the final type to the underlying type. There is a meta-mixin for each one of the C++ overloadable operators.
 
 These meta-mixins have names that follows the naming used in Boost.ConceptsTraits, but prefixed by `using_`.
 
@@ -1310,8 +1311,8 @@ In the following table the meta-mixin follows the schema
     [[`using_bitwise_xor`][`NT operator^(const NT& rhs) const`][`NT(this_ut ^ rhs_ut)`][13.5.2]]
     [[`using_bitwise_or`][`NT operator|(const NT& rhs) const`][`NT(this_ut | rhs_ut)`][13.5.2]]
     [[`using_bitwise_and`][`NT operator&(const NT& rhs) const`][`NT(this_ut & rhs_ut)`][13.5.2]]
-    [[`using_left_shift1`][`NT operator<<(const NT& rhs) const`][`NT(this_ut << rhs_ut)`][13.5.2]]
-    [[`using_right_shift1`][`NT operator>>(const NT& rhs) const`][`NT(this_ut >> rhs_ut)`][13.5.2]]
+    [[`using_left_shift`][`NT operator<<(const NT& rhs) const`][`NT(this_ut << rhs_ut)`][13.5.2]]
+    [[`using_right_shift`][`NT operator>>(const NT& rhs) const`][`NT(this_ut >> rhs_ut)`][13.5.2]]
 
     
     [[`using_bitwise_xor2<NT2>`][`NT operator^(const NT2& rhs) const`][`NT(this_ut ^ rhs_ut)`][13.5.2]]
@@ -1346,8 +1347,9 @@ In the following table the meta-mixin follows the schema
 [table Conversion Operators
     [[Meta-Mixin] [Supplied Operation]  [Requirements] [Ref]]
 
-    [[`using_underlying_conversion<UT>`][`operator UT() const`][None][12.3.2]]
+    [[`using_conversion_to_underlying_type`][`operator UT() const`][None][12.3.2]]
     [[`using_conversion_to<T>`][`operator T() const`][`T(ut)`][12.3.2]]
+    [[`using_explicit_conversion_to<T>`][`explict operator T() const` and `friend T convert_to(Final const& rhs, boost::dummy::type_tag<T> const&)`][`T(ut)`][???]]
     [[`using_safe_bool_conversion`][`operator unspecified_bool_type() const`][`ut?true:false`][12.3.2]]
 
 ]
@@ -1387,10 +1389,10 @@ In the following table the meta-mixin follows the schema
 [endsect]
 
 [/==========================================================================================]
-[section:hiding_operators_hpp Header `<boost/opaque/meta_mixin/hiding_operators.hpp>`]
+[section:hiding_operators_hpp Hiding Operators Meta-Mixins`]
 [/==========================================================================================]
 
-This file includes meta-mixins that are used to hide operator overloads that have been defined by a base class for each one of the C++ overloadable operators.
+This section includes meta-mixins that are used to hide operator overloads that have been defined by a base class for each one of the C++ overloadable operators.
 
 These meta-mixins have names that follows the naming used in Boost.ConceptsTraits, but prefixed by `hiding_`.
 
@@ -1403,10 +1405,10 @@ These meta-mixins have names that follows the naming used in Boost.ConceptsTrait
 [endsect]
 
 [/==========================================================================================]
-[section:using_combined_operators_hpp Header `<boost/opaque/meta_mixin/using_combined_operators.hpp>`]
+[section:using_combined_operators_hpp Using Combined  Meta-Mixins]
 [/==========================================================================================]
 
-This file includes meta-mixins combining several operators.
+This section includes meta-mixins combining several operators.
 
 These meta-mixins have names that follows the naming used in Boost.Operators, but prefixed by `using_`.
 
@@ -1418,48 +1420,48 @@ The following meta-mixins provide common groups of related meta-mixins. For exam
 
 [table
     [[Meta-Mixin] [Meta-Mixin Sequence]   [Ref]]
-    [[`using_equality_comparable1<Bool>`][`using_equal<Bool>`,
+    [[`using_equality_comparable<Bool>`][`using_equal<Bool>`,
                                     \n `using_not_equal<Bool>`
                                     ][20.1.1]]
-    [[`using_less_than_comparable1<Bool>`][`using_less_than<Bool>`
+    [[`using_less_than_comparable<Bool>`][`using_less_than<Bool>`
                                     \n `using_less_than_equal<Bool>`
                                     \n `using_greater_than_equal<Bool>`
                                     \n `using_greater_than<Bool>`
                                     ][20.1.2]]
-    [[`using_partially_ordered1<Bool>`][`using_less_than<Bool>`
+    [[`using_partially_ordered<Bool>`][`using_less_than<Bool>`
                                     \n `using_less_than_equal<Bool>`
                                     \n `using_greater_than_equal<Bool>`
                                     \n `using_greater_than<Bool>`
                                     ][20.1.2]]
-    [[`using_addable1`][`using_plus_assign`
+    [[`using_addable`][`using_plus_assign`
                                     \n `using_plus`
                                     ][]]
-    [[`using_subtractable1`][`using_minus_assign`
+    [[`using_subtractable`][`using_minus_assign`
                                     \n `using_minus`
                                     ][]]
-    [[`using_multipliable1`][`using_multiply_assign`
+    [[`using_multipliable`][`using_multiply_assign`
                                     \n `using_multiply`
                                     ][]]
-    [[`using_dividable1`][`using_divide_assign`
+    [[`using_dividable`][`using_divide_assign`
                                     \n `using_divide`
                                     ][]]
-    [[`using_modable1`][`using_modulus_assign`
+    [[`using_modable`][`using_modulus_assign`
                                     \n `using_modulus`
                                     ][]]
-    [[`using_bitwise_xorable1`][`using_bitwise_xor_assign`
+    [[`using_bitwise_xorable`][`using_bitwise_xor_assign`
                                     \n `using_bitwise_xor`
                                     ][]]
-    [[`using_bitwise_orable1`][`using_bitwise_or_assign`
+    [[`using_bitwise_orable`][`using_bitwise_or_assign`
                                     \n `using_bitwise_or`
                                     ][]]
-    [[`using_bitwise_andable1`][`using_bitwise_and_assign`
+    [[`using_bitwise_andable`][`using_bitwise_and_assign`
                                     \n `using_bitwise_and`
                                     ][]]
-    [[`using_left_shiftable1`][`using_left_right_assign`
-                                    \n `using_left_shift1`
+    [[`using_left_shiftable`][`using_left_right_assign`
+                                    \n `using_left_shift`
                                     ][]]
-    [[`using_right_shiftable1`][`using_right_shift_assign`
-                                    \n `using_right_shift1`
+    [[`using_right_shiftable`][`using_right_shift_assign`
+                                    \n `using_right_shift`
                                     ][]]
     [[`using_incrementable`][`using_pre_increment>`
                                     \n `using_post_increment`
@@ -1471,54 +1473,54 @@ The following meta-mixins provide common groups of related meta-mixins. For exam
 
 [table
     [[Meta-Mixin] [Meta-Mixin Sequence]   [Ref]]
-    [[`using_totally_ordered1<Bool>`][`using_equality_comparable1<Bool>`
-                                    \n `using_less_than_comparable1<Bool>`
+    [[`using_totally_ordered<Bool>`][`using_equality_comparable<Bool>`
+                                    \n `using_less_than_comparable<Bool>`
                                     ][]]
-    [[`using_additive1`][`using_addable1`
-                                    \n `using_subtractable1`
+    [[`using_additive`][`using_addable`
+                                    \n `using_subtractable`
                                     ][]]
-    [[`using_multiplicative1`][`using_multipliable1`
-                                    \n `using_dividable1`
+    [[`using_multiplicative`][`using_multipliable`
+                                    \n `using_dividable`
                                     ][]]
-    [[`integer_multiplicative1`][`using_multiplicative1`
-                                    \n `using_modable1`
+    [[`integer_multiplicative`][`using_multiplicative`
+                                    \n `using_modable`
                                     ][]]
-    [[`using_arithmetic1`][`using_additive1`
-                                    \n `using_multiplicative1`
+    [[`using_arithmetic`][`using_additive`
+                                    \n `using_multiplicative`
                                     ][]]
-    [[`using_integer_arithmetic1`][`using_additive1`
-                                    \n `integer_multiplicative1`
+    [[`using_integer_arithmetic`][`using_additive`
+                                    \n `integer_multiplicative`
                                     ][]]
-    [[`using_bitwise1`][`using_bitwise_xorable1`
-                                    \n `using_bitwise_orable1`
-                                    \n `using_bitwise_andable1`
+    [[`using_bitwise`][`using_bitwise_xorable`
+                                    \n `using_bitwise_orable`
+                                    \n `using_bitwise_andable`
                                     ][]]
     [[`using_unit_steppable`][`using_incrementable`
                                     \n `using_decrementable`
                                     ][]]
-    [[`using_shiftable1`][`using_left_shiftable1`
-                                    \n `using_right_shiftable1`
+    [[`using_shiftable`][`using_left_shiftable`
+                                    \n `using_right_shiftable`
                                     ][]]
-    [[`using_ring_operators1`][`using_additive1`
-                                    \n `using_multipliable1`
+    [[`using_ring_operators`][`using_additive`
+                                    \n `using_multipliable`
                                     ][]]
-    [[`using_ordered_ring_operators1<Bool>`][`using_ring_operators1`
-                                    \n `using_totally_ordered1<Bool>`
+    [[`using_ordered_ring_operators<Bool>`][`using_ring_operators`
+                                    \n `using_totally_ordered<Bool>`
                                     ][]]
-    [[`using_field_operators1<Bool>`][`using_ring_operators1`
-                                    \n `using_dividable1<Bool>`
+    [[`using_field_operators<Bool>`][`using_ring_operators`
+                                    \n `using_dividable<Bool>`
                                     ][]]
-    [[`using_ordered_field_operators1<Bool>`][`using_field_operators1`
-                                    \n `using_totally_ordered1<Bool>`
+    [[`using_ordered_field_operators<Bool>`][`using_field_operators`
+                                    \n `using_totally_ordered<Bool>`
                                     ][]]
 ]
 
 [endsect]
 [/==========================================================================================]
-[section:hiding_combined_operators_hpp Header `<boost/opaque/meta_mixin/hiding_combined_operators.hpp>`]
+[section:hiding_combined_operators_hpp Hiding Combined Meta-Mixins]
 [/==========================================================================================]
 
-This file includes meta-mixins combining several hiding meta-mixins that are used to hide operator overloads that have been defined by a base clas.
+This section includes meta-mixins combining several hiding meta-mixins that are used to hide operator overloads that have been defined by a base clas.
 
 These meta-mixins have names that follows the naming used in Boost.Operators, but prefixed by `hiding_`.
 
@@ -1572,6 +1574,8 @@ This meta-mixin provides the Final class explicit conversions for all the underl
 ]
 
 [endsect]
+[xinclude macros.xml]
+
 [endsect]
 
 [/=================]
