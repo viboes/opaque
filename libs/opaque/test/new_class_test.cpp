@@ -17,13 +17,13 @@ using namespace boost;
 
 struct private_unsigned :
     boost::opaque::new_class<private_unsigned, unsigned
-    , boost::mpl::vector<opaque::using_equality_comparable1<>
+    , boost::mpl::vector<opaque::using_equality_comparable<>
     >
     >
 {
     typedef
     boost::opaque::new_class<private_unsigned, unsigned
-    , boost::mpl::vector<opaque::using_equality_comparable1<>
+    , boost::mpl::vector<opaque::using_equality_comparable<>
     >
     >
     base_type;

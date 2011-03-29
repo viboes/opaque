@@ -16,7 +16,7 @@ using namespace boost;
 
 
 struct private_unsigned_tag;
-typedef boost::opaque::new_type<unsigned, private_unsigned_tag, boost::mpl::vector<opaque::using_equality_comparable1<> > > private_unsigned;
+typedef boost::opaque::new_type<unsigned, private_unsigned_tag, boost::mpl::vector<opaque::using_equality_comparable<> > > private_unsigned;
 struct private_unsigned2_tag;
 typedef boost::opaque::new_type<unsigned, private_unsigned2_tag> private_unsigned2;
 
