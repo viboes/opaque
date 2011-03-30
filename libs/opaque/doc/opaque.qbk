@@ -94,15 +94,15 @@ In addition, the underlying-type `UT` can not be cv-qualified. This restriction 
 # Application of inheritance makes no provision that permits a base class to be cv-qualified.
 ]
 
-Alisdair Meredith showed in [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2141.html [*N2141: Strong Typedefs in C++09(Revisited)]] that the new C++0x feature that implicitly generates forward constructors to a base class, could not be useful to address this issue completly. Using this new feature it becomes possible to create something very like the required opaque typedef. For example:
+Alisdair Meredith showed in [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2141.html [*N2141: Strong Typedefs in C++09(Revisited)]] that the new C++0x feature that implicitly generates forward constructors to a base class, could not be useful to address this issue completely. Using this new feature it becomes possible to create something very like the required opaque typedef. For example:
 
     struct MyType : std::string {
         using string::string;
     };
 
-This type is distrinct from `std::string`, functions can be overloaded on this type as well as `std::string`, yet `std::string` is not convertible to this type.
+This type is distinct from `std::string`, functions can be overloaded on this type as well as `std::string`, yet `std::string` is not convertible to this type.
 
-As this proposals will not be part of the C++0x standard, a library solution that could satisfy most of the requirements seems a loable alternative.
+As this proposals will not be part of the C++0x standard, a library solution that could satisfy most of the requirements seems a doable alternative.
 
 
 [endsect]
@@ -157,7 +157,7 @@ compiler include path.
 [heading Requirements]
 [/=========================]
 
-[*Boost.Opaque] depends only on Boost.Operators (and all libraries it depends on).
+[*Boost.Opaque] depends only on Boost.Config, Boost.Preprocessor, Boost.Mpl, Boost.TypeTraits and optional from Boost.Conversion (and all libraries they depends on).
 
 
 [/========================]
@@ -231,9 +231,9 @@ Ubuntu 10.10
 We will start with the definition of a new type identifier which is based on an underlying `int` type and having the relational operators so it can be stored on a sorted container.
 
     struct Identifier_tag;
-    typedef boost::opaque::new_type< int, Identifier_tag,
-        boost::mpl::vector<
-            opaque::using_totally_ordered1
+    typedef opaque::new_type< int, Identifier_tag,
+        mpl::vector<
+            opaque::using_totally_ordered
         >
     > Identifier;
 
@@ -245,7 +245,7 @@ Next we use the opaque `new_type` class which has as parameters:
 
 * the underlying type (`int`),
 * the unique tag of the `new type` (`Identifier_tag`),
-* a MPL sequence of additions (`mpl::vector<opaque::using_totally_ordered1>`)
+* a MPL sequence of additions (`mpl::vector<opaque::using_totally_ordered>`)
 
 This will declare `Identifier` as new type different from `int` that provides just the operation associated to a /TotallyOrdered/ concept. The concepts are represented by the library in the form a meta-mixin and are named with the `using_` prefix, e.g. as `using_totally_ordered`. We will see later what a meta-mixin intends for.
 
@@ -253,7 +253,7 @@ We can now use `Identifier` as new `int` type, but limited to the totally ordere
 
 [*Boost.Opaque] provides a macro to simplify the preceding declaration
 
-    BOOST_OPAQUE_NEW_TYPE(int, Identifier, (opaque::using_totally_ordered1))
+    BOOST_OPAQUE_NEW_TYPE(int, Identifier, (opaque::using_totally_ordered))
 
 The macro is responsible to define a unique tag and transform the preprocessor sequence into a MPL sequence.
 
@@ -263,9 +263,9 @@ The macro is responsible to define a unique tag and transform the preprocessor s
 
 In the preceding example we have used a tag to ensure type unicity. When the user needs to add yet some specific methods, this tag is no more necessary as we need to define already a new class.
 
-    class Identifier : boost::opaque::new_class<Identifier, int,
-        boost::mpl::vector<
-            opaque::using_totally_ordered1
+    class Identifier : opaque::new_class<Identifier, int,
+        mpl::vector<
+            opaque::using_totally_ordered
         >
     {
         void print();
@@ -276,11 +276,11 @@ In this case we use the mixin class `new_class` instead. The `new_class` class t
 
 * the final class we are defining, which is giving the unicity,
 * the underlying type (`int`),
-* a MPL sequence of mixins `mpl::vector<opaque::using_totally_ordered1>`
+* a MPL sequence of mixins `mpl::vector<opaque::using_totally_ordered>`
 
 [*Boost.Opaque] provides a macro `BOOST_OPAQUE_NEW_CLASS` to simplify the preceding declaration
 
-    BOOST_OPAQUE_NEW_CLASS(Identifier, int, (opaque::using_totally_ordered1))
+    struct Identifier : BOOST_OPAQUE_NEW_CLASS(Identifier, int, (opaque::using_totally_ordered))
     {
         void print();
         // ...
@@ -327,7 +327,7 @@ But we also get an error on (2) as `a > b` is not convertible to `opaque::boolea
 [*Boost.Opaque] provides a meta-mixin that allow to define an integer-like class that uses `opaque::boolean` as type for the result of the relational operators.
 
     struct Int_tag;
-    typedef boost::opaque::new_type<int, Int_tag, boost::mpl::vector<
+    typedef opaque::new_type<int, Int_tag, mpl::vector<
         opaque::using_integer_like<opaque::boolean>
     > > Int;
 
@@ -475,8 +475,8 @@ The following template IdentifierGenarator can be used for this propose
     template <typename UT, typename Tag>
     struct IdentifierGenarator  
     {
-        typedef boost::opaque::new_type<UT, Tag, 
-            boost::mpl::vector<boost::opaque::using::less_than_comparable> type;
+        typedef opaque::new_type<UT, Tag, 
+            mpl::vector<opaque::using::less_than_comparable> type;
     };
     
 The class can be used as follows    
@@ -627,585 +627,10 @@ Include all the opaque public header files.
 
 [xinclude top_ref.xml]
 [xinclude meta_mixin.xml]
-[/
-[/==========================================================================================]
-[section:new_class_hpp Header `<boost/opaque/new_class.hpp>`]
-[/==========================================================================================]
-
-    namespace boost {
-    namespace opaque {
-        class base_new_type;
-
-        template <
-            typename Final,
-            typename T,
-            typename MetaMixinSeq=boost::mpl::vector0<>,
-            typename Base=base_new_type
-        >
-        class new_class;
-
-        template <
-            typename T,
-            typename Final,
-            typename UT,
-            typename MetaMixinSeq,
-            typename Base
-        >
-        T opaque_static_cast(new_class<Final, UT, MetaMixinSeq, Base> const& v);
-    }
-    }
-
-[/==========================================================================================]
-[section:base_new_type Class Template `base_new_type<>`]
-[/==========================================================================================]
-
-        class base_new_type {};
-
-[endsect]
-
-[/==========================================================================================]
-[section:new_class Class Template `new_class<>`]
-[/==========================================================================================]
-
-`new_class<>` wraps an underlying type providing the regular constructors and copy construction from the underlying type and all the convertibles to the the UT.
-
-Resuming:
-
-* Can instances of UT be explicitly converted to instances of OT? Yes
-* Can instances of convertible to UT be explicitly converted to instances of OT? Yes
-* Can instances of UT be implicitly converted to instances of OT? No
-* Can instances of OT be explicitly converted to instances of UT? No
-* Can instances of OT be implicitly converted to instances of UT? No
-
-
-        template <
-            typename Final,
-            typename UT,
-            typename MetaMixinSeq,
-            typename Base
-        >
-        class new_class : public linear_hierarchy<MetaMixinSeq, Final, Base>::type
-        {
-        public:
-            typedef UT underlying_type;
-
-            template <typename W>
-            explicit new_class(W v);
-            new_class();
-            new_class(const new_class & rhs);
-            explicit new_class(underlying_type v);
-        protected:
-            T val_;
-            new_class & operator=(const new_class & rhs);
-
-        public:
-            underlying_type const& underlying() const;
-            underlying_type& underlying();
-
-            template<typename F>
-            static underlying_type& underlying(F* f);
-
-            template<typename F>
-            static underlying_type const& underlying(F const* f);
-
-            template<typename F>
-            static Final const& final(F const* f);
-            template<typename F>
-            static Final& final(F* f);
-
-        };
-
-[*Requirements]
-
-* `UT` must be a model of a `CopyConstructible` and `Assignable`.
-* `Final` must be a model of FinalUnderlying.
-* `MetaMixinSeq` must be a model of `MetaMixinSeq`: defaulted to the empty sequence.
-* `Base` is defaulted to the base class of all the new types `base_new_type`.
-
-
-[endsect]
-
-[/==========================================================================================]
-[section:opaque_static_cast Non-Member Function Template `opaque_static_cast<>`]
-[/==========================================================================================]
-
-        template <
-            typename T,
-            typename Final,
-            typename UT,
-            typename MetaMixinSeq,
-            typename Base
-        >
-        T opaque_static_cast(new_class<Final, UT, MetaMixinSeq, Base> const& v);
-
-[*Requirements]
-
-* `T` and `UT` must be a model of a `CopyConstructible` and `Assignable`.
-* `Final` must be a model of FinalUnderlying.
-* `MetaMixinSeq` must be a model of `MetaMixinSeq`.
-
-[endsect]
-
-[endsect]
-[/==========================================================================================]
-[section:new_type_hpp Header `<boost/opaque/new_type.hpp>`]
-[/==========================================================================================]
-
-    namespace boost {
-    namespace opaque {
-        template <
-            typename UT,
-            typename Tag,
-	    typename Bool=bool,
-            typename MetaMixinSeq=boost::mpl::vector0<>,
-            typename Base=base_new_type>
-        class new_type;
-    }
-    }
-
-[/==========================================================================================]
-[section:new_type Class Template `new_type<>`]
-[/==========================================================================================]
-
-`new_type<>` provides the equivalent of `new_class<>` but can be used as a typedef.
-
-        template <
-            typename UT,
-            typename Tag,
-	    typename Bool,
-            typename MetaMixinSeq,
-            typename Base
-        class new_type
-            : public new_class<new_type<UT, Tag, Bool, MetaMixinSeq, Base>, UT, MetaMixinSeq, Base>
-        {
-        public:
-            template <typename W>
-            explicit new_type(W v);
-            new_type();
-            new_type(const new_type & rhs);
-            explicit new_type(UT v);
-        };
-
-[*Requirements]
-
-* `UT` must be a model of a `CopyConstructible` and `Assignable`.
-* `Tag` must be a unique class.
-* `MetaMixinSeq` must be a model of `MetaMixinSeq`: defaulted to the empty sequence.
-* `Base` is defaulted to the base class of all the new types `base_new_type`.
-
-
-[endsect]
-
-[/==========================================================================================]
-[section:opaque_static_cast Non-Member Function Template Specialization `opaque_static_cast<>`]
-[/==========================================================================================]
-
-        template <
-            typename T,
-            typename UT,
-            typename Tag,
-            typename MetaMixinSeq,
-            typename Base
-        >
-        T opaque_static_cast(new_type<UT,Tag,MetaMixinSeq,Base> const& v);
-
-[endsect]
-
-[endsect]
-
-[/==========================================================================================]
-[section:boolean_hpp Header `<boost/opaque/boolean.hpp>`]
-[/==========================================================================================]
-
-    namespace boost {
-        namespace opaque {
-            class boolean;
-        }
-    }
-
-
-[/==========================================================================================]
-[section:boolean Class `boolean`]
-[/==========================================================================================]
-
-            class boolean {
-            public:
-                explicit boolean(const bool b);
-
-                operator unspecified_bool_type() const;
-                boolean operator!() const;
-                boolean operator&&(boolean rhs) const;
-                boolean operator||(boolean rhs) const;
-            };
-            const boolean true_;
-            const boolean false_;
-
-[endsect]
-
-
-[endsect]
-
-
-
-[/==========================================================================================]
-[section:private_opaque_class_hpp Header `<boost/opaque/private_opaque_class.hpp>`]
-[/==========================================================================================]
-
-    namespace boost {
-    namespace opaque {
-        class base_private_opaque_type;
-        template <
-            typename Final,
-            typename UT,
-	    typename Bool=bool,
-            typename MetaMixinSeq=boost::mpl::vector0<>,
-            typename Base=base_private_opaque_type
-        >
-        class private_opaque_class;
-    }
-    }
-
-
-[/==========================================================================================]
-[section:base_private_opaque_type Class `base_private_opaque_type`]
-[/==========================================================================================]
-
-This is the base class of all the private opaque types.
-
-    class base_private_opaque_type {};
-
-[endsect]
-
-[/==========================================================================================]
-[section:private_opaque_class Class Template `private_opaque_class<>`]
-[/==========================================================================================]
-
-Resuming:
-
-* Can instances of UT be explicitly converted to instances of OT? Yes
-* Can instances of convertibles to UT be explicitly converted to instances of OT? Yes
-* Can instances of UT be implicitly converted to instances of OT? No
-* Can instances of OT be explicitly converted to instances of UT? Yes.
-* Can instances of OT be explicitly converted to instances of convertible to UT? Yes
-* Can instances of OT be implicitly converted to instances of UT? No
-* Can instances of OT be implicitly converted to instances of convertible to UT? No
-
-[note On compilers don't supporting explicit conversion operators, the explicit conversion must be done through the `underlying` function]
-
-`private_opaque_class<>` is a `new_class` with the `transitive_explicit_substituable<base_private_opaque_type>` and `inherited_from_underlying<UT>` added to the sequence of meta-mixins MetaMixinSeq, so a `private_opaque_class` inherits from all the operations of tye underlying type and adds transitive explicit conversions to all the substituables. The nested typedef `substituables` is the MPL sequence of all the UT in the opaque type hierarchy.
-
-
-
-    template <
-        typename Final,
-        typename UT,
-        typename MetaMixinSeq,
-        typename Base
-    >
-    class private_opaque_class : public
-            new_class< Final, UT,
-                mpl::push<
-                    transitive_explicit_substituable<base_private_opaque_type>,
-                    mpl::push<
-                        inherited_from_underlying<UT,Bool>,
-                        MetaMixinSeq
-                    >
-                >,
-                Base
-            >
-    {
-    public:
-
-        private_opaque_class();
-        private_opaque_class(const private_opaque_class & rhs);
-        private_opaque_class(const Final & rhs);
-        explicit private_opaque_class(UT v);
-        template <typename W>
-        explicit private_opaque_class(W v);
-        explicit operator UT() const;
-    };
-
-[endsect]
-
-[endsect]
-
-[/==========================================================================================]
-[section:private_opaque_type_hpp Header `<boost/opaque/private_opaque_type.hpp>`]
-[/==========================================================================================]
-
-    namespace boost {
-    namespace opaque {
-        template <
-            typename T,
-            typename Tag=void,
-	    typename Bool=bool,
-            typename MetaMixinSeq=boost::mpl::vector0<>,
-            typename Base=base_private_opaque_type
-        >
-        class private_opaque_type;
-    }
-    }
-
-[/==========================================================================================]
-[section:private_opaque_type Class Template `private_opaque_type<>`]
-[/==========================================================================================]
-
-`private_opaque_type<>` provides the equivalent of `private_opaque_class<>` but can be used as a typedef.
-
-    template <
-        typename T,
-        typename Tag,
-	typename Bool,
-        typename MetaMixinSeq,
-        typename Base
-    >
-    class private_opaque_type : public
-        private_opaque_class<
-            private_opaque_type<UT,Tag,Bool,MetaMixinSeq,Base>, UT, MetaMixinSeq, Base>
-    {
-    public:
-
-        private_opaque_type();
-        private_opaque_type(const private_opaque_class & rhs);
-        private_opaque_type(const Final & rhs);
-        explicit private_opaque_type(UT v);
-        template <typename W>
-        explicit private_opaque_type(W v);
-    };
-
-[*Requirements]
-
-* `UT` must be a model of a `CopyConstructible` and `Assignable`.
-* `Tag` must be a unique class.
-* `Bool` must be a model of a boolean 
-* `MetaMixinSeq` must be a model of `MetaMixinSeq`: defaulted to the empty sequence.
-* `Base` is defaulted to the base class of all the new types `base_new_type`.
-
-
-[endsect]
-[endsect]
-
-[/==========================================================================================]
-[section:public_opaque_class_hpp Header `<boost/opaque/public_opaque_class.hpp>`]
-[/==========================================================================================]
-
-    namespace boost {
-    namespace opaque {
-        class base_public_opaque_type;
-
-        template <typename T>
-        struct get_substituables;
-
-        template <
-            typename Final,
-            typename UT,
-	    typename Bool=bool,
-            typename MetaMixinSeq=boost::mpl::vector0<>,
-            typename Base=base_public_opaque_type
-        >
-        class public_opaque_class;
-    }
-    }
-
-
-[/==========================================================================================]
-[section:private_opaque_class Class `base_public_opaque_type`]
-[/==========================================================================================]
-
-This is the base class of all the public opaque types.
-
-        class base_public_opaque_type {};
-
-[endsect]
-[/==========================================================================================]
-[section:get_substituables Class Template `get_substituables<>`]
-[/==========================================================================================]
-
-        template <typename T>
-        struct get_substituables {
-            typedef <see below> type;
-        }
-
-The nested typedef `type` is an MPL sequence of all the UT in the opaque type hierarchy.
-
-[endsect]
-
-[/==========================================================================================]
-[section:public_opaque_class Class Template `public_opaque_class<>`]
-[/==========================================================================================]
-
-Resuming:
-
-* Can instances of UT be explicitly converted to instances of OT? Yes
-* Can instances of UT be implicitly converted to instances of OT? No
-* Can instances of OT be explicitly converted to instances of UT? Yes
-* Can instances of OT be explicitly converted to instances of convertible to UT? Yes
-* Can instances of OT be implicitly converted to instances of UT? Yes
-* Can instances of OT be implicitly converted to instances of convertible to UT? Yes
-
-`public_opaque_class<>` is a `new_class` with the `transitive_substituable<base_public_opaque_type>` and `inherited_from_underlying<UT>` added to the sequence of meta-mixins MetaMixinSeq, so a public_opaque_type inherits from all the operations of tye underlying type and adds transitive implicit conversions to all the substituables. The nested typedef `substituables` is the MPL sequence of all the UT in the opaque type hierarchy.
-
-
-        template <
-            typename Final,
-            typename UT,
-	    typename Bool,
-            typename MetaMixinSeq=boost::mpl::vector0<>,
-            typename Base=base_public_opaque_type
-        >
-        class public_opaque_class
-            : public new_class< Final, UT,
-                mpl::push<
-                    transitive_substituable<base_public_opaque_type>,
-                    mpl::push<
-                        inherited_from_underlying<UT,Bool>,
-                        MetaMixinSeq
-                    >
-                >,
-                Base
-            >
-        {
-        public:
-            typedef <see below> substituables;
-
-            public_opaque_class();
-            public_opaque_class(const public_opaque_class & rhs);
-            public_opaque_class(const Final & rhs);
-            explicit public_opaque_class(UT v);
-            template <typename W>
-            explicit public_opaque_class(W v);
-
-        };
-       
-[endsect]
-
-
-[endsect]
-
-[/==========================================================================================]
-[section:public_opaque_type_hpp Header `<boost/opaque/public_opaque_type.hpp>`]
-[/==========================================================================================]
-
-    namespace boost {
-    namespace opaque {
-        template <
-            typename Final,
-            typename UT,
-	    typename Bool=bool,
-            typename MetaMixinSeq=boost::mpl::vector0<>,
-            typename Base=base_public_opaque_type
-        >
-        class public_opaque_type;
-    }
-    }
-
-[/==========================================================================================]
-[section:public_opaque_type Class Template `public_opaque_type<>`]
-[/==========================================================================================]
-
-`public_opaque_type<>` provides the equivalent of `public_opaque_class<>` but can be used as a typedef.
-
-    template <
-        typename Final,
-        typename UT,
-	typename Bool,
-        typename MetaMixinSeq,
-        typename Base
-    >
-    class public_opaque_type : public
-        public_opaque_class<
-            public_opaque_type<UT,Tag,Bool,MetaMixinSeq,Base>, UT, MetaMixinSeq, Base>
-    {
-    public:
-
-        public_opaque_type();
-        public_opaque_type(const public_opaque_type & rhs);
-        public_opaque_type(const Final & rhs);
-        explicit public_opaque_type(UT v);
-        template <typename W>
-        explicit public_opaque_type(W v);
-    };
-
-[*Requirements]
-
-* `UT` must be a model of a `CopyConstructible` and `Assignable`.
-* `Tag` must be a unique class.
-* `MetaMixinSeq` must be a model of `MetaMixinSeq`: defaulted to the empty sequence.
-* `Base` is defaulted to the base class of all the new types `base_new_type`.
-
-[endsect]
-[endsect]
-
-
-[/==========================================================================================]
-[section:macros_hpp Header `<boost/opaque/macros.hpp>`]
-[/==========================================================================================]
-
-
-
-[endsect]
-]
 
 
 [section Operators and Combined Meta-Mixins]
 
-[/
-
-[/==========================================================================================]
-[section:linear_hierarchy_hpp Header `<boost/opaque/meta_mixin/linear_hierarchy.hpp>`]
-[/==========================================================================================]
-
-    namespace boost {
-        template<typename MetaMixinSeq, typename Final, typename Base>
-        struct linear_hierarchy;
-    }
-
-[/==========================================================================================]
-[section:linear_hierarchy Class Template `linear_hierarchy<>`]
-[/==========================================================================================]
-
-The `linear_hierarchy` metafunction gererates a linear hierarchy by folding the Mixins obtained by application of the `MetaMixin`s in `MetaMixinSeq`.
-
-        template<typename MetaMixinSeq, typename Final, typename Base>
-        struct linear_hierarchy {
-            typedef <see below> type;
-        };
-
-The nested `type` is equivalent to `typename boost::mpl::fold<MetaMixinSeq, Base, implementation_defined<Final> >::type`.
-
-[endsect]
-[endsect]
-
-[/==========================================================================================]
-[section:inherited_from_underlying_hpp Header `<boost/opaque/meta_mixin/inherited_from_underlying.hpp>`]
-[/==========================================================================================]
-
-    namespace boost {
-        template <typename T, typename Bool=bool>
-        struct inherited_from_underlying;
-    }
-
-[/==========================================================================================]
-[section:inherited_from_underlying Class Template `inherited_from_underlying<>`]
-[/==========================================================================================]
-
-        template <typename T, typename Bool>
-        struct inherited_from_underlying;
-
-`inherited_from_underlying` is a `MetaMixin` which adds wrapping member to the underlying type `UT`.
-
-This class must be specialized for specific types in order to make easier the construction of opaque types having `UT` as underlying type. For example the library provide specializations for each one of the built-in types.
-
-    template <typename Bool>
-    struct inherited_from_underlying<int> {
-        template <typename Final, typename Base>
-        struct type; //implementation defined
-    };
-    
-[endsect]
-
-[endsect]
-]
 [/==========================================================================================]
 [section:using_operators_hpp Using Operators Meta-Mixins]
 [/==========================================================================================]
@@ -1584,7 +1009,7 @@ This meta-mixin provides the Final class explicit conversions for all the underl
 
 [section:history Appendix A: History]
 
-[section [*Version 0.1.1, Febraury 18, 2011] ]
+[section [*Version 0.1.1, Mars 30, 2011] ]
 
 [*Tests:]
 
