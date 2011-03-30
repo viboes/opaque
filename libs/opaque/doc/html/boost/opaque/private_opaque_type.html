@@ -38,13 +38,13 @@
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// <a class="link" href="private_opaque_type.html#boost.opaque.private_opaque_typeconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="private_opaque_type.html#id35973462-bb"><span class="identifier">private_opaque_type</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="private_opaque_type.html#id35973463-bb"><span class="identifier">private_opaque_type</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="private_opaque_type.html" title="Class template private_opaque_type">private_opaque_type</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">explicit</span> <a class="link" href="private_opaque_type.html#id35973472-bb"><span class="identifier">private_opaque_type</span></a><span class="special">(</span><span class="identifier">UT</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> W<span class="special">&gt;</span> <span class="keyword">explicit</span> <a class="link" href="private_opaque_type.html#id35973482-bb"><span class="identifier">private_opaque_type</span></a><span class="special">(</span><span class="identifier">W</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="private_opaque_type.html#id35973167-bb"><span class="identifier">private_opaque_type</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="private_opaque_type.html#id35973168-bb"><span class="identifier">private_opaque_type</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="private_opaque_type.html" title="Class template private_opaque_type">private_opaque_type</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="private_opaque_type.html#id35973177-bb"><span class="identifier">private_opaque_type</span></a><span class="special">(</span><span class="identifier">UT</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> W<span class="special">&gt;</span> <span class="keyword">explicit</span> <a class="link" href="private_opaque_type.html#id35973187-bb"><span class="identifier">private_opaque_type</span></a><span class="special">(</span><span class="identifier">W</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id36349879"></a><h2>Description</h2>
+<a name="id36349878"></a><h2>Description</h2>
 <p><code class="computeroutput">private_opaque_type&lt;&gt;</code> provides the equivalent of <code class="computeroutput">private_opaque_class&lt;&gt;</code> but can be used as a <code class="computeroutput">typedef</code>.</p>
 <p><span class="bold"><strong>Requires:</strong></span> </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
@@ -65,17 +65,17 @@
 <p>
 </p>
 <div class="refsect2">
-<a name="id36350007"></a><h3>
+<a name="id36350006"></a><h3>
 <a name="boost.opaque.private_opaque_typeconstruct-copy-destruct"></a><code class="computeroutput">private_opaque_type</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="id35973462-bb"></a><span class="identifier">private_opaque_type</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a name="id35973463-bb"></a><span class="identifier">private_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="private_opaque_type.html" title="Class template private_opaque_type">private_opaque_type</a> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="id35973167-bb"></a><span class="identifier">private_opaque_type</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="id35973168-bb"></a><span class="identifier">private_opaque_type</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="private_opaque_type.html" title="Class template private_opaque_type">private_opaque_type</a> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre></li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">explicit</span> <a name="id35973472-bb"></a><span class="identifier">private_opaque_type</span><span class="special">(</span><span class="identifier">UT</span> v<span class="special">)</span><span class="special">;</span></pre>explicit construction from the underlying type </li>
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="id35973177-bb"></a><span class="identifier">private_opaque_type</span><span class="special">(</span><span class="identifier">UT</span> v<span class="special">)</span><span class="special">;</span></pre>explicit construction from the underlying type </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> W<span class="special">&gt;</span> <span class="keyword">explicit</span> <a name="id35973482-bb"></a><span class="identifier">private_opaque_type</span><span class="special">(</span><span class="identifier">W</span> v<span class="special">)</span><span class="special">;</span></pre>explicit construction from convertible to the underlying type </li>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> W<span class="special">&gt;</span> <span class="keyword">explicit</span> <a name="id35973187-bb"></a><span class="identifier">private_opaque_type</span><span class="special">(</span><span class="identifier">W</span> v<span class="special">)</span><span class="special">;</span></pre>explicit construction from convertible to the underlying type </li>
 </ol></div>
 </div>
 </div>

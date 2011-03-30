@@ -1103,7 +1103,7 @@
 <pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">,</span> <span class="keyword">typename</span> Final<span class="special">,</span> <span class="keyword">typename</span> UT<span class="special">,</span> <span class="keyword">typename</span> MetaMixinSeq<span class="special">,</span> 
            <span class="keyword">typename</span> Base<span class="special">&gt;</span> 
-    <span class="identifier">T</span> <a class="link" href="boost/opaque_static_cast_id35972659.html" title="Function template opaque_static_cast"><span class="identifier">opaque_static_cast</span></a><span class="special">(</span><a class="link" href="boost/opaque/new_class.html" title="Class template new_class">opaque::new_class</a><span class="special">&lt;</span> <span class="identifier">Final</span><span class="special">,</span> <span class="identifier">UT</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">T</span> <a class="link" href="boost/opaque_static_cast_id35972364.html" title="Function template opaque_static_cast"><span class="identifier">opaque_static_cast</span></a><span class="special">(</span><a class="link" href="boost/opaque/new_class.html" title="Class template new_class">opaque::new_class</a><span class="special">&lt;</span> <span class="identifier">Final</span><span class="special">,</span> <span class="identifier">UT</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">namespace</span> <span class="identifier">opaque</span> <span class="special">{</span>
     <span class="keyword">struct</span> <a class="link" href="boost/opaque/base_opaque_type.html" title="Struct base_opaque_type">base_opaque_type</a><span class="special">;</span>
 
@@ -1121,7 +1121,7 @@
 <pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">,</span> <span class="keyword">typename</span> UT<span class="special">,</span> <span class="keyword">typename</span> Tag<span class="special">,</span> <span class="keyword">typename</span> MetaMixinSeq<span class="special">,</span> 
            <span class="keyword">typename</span> Base<span class="special">&gt;</span> 
-    <span class="identifier">T</span> <a class="link" href="boost/opaque_static_cast_id35972952.html" title="Function template opaque_static_cast"><span class="identifier">opaque_static_cast</span></a><span class="special">(</span><a class="link" href="boost/opaque/new_type.html" title="Class template new_type">opaque::new_type</a><span class="special">&lt;</span> <span class="identifier">UT</span><span class="special">,</span> <span class="identifier">Tag</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">T</span> <a class="link" href="boost/opaque_static_cast_id35972657.html" title="Function template opaque_static_cast"><span class="identifier">opaque_static_cast</span></a><span class="special">(</span><a class="link" href="boost/opaque/new_type.html" title="Class template new_type">opaque::new_type</a><span class="special">&lt;</span> <span class="identifier">UT</span><span class="special">,</span> <span class="identifier">Tag</span><span class="special">,</span> <span class="identifier">MetaMixinSeq</span><span class="special">,</span> <span class="identifier">Base</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">namespace</span> <span class="identifier">opaque</span> <span class="special">{</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> UT<span class="special">,</span> <span class="keyword">typename</span> Tag<span class="special">,</span> 
              <span class="keyword">typename</span> MetaMixinSeq <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;</span><span class="special">&gt;</span><span class="special">,</span> 
@@ -1220,23 +1220,23 @@
       <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlying.html" title="Struct template inherited_from_underlying">inherited_from_underlying</a><span class="special">;</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool <span class="special">=</span> <span class="keyword">bool</span><span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_arithmetic.html" title="Struct template inherited_from_arithmetic">inherited_from_arithmetic</a><span class="special">;</span>
 
-    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970990.html" title="Struct template inherited_from_underlying&lt;char, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
-    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35971011.html" title="Struct template inherited_from_underlying&lt;short, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">short</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
-    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35971030.html" title="Struct template inherited_from_underlying&lt;int, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
-    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35971049.html" title="Struct template inherited_from_underlying&lt;long, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">long</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
-    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35971068.html" title="Struct template inherited_from_underlying&lt;long long, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">long</span> <span class="keyword">long</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970694.html" title="Struct template inherited_from_underlying&lt;char, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970716.html" title="Struct template inherited_from_underlying&lt;short, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">short</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970734.html" title="Struct template inherited_from_underlying&lt;int, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970753.html" title="Struct template inherited_from_underlying&lt;long, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">long</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970772.html" title="Struct template inherited_from_underlying&lt;long long, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">long</span> <span class="keyword">long</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> 
-      <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35971087.html" title="Struct template inherited_from_underlying&lt;unsigned char, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">char</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
+      <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970791.html" title="Struct template inherited_from_underlying&lt;unsigned char, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">char</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> 
-      <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35971106.html" title="Struct template inherited_from_underlying&lt;unsigned short, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">short</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
+      <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970810.html" title="Struct template inherited_from_underlying&lt;unsigned short, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">short</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> 
-      <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35971125.html" title="Struct template inherited_from_underlying&lt;unsigned int, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
+      <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970829.html" title="Struct template inherited_from_underlying&lt;unsigned int, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> 
-      <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35971144.html" title="Struct template inherited_from_underlying&lt;unsigned long, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">long</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
+      <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970848.html" title="Struct template inherited_from_underlying&lt;unsigned long, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">long</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> 
-      <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35971163.html" title="Struct template inherited_from_underlying&lt;unsigned long long, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
-    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35971182.html" title="Struct template inherited_from_underlying&lt;float, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
-    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35971201.html" title="Struct template inherited_from_underlying&lt;double, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">double</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
+      <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970867.html" title="Struct template inherited_from_underlying&lt;unsigned long long, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970886.html" title="Struct template inherited_from_underlying&lt;float, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
+    <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Bool<span class="special">&gt;</span> <span class="keyword">struct</span> <a class="link" href="boost/opaque/inherited_from_underlyi_id35970905.html" title="Struct template inherited_from_underlying&lt;double, Bool&gt;">inherited_from_underlying</a><span class="special">&lt;</span><span class="keyword">double</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span><span class="special">;</span>
   <span class="special">}</span>
 <span class="special">}</span></pre>
 </div>
@@ -1265,7 +1265,7 @@
 <pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
   <span class="keyword">namespace</span> <span class="identifier">opaque</span> <span class="special">{</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> BaseClass<span class="special">,</span> <span class="keyword">typename</span> UT<span class="special">&gt;</span> 
-      <span class="keyword">struct</span> <a class="link" href="boost/opaque/using_explicit_conversi_id35971297.html" title="Struct template using_explicit_conversion_to_underlying_type_hierarchy">using_explicit_conversion_to_underlying_type_hierarchy</a><span class="special">;</span>
+      <span class="keyword">struct</span> <a class="link" href="boost/opaque/using_explicit_conversi_id35971001.html" title="Struct template using_explicit_conversion_to_underlying_type_hierarchy">using_explicit_conversion_to_underlying_type_hierarchy</a><span class="special">;</span>
   <span class="special">}</span>
 <span class="special">}</span></pre>
 </div>
@@ -1276,7 +1276,7 @@
 <pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
   <span class="keyword">namespace</span> <span class="identifier">opaque</span> <span class="special">{</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> BaseClass<span class="special">,</span> <span class="keyword">typename</span> UT<span class="special">&gt;</span> 
-      <span class="keyword">struct</span> <a class="link" href="boost/opaque/using_implicit_conversi_id35971359.html" title="Struct template using_implicit_conversion_to_underlying_type_hierarchy">using_implicit_conversion_to_underlying_type_hierarchy</a><span class="special">;</span>
+      <span class="keyword">struct</span> <a class="link" href="boost/opaque/using_implicit_conversi_id35971063.html" title="Struct template using_implicit_conversion_to_underlying_type_hierarchy">using_implicit_conversion_to_underlying_type_hierarchy</a><span class="special">;</span>
   <span class="special">}</span>
 <span class="special">}</span></pre>
 </div>
@@ -1596,7 +1596,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_equal2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_equal2</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
                     </p>
                   </td>
 <td>
@@ -1622,7 +1622,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_not_equal2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_not_equal2</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
                     </p>
                   </td>
 <td>
@@ -1648,7 +1648,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_less_than2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_less_than2</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
                     </p>
                   </td>
 <td>
@@ -1674,7 +1674,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_less_than_equal2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_less_than_equal2</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
                     </p>
                   </td>
 <td>
@@ -1700,7 +1700,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_greater_than_equal2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_greater_than_equal2</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
                     </p>
                   </td>
 <td>
@@ -1726,7 +1726,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_greater_than2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">,</span> <span class="identifier">Bool</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_greater_than2</span><span class="special">&lt;</span><span class="identifier">Bool</span><span class="special">&gt;</span></code>
                     </p>
                   </td>
 <td>
@@ -2171,7 +2171,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_plus2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_plus2</span></code>
                     </p>
                   </td>
 <td>
@@ -2197,7 +2197,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_plus_assign2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_plus_assign2</span></code>
                     </p>
                   </td>
 <td>
@@ -2221,7 +2221,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_minus2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_minus2</span></code>
                     </p>
                   </td>
 <td>
@@ -2247,7 +2247,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_minus_assign2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_minus_assign2</span></code>
                     </p>
                   </td>
 <td>
@@ -2271,7 +2271,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_multiply2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_multiply2</span></code>
                     </p>
                   </td>
 <td>
@@ -2297,7 +2297,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_multiply_assign2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_multiply_assign2</span></code>
                     </p>
                   </td>
 <td>
@@ -2321,7 +2321,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_divide2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_divide2</span></code>
                     </p>
                   </td>
 <td>
@@ -2347,7 +2347,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_divide_assign2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_divide_assign2</span></code>
                     </p>
                   </td>
 <td>
@@ -2371,7 +2371,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_modulus2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_modulus2</span></code>
                     </p>
                   </td>
 <td>
@@ -2397,7 +2397,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_modulus_assign2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_modulus_assign2</span></code>
                     </p>
                   </td>
 <td>
@@ -2728,7 +2728,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_bitwise_xor2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_xor2</span></code>
                     </p>
                   </td>
 <td>
@@ -2754,7 +2754,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_bitwise_xor_assign2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_xor_assign2</span></code>
                     </p>
                   </td>
 <td>
@@ -2778,7 +2778,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_bitwise_or2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_or2</span></code>
                     </p>
                   </td>
 <td>
@@ -2804,7 +2804,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_bitwise_and2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_and2</span></code>
                     </p>
                   </td>
 <td>
@@ -2830,7 +2830,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_bitwise_and_assign2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_and_assign2</span></code>
                     </p>
                   </td>
 <td>
@@ -2854,7 +2854,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_bitwise_or_assign2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_bitwise_or_assign2</span></code>
                     </p>
                   </td>
 <td>
@@ -2878,7 +2878,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_left_shift2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_left_shift2</span></code>
                     </p>
                   </td>
 <td>
@@ -2904,7 +2904,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_left_right_assign2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_left_right_assign2</span></code>
                     </p>
                   </td>
 <td>
@@ -2928,7 +2928,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_right_shift2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_right_shift2</span></code>
                     </p>
                   </td>
 <td>
@@ -2954,7 +2954,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">using_right_shift_assign2</span><span class="special">&lt;</span><span class="identifier">NT2</span><span class="special">&gt;</span></code>
+                      <code class="computeroutput"><span class="identifier">using_right_shift_assign2</span></code>
                     </p>
                   </td>
 <td>
@@ -4249,7 +4249,7 @@
       Rationale</a>
 </h3></div></div></div>
 <a name="boost.opaque.appendices.rationale.lala"></a><h5>
-<a name="id36372494"></a>
+<a name="id36372187"></a>
         <a class="link" href="index.html#boost.opaque.appendices.rationale.lala">lala</a>
       </h5>
 </div>
@@ -4259,7 +4259,7 @@
       Notes</a>
 </h3></div></div></div>
 <a name="boost.opaque.appendices.implementation.lala"></a><h5>
-<a name="id36372528"></a>
+<a name="id36372220"></a>
         <a class="link" href="index.html#boost.opaque.appendices.implementation.lala">lala</a>
       </h5>
 </div>
@@ -5693,7 +5693,7 @@
 <a name="boost.opaque.appendices.todo"></a><a class="link" href="index.html#boost.opaque.appendices.todo" title="Appendix F: Future plans">Appendix F: Future plans</a>
 </h3></div></div></div>
 <a name="boost.opaque.appendices.todo.tasks_to_do_before_review"></a><h5>
-<a name="id36375470"></a>
+<a name="id36375163"></a>
         <a class="link" href="index.html#boost.opaque.appendices.todo.tasks_to_do_before_review">Tasks
         to do before review</a>
       </h5>
@@ -5712,7 +5712,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: March 29, 2011 at 20:25:25 GMT</small></p></td>
+<td align="left"><p><small>Last revised: March 30, 2011 at 20:29:59 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
