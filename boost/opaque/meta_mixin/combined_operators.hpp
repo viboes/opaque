@@ -63,17 +63,17 @@ namespace opaque {
         };
     };
 
-#define BOOST_OPAQUE_USING_LESS_THAN_COMPARABLE2(Final, U, Bool) \
-        BOOST_OPAQUE_USING_LESS_THAN2(Final, U,Bool) \
-        BOOST_OPAQUE_USING_LESS_THAN_EQUAL2(Final, U,Bool) \
-        BOOST_OPAQUE_USING_GREATER_THAN2(Final, U,Bool) \
-        BOOST_OPAQUE_USING_GREATER_THAN_EQUAL2(Final, U,Bool)
+#define BOOST_OPAQUE_USING_LESS_THAN_COMPARABLE2(Final, Bool) \
+        BOOST_OPAQUE_USING_LESS_THAN2(Final,Bool) \
+        BOOST_OPAQUE_USING_LESS_THAN_EQUAL2(Final,Bool) \
+        BOOST_OPAQUE_USING_GREATER_THAN2(Final,Bool) \
+        BOOST_OPAQUE_USING_GREATER_THAN_EQUAL2(Final,Bool)
 
-    template <typename U, typename Bool=bool>
+    template <typename Bool=bool>
     struct using_less_than_comparable2 {
         template <typename Final, typename Base>
         struct type : Base {
-            BOOST_OPAQUE_USING_LESS_THAN_COMPARABLE2(Final, U, Bool)
+            BOOST_OPAQUE_USING_LESS_THAN_COMPARABLE2(Final, Bool)
         };
     };
 
@@ -90,15 +90,14 @@ namespace opaque {
         };
     };
 
-#define BOOST_OPAQUE_USING_ADDABLE2(Final,U) \
+#define BOOST_OPAQUE_USING_ADDABLE2(Final) \
         BOOST_OPAQUE_USING_PLUS_ASSIGN(Final) \
-        BOOST_OPAQUE_USING_PLUS2(Final,U)
+        BOOST_OPAQUE_USING_PLUS2(Final)
 
-    template <typename U>
     struct using_addable2 {
         template <typename Final, typename Base>
         struct type : Base {
-        BOOST_OPAQUE_USING_ADDABLE2(Final, U)
+        BOOST_OPAQUE_USING_ADDABLE2(Final)
         };
     };
 
@@ -115,15 +114,14 @@ namespace opaque {
         };
     };
 
-#define BOOST_OPAQUE_USING_SUBTRACTABLE2(Final, U) \
+#define BOOST_OPAQUE_USING_SUBTRACTABLE2(Final) \
         BOOST_OPAQUE_USING_MINUS_ASSIGN(Final) \
-        BOOST_OPAQUE_USING_MINUS2(Final, U)
+        BOOST_OPAQUE_USING_MINUS2(Final)
 
-    template <typename U>
     struct using_subtractable2 {
         template <typename Final, typename Base>
         struct type : Base {
-            BOOST_OPAQUE_USING_SUBTRACTABLE2(Final, U)
+            BOOST_OPAQUE_USING_SUBTRACTABLE2(Final)
         };
     };
 
@@ -140,15 +138,14 @@ namespace opaque {
         };
     };
 
-#define BOOST_OPAQUE_USING_MULTIPLIABLE2(Final, U) \
+#define BOOST_OPAQUE_USING_MULTIPLIABLE2(Final) \
         BOOST_OPAQUE_USING_MULTIPLY_ASSIGN(Final) \
-        BOOST_OPAQUE_USING_MULTIPLY2(Final, U)
+        BOOST_OPAQUE_USING_MULTIPLY2(Final)
 
-    template <typename U>
     struct using_multipliable2 {
         template <typename Final, typename Base>
         struct type : Base {
-            BOOST_OPAQUE_USING_MULTIPLIABLE2(Final, U)
+            BOOST_OPAQUE_USING_MULTIPLIABLE2(Final)
         };
     };
 
@@ -165,15 +162,14 @@ namespace opaque {
         };
     };
 
-#define BOOST_OPAQUE_USING_DIVIDABLE2(Final, U) \
+#define BOOST_OPAQUE_USING_DIVIDABLE2(Final) \
         BOOST_OPAQUE_USING_DIVIDE_ASSIGN(Final) \
-        BOOST_OPAQUE_USING_DIVIDE2(Final, U)
+        BOOST_OPAQUE_USING_DIVIDE2(Final)
 
-    template <typename U>
     struct using_dividable2 {
         template <typename Final, typename Base>
         struct type : Base {
-            BOOST_OPAQUE_USING_DIVIDABLE2(Final, U)
+            BOOST_OPAQUE_USING_DIVIDABLE2(Final)
         };
     };
 
@@ -203,15 +199,14 @@ namespace opaque {
         };
     };
 
-#define BOOST_OPAQUE_USING_BITWISE_XORABLE2(Final, U) \
+#define BOOST_OPAQUE_USING_BITWISE_XORABLE2(Final) \
         BOOST_OPAQUE_USING_BITWISE_XOR_ASSIGN(Final) \
-        BOOST_OPAQUE_USING_BITWISE_XOR2(Final, U)
+        BOOST_OPAQUE_USING_BITWISE_XOR2(Final)
 
-    template <typename U>
     struct using_bitwise_xorable2 {
         template <typename Final, typename Base>
         struct type : Base {
-            BOOST_OPAQUE_USING_BITWISE_XORABLE2(Final, U)
+            BOOST_OPAQUE_USING_BITWISE_XORABLE2(Final)
         };
     };
 
@@ -228,15 +223,14 @@ namespace opaque {
         };
     };
 
-#define BOOST_OPAQUE_USING_BITWISE_ANDABLE2(Final, U) \
+#define BOOST_OPAQUE_USING_BITWISE_ANDABLE2(Final) \
         BOOST_OPAQUE_USING_BITWISE_AND_ASSIGN(Final) \
-        BOOST_OPAQUE_USING_BITWISE_AND2(Final, U)
+        BOOST_OPAQUE_USING_BITWISE_AND2(Final)
 
-    template <typename U>
     struct using_bitwise_andable2 {
         template <typename Final, typename Base>
         struct type : Base {
-            BOOST_OPAQUE_USING_BITWISE_ANDABLE2(Final, U)
+            BOOST_OPAQUE_USING_BITWISE_ANDABLE2(Final)
         };
     };
 
@@ -253,15 +247,14 @@ namespace opaque {
         };
     };
 
-#define BOOST_OPAQUE_USING_BITWISE_ORABLE2(Final, U) \
+#define BOOST_OPAQUE_USING_BITWISE_ORABLE2(Final) \
         BOOST_OPAQUE_USING_BITWISE_OR_ASSIGN(Final) \
-        BOOST_OPAQUE_USING_BITWISE_OR2(Final, U)
+        BOOST_OPAQUE_USING_BITWISE_OR2(Final)
 
-    template <typename U>
     struct using_bitwise_orable2 {
         template <typename Final, typename Base>
         struct type : Base {
-            BOOST_OPAQUE_USING_BITWISE_ORABLE2(Final, U)
+            BOOST_OPAQUE_USING_BITWISE_ORABLE2(Final)
         };
     };
 
@@ -352,15 +345,15 @@ namespace opaque {
         };
     };
 
-#define BOOST_OPAQUE_USING_TOTALY_ORDERED2(Final, U, Bool) \
+#define BOOST_OPAQUE_USING_TOTALY_ORDERED2(Final, Bool) \
         BOOST_OPAQUE_USING_EQUALITY_COMPARABLE(Final, Bool) \
-        BOOST_OPAQUE_USING_LESS_THAN_COMPARABLE2(Final, U, Bool)
+        BOOST_OPAQUE_USING_LESS_THAN_COMPARABLE2(Final, Bool)
 
-    template <typename U, typename Bool=bool>
+    template <typename Bool=bool>
     struct using_totally_ordered2 {
         template <typename Final, typename Base>
         struct type : Base {
-            BOOST_OPAQUE_USING_TOTALY_ORDERED2(Final, U, Bool)
+            BOOST_OPAQUE_USING_TOTALY_ORDERED2(Final, Bool)
         };
     };
 
@@ -377,15 +370,14 @@ namespace opaque {
         };
     };
 
-    #define BOOST_OPAQUE_USING_ADDITIVE2(Final, U) \
-      BOOST_OPAQUE_USING_ADDABLE2(Final, U) \
-      BOOST_OPAQUE_USING_SUBTRACTABLE2(Final, U)
+    #define BOOST_OPAQUE_USING_ADDITIVE2(Final) \
+      BOOST_OPAQUE_USING_ADDABLE2(Final) \
+      BOOST_OPAQUE_USING_SUBTRACTABLE2(Final)
 
-    template <typename U>
     struct using_additive2 {
       template <typename Final, typename Base>
       struct type : Base {
-        BOOST_OPAQUE_USING_ADDITIVE2(Final, U)
+        BOOST_OPAQUE_USING_ADDITIVE2(Final)
       };
     };
 
@@ -404,15 +396,14 @@ namespace opaque {
         };
     };
 
-    #define BOOST_OPAQUE_USING_MULTIPLICATIVE2(Final, U) \
-      BOOST_OPAQUE_USING_MULTIPLIABLE2(Final, U) \
-      BOOST_OPAQUE_USING_DIVIDABLE2(Final, U)
+    #define BOOST_OPAQUE_USING_MULTIPLICATIVE2(Final) \
+      BOOST_OPAQUE_USING_MULTIPLIABLE2(Final) \
+      BOOST_OPAQUE_USING_DIVIDABLE2(Final)
 
-    template <typename U>
     struct using_multiplicative2 {
       template <typename Final, typename Base>
       struct type : Base {
-        BOOST_OPAQUE_USING_MULTIPLICATIVE2(Final, U)
+        BOOST_OPAQUE_USING_MULTIPLICATIVE2(Final)
       };
     };
 
@@ -446,17 +437,16 @@ namespace opaque {
         };
     };
 
-#define BOOST_OPAQUE_USING_ARITHMETIC2(Final, U) \
-    BOOST_OPAQUE_USING_ADDITIVE2(Final, U) \
-    BOOST_OPAQUE_USING_MULTIPLICATIVE2(Final, U)
+#define BOOST_OPAQUE_USING_ARITHMETIC2(Final) \
+    BOOST_OPAQUE_USING_ADDITIVE2(Final) \
+    BOOST_OPAQUE_USING_MULTIPLICATIVE2(Final)
 
-    template <typename U>
 struct using_arithmetic2
 {
     template <typename Final, typename Base = base_opaque_type >
     struct type : Base
     {
-        BOOST_OPAQUE_USING_ARITHMETIC2(Final, U)
+        BOOST_OPAQUE_USING_ARITHMETIC2(Final)
     };
 };
 
@@ -479,8 +469,8 @@ struct using_arithmetic2
 
     //~ template <class T, class U, typename Base = base_opaque_type >
     //~ struct bitwise2
-        //~ : opaque::xorable2<T, U
-        //~ , opaque::andable2<T, U
+        //~ : opaque::xorable2<T
+        //~ , opaque::andable2<T
         //~ , opaque::orable2<T, U, Base
           //~ > > > {};
 
@@ -500,18 +490,17 @@ struct using_arithmetic2
         };
     };
 
-#define BOOST_OPAQUE_USING_BITWISE2(Final, U) \
-    BOOST_OPAQUE_USING_BITWISE_XORABLE2(Final, U) \
-    BOOST_OPAQUE_USING_BITWISE_ANDABLE2(Final, U) \
-    BOOST_OPAQUE_USING_BITWISE_ORABLE2(Final, U)
+#define BOOST_OPAQUE_USING_BITWISE2(Final) \
+    BOOST_OPAQUE_USING_BITWISE_XORABLE2(Final) \
+    BOOST_OPAQUE_USING_BITWISE_ANDABLE2(Final) \
+    BOOST_OPAQUE_USING_BITWISE_ORABLE2(Final)
 
-    template <typename U>
 struct using_bitwise2
 {
     template <typename Final, typename Base = base_opaque_type >
     struct type : Base
     {
-        BOOST_OPAQUE_USING_BITWISE2(Final, U)
+        BOOST_OPAQUE_USING_BITWISE2(Final)
     };
 };
 
@@ -568,17 +557,16 @@ struct using_bitwise2
         };
     };
 
-#define BOOST_OPAQUE_USING_RING_OPERATORS2(Final, U) \
-    BOOST_OPAQUE_USING_ADDITIVE2(Final, U) \
-    BOOST_OPAQUE_USING_MULTIPLIABLE2(Final, U)
+#define BOOST_OPAQUE_USING_RING_OPERATORS2(Final) \
+    BOOST_OPAQUE_USING_ADDITIVE2(Final) \
+    BOOST_OPAQUE_USING_MULTIPLIABLE2(Final)
 
-    template <typename U>
 struct using_ring_operators2
 {
     template <typename Final, typename Base = base_opaque_type >
     struct type: Base
     {
-      BOOST_OPAQUE_USING_RING_OPERATORS2(Final, U)
+      BOOST_OPAQUE_USING_RING_OPERATORS2(Final)
     };
 };
 
@@ -599,17 +587,17 @@ struct using_ring_operators2
         };
     };
 
-#define BOOST_OPAQUE_USING_ORDERED_RING_OPERATORS2(Final, U, Bool) \
-    BOOST_OPAQUE_USING_RING_OPERATORS2(Final, U) \
-    BOOST_OPAQUE_USING_TOTALY_ORDERED2(Final, U,Bool)
+#define BOOST_OPAQUE_USING_ORDERED_RING_OPERATORS2(Final, Bool) \
+    BOOST_OPAQUE_USING_RING_OPERATORS2(Final) \
+    BOOST_OPAQUE_USING_TOTALY_ORDERED2(Final,Bool)
 
-template <typename U, typename Bool=bool>
+template <typename Bool=bool>
 struct using_ordered_ring_operators2
 {
     template <typename Final, typename Base = base_opaque_type>
     struct type : Base
     {
-        BOOST_OPAQUE_USING_ORDERED_RING_OPERATORS2(Final, U,Bool)
+        BOOST_OPAQUE_USING_ORDERED_RING_OPERATORS2(Final,Bool)
     };
 };
 
@@ -637,17 +625,16 @@ struct using_ordered_ring_operators2
         };
     };
 
-#define BOOST_OPAQUE_USING_FIELD_OPERATORS2(Final, U) \
-     BOOST_OPAQUE_USING_RING_OPERATORS2(Final, U) \
-     BOOST_OPAQUE_USING_DIVIDABLE2(Final, U)
+#define BOOST_OPAQUE_USING_FIELD_OPERATORS2(Final) \
+     BOOST_OPAQUE_USING_RING_OPERATORS2(Final) \
+     BOOST_OPAQUE_USING_DIVIDABLE2(Final)
 
-    template <typename U>
  struct using_field_operators2
  {
      template <typename Final, typename Base = base_opaque_type>
      struct type: Base
      {
-         BOOST_OPAQUE_USING_FIELD_OPERATORS2(Final, U)
+         BOOST_OPAQUE_USING_FIELD_OPERATORS2(Final)
      };
  };
 //////////////////////////////////////////////////////////////////////////////
@@ -674,17 +661,17 @@ struct using_ordered_ring_operators2
         };
     };
 
-#define BOOST_OPAQUE_USING_ORDERED_FIELD_OPERATORS2(Final, U, Bool) \
-    BOOST_OPAQUE_USING_FIELD_OPERATORS2(Final, U) \
-    BOOST_OPAQUE_USING_TOTALY_ORDERED2(Final, U, Bool)
+#define BOOST_OPAQUE_USING_ORDERED_FIELD_OPERATORS2(Final, Bool) \
+    BOOST_OPAQUE_USING_FIELD_OPERATORS2(Final) \
+    BOOST_OPAQUE_USING_TOTALY_ORDERED2(Final, Bool)
 
-template <typename U, typename Bool=bool>
+template <typename Bool=bool>
 struct using_ordered_field_operators2
 {
     template <typename Final, typename Base = base_opaque_type>
     struct type : Base
     {
-        BOOST_OPAQUE_USING_ORDERED_FIELD_OPERATORS2(Final, U, Bool)
+        BOOST_OPAQUE_USING_ORDERED_FIELD_OPERATORS2(Final, Bool)
     };
 };
 
