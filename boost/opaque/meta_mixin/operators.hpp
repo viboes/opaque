@@ -66,6 +66,8 @@
 #include <boost/config.hpp>
 #include <boost/conversion/convert_to.hpp>
 
+#define BOOST_NO_EXPLICIT_CONVERSION_OPERATORS_BUG
+
 namespace boost {
   namespace opaque {
 
@@ -99,7 +101,7 @@ namespace boost {
             BOOST_OPAQUE_HIDING_ASSIGNEMENT(type)
         };
     };
-    
+
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_CONVERSION_TO_UNDERLYING_TYPE(Final,UT) \
@@ -144,7 +146,7 @@ namespace boost {
               return T(Final::underlying(rhs));
             }
     #if !defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
-            explicit operator UT() const
+            explicit operator T() const
             {
               return T(Final::underlying(this));
             }
@@ -829,7 +831,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
 
 //////////////////////////////////////////////////////////////////////////////
 
-// As the NT is not related to the UT by derivation, we can not overload the 
+// As the NT is not related to the UT by derivation, we can not overload the
 // operator ->* with a pointer to a member of the UT.
 // The user will need to define a specific member function
 
@@ -865,7 +867,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
         };
     };
 
-    
+
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_PRE_DECREMENT(Final) \
@@ -935,7 +937,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
     };
 
 //////////////////////////////////////////////////////////////////////////////
-    
+
 #define BOOST_OPAQUE_USING_PLUS(Final) \
     BOOST_OPAQUE_USING_BINARY_OP(Final, +, plus)
 
@@ -951,7 +953,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
 BOOST_OPAQUE_DCL_META_MIXIN_BINARY(+, plus)
 
 //////////////////////////////////////////////////////////////////////////////
-    
+
 #define BOOST_OPAQUE_USING_MINUS(Final) \
     BOOST_OPAQUE_USING_BINARY_OP(Final, -, minus)
 
@@ -982,7 +984,7 @@ BOOST_OPAQUE_DCL_META_MIXIN_BINARY(-, minus)
 
 BOOST_OPAQUE_DCL_META_MIXIN_BINARY(*, multiply)
 
-    
+
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_DIVIDE(Final) \
@@ -1062,7 +1064,7 @@ BOOST_OPAQUE_DCL_META_MIXIN_BINARY(|, bitwise_or)
     BOOST_OPAQUE_HIDING_BINARY_OP2(Final, &, bitwise_and)
 
 BOOST_OPAQUE_DCL_META_MIXIN_BINARY(&, bitwise_and)
-    
+
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_LEFT_SHIFT(Final) \
@@ -1073,7 +1075,7 @@ BOOST_OPAQUE_DCL_META_MIXIN_BINARY(&, bitwise_and)
 
 BOOST_OPAQUE_DCL_META_MIXIN_BINARY_EX(<<, left_shift)
 
-    
+
 //////////////////////////////////////////////////////////////////////////////
 
 #define BOOST_OPAQUE_USING_RIGHT_SHIFT(Final) \
@@ -1083,7 +1085,7 @@ BOOST_OPAQUE_DCL_META_MIXIN_BINARY_EX(<<, left_shift)
     BOOST_OPAQUE_HIDING_BINARY_OP_EX(Final, >>, right_shift)
 
 BOOST_OPAQUE_DCL_META_MIXIN_BINARY_EX(>>, right_shift)
-    
+
 }
 }
 
