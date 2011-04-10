@@ -33,19 +33,19 @@
 
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Final<span class="special">,</span> <span class="keyword">typename</span> UT<span class="special">,</span> <span class="keyword">typename</span> Bool <span class="special">=</span> <span class="keyword">bool</span><span class="special">,</span> 
          <span class="keyword">typename</span> MetaMixinSeq <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">vector0</span><span class="special">&lt;</span><span class="special">&gt;</span><span class="special">,</span> 
-         <span class="keyword">typename</span> Base <span class="special">=</span> <span class="identifier">base_private_opaque_type</span><span class="special">&gt;</span> 
+         <span class="keyword">typename</span> Base <span class="special">=</span> <a class="link" href="base_private_opaque_type.html" title="Struct base_private_opaque_type">base_private_opaque_type</a><span class="special">&gt;</span> 
 <span class="keyword">class</span> <a class="link" href="private_opaque_class.html" title="Class template private_opaque_class">private_opaque_class</a> <span class="special">:</span> <span class="keyword">public</span> boost::opaque::new_class&lt; Final, UT, mpl::push_front&lt; mpl::push_front&lt; MetaMixinSeq, using_explicit_conversion_to_underlying_type_hierarchy&lt; base_private_opaque_type, UT &gt; &gt;::type, inherited_from_underlying&lt; UT, Bool &gt; &gt;::type, Base &gt;
 <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// <a class="link" href="private_opaque_class.html#boost.opaque.private_opaque_classconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="private_opaque_class.html#id35972898-bb"><span class="identifier">private_opaque_class</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="private_opaque_class.html#id35972901-bb"><span class="identifier">private_opaque_class</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="private_opaque_class.html" title="Class template private_opaque_class">private_opaque_class</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="private_opaque_class.html#id35972912-bb"><span class="identifier">private_opaque_class</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">explicit</span> <a class="link" href="private_opaque_class.html#id35972924-bb"><span class="identifier">private_opaque_class</span></a><span class="special">(</span><span class="identifier">UT</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> W<span class="special">&gt;</span> <span class="keyword">explicit</span> <a class="link" href="private_opaque_class.html#id35972934-bb"><span class="identifier">private_opaque_class</span></a><span class="special">(</span><span class="identifier">W</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="private_opaque_class.html#id35973215-bb"><span class="identifier">private_opaque_class</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="private_opaque_class.html#id35973218-bb"><span class="identifier">private_opaque_class</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="private_opaque_class.html" title="Class template private_opaque_class">private_opaque_class</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="private_opaque_class.html#id35973229-bb"><span class="identifier">private_opaque_class</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="private_opaque_class.html#id35973241-bb"><span class="identifier">private_opaque_class</span></a><span class="special">(</span><span class="identifier">UT</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> W<span class="special">&gt;</span> <span class="keyword">explicit</span> <a class="link" href="private_opaque_class.html#id35973251-bb"><span class="identifier">private_opaque_class</span></a><span class="special">(</span><span class="identifier">W</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id36348845"></a><h2>Description</h2>
+<a name="id36348883"></a><h2>Description</h2>
 <p>private_opaque_class&lt;&gt; wraps an underlying type providing the regular constructors and copy construction from the underlying type and all the conversions to the the UT inheriting from all the underlying operations.</p>
 <p><span class="bold"><strong>Requires:</strong></span> </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
@@ -53,7 +53,7 @@
 <li class="listitem"><p><code class="computeroutput">UT</code> must be <span class="emphasis"><em>CopyConstructible</em></span>. </p></li>
 <li class="listitem"><p><code class="computeroutput">Bool</code> must be a model of <span class="emphasis"><em>Boolean</em></span>. </p></li>
 <li class="listitem"><p><code class="computeroutput">MetaMixinSeq</code> must be a model of <span class="emphasis"><em>MetaMixinSeq</em></span>. </p></li>
-<li class="listitem"><p><code class="computeroutput">Base</code> must inherit directly or indirectly from <code class="computeroutput">base_opaque_type</code> or be <code class="computeroutput">base_opaque_type</code>.</p></li>
+<li class="listitem"><p><code class="computeroutput">Base</code> must inherit directly or indirectly from <code class="computeroutput"><a class="link" href="base_opaque_type.html" title="Struct base_opaque_type">base_opaque_type</a></code> or be <code class="computeroutput"><a class="link" href="base_opaque_type.html" title="Struct base_opaque_type">base_opaque_type</a></code>.</p></li>
 </ul></div>
 <p>
 </p>
@@ -63,27 +63,27 @@
 <li class="listitem"><p>Can instances of convertible to UT be explicitly converted to instances of OT? Yes, there is an explicit constructor. </p></li>
 <li class="listitem"><p>Can instances of UT be implicitly converted to instances of OT? No, this is one of the main differentiating features of opaque types. </p></li>
 <li class="listitem"><p>Can instances of OT be explicitly converted to instances of UT? Yes, there is an explicit conversion operator (if supported by the compiler) or the <code class="computeroutput">underlying</code> function. </p></li>
-<li class="listitem"><p>Can instances of OT be implicitly converted to instances of UT? No, this is one of the main differentiating features of <code class="computeroutput">base_private_opaque_type</code>.</p></li>
+<li class="listitem"><p>Can instances of OT be implicitly converted to instances of UT? No, this is one of the main differentiating features of <code class="computeroutput"><a class="link" href="base_private_opaque_type.html" title="Struct base_private_opaque_type">base_private_opaque_type</a></code>.</p></li>
 </ul></div>
 <p>
-<code class="computeroutput">private_opaque_class&lt;&gt;</code> is a <code class="computeroutput">new_class</code> with the <code class="computeroutput">using_explicit_conversion_to_underlying_type_hierarchy&lt;base_private_opaque_type&gt;</code> and <code class="computeroutput">inherited_from_underlying&lt;UT&gt;</code> added to the sequence of meta-mixins <code class="computeroutput">MetaMixinSeq</code>, so a <code class="computeroutput">private_opaque_class</code> inherits from all the operations of the underlying type <code class="computeroutput">UT</code> and adds transitive explicit conversions to all the substituables. </p>
+<code class="computeroutput">private_opaque_class&lt;&gt;</code> is a <code class="computeroutput"><a class="link" href="new_class.html" title="Class template new_class">new_class</a></code> with the <code class="computeroutput">using_explicit_conversion_to_underlying_type_hierarchy&lt;base_private_opaque_type&gt;</code> and <code class="computeroutput">inherited_from_underlying&lt;UT&gt;</code> added to the sequence of meta-mixins <code class="computeroutput">MetaMixinSeq</code>, so a <code class="computeroutput"><a class="link" href="private_opaque_class.html" title="Class template private_opaque_class">private_opaque_class</a></code> inherits from all the operations of the underlying type <code class="computeroutput">UT</code> and adds transitive explicit conversions to all the substituables. </p>
 <div class="refsect2">
-<a name="id36349009"></a><h3>
+<a name="id36349077"></a><h3>
 <a name="boost.opaque.private_opaque_classconstruct-copy-destruct"></a><code class="computeroutput">private_opaque_class</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><a name="id35972898-bb"></a><span class="identifier">private_opaque_class</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>default constructor </li>
+<pre class="literallayout"><a name="id35973215-bb"></a><span class="identifier">private_opaque_class</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>default constructor </li>
 <li class="listitem">
-<pre class="literallayout"><a name="id35972901-bb"></a><span class="identifier">private_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="private_opaque_class.html" title="Class template private_opaque_class">private_opaque_class</a> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>copy constructor </li>
+<pre class="literallayout"><a name="id35973218-bb"></a><span class="identifier">private_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="private_opaque_class.html" title="Class template private_opaque_class">private_opaque_class</a> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>copy constructor </li>
 <li class="listitem">
-<pre class="literallayout"><a name="id35972912-bb"></a><span class="identifier">private_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>implicit construction from the <code class="computeroutput">Final</code>
+<pre class="literallayout"><a name="id35973229-bb"></a><span class="identifier">private_opaque_class</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Final</span> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>implicit construction from the <code class="computeroutput">Final</code>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">explicit</span> <a name="id35972924-bb"></a><span class="identifier">private_opaque_class</span><span class="special">(</span><span class="identifier">UT</span> v<span class="special">)</span><span class="special">;</span></pre>explicit construction from the underlying type </li>
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="id35973241-bb"></a><span class="identifier">private_opaque_class</span><span class="special">(</span><span class="identifier">UT</span> v<span class="special">)</span><span class="special">;</span></pre>explicit construction from the underlying type </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> W<span class="special">&gt;</span> <span class="keyword">explicit</span> <a name="id35972934-bb"></a><span class="identifier">private_opaque_class</span><span class="special">(</span><span class="identifier">W</span> v<span class="special">)</span><span class="special">;</span></pre>explicit construction from convertible to the underlying type </li>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> W<span class="special">&gt;</span> <span class="keyword">explicit</span> <a name="id35973251-bb"></a><span class="identifier">private_opaque_class</span><span class="special">(</span><span class="identifier">W</span> v<span class="special">)</span><span class="special">;</span></pre>explicit construction from convertible to the underlying type </li>
 </ol></div>
 </div>
 </div>
