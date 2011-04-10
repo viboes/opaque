@@ -111,7 +111,7 @@ namespace boost {
       underlying_type& underlying() {
         return val_;
       }
-#if !defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
+#if !defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)  || defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
       //! explicit conversion operator to the underlying type.
       //!
       //! @Remark Only provided when supported by the compiler.

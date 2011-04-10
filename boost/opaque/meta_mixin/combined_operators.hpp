@@ -27,7 +27,6 @@
 #define BOOST_OPAQUE_COMBINED_OPERATORS_HPP
 #if !defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
 
-#include <boost/operators.hpp>
 #include <boost/opaque/meta_mixin/operators.hpp>
 
 namespace boost {

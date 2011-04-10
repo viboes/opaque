@@ -23,8 +23,9 @@
 #include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/mpl/and.hpp>
+#if !defined(BOOST_OPAQUE_NOT_DEPENDS_ON_CONVERSION)
 #include <boost/conversion/convert_to.hpp>
-
+#endif
 namespace boost {
   namespace opaque {
 
@@ -75,12 +76,14 @@ namespace boost {
       : opaque_detail::transitive_explicit_substituable_next_level<BaseClass, Final, UT, Base,
         mpl::and_<is_class<UT>, is_base_of<BaseClass, UT> >::value>
       {
+#if !defined(BOOST_OPAQUE_NOT_DEPENDS_ON_CONVERSION) || defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
         friend UT convert_to(Final const& rhs,
             boost::dummy::type_tag<UT> const&)
         {
           return Final::final(&rhs).underlying();
         }
-#if !defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
+#endif
+#if !defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)  || defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
         explicit operator UT() const
         {
           return Final::final(this).underlying();

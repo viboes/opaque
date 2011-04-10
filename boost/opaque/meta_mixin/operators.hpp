@@ -64,7 +64,9 @@
 #if !defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
 
 #include <boost/config.hpp>
+#if !defined(BOOST_OPAQUE_NOT_DEPENDS_ON_CONVERSION)
 #include <boost/conversion/convert_to.hpp>
+#endif
 
 #define BOOST_NO_EXPLICIT_CONVERSION_OPERATORS_BUG
 
@@ -140,12 +142,14 @@ namespace boost {
     struct using_explicit_conversion_to {
         template <typename Final, typename Base>
         struct type: Base {
+#if !defined(BOOST_OPAQUE_NOT_DEPENDS_ON_CONVERSION) || defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
             friend T convert_to(Final const& rhs,
                 boost::dummy::type_tag<T> const&)
             {
               return T(Final::underlying(rhs));
             }
-    #if !defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS)
+#endif
+    #if !defined(BOOST_NO_EXPLICIT_CONVERSION_OPERATORS) || defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
             explicit operator T() const
             {
               return T(Final::underlying(this));
