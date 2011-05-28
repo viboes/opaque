@@ -42,7 +42,7 @@ namespace opaque {
     }
 #endif
 
-    /** The linear_hierarchy metafunction gererates a linear hierarchy by folding the Mixins obtained by application of the MetaMixins in MetaMixinSeq.
+    /** The linear_hierarchy metafunction generates a linear hierarchy by folding the Mixins obtained by application of the MetaMixins in MetaMixinSeq.
      *
      * The nested type is equivalent to typename boost::mpl::fold<MetaMixinSeq, Base, implementation_defined<Final> >::type.
      */

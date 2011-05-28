@@ -64,6 +64,7 @@
 #if !defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
 
 #include <boost/config.hpp>
+#include <boost/opaque/meta_mixin/placeholder.hpp>
 #if !defined(BOOST_OPAQUE_NOT_DEPENDS_ON_CONVERSION)
 #include <boost/conversion/convert_to.hpp>
 #endif
@@ -174,7 +175,99 @@ namespace boost {
 
 //////////////////////////////////////////////////////////////////////////////
 
-#define BOOST_OPAQUE_DCL_META_MIXIN_REL(OP, NAME) \
+#define BOOST_OPAQUE_DCL_META_MIXIN_REL2(OP, NAME) \
+    template <typename Bool=bool, typename T=_self, typename U=_self> \
+    struct BOOST_JOIN(using_,NAME); \
+    template <typename Bool=bool, typename T=_self, typename U=_self> \
+    struct BOOST_JOIN(hiding_,NAME); \
+    template <typename Bool> \
+    struct BOOST_JOIN(using_,NAME)<Bool, _self, _self> \
+    { \
+      template <typename Final, typename Base> \
+      struct type: Base \
+      { \
+      protected:\
+        static Bool BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const Final& rhs)  \
+        { \
+          return Bool(lhs.underlying() OP rhs.underlying()); \
+        } \
+      public: \
+        friend bool operator OP (Final const& lhs, Final const& rhs)  \
+        { \
+          return Final::BOOST_OPAQUE_INTERNAL_NAME(NAME)(lhs, rhs);\
+        } \
+      }; \
+    }; \
+    template <typename Bool> \
+    struct BOOST_JOIN(hiding_,NAME)<Bool, _self, _self> \
+    { \
+      template <typename Final, typename Base> \
+      struct type: Base \
+      { \
+      private:\
+        static Bool BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const Final& rhs); \
+      }; \
+    }; \
+    template <typename Bool, typename T> \
+    struct BOOST_JOIN(using_,NAME)<Bool, T, _self> \
+    { \
+      template <typename Final, typename Base> \
+      struct type: Base \
+      { \
+      protected:\
+        static Bool BOOST_OPAQUE_INTERNAL_NAME(NAME) (const T& lhs, const Final& rhs)  \
+        { \
+          return Bool(lhs OP rhs.underlying()); \
+        } \
+      public: \
+        friend bool operator OP (T const& lhs, Final const& rhs)  \
+        { \
+          return Final::BOOST_OPAQUE_INTERNAL_NAME(NAME)(lhs, rhs);\
+        } \
+      }; \
+    }; \
+    template <typename Bool, typename T> \
+    struct BOOST_JOIN(hiding_,NAME)<Bool, T, _self> \
+    { \
+      template <typename Final, typename Base> \
+      struct type: Base \
+      { \
+      private:\
+        static Bool BOOST_OPAQUE_INTERNAL_NAME(NAME) (const T& lhs, const Final& rhs); \
+      }; \
+    }; \
+    template <typename Bool, typename T> \
+    struct BOOST_JOIN(using_,NAME)<Bool, _self, T> \
+    { \
+      template <typename Final, typename Base> \
+      struct type: Base \
+      { \
+      protected:\
+        static Bool BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const T& rhs)  \
+        { \
+          return Bool(lhs.underlying() OP rhs); \
+        } \
+      public: \
+        friend bool operator OP (Final const& lhs, T const& rhs) \
+        { \
+          return Final::BOOST_OPAQUE_INTERNAL_NAME(NAME)(lhs, rhs);\
+        } \
+      }; \
+    }; \
+    template <typename Bool, typename T> \
+    struct BOOST_JOIN(hiding_,NAME)<Bool, _self, T > \
+    { \
+      template <typename Final, typename Base> \
+      struct type: Base \
+      { \
+      private:\
+        static Bool BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const T& rhs); \
+      }; \
+    }; \
+    \
+
+
+#define BOOST_OPAQUE_DCL_META_MIXIN_REL1(OP, NAME) \
     template <typename Bool=bool> \
     struct BOOST_JOIN(using_,NAME) \
     { \
@@ -235,11 +328,15 @@ namespace boost {
         { \
         private :\
           template <typename U> \
-          static Bool BOOST_JOIN(BOOST_JOIN(using_,NAME),_op) (const Final& lhs, const U& rhs);  \
+          static Bool BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const U& rhs);  \
           template <typename U> \
-          static Bool BOOST_JOIN(BOOST_JOIN(using_,NAME),_op) (const U& lhs, const Final& rhs);   \
+          static Bool BOOST_OPAQUE_INTERNAL_NAME(NAME) (const U& lhs, const Final& rhs);   \
         }; \
     }; \
+
+
+#define BOOST_OPAQUE_DCL_META_MIXIN_REL(OP, NAME) \
+    BOOST_OPAQUE_DCL_META_MIXIN_REL2(OP,NAME)
 
 #define BOOST_OPAQUE_USING_REL_OP(Final, Bool, OP) \
         Bool operator OP(const Final& rhs) const  { \
@@ -273,7 +370,7 @@ namespace boost {
 
 //////////////////////////////////////////////////////////////////////////////
 
-#define BOOST_OPAQUE_DCL_META_MIXIN_BINARY(OP, NAME) \
+#define BOOST_OPAQUE_DCL_META_MIXIN_BINARY1(OP, NAME) \
     struct BOOST_JOIN(using_,NAME) \
     { \
       template <typename Final, typename Base> \
@@ -333,10 +430,13 @@ namespace boost {
         struct type: Base \
         { \
         private :\
-          static Final BOOST_JOIN(BOOST_JOIN(using_,NAME),_op) (const Final& lhs, const U& rhs);  \
-          static Final BOOST_JOIN(BOOST_JOIN(using_,NAME),_op) (const U& lhs, const Final& rhs);   \
+          static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const U& rhs);  \
+          static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const U& lhs, const Final& rhs);   \
         }; \
     }; \
+
+#define BOOST_OPAQUE_DCL_META_MIXIN_BINARY(OP, NAME) \
+  BOOST_OPAQUE_DCL_META_MIXIN_BINARY1(OP, NAME)
 
 #define BOOST_OPAQUE_USING_BINARY_OP(Final, OP, NAME) \
     private:\
@@ -417,7 +517,7 @@ namespace boost {
             { \
             private :\
             template <typename U> \
-              static Final BOOST_JOIN(BOOST_JOIN(using_,NAME),_op) (const Final& lhs, const U& rhs);  \
+              static Final BOOST_OPAQUE_INTERNAL_NAME(NAME) (const Final& lhs, const U& rhs);  \
             }; \
         }; \
 
@@ -549,13 +649,14 @@ BOOST_OPAQUE_DCL_META_MIXIN_REL(!=, not_equal)
           Final&  operator OP (const Final& rhs) { \
                Final::underlying(this) OP rhs.underlying();\
                return Final::final(this); \
-           } \
+          } \
         }; \
     }; \
     struct BOOST_JOIN(hiding_,NAME) \
     { \
         template <typename Final, typename Base> \
         struct type: Base { \
+        private :\
             Final&  operator OP(const Final& rhs); \
         }; \
     };
@@ -658,6 +759,7 @@ BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(>>=, right_shift_assign)
     struct hiding_logical_not {
         template <typename Final, typename Base>
         struct type: Base {
+        private :
             Bool operator!() const;
         };
     };
@@ -680,6 +782,7 @@ BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(>>=, right_shift_assign)
     struct hiding_logical_and {
         template <typename Final, typename Base>
         struct type: Base {
+        private :
             Bool operator&&(const Final& rhs) const;
         };
     };
@@ -702,6 +805,7 @@ BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(>>=, right_shift_assign)
     struct hiding_logical_or {
         template <typename Final, typename Base>
         struct type: Base {
+        private :
             Bool operator||(const Final& rhs) const;
         };
     };
@@ -723,6 +827,7 @@ BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(>>=, right_shift_assign)
     struct hiding_unary_plus {
         template <typename Final, typename Base>
         struct type: Base {
+        private :
             Final operator+() const;
         };
     };
@@ -744,6 +849,7 @@ BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(>>=, right_shift_assign)
     struct hiding_unary_minus {
         template <typename Final, typename Base>
         struct type: Base {
+        private :\
             Final operator-() const;
         };
     };
@@ -765,6 +871,7 @@ BOOST_OPAQUE_DCL_META_MIXIN_ASSIGN(>>=, right_shift_assign)
     struct hiding_bitwise_not {
         template <typename Final, typename Base>
         struct type: Base {
+        private :
             Final operator~() const;
         };
     };
@@ -867,6 +974,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
     struct hiding_pre_increment {
         template <typename Final, typename Base>
         struct type: Base {
+        private :
             Final& operator++();
         };
     };
@@ -890,6 +998,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
     struct hiding_pre_decrement {
         template <typename Final, typename Base>
         struct type: Base {
+        private :
             Final& operator--();
         };
     };
@@ -913,6 +1022,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
     struct hiding_post_increment {
         template <typename Final, typename Base>
         struct type: Base {
+        private :
             Final operator++(int);
         };
     };
@@ -936,6 +1046,7 @@ struct using_function_call<Final, R(P1), Base> : Base {
     struct hiding_post_decrement {
         template <typename Final, typename Base>
         struct type: Base {
+        private :
             Final operator--(int);
         };
     };
@@ -1078,7 +1189,6 @@ BOOST_OPAQUE_DCL_META_MIXIN_BINARY(&, bitwise_and)
     BOOST_OPAQUE_HIDING_BINARY_OP_EX(Final, <<, left_shift)
 
 BOOST_OPAQUE_DCL_META_MIXIN_BINARY_EX(<<, left_shift)
-
 
 //////////////////////////////////////////////////////////////////////////////
 
