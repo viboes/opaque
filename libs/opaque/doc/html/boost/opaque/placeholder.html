@@ -1,0 +1,97 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Struct template placeholder</title>
+<link rel="stylesheet" href="../../../../../../doc/src/boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.0">
+<link rel="home" href="../../index.html" title="Toward Boost.Opaque 0.1.1">
+<link rel="up" href="../../index.html#header.boost.opaque.meta_mixin.placeholder_hpp" title="Header &lt;boost/opaque/meta_mixin/placeholder.hpp&gt;">
+<link rel="prev" href="linear_hierarchy.html" title="Struct template linear_hierarchy">
+<link rel="next" href="_a.html" title="Struct _a">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../../../boost.png"></td>
+<td align="center"><a href="../../../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="linear_hierarchy.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../index.html#header.boost.opaque.meta_mixin.placeholder_hpp"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="_a.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry">
+<a name="boost.opaque.placeholder"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Struct template placeholder</span></h2>
+<p>boost::opaque::placeholder</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../index.html#header.boost.opaque.meta_mixin.placeholder_hpp" title="Header &lt;boost/opaque/meta_mixin/placeholder.hpp&gt;">boost/opaque/meta_mixin/placeholder.hpp</a>&gt;
+
+</span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Derived<span class="special">&gt;</span> 
+<span class="keyword">struct</span> <a class="link" href="placeholder.html" title="Struct template placeholder">placeholder</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">opaque</span><span class="special">::</span><span class="identifier">placeholder_base</span> <span class="special">{</span>
+<span class="special">}</span><span class="special">;</span></pre></div>
+<div class="refsect1">
+<a name="idp15519248"></a><h2>Description</h2>
+<p>Placeholders are used heavily throughout the library. Every placeholder must derive from <a class="link" href="placeholder.html" title="Struct template placeholder">placeholder</a> using CRTP. The library provides a number of placeholders, out of the box, but you are welcome to define your own, if you want more descriptive names. The placeholder <a class="link" href="_self.html" title="Struct _self">_self</a> is special in that it is used as the default wherever possible, and that it is used to place the Final template parameter. There is also the _ut placeholder, which is used to mean the underlying type.</p>
+<p>What exactly is a placeholder? Placeholders act as a substitute for template parameters in meta-mixins.</p>
+<p>For example, in the following,</p>
+<pre class="programlisting">    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">=</span><span class="identifier">_self</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">U</span><span class="special">=</span><span class="identifier">_self</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">lt</span><span class="special">;</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">lt</span><span class="special">&lt;</span><span class="identifier">_self</span><span class="special">,</span><span class="identifier">_self</span><span class="special">&gt;</span>
+    <span class="special">{</span>
+      <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+      <span class="keyword">struct</span> <span class="identifier">type</span><span class="special">:</span> <span class="identifier">Base</span>
+      <span class="special">{</span>
+        <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="identifier">OP</span> <span class="special">(</span><span class="identifier">Final</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">lhs</span><span class="special">,</span> <span class="identifier">Final</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span>
+        <span class="special">{</span>
+          <span class="keyword">return</span> <span class="identifier">lhs</span><span class="special">.</span><span class="identifier">underlying</span><span class="special">(</span><span class="special">)</span> <span class="identifier">OP</span> <span class="identifier">rhs</span><span class="special">.</span><span class="identifier">underlying</span><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+        <span class="special">}</span>
+      <span class="special">}</span><span class="special">;</span>
+    <span class="special">}</span><span class="special">;</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">lt</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span><span class="identifier">_self</span><span class="special">&gt;</span>
+    <span class="special">{</span>
+      <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+      <span class="keyword">struct</span> <span class="identifier">type</span><span class="special">:</span> <span class="identifier">Base</span>
+      <span class="special">{</span>
+        <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="identifier">OP</span> <span class="special">(</span><span class="identifier">T</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">lhs</span><span class="special">,</span> <span class="identifier">Final</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span>
+        <span class="special">{</span>
+          <span class="keyword">return</span> <span class="identifier">lhs</span> <span class="identifier">OP</span> <span class="identifier">rhs</span><span class="special">.</span><span class="identifier">underlying</span><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+        <span class="special">}</span>
+      <span class="special">}</span><span class="special">;</span>
+    <span class="special">}</span><span class="special">;</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">lt</span><span class="special">&lt;</span><span class="identifier">_self</span><span class="special">,</span><span class="identifier">T</span><span class="special">&gt;</span>
+    <span class="special">{</span>
+      <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Final</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Base</span><span class="special">&gt;</span>
+      <span class="keyword">struct</span> <span class="identifier">type</span><span class="special">:</span> <span class="identifier">Base</span>
+      <span class="special">{</span>
+        <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> <span class="identifier">OP</span> <span class="special">(</span><span class="identifier">Final</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">lhs</span><span class="special">,</span> <span class="identifier">T</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">)</span>
+        <span class="special">{</span>
+          <span class="keyword">return</span> <span class="identifier">lhs</span><span class="special">.</span><span class="identifier">underlying</span><span class="special">(</span><span class="special">)</span> <span class="identifier">OP</span> <span class="identifier">rhs</span><span class="special">;</span>
+        <span class="special">}</span>
+      <span class="special">}</span><span class="special">;</span>
+    <span class="special">}</span><span class="special">;</span>
+</pre>
+<p> </p>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2010 Vicente J. Botet Escriba<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="linear_hierarchy.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../index.html#header.boost.opaque.meta_mixin.placeholder_hpp"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="_a.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

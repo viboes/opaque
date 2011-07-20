@@ -614,17 +614,6 @@ A `MetaMixinSequence` is MPL Sequence of `MetaMixin`.
 [endsect]
 
 
-[/==========================================================================================]
-[section:opaque_hpp Header `<boost/opaque.hpp>`]
-[/==========================================================================================]
-
-Include all the opaque public header files.
-
-    #include <boost/opaque/opaque.hpp>
-
-[endsect]
-
-
 [xinclude top_ref.xml]
 [xinclude meta_mixin.xml]
 
@@ -774,7 +763,7 @@ In the following table the meta-mixin follows the schema
 
     [[`using_conversion_to_underlying_type`][`operator UT() const`][None][12.3.2]]
     [[`using_conversion_to<T>`][`operator T() const`][`T(ut)`][12.3.2]]
-    [[`using_explicit_conversion_to<T>`][`explict operator T() const` and `friend T convert_to(Final const& rhs, boost::dummy::type_tag<T> const&)`][`T(ut)`][???]]
+    [[`using_explicit_conversion_to<T>`][`explict operator T() const` and `friend T explicit_convert_to(Final const& rhs, boost::dummy::type_tag<T> const&)`][`T(ut)`][???]]
     [[`using_safe_bool_conversion`][`operator unspecified_bool_type() const`][`ut?true:false`][12.3.2]]
 
 ]
@@ -990,7 +979,7 @@ This meta-mixin provides the Final class implicit conversions for all the underl
         template <typename BaseClass, typename UT>
         struct transitive_explicit_substituable;
 
-This meta-mixin provides the Final class explicit conversions for all the underlying types hierarchy (when the compiler supports explicit conversion operators). For portability purposed the library provide as workarround a convert_to non member function.
+This meta-mixin provides the Final class explicit conversions for all the underlying types hierarchy (when the compiler supports explicit conversion operators). For portability purposed the library provide as workaround a explicit_convert_to non member function.
 
 
 [endsect]
