@@ -24,7 +24,7 @@
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/mpl/and.hpp>
 #if !defined(BOOST_OPAQUE_NOT_DEPENDS_ON_CONVERSION)
-#include <boost/conversion/convert_to.hpp>
+#include <boost/conversion/explicit_convert_to.hpp>
 #endif
 namespace boost {
   namespace opaque {
@@ -77,7 +77,7 @@ namespace boost {
         mpl::and_<is_class<UT>, is_base_of<BaseClass, UT> >::value>
       {
 #if !defined(BOOST_OPAQUE_NOT_DEPENDS_ON_CONVERSION) || defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
-        friend UT convert_to(Final const& rhs,
+        friend UT explicit_convert_to(Final const& rhs,
             boost::dummy::type_tag<UT> const&)
         {
           return Final::final(&rhs).underlying();

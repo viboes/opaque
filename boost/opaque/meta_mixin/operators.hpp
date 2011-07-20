@@ -66,7 +66,7 @@
 #include <boost/config.hpp>
 #include <boost/opaque/meta_mixin/placeholder.hpp>
 #if !defined(BOOST_OPAQUE_NOT_DEPENDS_ON_CONVERSION)
-#include <boost/conversion/convert_to.hpp>
+#include <boost/conversion/explicit_convert_to.hpp>
 #endif
 
 #define BOOST_NO_EXPLICIT_CONVERSION_OPERATORS_BUG
@@ -144,7 +144,7 @@ namespace boost {
         template <typename Final, typename Base>
         struct type: Base {
 #if !defined(BOOST_OPAQUE_NOT_DEPENDS_ON_CONVERSION) || defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
-            friend T convert_to(Final const& rhs,
+            friend T explicit_convert_to(Final const& rhs,
                 boost::dummy::type_tag<T> const&)
             {
               return T(Final::underlying(rhs));
