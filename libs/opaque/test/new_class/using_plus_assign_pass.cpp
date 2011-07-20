@@ -50,16 +50,37 @@ void size_test() {
     BOOST_TEST(sizeof(NT)==sizeof(UT));
 }
 
-void plus_assign_test() {
-    NT a1(1), b2(2), c2(2);
-    a1+=b2;
-    BOOST_TEST(a1.underlying()==3);
+void same_test() {
+  NT x(1);
+  NT y(2);
+  NT &z=(x+=y);
+  BOOST_TEST(x.underlying()==3);
+  BOOST_TEST(&x == &z);
 }
+
+#if 0
+void ut1_test() {
+  NT x(1);
+  NT &z=(x+=2);
+  BOOST_TEST(x.underlying()==3);
+  BOOST_TEST(&x == &z);
+}
+
+void ut2_test() {
+  UT x = 1;
+  NT y(2);
+  UT &z=(x+=y);
+  BOOST_TEST(x.underlying()==3);
+  BOOST_TEST(&x == &z);
+}
+#endif
 
 int main()
 {
   size_test();
-  plus_assign_test();
+  same_test();
+  //ut1_test();
+  //ut2_test();
 
   return boost::report_errors();
 }
