@@ -78,7 +78,7 @@ namespace boost {
       {
 #if !defined(BOOST_OPAQUE_NOT_DEPENDS_ON_CONVERSION) || defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
         friend UT explicit_convert_to(Final const& rhs,
-            boost::dummy::type_tag<UT> const&)
+            boost::conversion::dummy::type_tag<UT> const&)
         {
           return Final::final(&rhs).underlying();
         }

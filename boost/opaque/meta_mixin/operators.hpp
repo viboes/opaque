@@ -145,7 +145,7 @@ namespace boost {
         struct type: Base {
 #if !defined(BOOST_OPAQUE_NOT_DEPENDS_ON_CONVERSION) || defined(BOOST_OPAQUE_DOXYGEN_INVOKED)
             friend T explicit_convert_to(Final const& rhs,
-                boost::dummy::type_tag<T> const&)
+                boost::conversion::dummy::type_tag<T> const&)
             {
               return T(Final::underlying(rhs));
             }
