@@ -87,7 +87,7 @@ namespace boost {
 
     public:
       //! default constructor
-      private_opaque_class() {};
+      private_opaque_class() {}
       //! copy constructor
       private_opaque_class(const private_opaque_class & rhs)
         : base_type(rhs.val_) {}
@@ -96,7 +96,7 @@ namespace boost {
         : base_type(rhs.val_) {}
       //! explicit construction from the underlying type
       explicit private_opaque_class(UT v)
-        : base_type(v) {};
+        : base_type(v) {}
       //! explicit construction from convertible to the underlying type
       template <typename W>
       explicit private_opaque_class(W v)

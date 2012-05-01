@@ -55,12 +55,12 @@ namespace boost {
 
     public:
 
-      private_opaque_type() {};
+      private_opaque_type() {}
       private_opaque_type(const private_opaque_type & rhs)
         : base_type(rhs.val_) {}
       //! explicit construction from the underlying type
       explicit private_opaque_type(UT v)
-        : base_type(v) {};
+        : base_type(v) {}
       //! explicit construction from convertible to the underlying type
       template <typename W>
       explicit private_opaque_type(W v)
